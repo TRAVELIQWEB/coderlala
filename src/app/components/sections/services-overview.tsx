@@ -107,7 +107,7 @@ export default function ServicesOverview() {
           </div>
           
           <h2 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-orange-400">
               Comprehensive
             </span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">

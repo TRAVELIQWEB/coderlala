@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { getAllPosts } from "../lib/blog";
 
 export default function BlogPage() {
-  const posts = getAllPosts();
+  // const posts = getAllPosts();
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-24">
@@ -15,7 +14,7 @@ export default function BlogPage() {
       </p>
 
       <div className="grid md:grid-cols-2 gap-10">
-        {posts?.map((post:any, index) => (
+        {/* {posts?.map((post:any, index) => (
           <Link
             href={`/blog/${post.slug}`}
             key={index}
@@ -25,7 +24,7 @@ export default function BlogPage() {
             <p className="text-sm opacity-70 mt-2">{post?.description}</p>
             <p className="mt-4 text-xs opacity-60">{post?.date}</p>
           </Link>
-        ))}
+        ))} */}
       </div>
     </div>
   );

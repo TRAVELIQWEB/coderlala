@@ -17,12 +17,13 @@ export default function GalaxyBackground() {
       container.innerHTML = '';
       if (!document.documentElement.classList.contains('dark')) return;
 
-      const starCount = 8;
-      
+      // const starCount = 8;
+      const starCount = 20;
+
       for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'shooting-star';
-        
+
         const startX = Math.random() * 100;
         const startY = Math.random() * 100;
         const size = 2 + Math.random() * 3;
@@ -30,7 +31,7 @@ export default function GalaxyBackground() {
         const delay = Math.random() * 15;
         const colors = ['#ffffff', '#60a5fa', '#8b5cf6', '#22d3ee'];
         const color = colors[Math.floor(Math.random() * colors.length)];
-        
+
         star.style.cssText = `
           left: ${startX}%;
           top: ${startY}%;
@@ -42,10 +43,10 @@ export default function GalaxyBackground() {
           animation-delay: ${delay}s;
           z-index: ${Math.floor(Math.random() * 10)};
         `;
-        
+
         const trail = document.createElement('div');
         const trailLength = 120 + Math.random() * 100;
-        
+        const angle = -35 - Math.random() * 20; // -35° to -55°
         trail.style.cssText = `
           position: absolute;
           top: 50%;
@@ -58,11 +59,13 @@ export default function GalaxyBackground() {
             ${color}40 60%,
             transparent 100%
           );
-          transform: translate(-50%, -50%) rotate(-45deg);
+          
+
+transform: translate(-50%, -50%) rotate(${angle}deg);
           transform-origin: 0 50%;
           filter: blur(0.5px);
         `;
-        
+
         star.appendChild(trail);
         container.appendChild(star);
       }
@@ -70,7 +73,9 @@ export default function GalaxyBackground() {
 
     generateShootingStars();
     const observer = new MutationObserver(() => generateShootingStars());
-    observer.observe(document.documentElement, { attributes: true });
+    // observer.observe(document.documentElement, { attributes: true });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
 
     return () => {
       observer.disconnect();
@@ -89,11 +94,11 @@ export default function GalaxyBackground() {
       if (document.documentElement.classList.contains('dark')) return;
 
       const particleCount = 12;
-      
+
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'light-particle';
-        
+
         const startX = Math.random() * 100;
         const startY = Math.random() * 100;
         const size = 1 + Math.random() * 2;
@@ -101,7 +106,7 @@ export default function GalaxyBackground() {
         const delay = Math.random() * 8;
         const colors = ['#3b82f6', '#0ea5e9', '#8b5cf6', '#10b981', '#f59e0b'];
         const color = colors[Math.floor(Math.random() * colors.length)];
-        
+
         particle.style.cssText = `
           left: ${startX}%;
           top: ${startY}%;
@@ -113,14 +118,15 @@ export default function GalaxyBackground() {
           animation-delay: ${delay}s;
           z-index: ${Math.floor(Math.random() * 10)};
         `;
-        
+
         container.appendChild(particle);
       }
     };
 
     generateLightParticles();
     const observer = new MutationObserver(() => generateLightParticles());
-    observer.observe(document.documentElement, { attributes: true });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    // observer.observe(document.documentElement, { attributes: true });
 
     return () => observer.disconnect();
   }, []);
@@ -169,119 +175,243 @@ export default function GalaxyBackground() {
     };
   }, []);
 
+
+  // Click burst star effect
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      // Number of particles per click
+      const particles = 12;
+
+      for (let i = 0; i < particles; i++) {
+        const star = document.createElement("div");
+        star.className = "click-star";
+
+        // random directions
+        const angle = Math.random() * 360;
+        const distance = 40 + Math.random() * 80;
+
+        const size = 2 + Math.random() * 3;
+        const colors = ["#ffffff", "#60a5fa", "#8b5cf6", "#22d3ee", "#f0f0f0"];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+
+        star.style.cssText = `
+        position: absolute;
+        left: ${e.clientX}px;
+        top: ${e.clientY}px;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color};
+        border-radius: 50%;
+        pointer-events: none;
+        box-shadow: 0 0 8px ${color};
+        opacity: 1;
+        transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        z-index: 9999;
+      `;
+
+        container.appendChild(star);
+
+        // move outward with delay so CSS picks up transition
+        requestAnimationFrame(() => {
+          star.style.transform = `translate(
+          ${Math.cos(angle) * distance}px,
+          ${Math.sin(angle) * distance}px
+        ) scale(0.2)`;
+          star.style.opacity = "0";
+        });
+
+        // cleanup
+        setTimeout(() => star.remove(), 700);
+      }
+    };
+
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, []);
+
+
+  /* -------------------------------------------------------
+   ADVANCED EFFECTS — COMMENT/UNCOMMENT EACH TO USE
+------------------------------------------------------- */
+
+
+// ========== AIPPLE NEBULA WAVE ==========
+const enableRippleEffect = () => {
+  const container = containerRef.current;
+  if (!container) return;
+
+  const handler = (e: MouseEvent) => {
+    const ripple = document.createElement("div");
+    ripple.className = "nebula-ripple";
+
+    ripple.style.left = `${e.clientX - 100}px`;
+    ripple.style.top = `${e.clientY - 100}px`;
+
+    container.appendChild(ripple);
+
+    setTimeout(() => ripple.remove(), 1000);
+  };
+
+  window.addEventListener("click", handler);
+
+  return () => window.removeEventListener("click", handler);
+};
+
+// ========== b) COMET FOLLOWING CURSOR ==========
+const enableCometTrail = () => {
+  let lastX = 0, lastY = 0;
+
+  const handler = (e: MouseEvent) => {
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist < 20) return; // throttle
+
+    const comet = document.createElement("div");
+    comet.className = "comet";
+    comet.style.left = `${e.clientX}px`;
+    comet.style.top = `${e.clientY}px`;
+
+    document.body.appendChild(comet);
+
+    requestAnimationFrame(() => {
+      comet.style.transform = "scale(0) translateY(-30px)";
+      comet.style.opacity = "0";
+    });
+
+    setTimeout(() => comet.remove(), 600);
+
+    lastX = e.clientX;
+    lastY = e.clientY;
+  };
+
+  window.addEventListener("mousemove", handler);
+  return () => window.removeEventListener("mousemove", handler);
+};
+
+
+
+// useEffect(enableFireworks, []);
+useEffect(enableRippleEffect, []);
+useEffect(enableCometTrail, []);
+
   return (
     <div ref={containerRef} className="background-container">
       {/* ========== ENHANCED LIGHT MODE ========== */}
       {/* Base tech patterns */}
       <div className="tech-pattern" />
       <div className="data-streams-enhanced" />
-      
+
       {/* Light mode stars (3 layers with parallax) */}
-      <div 
+      <div
         className="light-stars-1"
-        style={{ 
+        style={{
           transform: 'translate(var(--mouse-x, 0px), var(--mouse-y, 0px))',
           transition: 'transform 0.2s ease-out'
         }}
       />
-      
-      <div 
+
+      <div
         className="light-stars-2"
-        style={{ 
+        style={{
           transform: 'translate(calc(var(--mouse-x, 0px) * 0.7), calc(var(--mouse-y, 0px) * 0.7))',
           transition: 'transform 0.3s ease-out'
         }}
       />
-      
-      <div 
+
+      <div
         className="light-stars-3"
-        style={{ 
+        style={{
           transform: 'translate(calc(var(--mouse-x, 0px) * 0.4), calc(var(--mouse-y, 0px) * 0.4))',
           transition: 'transform 0.4s ease-out'
         }}
       />
-      
+
       {/* Light nebula & glow */}
-      <div 
+      <div
         className="light-nebula"
-        style={{ 
+        style={{
           transform: 'translate(calc(var(--mouse-x, 0px) * 0.2), calc(var(--mouse-y, 0px) * 0.2))',
           transition: 'transform 0.5s ease-out'
         }}
       />
-      
-      <div 
+
+      <div
         className="light-glow"
-        style={{ 
+        style={{
           transform: 'translate(calc(var(--mouse-x, 0px) * 0.1), calc(var(--mouse-y, 0px) * 0.1))',
           transition: 'transform 0.6s ease-out'
         }}
       />
-      
+
       {/* Light particles */}
-      <div 
-        ref={lightParticlesContainerRef} 
+      <div
+        ref={lightParticlesContainerRef}
         className="light-particles-container"
       />
-      
+
       {/* ========== DARK MODE ========== */}
       {/* Dark mode stars */}
-      <div 
-        className="stars-layer-1" 
-        style={{ 
+      <div
+        className="stars-layer-1"
+        style={{
           transform: 'translate(var(--mouse-x, 0px), var(--mouse-y, 0px))',
           transition: 'transform 0.2s ease-out'
         }}
       />
-      
-      <div 
+
+      <div
         className="stars-layer-2"
-        style={{ 
+        style={{
           transform: 'translate(calc(var(--mouse-x, 0px) * 0.7), calc(var(--mouse-y, 0px) * 0.7))',
           transition: 'transform 0.3s ease-out'
         }}
       />
-      
-      <div 
+
+      <div
         className="stars-layer-3"
-        style={{ 
+        style={{
           transform: 'translate(calc(var(--mouse-x, 0px) * 0.4), calc(var(--mouse-y, 0px) * 0.4))',
           transition: 'transform 0.4s ease-out'
         }}
       />
-      
+
       {/* Nebula & glow */}
-      <div 
+      <div
         className="nebula-layer"
-        style={{ 
+        style={{
           transform: 'translate(calc(var(--mouse-x, 0px) * 0.2), calc(var(--mouse-y, 0px) * 0.2))',
           transition: 'transform 0.5s ease-out'
         }}
       />
-      
-      <div 
+
+      <div
         className="glow-layer"
-        style={{ 
+        style={{
           transform: 'translate(calc(var(--mouse-x, 0px) * 0.1), calc(var(--mouse-y, 0px) * 0.1))',
           transition: 'transform 0.6s ease-out'
         }}
       />
-      
+
       {/* Shooting stars */}
-      <div 
-        ref={shootingStarsContainerRef} 
+      <div
+        ref={shootingStarsContainerRef}
         className="shooting-stars-container"
       />
-      
+
       {/* Adaptive vignette */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse at center, transparent 40%, rgba(255, 255, 255, 0.1) 70%, rgba(255, 255, 255, 0.2) 100%)',
           mixBlendMode: 'overlay'
         }}
       />
-      
+
     </div>
   );
 }

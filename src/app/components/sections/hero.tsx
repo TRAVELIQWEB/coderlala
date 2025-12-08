@@ -77,7 +77,7 @@ export default function Hero() {
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15]"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15]"
               >
                 <span className="block">
                   Transform Your{" "}
