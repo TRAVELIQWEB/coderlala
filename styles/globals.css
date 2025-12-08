@@ -1,0 +1,755 @@
+@import "tailwindcss";
+
+/* ================================================
+   CSS VARIABLES FOR DYNAMIC EFFECTS
+================================================ */
+:root {
+  --mouse-x: 0px;
+  --mouse-y: 0px;
+}
+
+/* ================================================
+   THEME ROOT
+================================================ */
+
+html {
+  color-scheme: light;
+  @apply bg-white text-gray-900 transition-colors duration-300;
+}
+
+html.dark {
+  color-scheme: dark;
+  @apply bg-[#0a0e27] text-white transition-colors duration-300;
+}
+
+body {
+  @apply transition-colors duration-300 overflow-x-hidden;
+  scroll-behavior: smooth;
+}
+
+/* ================================================
+   BACKGROUND CONTAINER
+================================================ */
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* ================================================
+   LIGHT MODE: CYBER DAWN BACKGROUND
+================================================ */
+
+html:not(.dark) .background-container {
+  background: 
+    /* Deep gradient base */
+    radial-gradient(ellipse at 50% 20%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 70%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, 
+      #f8fafc 0%, 
+      #f1f5f9 25%, 
+      #e2e8f0 50%, 
+      #cbd5e1 75%, 
+      #94a3b8 100%
+    );
+}
+
+/* ===== LIGHT MODE STAR LAYERS ===== */
+.light-stars-1 {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image: 
+    radial-gradient(circle 4px, #0ea5e9 0%, transparent 70%) 8% 15%,
+    radial-gradient(circle 5px, #3b82f6 0%, transparent 70%) 22% 35%,
+    radial-gradient(circle 4px, #8b5cf6 0%, transparent 70%) 45% 12%,
+    radial-gradient(circle 5px, #10b981 0%, transparent 70%) 68% 28%,
+    radial-gradient(circle 4px, #f59e0b 0%, transparent 70%) 82% 18%,
+    radial-gradient(circle 5px, #ef4444 0%, transparent 70%) 15% 65%,
+    radial-gradient(circle 4px, #3b82f6 0%, transparent 70%) 32% 22%,
+    radial-gradient(circle 5px, #8b5cf6 0%, transparent 70%) 72% 52%,
+    radial-gradient(circle 4px, #0ea5e9 0%, transparent 70%) 12% 82%,
+    radial-gradient(circle 5px, #10b981 0%, transparent 70%) 65% 68%,
+    radial-gradient(circle 4px, #f59e0b 0%, transparent 70%) 95% 25%;
+  background-repeat: no-repeat;
+  animation: light-stars-twinkle 4s ease-in-out infinite;
+}
+
+html:not(.dark) .light-stars-1 {
+  opacity: 0.6;
+}
+
+.light-stars-2 {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image:
+    radial-gradient(circle 3px, #3b82f6 0%, transparent 80%) 10% 8%,
+    radial-gradient(circle 2px, #0ea5e9 0%, transparent 80%) 25% 32%,
+    radial-gradient(circle 3px, #8b5cf6 0%, transparent 80%) 40% 55%,
+    radial-gradient(circle 2px, #10b981 0%, transparent 80%) 58% 18%,
+    radial-gradient(circle 2px, #f59e0b 0%, transparent 80%) 70% 72%,
+    radial-gradient(circle 3px, #ef4444 0%, transparent 80%) 85% 48%,
+    radial-gradient(circle 2px, #3b82f6 0%, transparent 80%) 90% 82%,
+    radial-gradient(circle 2px, #8b5cf6 0%, transparent 80%) 15% 95%,
+    radial-gradient(circle 2px, #0ea5e9 0%, transparent 80%) 35% 68%,
+    radial-gradient(circle 3px, #10b981 0%, transparent 80%) 52% 38%;
+  background-repeat: no-repeat;
+  animation: light-stars-twinkle-slow 6s ease-in-out infinite;
+}
+
+html:not(.dark) .light-stars-2 {
+  opacity: 0.4;
+}
+
+.light-stars-3 {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image:
+    radial-gradient(circle 1.5px, rgba(59, 130, 246, 0.6) 0%, transparent 90%) 7% 18%,
+    radial-gradient(circle 1px, rgba(14, 165, 233, 0.5) 0%, transparent 90%) 13% 42%,
+    radial-gradient(circle 1.5px, rgba(139, 92, 246, 0.6) 0%, transparent 90%) 27% 65%,
+    radial-gradient(circle 1px, rgba(34, 197, 94, 0.5) 0%, transparent 90%) 38% 28%,
+    radial-gradient(circle 1.5px, rgba(245, 158, 11, 0.6) 0%, transparent 90%) 47% 82%,
+    radial-gradient(circle 1px, rgba(239, 68, 68, 0.5) 0%, transparent 90%) 56% 15%,
+    radial-gradient(circle 1.5px, rgba(59, 130, 246, 0.6) 0%, transparent 90%) 64% 58%,
+    radial-gradient(circle 1px, rgba(14, 165, 233, 0.5) 0%, transparent 90%) 73% 35%,
+    radial-gradient(circle 1.5px, rgba(139, 92, 246, 0.6) 0%, transparent 90%) 81% 78%,
+    radial-gradient(circle 1px, rgba(34, 197, 94, 0.5) 0%, transparent 90%) 89% 52%;
+  background-repeat: no-repeat;
+  animation: light-stars-twinkle 5s ease-in-out infinite;
+}
+
+html:not(.dark) .light-stars-3 {
+  opacity: 0.3;
+}
+
+/* LIGHT MODE NEBULA */
+.light-nebula {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: 
+    radial-gradient(ellipse 800px 500px at 20% 30%, rgba(14, 165, 233, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 700px 400px at 75% 55%, rgba(139, 92, 246, 0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 300px at 50% 80%, rgba(34, 197, 94, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 250px at 85% 15%, rgba(245, 158, 11, 0.06) 0%, transparent 70%);
+  animation: light-nebula-drift 120s ease-in-out infinite alternate;
+  filter: blur(50px);
+}
+
+html:not(.dark) .light-nebula {
+  opacity: 0.4;
+}
+
+/* LIGHT MODE GLOW LAYER */
+.light-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image:
+    radial-gradient(circle 150px at 18% 48%, rgba(14, 165, 233, 0.15) 0%, transparent 80%),
+    radial-gradient(circle 180px at 55% 42%, rgba(139, 92, 246, 0.12) 0%, transparent 80%),
+    radial-gradient(circle 130px at 72% 52%, rgba(34, 197, 94, 0.1) 0%, transparent 80%);
+  animation: light-glow-pulse 10s ease-in-out infinite;
+  filter: blur(40px);
+}
+
+html:not(.dark) .light-glow {
+  opacity: 0.6;
+}
+
+/* LIGHT MODE PARTICLES */
+.light-particles-container {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+html:not(.dark) .light-particles-container {
+  opacity: 1;
+}
+
+.light-particle {
+  position: absolute;
+  background: #3b82f6;
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 10px 2px rgba(59, 130, 246, 0.5);
+}
+
+html:not(.dark) .light-particle {
+  animation: light-particle-flow 3s ease-out infinite;
+}
+
+/* Enhanced Data Streams for Light Mode */
+.data-streams-enhanced {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image:
+    linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(59, 130, 246, 0.3) 20%,
+      rgba(139, 92, 246, 0.4) 50%,
+      rgba(59, 130, 246, 0.3) 80%,
+      transparent 100%),
+    linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(14, 165, 233, 0.25) 20%,
+      rgba(34, 197, 94, 0.35) 50%,
+      rgba(14, 165, 233, 0.25) 80%,
+      transparent 100%);
+  background-size: 400px 100%, 500px 100%;
+  background-position: -400px 20%, -500px 60%;
+  background-repeat: no-repeat;
+  animation: data-stream-flow 25s linear infinite;
+}
+
+html:not(.dark) .data-streams-enhanced {
+  opacity: 0.3;
+}
+
+/* ================================================
+   DARK MODE: GALAXY BACKGROUND
+================================================ */
+
+html.dark .background-container {
+  background: 
+    radial-gradient(ellipse at 50% 20%, rgba(30, 58, 138, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 70%, rgba(249, 115, 22, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, #1a1f3a 0%, #0a0e27 50%, #050810 100%);
+}
+
+/* Star Layers */
+.stars-layer-1 {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+html.dark .stars-layer-1 {
+  opacity: 1;
+  background-image: 
+    radial-gradient(circle 4px, #ffffff 0%, transparent 70%) 8% 15%,
+    radial-gradient(circle 5px, #ffffff 0%, transparent 70%) 22% 35%,
+    radial-gradient(circle 4px, #60a5fa 0%, transparent 70%) 45% 12%,
+    radial-gradient(circle 5px, #3b82f6 0%, transparent 70%) 68% 28%,
+    radial-gradient(circle 4px, #93c5fd 0%, transparent 70%) 82% 18%,
+    radial-gradient(circle 5px, #ffffff 0%, transparent 70%) 15% 65%,
+    radial-gradient(circle 4px, #fb923c 0%, transparent 70%) 32% 22%,
+    radial-gradient(circle 5px, #f97316 0%, transparent 70%) 72% 52%,
+    radial-gradient(circle 4px, #a78bfa 0%, transparent 70%) 12% 82%,
+    radial-gradient(circle 5px, #8b5cf6 0%, transparent 70%) 65% 68%,
+    radial-gradient(circle 4px, #22d3ee 0%, transparent 70%) 95% 25%;
+  background-repeat: no-repeat;
+  animation: stars-twinkle 3s ease-in-out infinite;
+}
+
+.stars-layer-2 {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+html.dark .stars-layer-2 {
+  opacity: 0.8;
+  background-image:
+    radial-gradient(circle 3px, #ffffff 0%, transparent 80%) 10% 8%,
+    radial-gradient(circle 2px, #fbbf24 0%, transparent 80%) 25% 32%,
+    radial-gradient(circle 3px, #ffffff 0%, transparent 80%) 40% 55%,
+    radial-gradient(circle 2px, #60a5fa 0%, transparent 80%) 58% 18%,
+    radial-gradient(circle 2px, #ffffff 0%, transparent 80%) 70% 72%,
+    radial-gradient(circle 3px, #f97316 0%, transparent 80%) 85% 48%,
+    radial-gradient(circle 2px, #ffffff 0%, transparent 80%) 90% 82%,
+    radial-gradient(circle 2px, #8b5cf6 0%, transparent 80%) 15% 95%,
+    radial-gradient(circle 2px, #ffffff 0%, transparent 80%) 35% 68%,
+    radial-gradient(circle 3px, #22d3ee 0%, transparent 80%) 52% 38%;
+  background-repeat: no-repeat;
+  animation: stars-twinkle-slow 5s ease-in-out infinite;
+}
+
+.stars-layer-3 {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+html.dark .stars-layer-3 {
+  opacity: 0.6;
+  background-image:
+    radial-gradient(circle 1.5px, rgba(255, 255, 255, 0.8) 0%, transparent 90%) 7% 18%,
+    radial-gradient(circle 1px, rgba(255, 255, 255, 0.8) 0%, transparent 90%) 13% 42%,
+    radial-gradient(circle 1.5px, rgba(255, 255, 255, 0.8) 0%, transparent 90%) 27% 65%,
+    radial-gradient(circle 1px, rgba(255, 255, 255, 0.8) 0%, transparent 90%) 38% 28%,
+    radial-gradient(circle 1.5px, rgba(255, 255, 255, 0.8) 0%, transparent 90%) 47% 82%,
+    radial-gradient(circle 1px, rgba(255, 255, 255, 0.8) 0%, transparent 90%) 56% 15%,
+    radial-gradient(circle 1.5px, rgba(255, 255, 255, 0.8) 0%, transparent 90%) 64% 58%,
+    radial-gradient(circle 1px, rgba(255, 255, 255, 0.8) 0%, transparent 90%) 73% 35%,
+    radial-gradient(circle 1.5px, rgba(255, 255, 255, 0.8) 0%, transparent 90%) 81% 78%,
+    radial-gradient(circle 1px, rgba(255, 255, 255, 0.8) 0%, transparent 90%) 89% 52%;
+  background-repeat: no-repeat;
+  animation: stars-twinkle 4s ease-in-out infinite;
+}
+
+/* Nebula Clouds */
+.nebula-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+html.dark .nebula-layer {
+  opacity: 0.3;
+  background: 
+    radial-gradient(ellipse 800px 500px at 20% 30%, rgba(59, 130, 246, 0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 700px 400px at 75% 55%, rgba(139, 92, 246, 0.2) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 300px at 50% 80%, rgba(249, 115, 22, 0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 250px at 85% 15%, rgba(34, 211, 238, 0.12) 0%, transparent 70%);
+  animation: nebula-drift 100s ease-in-out infinite alternate;
+  filter: blur(40px);
+}
+
+/* Star Glow */
+.glow-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+html.dark .glow-layer {
+  opacity: 0.5;
+  background-image:
+    radial-gradient(circle 100px at 18% 48%, rgba(59, 130, 246, 0.25) 0%, transparent 80%),
+    radial-gradient(circle 120px at 55% 42%, rgba(139, 92, 246, 0.2) 0%, transparent 80%),
+    radial-gradient(circle 90px at 72% 52%, rgba(249, 115, 22, 0.2) 0%, transparent 80%);
+  animation: glow-pulse 8s ease-in-out infinite;
+  filter: blur(30px);
+}
+
+/* Shooting Stars Container */
+.shooting-stars-container {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+html.dark .shooting-stars-container {
+  opacity: 1;
+}
+
+/* Individual Shooting Star */
+.shooting-star {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+html.dark .shooting-star {
+  animation: shooting 4s ease-out infinite;
+}
+
+/* ================================================
+   ANIMATIONS
+================================================ */
+
+/* Light Mode Animations */
+@keyframes light-stars-twinkle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes light-stars-twinkle-slow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.1; }
+}
+
+@keyframes light-nebula-drift {
+  0% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
+  }
+  50% { 
+    transform: translate(80px, -50px) scale(1.05);
+    opacity: 0.5;
+  }
+  100% { 
+    transform: translate(40px, -25px) scale(1.02);
+    opacity: 0.4;
+  }
+}
+
+@keyframes light-glow-pulse {
+  0%, 100% { 
+    opacity: 0.6;
+    filter: blur(40px);
+  }
+  50% { 
+    opacity: 0.8;
+    filter: blur(45px);
+  }
+}
+
+@keyframes light-particle-flow {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translate(300px, -300px);
+    opacity: 0;
+  }
+}
+
+@keyframes data-stream-flow {
+  0% { 
+    background-position: -400px 20%, -500px 60%;
+  }
+  100% { 
+    background-position: calc(100vw + 400px) 20%, calc(100vw + 500px) 60%;
+  }
+}
+
+/* Dark Mode Animations */
+@keyframes stars-twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes stars-twinkle-slow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes nebula-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(50px, -30px) scale(1.1); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes shooting {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  70% { opacity: 1; }
+  100% {
+    transform: translate(-400px, 400px);
+    opacity: 0;
+  }
+}
+
+/* ================================================
+   GLASS UI COMPONENTS (UPDATED FOR LIGHT MODE)
+================================================ */
+
+.glass {
+  @apply bg-white/40 dark:bg-white/5 backdrop-blur-xl 
+         border border-black/10 dark:border-white/20 
+         rounded-2xl transition-all duration-300
+         shadow-lg dark:shadow-white/5;
+}
+
+html:not(.dark) .glass {
+  @apply bg-white/80 backdrop-blur-2xl
+         border border-gray-200
+         shadow-lg shadow-blue-500/10
+         hover:shadow-xl hover:shadow-blue-500/20;
+}
+
+.glass-card {
+  @apply bg-white/80 dark:bg-white/10 
+         border border-black/10 dark:border-white/20
+         backdrop-blur-xl rounded-2xl shadow-lg 
+         transition-all duration-300 hover:shadow-xl
+         hover:dark:shadow-white/10;
+}
+
+html:not(.dark) .glass-card {
+  @apply bg-white/90 backdrop-blur-2xl
+         border border-gray-200
+         shadow-lg shadow-blue-500/15
+         hover:bg-white
+         hover:shadow-xl hover:shadow-blue-500/25;
+}
+
+/* ================================================
+   TEXT COLORS (CRITICAL FIX)
+================================================ */
+
+/* Light mode text colors */
+html:not(.dark) .text-white {
+  @apply text-gray-900;
+}
+
+html:not(.dark) .text-white\/70 {
+  @apply text-gray-700;
+}
+
+html:not(.dark) .text-white\/80 {
+  @apply text-gray-800;
+}
+
+html:not(.dark) .text-white\/90 {
+  @apply text-gray-900;
+}
+
+html:not(.dark) .text-white\/60 {
+  @apply text-gray-600;
+}
+
+html:not(.dark) .text-white\/50 {
+  @apply text-gray-500;
+}
+
+html:not(.dark) .text-white\/40 {
+  @apply text-gray-400;
+}
+
+/* Background colors for light mode - USING VALID TAILWIND CLASSES */
+html:not(.dark) .bg-white\/10 {
+  @apply bg-gray-100/10;
+}
+
+html:not(.dark) .bg-white\/5 {
+  @apply bg-gray-100/5;
+}
+
+html:not(.dark) .bg-white\/20 {
+  @apply bg-gray-100/20;
+}
+
+html:not(.dark) .bg-white\/15 {
+  @apply bg-gray-100/15;
+}
+
+/* Border colors for light mode */
+html:not(.dark) .border-white\/10 {
+  @apply border-gray-200;
+}
+
+html:not(.dark) .border-white\/20 {
+  @apply border-gray-300;
+}
+
+html:not(.dark) .border-white\/5 {
+  @apply border-gray-100;
+}
+
+/* Shadow for light mode */
+html:not(.dark) .shadow-white\/5 {
+  @apply shadow-gray-200/50;
+}
+
+html:not(.dark) .shadow-blue-500\/10 {
+  @apply shadow-blue-500/10;
+}
+
+html:not(.dark) .shadow-blue-500\/15 {
+  @apply shadow-blue-500/15;
+}
+
+html:not(.dark) .shadow-blue-500\/20 {
+  @apply shadow-blue-500/20;
+}
+
+html:not(.dark) .shadow-blue-500\/25 {
+  @apply shadow-blue-500/25;
+}
+
+/* Specific component overrides */
+html:not(.dark) .bg-gradient-to-br.from-blue-500\/20.to-blue-600\/20 {
+  @apply bg-gradient-to-br from-blue-500/10 to-blue-600/10;
+}
+
+html:not(.dark) .bg-gradient-to-tr.from-orange-500\/15.to-orange-600\/15 {
+  @apply bg-gradient-to-tr from-orange-500/10 to-orange-600/10;
+}
+
+/* ================================================
+   GRADIENT TEXT
+================================================ */
+
+.gradient-text {
+  background: linear-gradient(135deg, #3B82F6, #1E40AF, #3F3CBB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html:not(.dark) .gradient-text {
+  background: linear-gradient(135deg, 
+    #0ea5e9 0%,
+    #3b82f6 25%,
+    #8b5cf6 50%,
+    #10b981 75%,
+    #f59e0b 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: gradient-shift 6s ease-in-out infinite alternate;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* ================================================
+   PERFORMANCE OPTIMIZATIONS
+================================================ */
+
+.background-container,
+.stars-layer-1,
+.stars-layer-2,
+.stars-layer-3,
+.nebula-layer,
+.glow-layer,
+.shooting-stars-container,
+.shooting-star,
+.light-stars-1,
+.light-stars-2,
+.light-stars-3,
+.light-nebula,
+.light-glow,
+.light-particles-container,
+.light-particle,
+.data-streams-enhanced {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .stars-layer-1,
+  .stars-layer-2,
+  .stars-layer-3,
+  .nebula-layer,
+  .glow-layer,
+  .shooting-star,
+  .light-stars-1,
+  .light-stars-2,
+  .light-stars-3,
+  .light-nebula,
+  .light-glow,
+  .light-particle,
+  .data-streams-enhanced {
+    animation: none !important;
+  }
+}
+
+/* ================================================
+   RESPONSIVE
+================================================ */
+
+@media (max-width: 768px) {
+  .background-container {
+    filter: brightness(1.1);
+  }
+  
+  html:not(.dark) .light-glow {
+    filter: blur(20px);
+  }
+  
+  html.dark .glow-layer {
+    filter: blur(15px);
+  }
+  
+  .shooting-star {
+    animation-duration: 3s !important;
+  }
+  
+  .light-particle {
+    animation-duration: 2s !important;
+  }
+}
+
+/* ================================================
+   ADDITIONAL UTILITIES FOR BETTER LIGHT MODE
+================================================ */
+
+/* Better visibility for gradients in light mode */
+html:not(.dark) .bg-gradient-to-r.from-blue-600.to-blue-800 {
+  @apply from-blue-500 to-blue-700;
+}
+
+html:not(.dark) .bg-gradient-to-r.from-orange-600.to-orange-800 {
+  @apply from-orange-500 to-orange-700;
+}
+
+html:not(.dark) .bg-gradient-to-r.from-blue-600.via-blue-700.to-blue-800 {
+  @apply from-blue-500 via-blue-600 to-blue-700;
+}
+
+html:not(.dark) .bg-gradient-to-r.from-orange-600.via-orange-700.to-orange-800 {
+  @apply from-orange-500 via-orange-600 to-orange-700;
+}
+
+/* Make sure text is visible on light background */
+html:not(.dark) .text-transparent.bg-clip-text.bg-gradient-to-r.from-white.to-blue-100 {
+  @apply from-gray-900 to-blue-900;
+}
+
+html:not(.dark) .text-transparent.bg-clip-text.bg-gradient-to-r.from-blue-400.to-cyan-400 {
+  @apply from-blue-600 to-cyan-600;
+}
+
+html:not(.dark) .text-transparent.bg-clip-text.bg-gradient-to-r.from-white.via-blue-100.to-orange-200 {
+  @apply from-gray-900 via-blue-800 to-orange-800;
+}
+
+
+
+/* Fix for dynamic hover classes in light mode */
+html:not(.dark) .hover\:from-blue-500\/20:hover {
+  --tw-gradient-from: rgb(59 130 246 / 0.1);
+}
+
+html:not(.dark) .hover\:to-cyan-500\/20:hover {
+  --tw-gradient-to: rgb(6 182 212 / 0.1);
+}
+
+html:not(.dark) .hover\:from-orange-500\/20:hover {
+  --tw-gradient-from: rgb(249 115 22 / 0.1);
+}
+
+html:not(.dark) .hover\:to-red-500\/20:hover {
+  --tw-gradient-to: rgb(239 68 68 / 0.1);
+}
+
+html:not(.dark) .hover\:from-purple-500\/20:hover {
+  --tw-gradient-from: rgb(168 85 247 / 0.1);
+}
+
+html:not(.dark) .hover\:to-pink-500\/20:hover {
+  --tw-gradient-to: rgb(236 72 153 / 0.1);
+}
+
+html:not(.dark) .hover\:from-green-500\/20:hover {
+  --tw-gradient-from: rgb(34 197 94 / 0.1);
+}
+
+html:not(.dark) .hover\:to-emerald-500\/20:hover {
+  --tw-gradient-to: rgb(16 185 129 / 0.1);
+}
