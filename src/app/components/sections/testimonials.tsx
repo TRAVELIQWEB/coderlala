@@ -53,7 +53,7 @@ const testimonials = [
     name: "Dr. Sringari",
     role: "Medical Director",
     company: "Polaris Hospitals",
-    text: "We partnered with WebShlok / CoderLala to revamp the Polaris Hospitals website. The new version is clean, well-structured, and makes it easy for patients to explore departments and doctors.",
+    text: "We partnered with  CoderLala to revamp the Polaris Hospitals website. The new version is clean, well-structured, and makes it easy for patients to explore departments and doctors.",
     rating: 5,
     image: "DS",
     color: "from-green-500 to-emerald-500",
