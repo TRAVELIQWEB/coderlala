@@ -70,7 +70,7 @@ export default function ContactContent() {
   const contactInfo = [
     { icon: Mail, title: "Email", value: "salman.nizam@coderlala.com", desc: "For general inquiries" },
     { icon: Phone, title: "Phone", value: "+91 7830836770, 8949541483", desc: "Mon-Fri, 9AM-6PM IST" },
-    { icon: MapPin, title: "Location", value: "Gurugram (India)", desc: "Serving clients globally" },
+    { icon: MapPin, title: "Location", value: "JMD Megapolis, Sec-48 Gurugram (India)", desc: "Serving clients globally" },
     { icon: Clock, title: "Response Time", value: "< 24 Hours", desc: "For all business inquiries" },
   ];
 
@@ -356,7 +356,7 @@ export default function ContactContent() {
 
               <div className="p-4 rounded-xl bg-white/5">
                 <p className="text-sm text-white/60 mb-1">Location</p>
-                <p className="font-medium">Gurugram (India)</p>
+                <p className="font-medium">JMD Megapolis, Sec-48 Gurugram (India)</p>
                 <p className="text-sm text-white/60 mt-1">Serving clients globally</p>
               </div>
             </div>
