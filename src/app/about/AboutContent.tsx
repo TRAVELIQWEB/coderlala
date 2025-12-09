@@ -22,47 +22,47 @@ import Link from "next/link";
 export default function AboutContent() {
   const timeline = [
     {
-      year: "2020",
+      year: "2025",
       title: "Company Founded",
       desc: "CoderLala Technologies was born with a vision to transform ideas into powerful digital products.",
       icon: Rocket,
       color: "from-blue-500 to-cyan-500",
     },
     {
-      year: "2021",
-      title: "First 50 Clients",
-      desc: "Successfully delivered 50+ projects for startups and established businesses.",
+      year: "2025",
+      title: "First 10 Clients",
+      desc: "Successfully delivered 10+ projects for startups and established businesses.",
       icon: Users,
       color: "from-orange-500 to-amber-500",
     },
     {
-      year: "2022",
+      year: "2025",
       title: "SaaS & Cloud Expansion",
       desc: "Architected large-scale SaaS platforms and cloud-based systems for enterprise clients.",
       icon: Cloud,
       color: "from-purple-500 to-pink-500",
     },
     {
-      year: "2023",
+      year: "2025",
       title: "Enterprise Partnerships",
-      desc: "Became trusted technology partner for Fortune 500 companies and unicorn startups.",
+      desc: "Became trusted technology partner for Fortune companies and unicorn startups.",
       icon: Award,
       color: "from-green-500 to-emerald-500",
     },
-    {
-      year: "2024",
-      title: "AI & ML Integration",
-      desc: "Started integrating AI, machine learning, and automation into our solutions.",
-      icon: Zap,
-      color: "from-red-500 to-orange-500",
-    },
-    {
-      year: "2025",
-      title: "Global Recognition",
-      desc: "Expanded to serve clients across 20+ countries with award-winning solutions.",
-      icon: Globe,
-      color: "from-indigo-500 to-blue-500",
-    },
+    // {
+    //   year: "2024",
+    //   title: "AI & ML Integration",
+    //   desc: "Started integrating AI, machine learning, and automation into our solutions.",
+    //   icon: Zap,
+    //   color: "from-red-500 to-orange-500",
+    // },
+    // {
+    //   year: "2025",
+    //   title: "Global Recognition",
+    //   desc: "Expanded to serve clients across 20+ countries with award-winning solutions.",
+    //   icon: Globe,
+    //   color: "from-indigo-500 to-blue-500",
+    // },
   ];
 
   const values = [
@@ -103,6 +103,29 @@ export default function AboutContent() {
       color: "text-red-500",
     },
   ];
+
+ const TeamMembers = [
+  {
+    name: "Salman Nizam",
+    role: "Co-Founder & DevOps Engineer"
+  },
+  {
+    name: "Achal Singh",
+    role: "Co-Founder & Full-Stack Developer"
+  },
+  {
+    name: "Aman Singh",
+    role: "Senior Full-Stack Developer"
+  },
+  {
+    name: "Ravi Kaliya",
+    role: "Senior Frontend Developer"
+  },
+  {
+    name: "Raghib Nizam",
+    role: "Full-Stack Developer"
+  }
+];
 
   return (
     <div>
@@ -146,8 +169,8 @@ export default function AboutContent() {
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { value: "150+", label: "Projects Delivered", icon: Rocket, color: "text-blue-500" },
-            { value: "50+", label: "Happy Clients", icon: Users, color: "text-orange-500" },
+            { value: "25+", label: "Projects Delivered", icon: Rocket, color: "text-blue-500" },
+            { value: "25+", label: "Happy Clients", icon: Users, color: "text-orange-500" },
             { value: "5+", label: "Years Experience", icon: Calendar, color: "text-purple-500" },
             { value: "99%", label: "Client Satisfaction", icon: Heart, color: "text-green-500" },
           ].map((stat, i) => (
@@ -363,18 +386,18 @@ export default function AboutContent() {
           A diverse team of passionate engineers, designers, and innovators dedicated to excellence.
         </p>
 
-        <div className="glass-card p-8 rounded-3xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/10 max-w-2xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-            {[...Array(4)].map((_, i) => (
+        <div className="glass-card p-8 rounded-3xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/10 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-8">
+            {TeamMembers.map((data, i) => (
               <div key={i} className="text-center">
                 <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-200/70 dark:bg-white/10 flex items-center justify-center">
                   <Users className="w-8 h-8 text-gray-600 dark:text-white/40" />
                 </div>
 
                 <div className="text-sm font-semibold text-gray-900 dark:text-white">
-                  Team Member
+                  {data?.name}
                 </div>
-                <div className="text-xs text-gray-700 dark:text-white/60">Role</div>
+                <div className="text-xs text-gray-700 dark:text-white/60">{data?.role}</div>
               </div>
             ))}
           </div>

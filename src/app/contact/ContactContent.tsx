@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Globe, 
-  Clock, 
-  Send, 
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Globe,
+  Clock,
+  Send,
   CheckCircle,
   Users,
   MessageSquare,
@@ -19,13 +19,13 @@ import {
 } from "lucide-react";
 
 export default function ContactContent() {
-  const [form, setForm] = useState({ 
-    name: "", 
-    email: "", 
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
     company: "",
     phone: "",
     budget: "",
-    message: "" 
+    message: ""
   });
   const [status, setStatus] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,13 +48,13 @@ export default function ContactContent() {
 
       if (res.ok) {
         setStatus("Message sent successfully! We'll contact you within 24 hours.");
-        setForm({ 
-          name: "", 
-          email: "", 
+        setForm({
+          name: "",
+          email: "",
           company: "",
           phone: "",
           budget: "",
-          message: "" 
+          message: ""
         });
         setTimeout(() => setStatus(""), 5000);
       } else {
@@ -68,9 +68,9 @@ export default function ContactContent() {
   };
 
   const contactInfo = [
-    { icon: Mail, title: "Email", value: "hello@coderlala.com", desc: "For general inquiries" },
-    { icon: Phone, title: "Phone", value: "+91 98765 43210", desc: "Mon-Fri, 9AM-6PM IST" },
-    { icon: MapPin, title: "Location", value: "India (Remote)", desc: "Serving clients globally" },
+    { icon: Mail, title: "Email", value: "salman.nizam@coderlala.com", desc: "For general inquiries" },
+    { icon: Phone, title: "Phone", value: "+91 7830836770, 8949541483", desc: "Mon-Fri, 9AM-6PM IST" },
+    { icon: MapPin, title: "Location", value: "Gurugram (India)", desc: "Serving clients globally" },
     { icon: Clock, title: "Response Time", value: "< 24 Hours", desc: "For all business inquiries" },
   ];
 
@@ -82,11 +82,10 @@ export default function ContactContent() {
   ];
 
   const budgetOptions = [
-    "Less than $5,000",
-    "$5,000 - $20,000", 
-    "$20,000 - $50,000",
-    "$50,000 - $100,000",
-    "$100,000+",
+    "Less than ₹25,000",
+    "₹25,000 - ₹100,000",
+    "₹100,000 - ₹500,000",
+    "₹500,000+",
     "Not sure yet"
   ];
 
@@ -103,7 +102,7 @@ export default function ContactContent() {
           <MessageSquare className="w-4 h-4 text-blue-300" />
           <span className="text-sm font-medium">Get in Touch</span>
         </div>
-        
+
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-100">
             Let's Build
@@ -112,9 +111,9 @@ export default function ContactContent() {
             Something Amazing
           </span>
         </h1>
-        
+
         <p className="text-xl text-white/70 max-w-3xl mx-auto">
-          Have a project in mind? Let's discuss how we can bring your vision to life 
+          Have a project in mind? Let's discuss how we can bring your vision to life
           with cutting-edge technology and expert engineering.
         </p>
       </motion.div>
@@ -140,7 +139,7 @@ export default function ContactContent() {
       </motion.div>
 
       <div className="grid lg:grid-cols-2 gap-16">
-        
+
         {/* Contact Form */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -150,7 +149,7 @@ export default function ContactContent() {
           className="relative group"
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
-          
+
           <div className="relative glass-card p-8 rounded-3xl backdrop-blur-xl border border-white/10">
             <div className="mb-8">
               <h2 className="text-3xl font-bold mb-4">Send Us a Message</h2>
@@ -229,11 +228,10 @@ export default function ContactContent() {
                         required={i === 0}
                       />
                       <div
-                        className={`flex-1 px-3 py-2 text-sm rounded-lg text-center transition-all ${
-                          form.budget === option
+                        className={`flex-1 px-3 py-2 text-sm rounded-lg text-center transition-all ${form.budget === option
                             ? "bg-blue-500/20 border-blue-500"
                             : "bg-white/5 border border-white/10 hover:border-white/20"
-                        }`}
+                          }`}
                       >
                         {option}
                       </div>
@@ -283,11 +281,10 @@ export default function ContactContent() {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`p-4 rounded-xl ${
-                    status.includes("successfully")
+                  className={`p-4 rounded-xl ${status.includes("successfully")
                       ? "bg-green-500/10 border-green-500/20"
                       : "bg-blue-500/10 border-blue-500/20"
-                  } border text-center`}
+                    } border text-center`}
                 >
                   <div className="flex items-center justify-center gap-2">
                     {status.includes("successfully") && (
@@ -347,7 +344,7 @@ export default function ContactContent() {
 
               <div className="p-4 rounded-xl bg-white/5">
                 <p className="text-sm text-white/60 mb-1">Email Address</p>
-                <p className="font-medium">hello@coderlala.com</p>
+                <p className="font-medium">salman.nizam@coderlala.com</p>
                 <p className="text-sm text-white/60 mt-1">For business inquiries</p>
               </div>
 
@@ -359,7 +356,7 @@ export default function ContactContent() {
 
               <div className="p-4 rounded-xl bg-white/5">
                 <p className="text-sm text-white/60 mb-1">Location</p>
-                <p className="font-medium">India (Remote Team)</p>
+                <p className="font-medium">Gurugram (India)</p>
                 <p className="text-sm text-white/60 mt-1">Serving clients globally</p>
               </div>
             </div>
@@ -370,7 +367,7 @@ export default function ContactContent() {
                 <h4 className="font-semibold">Quick Response Guarantee</h4>
               </div>
               <p className="text-sm text-white/70">
-                We respond to all business inquiries within 24 hours. For urgent matters, 
+                We respond to all business inquiries within 24 hours. For urgent matters,
                 please call our support line.
               </p>
             </div>
@@ -410,10 +407,10 @@ export default function ContactContent() {
             </span>
           </h2>
           <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
-            Schedule a free consultation call with our experts to discuss your requirements 
+            Schedule a free consultation call with our experts to discuss your requirements
             and get a detailed project roadmap.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() =>
@@ -430,7 +427,7 @@ export default function ContactContent() {
             </button>
 
             <a
-              href="mailto:hello@coderlala.com"
+              href="mailto:salman.nizam@coderlala.com"
               className="group relative px-8 py-4 rounded-xl text-white font-semibold 
                 bg-gradient-to-r from-orange-600 via-orange-700 to-orange-800
                 hover:from-orange-700 hover:via-orange-800 hover:to-orange-900

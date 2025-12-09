@@ -33,7 +33,7 @@ const projects = [
     icon: Globe,
     color: "from-blue-500 to-cyan-500",
     stats: "350% Revenue Growth",
-    liveUrl: "https://traveltech.example.com",
+    liveUrl: "#",
     githubUrl: null
   },
   {
@@ -44,7 +44,7 @@ const projects = [
     icon: BarChart,
     color: "from-orange-500 to-amber-500",
     stats: "Zero Downtime",
-    liveUrl: "https://billing.example.com",
+    liveUrl: "https://wallet.saarthii.co.in",
     githubUrl: null
   },
   {
@@ -56,7 +56,7 @@ const projects = [
     color: "from-purple-500 to-pink-500",
     stats: "80% Faster Deployments",
     liveUrl: null,
-    githubUrl: "https://github.com/coderlala/cloud-deploy"
+    githubUrl: null
   },
   {
     title: "AI Document Intelligence System",
@@ -77,7 +77,7 @@ const projects = [
     icon: ShoppingCart,
     color: "from-red-500 to-orange-500",
     stats: "100K+ Monthly Users",
-    liveUrl: "https://shop.example.com",
+    liveUrl: null,
     githubUrl: null
   },
   {
@@ -99,7 +99,7 @@ const projects = [
     icon: Users,
     color: "from-cyan-500 to-blue-500",
     stats: "10K+ Daily Consultations",
-    liveUrl: "https://health.example.com",
+    liveUrl: null,
     githubUrl: null
   },
   {
@@ -110,24 +110,24 @@ const projects = [
     icon: TrendingUp,
     color: "from-yellow-500 to-amber-500",
     stats: "Real-time Insights",
-    liveUrl: "https://analytics.example.com",
-    githubUrl: "https://github.com/coderlala/analytics-dash"
+    liveUrl: null,
+    githubUrl: null
   },
 ];
 
 const categories = [
-  { id: "all", label: "All Projects", icon: Zap, count: 8 },
+  { id: "all", label: "All Projects", icon: Zap, count: 27 },
   { id: "enterprise", label: "Enterprise", icon: Database, count: 3 },
   { id: "saas", label: "SaaS", icon: Cloud, count: 2 },
-  { id: "ai", label: "AI/ML", icon: Brain, count: 1 },
-  { id: "mobile", label: "Mobile", icon: Smartphone, count: 1 },
-  { id: "devops", label: "DevOps", icon: Cpu, count: 1 },
+  { id: "ai", label: "AI/ML", icon: Brain, count: 0 },
+  { id: "mobile", label: "Mobile", icon: Smartphone, count: 2 },
+  { id: "devops", label: "DevOps", icon: Cpu, count: 3 },
 ];
 
 const stats = [
-  { value: "50+", label: "Projects Completed", icon: Award, color: "text-blue-400" },
+  { value: "25+", label: "Projects Completed", icon: Award, color: "text-blue-400" },
   { value: "99%", label: "Client Satisfaction", icon: TrendingUp, color: "text-orange-400" },
-  { value: "10M+", label: "Users Impacted", icon: Users, color: "text-purple-400" },
+  { value: "5M+", label: "Users Impacted", icon: Users, color: "text-purple-400" },
   { value: "100%", label: "On-Time Delivery", icon: Shield, color: "text-green-400" },
 ];
 

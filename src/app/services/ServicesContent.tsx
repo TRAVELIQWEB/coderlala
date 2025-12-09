@@ -40,8 +40,8 @@ const services = [
       "PWA",
       "Performance Tuning",
     ],
-    projects: "150+",
-    delivery: "4-8 Weeks",
+    projects: "25+",
+    delivery: "8-12 Weeks",
   },
   {
     title: "Mobile App Development",
@@ -55,8 +55,8 @@ const services = [
       "Push Notifications",
       "Offline Support",
     ],
-    projects: "80+",
-    delivery: "6-12 Weeks",
+    projects: "2+",
+    delivery: "8-14 Weeks",
   },
   {
     title: "SaaS Platform Development",
@@ -70,8 +70,8 @@ const services = [
       "API Integration",
       "Scalable Infrastructure",
     ],
-    projects: "40+",
-    delivery: "8-16 Weeks",
+    projects: "1+",
+    delivery: "12-36 Weeks",
   },
   {
     title: "Backend & API Development",
@@ -85,7 +85,7 @@ const services = [
       "Database Design",
       "Authentication",
     ],
-    projects: "120+",
+    projects: "10+",
     delivery: "6-10 Weeks",
   },
   {
@@ -100,8 +100,8 @@ const services = [
       "Prototyping",
       "Usability Testing",
     ],
-    projects: "90+",
-    delivery: "2-4 Weeks",
+    projects: "20+",
+    delivery: "4-8 Weeks",
   },
   {
     title: "Cloud & DevOps",
@@ -115,8 +115,8 @@ const services = [
       "Serverless",
       "Monitoring",
     ],
-    projects: "60+",
-    delivery: "2-6 Weeks",
+    projects: "2+",
+    delivery: "4-8 Weeks",
   },
   {
     title: "AI & ML Solutions",
@@ -130,8 +130,8 @@ const services = [
       "Predictive Analytics",
       "Chatbots",
     ],
-    projects: "25+",
-    delivery: "8-20 Weeks",
+    projects: "0",
+    delivery: "12-20 Weeks",
   },
   {
     title: "Enterprise Software",
@@ -145,23 +145,8 @@ const services = [
       "Enterprise Security",
       "Custom Solutions",
     ],
-    projects: "35+",
+    projects: "3+",
     delivery: "12-24 Weeks",
-  },
-  {
-    title: "Quality Assurance & Testing",
-    desc: "Comprehensive testing strategies including automated testing, performance testing, and security audits.",
-    icon: Shield,
-    color: "from-cyan-500 to-blue-500",
-    features: [
-      "Automated Testing",
-      "Performance Testing",
-      "Security Audits",
-      "Manual Testing",
-      "QA Strategy",
-    ],
-    projects: "100+",
-    delivery: "2-4 Weeks",
   },
 ];
 
@@ -200,13 +185,13 @@ const process = [
 
 const stats = [
   {
-    value: "150+",
+    value: "25+",
     label: "Projects Delivered",
     icon: Rocket,
     color: "text-blue-400",
   },
   {
-    value: "50+",
+    value: "25+",
     label: "Happy Clients",
     icon: Users,
     color: "text-orange-400",

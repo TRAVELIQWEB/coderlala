@@ -6,71 +6,88 @@ import { useState } from "react";
 
 const testimonials = [
   {
-    name: "Rahul Sharma",
-    role: "CEO & Founder",
-    company: "TravelTech Innovations",
-    text: "CoderLala completely transformed our business. They built a comprehensive bus & flight booking ecosystem that handles 50,000+ daily transactions. The system is incredibly scalable and has helped us expand to 3 new countries.",
+    name: "Ravinder",
+    role: "Founder",
+    company: "SkyYogaShala",
+    text: "Working with CoderLala was a seamless experience. They built a clean, fast and fully mobile-optimized yoga platform that made it easier for our students to explore classes and schedules.",
     rating: 5,
-    image: "RS",
-    color: "from-blue-500 to-cyan-500",
-    stats: "350% Revenue Growth"
+    image: "RV",
+    color: "from-blue-500 to-teal-500",
+    stats: "Smooth User Experience"
   },
+
   {
-    name: "Mira Kapoor",
-    role: "Product Director",
-    company: "CloudScale SaaS",
-    text: "Their team engineered our entire SaaS billing platform from scratch. Automated invoicing, usage metering, subscription management — everything works flawlessly. The architecture is so robust that we've had zero downtime in 2 years.",
+    name: "Dr. (Maj) Chander Prakash",
+    role: "Founder & Chief Dentist",
+    company: "Kreative Dentistry",
+    text: "CoderLala created a modern and professional website for our clinic. The layout, appointment system, and overall structure are intuitive, making it very easy for patients to find information.",
     rating: 5,
-    image: "MK",
+    image: "CP",
     color: "from-purple-500 to-pink-500",
-    stats: "Zero Downtime"
+    stats: "Improved Usability"
   },
+
   {
-    name: "Arjun Patel",
-    role: "CTO",
-    company: "FinSecure Technologies",
-    text: "Working with CoderLala has been exceptional. Their code quality, architecture decisions, and attention to security compliance saved us months of development time. They're not just developers — they're strategic partners.",
+    name: "Dr. (Maj) Chander Prakash",
+    role: "Director",
+    company: "Kreative GCAD",
+    text: "Our GCAD training platform required clarity, structure and a smooth experience for students. CoderLala delivered a fast, organized and easy-to-update website that works perfectly for our academic needs.",
     rating: 5,
-    image: "AP",
-    color: "from-orange-500 to-amber-500",
-    stats: "98% Client Satisfaction"
-  },
-  {
-    name: "Priya Nair",
-    role: "Operations Head",
-    company: "HealthCare Digital",
-    text: "The telemedicine platform they built handles 10,000+ patient consultations daily. HIPAA compliance, video conferencing, EHR integration — everything was executed perfectly. Their team's expertise in healthcare tech is impressive.",
-    rating: 5,
-    image: "PN",
-    color: "from-green-500 to-emerald-500",
-    stats: "10K+ Daily Users"
-  },
-  {
-    name: "Vikram Mehta",
-    role: "VP Engineering",
-    company: "E-Commerce Global",
-    text: "Our e-commerce platform processes $5M+ monthly. CoderLala optimized it for performance, reducing load times by 70%. Their microservices architecture handles Black Friday traffic spikes without breaking a sweat.",
-    rating: 5,
-    image: "VM",
-    color: "from-red-500 to-orange-500",
-    stats: "70% Performance Boost"
-  },
-  {
-    name: "Ananya Reddy",
-    role: "Startup Founder",
-    company: "EdTech Revolution",
-    text: "From MVP to Series A, CoderLala has been with us every step. They built our learning platform, mobile apps, and admin dashboard. Their ability to understand business requirements and translate them into tech is remarkable.",
-    rating: 5,
-    image: "AR",
+    image: "CP",
     color: "from-indigo-500 to-blue-500",
-    stats: "Series A Funded"
+    stats: "Enhanced Platform Structure"
+  },
+
+  {
+    name: "Dr. (Maj) Chander Prakash",
+    role: "Founder",
+    company: "Kreative Aesthetics",
+    text: "CoderLala built a premium-quality website for our aesthetics and cosmetic services. The design aligns well with our brand and presents our treatments in a clear and elegant way.",
+    rating: 5,
+    image: "CP",
+    color: "from-pink-500 to-rose-500",
+    stats: "Premium Design"
+  },
+
+  {
+    name: "Dr. Sringari",
+    role: "Medical Director",
+    company: "Polaris Hospitals",
+    text: "We partnered with WebShlok / CoderLala to revamp the Polaris Hospitals website. The new version is clean, well-structured, and makes it easy for patients to explore departments and doctors.",
+    rating: 5,
+    image: "DS",
+    color: "from-green-500 to-emerald-500",
+    stats: "Improved Navigation"
+  },
+
+  {
+    name: "Zahid Malik",
+    role: "Founder",
+    company: "RangRoganWala",
+    text: "CoderLala designed a vibrant and high-performance website for our painting services. It showcases our work beautifully and provides visitors with a smooth browsing experience.",
+    rating: 5,
+    image: "ZM",
+    color: "from-orange-500 to-amber-500",
+    stats: "High-Performance Build"
+  },
+
+  {
+    name: "Poonam Agrawal",
+    role: "Co-Founder",
+    company: "RiPRAP Health",
+    text: "Our health & wellness platform required a clean, trustworthy and user-friendly interface. CoderLala delivered a well-structured website with excellent clarity and fast loading performance.",
+    rating: 5,
+    image: "PA",
+    color: "from-red-500 to-orange-500",
+    stats: "Fast Loading Speed"
   }
 ];
 
+
 const stats = [
-  { icon: Building, value: "50+", label: "Enterprise Clients", color: "text-blue-400" },
+  { icon: Building, value: "10+", label: "Enterprise Clients", color: "text-blue-400" },
   { icon: TrendingUp, value: "99%", label: "Client Retention", color: "text-green-400" },
-  { icon: Users, value: "150+", label: "Projects Delivered", color: "text-purple-400" },
+  { icon: Users, value: "25+", label: "Projects Delivered", color: "text-purple-400" },
   { icon: Award, value: "4.9/5", label: "Average Rating", color: "text-yellow-400" },
 ];
 

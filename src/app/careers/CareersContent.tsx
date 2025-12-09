@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { 
-  Rocket, 
-  Users, 
-  Zap, 
+import {
+  Rocket,
+  Users,
+  Zap,
   Code2,
   Award,
   Globe,
@@ -21,16 +21,18 @@ import {
   Briefcase,
   TrendingUp,
   Heart,
-  ArrowRight
+  ArrowRight,
+  Book,
+  Megaphone
 } from "lucide-react";
 import Link from "next/link";
 
 const jobs = [
   {
-    role: "Senior Full Stack Developer",
+    role: "Junior Full Stack Developer",
     type: "Full-time",
-    location: "Remote / India",
-    experience: "3-5 years",
+    location: "Gurugram / India",
+    experience: "0-1 year",
     desc: "Lead development of production-grade SaaS platforms, APIs, microservices, and modern UIs using cutting-edge technologies.",
     tech: ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "AWS"],
     color: "from-blue-500 to-cyan-500",
@@ -39,67 +41,68 @@ const jobs = [
   {
     role: "Frontend Engineer (React/Next.js)",
     type: "Full-time",
-    location: "Remote",
-    experience: "2-4 years",
+    location: "Gurugram / India",
+    experience: "0-1 year",
     desc: "Build high-performance, SEO-optimized Next.js applications with world-class UI/UX and modern state management.",
     tech: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion", "GraphQL"],
     color: "from-orange-500 to-amber-500",
     icon: Palette
   },
-  {
-    role: "Backend Developer (Node/NestJS)",
-    type: "Full-time",
-    location: "Hybrid / Remote",
-    experience: "3-6 years",
-    desc: "Engineer scalable backend systems, REST/GraphQL APIs, authentication, payment gateways, and microservices architecture.",
-    tech: ["Node.js", "NestJS", "PostgreSQL", "Redis", "Docker", "AWS"],
-    color: "from-purple-500 to-pink-500",
-    icon: Cpu
-  },
-  {
-    role: "DevOps & Cloud Engineer",
-    type: "Full-time",
-    location: "Remote",
-    experience: "2-5 years",
-    desc: "Design and manage cloud infrastructure, CI/CD pipelines, containerization, and deployment strategies at scale.",
-    tech: ["AWS", "Docker", "Kubernetes", "Terraform", "CI/CD", "Monitoring"],
-    color: "from-green-500 to-emerald-500",
-    icon: Cloud
-  },
+  // {
+  //   role: "Backend Developer (Node/NestJS)",
+  //   type: "Full-time",
+  //   location: "Hybrid / Remote",
+  //   experience: "3-6 years",
+  //   desc: "Engineer scalable backend systems, REST/GraphQL APIs, authentication, payment gateways, and microservices architecture.",
+  //   tech: ["Node.js", "NestJS", "PostgreSQL", "Redis", "Docker", "AWS"],
+  //   color: "from-purple-500 to-pink-500",
+  //   icon: Cpu
+  // },
+  // {
+  //   role: "DevOps & Cloud Engineer",
+  //   type: "Full-time",
+  //   location: "Remote",
+  //   experience: "2-5 years",
+  //   desc: "Design and manage cloud infrastructure, CI/CD pipelines, containerization, and deployment strategies at scale.",
+  //   tech: ["AWS", "Docker", "Kubernetes", "Terraform", "CI/CD", "Monitoring"],
+  //   color: "from-green-500 to-emerald-500",
+  //   icon: Cloud
+  // },
   {
     role: "UI/UX Designer",
     type: "Full-time",
-    location: "Remote / Bangalore",
-    experience: "2-4 years",
+    location: "Gurugram / India",
+    experience: "0-1 years",
     desc: "Create beautiful, intuitive user interfaces and design systems for web and mobile applications.",
     tech: ["Figma", "Adobe XD", "Prototyping", "Design Systems", "User Research"],
     color: "from-red-500 to-orange-500",
     icon: Shield
   },
   {
-    role: "Product Manager",
-    type: "Full-time",
-    location: "Hybrid",
-    experience: "3-6 years",
-    desc: "Lead product strategy, roadmap planning, and execution for enterprise SaaS products.",
-    tech: ["Product Strategy", "Roadmapping", "Agile", "Analytics", "User Stories"],
-    color: "from-indigo-500 to-blue-500",
-    icon: TrendingUp
-  },
+    role: "Digital Marketing Intern",
+    type: "Internship",
+    location: "Gurugram / India",
+    experience: "0-1 year",
+    desc: "Assist with content creation, brand communication, basic analytics, and managing company digital presence across platforms.",
+    tech: ["Content Writing", "Social Media", "Basic Analytics", "Brand Communication"],
+    color: "from-teal-500 to-green-500",
+    icon: Megaphone
+  }
+
 ];
 
 const benefits = [
   { icon: Zap, title: "Competitive Salary", desc: "Industry-leading compensation packages" },
-  { icon: Globe, title: "Remote First", desc: "Work from anywhere with flexible hours" },
+  { icon: Globe, title: "Flexible Work Culture", desc: "Balanced schedule with flexible working hours" },
   { icon: Award, title: "Career Growth", desc: "Clear growth path and skill development" },
   { icon: Rocket, title: "Cutting-edge Tech", desc: "Work with latest technologies and tools" },
   { icon: Users, title: "Great Culture", desc: "Collaborative and supportive team environment" },
-  { icon: Heart, title: "Health Benefits", desc: "Comprehensive health insurance coverage" },
+  { icon: Book, title: "Learning Budget", desc: "Yearly budget for courses, tools, and certifications" },
 ];
 
 const stats = [
-  { value: "50+", label: "Team Members", icon: Users, color: "text-blue-400" },
-  { value: "20+", label: "Countries", icon: Globe, color: "text-orange-400" },
+  { value: "25+", label: "Team Members", icon: Users, color: "text-blue-400" },
+  { value: "2+", label: "Countries", icon: Globe, color: "text-orange-400" },
   { value: "4.8★", label: "Glassdoor", icon: Award, color: "text-purple-400" },
   { value: "Flexible", label: "Work Hours", icon: Calendar, color: "text-green-400" },
 ];
@@ -133,7 +136,7 @@ export default function CareersContent() {
         </h1>
 
         <p className="text-xl text-white/70 max-w-3xl mx-auto">
-          Join a team of passionate engineers and innovators building digital solutions 
+          Join a team of passionate engineers and innovators building digital solutions
           that transform businesses and impact millions of users worldwide.
         </p>
       </motion.div>
@@ -400,20 +403,20 @@ export default function CareersContent() {
           </h2>
 
           <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
-            Don't see the perfect role? We're always looking for talented individuals. 
+            Don't see the perfect role? We're always looking for talented individuals.
             Send us your resume and let's explore opportunities together.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
 
             <Link
-              href="mailto:careers@coderlala.com"
+              href="mailto:salman.nizam@coderlala.com"
               className="group relative px-8 py-4 rounded-xl text-white font-semibold 
                 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800
                 hover:scale-[1.02] hover:shadow-2xl transition-all flex items-center gap-3"
             >
               <Mail className="w-5 h-5" />
-              careers@coderlala.com
+              salman.nizam@coderlala.com
             </Link>
 
             <div className="flex gap-4">
@@ -440,7 +443,7 @@ export default function CareersContent() {
 
           <div className="mt-12 pt-8 border-t border-white/10">
             <p className="text-sm text-white/60">
-              <span className="font-semibold text-white">Note:</span> We respond to all applications within 3–5 business days. 
+              <span className="font-semibold text-white">Note:</span> We respond to all applications within 3–5 business days.
               Feel free to follow up if you haven’t heard back.
             </p>
           </div>
