@@ -6,7 +6,7 @@ import { ArrowRight, Sparkles, Rocket, Zap, Target, Users } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 mt-20 md:mt-10 lg:mt-0">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 mt-20 md:mt-20 lg:mt-20 xl:mt-0">
       
       {/* Enhanced Background Effects */}
       <div className="absolute inset-0 -z-10 pointer-events-none">

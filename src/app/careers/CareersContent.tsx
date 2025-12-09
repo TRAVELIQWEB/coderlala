@@ -101,7 +101,7 @@ const benefits = [
 ];
 
 const stats = [
-  { value: "25+", label: "Team Members", icon: Users, color: "text-blue-400" },
+  { value: "12+", label: "Team Members", icon: Users, color: "text-blue-400" },
   { value: "2+", label: "Countries", icon: Globe, color: "text-orange-400" },
   { value: "4.8★", label: "Glassdoor", icon: Award, color: "text-purple-400" },
   { value: "Flexible", label: "Work Hours", icon: Calendar, color: "text-green-400" },

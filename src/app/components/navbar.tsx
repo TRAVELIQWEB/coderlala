@@ -34,7 +34,7 @@ export default function EnhancedNavbar() {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
         ${scrolled
-          ? "dark:bg-black/80 backdrop-blur-xl shadow-lg"
+          ? "dark:bg-black/30 backdrop-blur-xl shadow-lg"
           : "bg-transparent"
         }
       `}
