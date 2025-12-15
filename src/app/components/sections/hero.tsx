@@ -77,15 +77,15 @@ export default function Hero() {
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold leading-tight sm:leading-[1.15]"
+                className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold leading-tight sm:leading-[1.15]"
               >
                 <span className="block">
                   Best {" "}
-                  <span className="relative">
+                 
                     <span className="text-orange-500">
                       Web, App & Software
                     </span>
-                  </span>
+                  
                 </span>
                 <motion.span
                   initial={{ y: 40, opacity: 0 }}

@@ -35,7 +35,7 @@ const jobs = [
     experience: "0-1 year",
     desc: "Lead development of production-grade SaaS platforms, APIs, microservices, and modern UIs using cutting-edge technologies.",
     tech: ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "AWS"],
-    color: "from-blue-500 to-cyan-500",
+    color: "bg-blue-500 ",
     icon: Code2
   },
   {
@@ -45,7 +45,7 @@ const jobs = [
     experience: "0-1 year",
     desc: "Build high-performance, SEO-optimized Next.js applications with world-class UI/UX and modern state management.",
     tech: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion", "GraphQL"],
-    color: "from-orange-500 to-amber-500",
+    color: "bg-orange-500 ",
     icon: Palette
   },
   // {
@@ -75,7 +75,7 @@ const jobs = [
     experience: "0-1 years",
     desc: "Create beautiful, intuitive user interfaces and design systems for web and mobile applications.",
     tech: ["Figma", "Adobe XD", "Prototyping", "Design Systems", "User Research"],
-    color: "from-red-500 to-orange-500",
+    color: "bg-red-500 ",
     icon: Shield
   },
   {
@@ -85,7 +85,7 @@ const jobs = [
     experience: "0-1 year",
     desc: "Assist with content creation, brand communication, basic analytics, and managing company digital presence across platforms.",
     tech: ["Content Writing", "Social Media", "Basic Analytics", "Brand Communication"],
-    color: "from-teal-500 to-green-500",
+    color: "bg-teal-500 ",
     icon: Megaphone
   }
 
@@ -126,12 +126,13 @@ export default function CareersContent() {
           <span className="text-sm font-medium">Join Our Team</span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-100">
+       
+         <h1 className="text-5xl md:text-7xl font-bold mb-6">
+          <span className="text-transparent bg-clip-text bg-blue-500">
             Build the Future
           </span>
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
-            With Us
+          <span className="block text-transparent bg-clip-text bg-orange-500">
+             With Us
           </span>
         </h1>
 
@@ -171,8 +172,9 @@ export default function CareersContent() {
         className="mb-32"
       >
         <div className="text-center mb-12">
+        
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
+            <span className="text-transparent bg-clip-text bg-orange-500">
               Why Join CoderLala?
             </span>
           </h2>
@@ -211,8 +213,9 @@ export default function CareersContent() {
         className="mb-20"
       >
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
+          
+           <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="text-transparent bg-clip-text bg-orange-500">
               Featured Role
             </span>
           </h2>
@@ -232,17 +235,17 @@ export default function CareersContent() {
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <h3 className="text-3xl font-bold mb-2">{jobs[activeJob].role}</h3>
-                    <div className="flex flex-wrap gap-4 text-sm text-white/60">
-                      <div className="flex items-center gap-2">
-                        <Briefcase className="w-4 h-4" />
+                    <div className="flex flex-wrap gap-4 text-sm ">
+                      <div className="flex items-center gap-2 ">
+                        <Briefcase className="w-4 h-4 "  />
                         {jobs[activeJob].type}
                       </div>
                       <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" />
+                        <MapPin className="w-4 h-4 "  />
                         {jobs[activeJob].location}
                       </div>
                       <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
+                        <Calendar className="w-4 h-4 " />
                         {jobs[activeJob].experience}
                       </div>
                     </div>
@@ -251,7 +254,7 @@ export default function CareersContent() {
                   <div className={`p-4 rounded-xl bg-gradient-to-br ${jobs[activeJob].color}/20`}>
                     {(() => {
                       const IconComponent = jobs[activeJob].icon;
-                      return <IconComponent className="w-8 h-8" />;
+                      return <IconComponent className="w-8 h-8 !text-white" />;
                     })()}
                   </div>
                 </div>
@@ -275,24 +278,24 @@ export default function CareersContent() {
                   <Link
                     href={`/careers/apply?role=${encodeURIComponent(jobs[activeJob].role)}`}
                     className="group relative px-8 py-4 rounded-xl text-white font-semibold 
-                      bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800
-                      hover:from-blue-700 hover:via-blue-800 hover:to-blue-900
+                      bg-gradient-to-r from-blue-500  to-indigo-600
+                      hover:from-blue-600  hover:to-indigo-700
                       transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                       flex items-center justify-center gap-3"
                   >
-                    <span className="relative">Apply Now</span>
+                    <span className="relative !text-white">Apply Now</span>
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
 
                   <Link
                     href="/contact"
-                    className="group relative px-8 py-4 rounded-xl text-white font-semibold 
-                      bg-gradient-to-r from-orange-600 via-orange-700 to-orange-800
-                      hover:from-orange-700 hover:via-orange-800 hover:to-orange-900
+                    className="group relative px-8 py-4 rounded-xl !text-white font-semibold 
+                      bg-gradient-to-r from-orange-500  to-orange-600
+                      hover:from-orange-600  hover:to-orange-700
                       transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                       flex items-center justify-center gap-3"
                   >
-                    <span className="relative">Learn More</span>
+                    <span className="relative !text-white">Learn More</span>
                     <Mail className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
@@ -309,7 +312,7 @@ export default function CareersContent() {
                         key={i}
                         onClick={() => setActiveJob(i)}
                         className={`w-full text-left p-4 rounded-xl transition-all 
-                          ${i === activeJob ? "bg-white/10" : "bg-white/5 hover:bg-white/10"}`}
+                          ${i === activeJob ? "bg-gray-200/50" : "!bg-gray-200/20 hover:!bg-gray-200/30"}`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
@@ -319,7 +322,7 @@ export default function CareersContent() {
                             })()}
                             <div>
                               <div className="font-medium">{job.role}</div>
-                              <div className="text-sm text-white/60 mt-1">
+                              <div className="text-sm  mt-1">
                                 {job.type} • {job.location}
                               </div>
                             </div>
@@ -350,9 +353,10 @@ export default function CareersContent() {
         className="mb-32"
       >
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
-              Our Hiring Process
+         
+           <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="text-transparent bg-clip-text bg-orange-500">
+               Our Hiring Process
             </span>
           </h2>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
@@ -375,7 +379,7 @@ export default function CareersContent() {
               </div>
 
               <h4 className="text-lg font-semibold mb-3">{item.title}</h4>
-              <p className="text-sm text-white/60">{item.desc}</p>
+              <p className="text-sm ">{item.desc}</p>
 
               {i < 3 && (
                 <div className="hidden md:block absolute top-8 left-3/4 w-full h-px 
@@ -396,8 +400,9 @@ export default function CareersContent() {
         className="text-center"
       >
         <div className="glass-card p-12 rounded-3xl backdrop-blur-xl border border-white/10 max-w-4xl mx-auto">
+         
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
+            <span className="text-transparent bg-clip-text bg-orange-500">
               Ready to Join Our Team?
             </span>
           </h2>
@@ -411,7 +416,7 @@ export default function CareersContent() {
 
             <Link
               href="mailto:salman.nizam@coderlala.com"
-              className="group relative px-8 py-4 rounded-xl text-white font-semibold 
+              className="group relative px-8 py-4 rounded-xl !text-white font-semibold 
                 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800
                 hover:scale-[1.02] hover:shadow-2xl transition-all flex items-center gap-3"
             >

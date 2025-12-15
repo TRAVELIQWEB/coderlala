@@ -204,7 +204,7 @@ export default function ServicesOverview() {
             <Code2 className="w-3 h-3 sm:w-4 sm:h-4 text-gray-800 dark:text-white" />
             <span className="text-xs sm:text-sm font-medium text-gray-800 dark:text-white">Our Expertise</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
+          <h2 className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400">Building Powerful</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600 dark:from-orange-400 dark:to-red-400">Digital Products</span>
           </h2>

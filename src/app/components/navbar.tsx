@@ -115,7 +115,7 @@ export default function EnhancedNavbar() {
                   key={item.name}
                   href={item.path}
                   className={`
-                    relative text-sm font-medium transition-colors group text-[16px]
+                    relative text-sm font-medium transition-colors group 
                     ${isActive
                       ? "text-blue-600 dark:text-blue-400"
                       : isDarkMode 
