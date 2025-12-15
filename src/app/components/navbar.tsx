@@ -115,7 +115,7 @@ export default function EnhancedNavbar() {
                   key={item.name}
                   href={item.path}
                   className={`
-                    relative text-sm font-medium transition-colors group text-[18px]
+                    relative text-sm font-medium transition-colors group text-[16px]
                     ${isActive
                       ? "text-blue-600 dark:text-blue-400"
                       : isDarkMode 
@@ -208,7 +208,7 @@ export default function EnhancedNavbar() {
                 }}
               >
                 <div className="flex items-center justify-between">
-                  <div className="w-32 h-8">
+                  <div className="w-28 h-6 ">
                     {!isDarkMode ? (
                       <img 
                         src="/logo/CoderLalaLogoLight.svg" 
