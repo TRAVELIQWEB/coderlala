@@ -306,9 +306,9 @@ export default function ServicesOverview() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: i * 0.05 }}
                   whileHover={{ scale: 1.05, y: -2 }}
-                  className="group relative"
+                  className="group relative "
                 >
-                  <div className="px-4 py-3 sm:px-5 sm:py-4 rounded-xl bg-white border border-white/90 backdrop-blur-sm hover:bg-white hover:border-white/30 transition-all duration-300 flex flex-col items-center justify-center min-w-[100px] sm:min-w-[120px] gap-2">
+                  <div className="px-4 py-3 sm:px-5 sm:py-4 rounded-xl glass-card backdrop-blur-sm hover:bg-white hover:border-white/30 transition-all duration-300 flex flex-col items-center justify-center min-w-[100px] sm:min-w-[120px] gap-2">
                     <Icon className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 ${tech.color} group-hover:scale-110 transition-transform`} />
                     <span className="text-xs sm:text-sm font-medium  text-center">{tech.name}</span>
                   </div>
