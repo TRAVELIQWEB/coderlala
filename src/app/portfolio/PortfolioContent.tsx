@@ -31,7 +31,7 @@ const projects = [
     desc: "A comprehensive bus, rail, and air booking ecosystem handling 50,000+ daily transactions with real-time APIs, multi-provider integration, and digital wallet system.",
     tech: ["Next.js", "NestJS", "MongoDB", "Redis", "Docker", "AWS"],
     icon: Globe,
-    color: "from-blue-500 to-cyan-500",
+    color: "bg-blue-500 ",
     stats: "350% Revenue Growth",
     liveUrl: "#",
     githubUrl: null
@@ -42,7 +42,7 @@ const projects = [
     desc: "Scalable multi-tenant billing system with automated invoicing, usage-based pricing, subscription management, and real-time analytics dashboard.",
     tech: ["React", "Node.js", "PostgreSQL", "BullMQ", "Stripe", "WebSockets"],
     icon: BarChart,
-    color: "from-orange-500 to-amber-500",
+    color: "bg-orange-500 ",
     stats: "Zero Downtime",
     liveUrl: "https://wallet.saarthii.co.in",
     githubUrl: null
@@ -53,7 +53,7 @@ const projects = [
     desc: "Full CI/CD pipeline with zero-downtime deployments, auto-scaling, server orchestration, and comprehensive monitoring for enterprise applications.",
     tech: ["AWS", "Docker", "Kubernetes", "Terraform", "GitHub Actions", "Prometheus"],
     icon: Cloud,
-    color: "from-purple-500 to-pink-500",
+    color: "bg-purple-500 ",
     stats: "80% Faster Deployments",
     liveUrl: null,
     githubUrl: null
@@ -64,7 +64,7 @@ const projects = [
     desc: "Smart OCR and NLP pipeline extracting structured data from invoices, IDs, and financial documents with 99.5% accuracy and real-time processing.",
     tech: ["Python", "OpenCV", "TensorFlow", "FastAPI", "Redis", "Docker"],
     icon: Brain,
-    color: "from-green-500 to-emerald-500",
+    color: "bg-green-500 ",
     stats: "99.5% Accuracy",
     liveUrl: "https://ai-docs.example.com",
     githubUrl: null
@@ -75,7 +75,7 @@ const projects = [
     desc: "High-performance mobile shopping platform with AR product previews, instant checkout, and personalized recommendations for 100K+ monthly users.",
     tech: ["React Native", "Node.js", "MongoDB", "Redis", "AWS", "Firebase"],
     icon: ShoppingCart,
-    color: "from-red-500 to-orange-500",
+    color: "bg-red-500 ",
     stats: "100K+ Monthly Users",
     liveUrl: null,
     githubUrl: null
@@ -86,7 +86,7 @@ const projects = [
     desc: "Bank-grade security platform with real-time fraud detection, transaction monitoring, and compliance automation for financial institutions.",
     tech: ["Next.js", "Python", "PostgreSQL", "Redis", "Docker", "AWS"],
     icon: Shield,
-    color: "from-indigo-500 to-blue-500",
+    color: "bg-indigo-500 ",
     stats: "Bank-Grade Security",
     liveUrl: null,
     githubUrl: null
@@ -97,7 +97,7 @@ const projects = [
     desc: "HIPAA-compliant telemedicine platform with video consultations, EHR integration, appointment scheduling, and prescription management.",
     tech: ["React", "Node.js", "PostgreSQL", "WebRTC", "Docker", "AWS"],
     icon: Users,
-    color: "from-cyan-500 to-blue-500",
+    color: "bg-cyan-500 ",
     stats: "10K+ Daily Consultations",
     liveUrl: null,
     githubUrl: null
@@ -108,7 +108,7 @@ const projects = [
     desc: "Enterprise analytics platform with real-time data visualization, custom reporting, and predictive analytics for business intelligence.",
     tech: ["React", "Node.js", "MongoDB", "WebSockets", "D3.js", "AWS"],
     icon: TrendingUp,
-    color: "from-yellow-500 to-amber-500",
+    color: "bg-yellow-500 ",
     stats: "Real-time Insights",
     liveUrl: null,
     githubUrl: null
@@ -154,10 +154,10 @@ export default function PortfolioContent() {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-100">
+          <span className="text-transparent bg-clip-text bg-blue-500">
             Engineering
           </span>
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
+          <span className="block text-transparent bg-clip-text bg-orange-500">
             Excellence
           </span>
         </h1>
@@ -182,7 +182,7 @@ export default function PortfolioContent() {
             return (
               <div key={i} className="text-center p-4">
                 <div className={`inline-flex p-3 rounded-xl bg-white/5 mb-4 ${stat.color}`}>
-                  <IconComponent className="w-6 h-6" />
+                  <IconComponent className="w-8 h-8" />
                 </div>
                 <div className="text-3xl font-bold mb-2">{stat.value}</div>
                 <div className="text-sm text-white/70">{stat.label}</div>
@@ -205,7 +205,7 @@ export default function PortfolioContent() {
             <Filter className="w-5 h-5 text-blue-300" />
             <h3 className="text-2xl font-bold">Filter by Category</h3>
           </div>
-          <div className="text-sm text-white/60">
+          <div className="text-sm ">
             {filteredProjects.length} project{filteredProjects.length !== 1 ? "s" : ""} found
           </div>
         </div>
@@ -219,7 +219,7 @@ export default function PortfolioContent() {
                 onClick={() => setActiveCategory(category.id)}
                 className={`group flex items-center gap-3 px-6 py-3 rounded-xl transition-all ${
                   activeCategory === category.id
-                    ? "bg-gradient-to-r from-blue-600 to-blue-800 text-white"
+                    ? "bg-gradient-to-r from-blue-500 to-indigo-600 !text-white"
                     : "bg-white/5 hover:bg-white/10 border border-white/10"
                 }`}
               >
@@ -257,15 +257,15 @@ export default function PortfolioContent() {
             >
               {/* Glow */}
               <div
-                className={`absolute -inset-0.5 bg-gradient-to-r ${project.color} rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`}
+                className={`absolute -inset-0.5  ${project.color} rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`}
               />
 
               {/* Card */}
-              <div className="relative glass-card p-6 rounded-3xl backdrop-blur-xl border border-white/10 h-full">
+              <div className="relative glass-card  p-6 rounded-3xl backdrop-blur-xl border border-white/10 h-full">
                 {/* Icon + Category */}
                 <div className="flex items-start justify-between mb-6">
-                  <div className={`p-4 rounded-xl bg-gradient-to-br ${project.color}/20`}>
-                    <IconComponent className="w-6 h-6" />
+                  <div className={`p-4 rounded-xl ${project.color}/20`}>
+                    <IconComponent className="w-8 h-8 !text-white" />
                   </div>
                   <div className="text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10 capitalize">
                     {project.category}
@@ -340,11 +340,11 @@ export default function PortfolioContent() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: hoveredProject === index ? 1 : 0 }}
-                  className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-3xl flex items-end justify-center p-6"
+                  className="absolute inset-0 to-transparent rounded-3xl flex items-end justify-center p-6"
                 >
                   <Link
                     href="/contact"
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-orange-600 text-white font-semibold hover:scale-105 transition-transform"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-orange-600 !text-white font-semibold hover:scale-105 transition-transform"
                   >
                     Build Similar Project
                   </Link>
@@ -364,10 +364,8 @@ export default function PortfolioContent() {
         className="mb-32"
       >
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
-              Our Development Process
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6"> 
+            <span className="text-transparent bg-clip-text bg-orange-500"> All Our Services </span> 
           </h2>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
             Every project follows our proven methodology to ensure quality, timeliness, and client satisfaction.
@@ -386,7 +384,7 @@ export default function PortfolioContent() {
                 <span className="text-2xl font-bold text-white">{item.step}</span>
               </div>
               <h4 className="text-lg font-semibold mb-3">{item.title}</h4>
-              <p className="text-sm text-white/60">{item.desc}</p>
+              <p className="text-sm ">{item.desc}</p>
 
               {i < 3 && (
                 <div className="hidden md:block absolute top-8 left-3/4 w-full h-px bg-gradient-to-r from-blue-500/20 via-orange-500/20 to-transparent" />
@@ -419,27 +417,27 @@ export default function PortfolioContent() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="group relative px-8 py-4 rounded-xl text-white font-semibold 
-                bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800
-                hover:from-blue-700 hover:via-blue-800 hover:to-blue-900
+              className="group relative px-8 py-4 rounded-xl !text-white font-semibold 
+                bg-gradient-to-r from-blue-500  to-indigo-600
+                hover:from-blue-600  hover:to-blue-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                 shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)]
                 flex items-center justify-center gap-3 overflow-hidden"
             >
-              <span className="relative">Start Your Project</span>
+              <span className="relative !text-white">Start Your Project</span>
               <Zap className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
 
             <Link
               href="/services"
-              className="group relative px-8 py-4 rounded-xl text-white font-semibold 
-                bg-gradient-to-r from-orange-600 via-orange-700 to-orange-800
-                hover:from-orange-700 hover:via-orange-800 hover:to-orange-900
+              className="group relative px-8 py-4 rounded-xl !text-white font-semibold 
+                bg-gradient-to-r from-orange-500  to-orange-600
+                hover:from-orange-600  hover:to-orange-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                 shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)]
                 flex items-center justify-center gap-3 overflow-hidden"
             >
-              <span className="relative">View Our Services</span>
+              <span className="relative !text-white">View Our Services</span>
               <Eye className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

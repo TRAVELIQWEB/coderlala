@@ -186,7 +186,7 @@ export default function Testimonials() {
             <span className="text-xs md:text-sm font-medium">Client Success Stories</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
+          <h2 className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6">
             <span className="text-transparent bg-clip-text bg-blue-500"> Trusted by </span>
             <span className="block text-transparent bg-clip-text bg-orange-500"> Industry Leaders </span>
           </h2>

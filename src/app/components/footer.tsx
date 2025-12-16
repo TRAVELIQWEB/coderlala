@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { FaLinkedin, FaGithub, FaTwitter, FaInstagram, FaEnvelope,FaFacebook,FaYoutube } from "react-icons/fa";
 import { SiHashnode } from "react-icons/si";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+    const [isDarkMode, setIsDarkMode] = useState(false);
   
   return (
     <footer className="border-t border-white/10 mt-16 md:mt-20 py-10 md:py-12 px-4 sm:px-6 lg:px-8">
@@ -14,9 +18,25 @@ export default function Footer() {
           {/* Branding Column */}
           <div className="space-y-4 md:space-y-5">
             <div>
-              <h3 className="font-semibold text-lg md:text-2xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                CoderLala Technologies
-              </h3>
+               <Link href="/" className="flex items-center group">
+            <div className="relative w-[200px] h-[60px]">
+              {!isDarkMode ? (
+                <img 
+                 src="/logo/CoderLalaLogoLight.svg" 
+                  alt="CoderLalaLogo Light"
+                  className="w-full h-full object-contain"
+                  key="dark-logo"
+                />
+              ) : (
+                <img 
+                 src="/logo/CoderLalaLogoDark.svg" 
+                  alt="CoderLalaLogo Dark"
+                  className="w-full h-full object-contain"
+                  key="light-logo"
+                />
+              )}
+            </div>
+          </Link>
               <p className="mt-3 md:mt-4 text-white/70 text-sm md:text-base leading-relaxed">
                 Building next-generation digital products with modern engineering and cutting-edge technology.
               </p>

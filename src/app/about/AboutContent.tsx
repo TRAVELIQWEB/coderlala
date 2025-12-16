@@ -139,21 +139,22 @@ export default function AboutContent() {
       >
         <div className="about-hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-6">
           <Code2 className="w-4 h-4 text-blue-500 dark:text-blue-300" />
-          <span className="text-sm font-medium text-gray-700 dark:text-white/80">
+          <span className="text-sm font-medium ">
             Our Story
           </span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          <span className="about-hero-title-1 text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200">
+<h1 className="text-5xl md:text-7xl font-bold mb-6">
+          <span className="text-transparent bg-clip-text bg-blue-500">
             Building the Future
           </span>
-          <span className="about-hero-title-2 block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-orange-500 dark:from-blue-400 dark:to-orange-400">
+          <span className="block text-transparent bg-clip-text bg-orange-500">
             of Technology
           </span>
-        </h1>
+</h1>
+     
 
-        <p className="about-hero-desc text-xl text-gray-700 dark:text-white/70 max-w-3xl mx-auto">
+        <p className="about-hero-desc text-xl max-w-3xl mx-auto">
           We are a team of passionate engineers, designers, and innovators dedicated to
           transforming businesses through cutting-edge digital solutions.
         </p>
@@ -176,14 +177,14 @@ export default function AboutContent() {
           ].map((stat, i) => (
             <div key={i} className="text-center p-4">
               <div className={`inline-flex p-3 rounded-xl bg-gray-200/40 dark:bg-white/5 mb-4 ${stat.color}`}>
-                <stat.icon className="w-6 h-6" />
+                <stat.icon className="w-12 h-12" />
               </div>
 
-              <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              <div className="text-3xl font-bold mb-2">
                 {stat.value}
               </div>
 
-              <div className="text-sm text-gray-600 dark:text-white/70">{stat.label}</div>
+              <div className="text-sm ">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -267,13 +268,14 @@ export default function AboutContent() {
         className="mb-32"
       >
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-orange-600 dark:from-blue-400 dark:to-orange-400">
+          
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="text-transparent bg-clip-text bg-orange-500">
               Our Core Values
             </span>
           </h2>
 
-          <p className="text-xl text-gray-700 dark:text-white/70 max-w-3xl mx-auto">
+          <p className="text-xl  max-w-3xl mx-auto">
             These principles guide everything we do and define who we are as a company.
           </p>
         </div>
@@ -312,13 +314,14 @@ export default function AboutContent() {
         className="mb-32"
       >
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-orange-600 dark:from-blue-400 dark:to-orange-400">
+          
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="text-transparent bg-clip-text bg-orange-500">
               Our Journey
             </span>
           </h2>
 
-          <p className="text-xl text-gray-700 dark:text-white/70 max-w-3xl mx-auto">
+          <p className="text-xl max-w-3xl mx-auto">
             From humble beginnings to becoming a trusted technology partner for businesses worldwide.
           </p>
         </div>
@@ -340,7 +343,7 @@ export default function AboutContent() {
                 <div className="glass-card p-6 rounded-2xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/10">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-lg bg-gray-200/50 dark:bg-white/10">
-                      <item.icon className="w-5 h-5 text-gray-700 dark:text-white" />
+                      <item.icon className="w-5 h-5 " />
                     </div>
                     <span className="text-sm font-semibold text-gray-600 dark:text-white/60">
                       {item.year}
@@ -376,13 +379,14 @@ export default function AboutContent() {
         transition={{ duration: 0.6 }}
         className="text-center"
       >
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-orange-600 dark:from-blue-400 dark:to-orange-400">
-            Meet Our Team
-          </span>
-        </h2>
-
-        <p className="text-xl text-gray-700 dark:text-white/70 max-w-3xl mx-auto mb-12">
+       
+        
+<h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="text-transparent bg-clip-text bg-orange-500">
+               Meet Our Team
+            </span>
+          </h2>
+        <p className="text-xl max-w-3xl mx-auto mb-12">
           A diverse team of passionate engineers, designers, and innovators dedicated to excellence.
         </p>
 
@@ -390,14 +394,14 @@ export default function AboutContent() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-8">
             {TeamMembers.map((data, i) => (
               <div key={i} className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-200/70 dark:bg-white/10 flex items-center justify-center">
-                  <Users className="w-8 h-8 text-gray-600 dark:text-white/40" />
+                <div className="w-20 h-20 mx-auto mb-4  rounded-full bg-gray-500/70 dark:bg-white/10 flex items-center justify-center">
+                  <Users className="w-8 h-8 " />
                 </div>
 
-                <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="text-sm font-semibold ">
                   {data?.name}
                 </div>
-                <div className="text-xs text-gray-700 dark:text-white/60">{data?.role}</div>
+                <div className="text-xs ">{data?.role}</div>
               </div>
             ))}
           </div>
@@ -432,25 +436,25 @@ export default function AboutContent() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="group relative px-8 py-4 rounded-xl text-white font-semibold 
-                bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800
-                hover:from-blue-700 hover:via-blue-800 hover:to-blue-900
+              className="group relative px-8 py-4 rounded-xl !text-white font-semibold 
+                bg-gradient-to-r from-blue-500 to-indigo-600 
+                hover:from-blue-600  hover:to-indigo-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                 flex items-center justify-center gap-3 overflow-hidden"
             >
-              <span className="relative">Start Your Project</span>
+              <span className="relative !text-white">Start Your Project</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
 
             <Link
               href="/portfolio"
-              className="group relative px-8 py-4 rounded-xl text-white font-semibold 
-                bg-gradient-to-r from-orange-600 via-orange-700 to-orange-800
-                hover:from-orange-700 hover:via-orange-800 hover:to-orange-900
+              className="group relative px-8 py-4 rounded-xl !text-white font-semibold 
+                bg-gradient-to-r from-orange-500  to-orange-600
+                hover:from-orange-600  hover:to-orange-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                 flex items-center justify-center gap-3 overflow-hidden"
             >
-              <span className="relative">View Our Work</span>
+              <span className="relative !text-white">View Our Work</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
