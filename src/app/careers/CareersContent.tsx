@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   Rocket,
@@ -23,7 +23,9 @@ import {
   Heart,
   ArrowRight,
   Book,
-  Megaphone
+  Megaphone,
+  ChevronRight,
+  ChevronLeft
 } from "lucide-react";
 import Link from "next/link";
 
@@ -35,7 +37,7 @@ const jobs = [
     experience: "0-1 year",
     desc: "Lead development of production-grade SaaS platforms, APIs, microservices, and modern UIs using cutting-edge technologies.",
     tech: ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "AWS"],
-    color: "bg-blue-500 ",
+    color: "bg-blue-500",
     icon: Code2
   },
   {
@@ -45,29 +47,9 @@ const jobs = [
     experience: "0-1 year",
     desc: "Build high-performance, SEO-optimized Next.js applications with world-class UI/UX and modern state management.",
     tech: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion", "GraphQL"],
-    color: "bg-orange-500 ",
+    color: "bg-orange-500",
     icon: Palette
   },
-  // {
-  //   role: "Backend Developer (Node/NestJS)",
-  //   type: "Full-time",
-  //   location: "Hybrid / Remote",
-  //   experience: "3-6 years",
-  //   desc: "Engineer scalable backend systems, REST/GraphQL APIs, authentication, payment gateways, and microservices architecture.",
-  //   tech: ["Node.js", "NestJS", "PostgreSQL", "Redis", "Docker", "AWS"],
-  //   color: "from-purple-500 to-pink-500",
-  //   icon: Cpu
-  // },
-  // {
-  //   role: "DevOps & Cloud Engineer",
-  //   type: "Full-time",
-  //   location: "Remote",
-  //   experience: "2-5 years",
-  //   desc: "Design and manage cloud infrastructure, CI/CD pipelines, containerization, and deployment strategies at scale.",
-  //   tech: ["AWS", "Docker", "Kubernetes", "Terraform", "CI/CD", "Monitoring"],
-  //   color: "from-green-500 to-emerald-500",
-  //   icon: Cloud
-  // },
   {
     role: "UI/UX Designer",
     type: "Full-time",
@@ -75,7 +57,7 @@ const jobs = [
     experience: "0-1 years",
     desc: "Create beautiful, intuitive user interfaces and design systems for web and mobile applications.",
     tech: ["Figma", "Adobe XD", "Prototyping", "Design Systems", "User Research"],
-    color: "bg-red-500 ",
+    color: "bg-red-500",
     icon: Shield
   },
   {
@@ -85,10 +67,9 @@ const jobs = [
     experience: "0-1 year",
     desc: "Assist with content creation, brand communication, basic analytics, and managing company digital presence across platforms.",
     tech: ["Content Writing", "Social Media", "Basic Analytics", "Brand Communication"],
-    color: "bg-teal-500 ",
+    color: "bg-teal-500",
     icon: Megaphone
   }
-
 ];
 
 const benefits = [
@@ -109,6 +90,20 @@ const stats = [
 
 export default function CareersContent() {
   const [activeJob, setActiveJob] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
 
   return (
     <div>
@@ -126,8 +121,7 @@ export default function CareersContent() {
           <span className="text-sm font-medium">Join Our Team</span>
         </div>
 
-       
-         <h1 className="text-5xl md:text-7xl font-bold mb-6">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6">
           <span className="text-transparent bg-clip-text bg-blue-500">
             Build the Future
           </span>
@@ -172,7 +166,6 @@ export default function CareersContent() {
         className="mb-32"
       >
         <div className="text-center mb-12">
-        
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-transparent bg-clip-text bg-orange-500">
               Why Join CoderLala?
@@ -213,8 +206,7 @@ export default function CareersContent() {
         className="mb-20"
       >
         <div className="text-center mb-12">
-          
-           <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-transparent bg-clip-text bg-orange-500">
               Featured Role
             </span>
@@ -224,37 +216,112 @@ export default function CareersContent() {
           </p>
         </div>
 
+        {/* MOBILE: Scrollable Job Selection */}
+        <div className="lg:hidden mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-bold">Select a Role</h3>
+            <div className="flex gap-2">
+              <button 
+                onClick={scrollLeft}
+                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={scrollRight}
+                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+          
+          <div className="relative">
+            <div 
+              ref={scrollContainerRef}
+              className="flex gap-3 pb-4 overflow-x-auto scrollbar-hide"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {jobs.map((job, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveJob(i)}
+                  className={`flex-shrink-0 w-64 p-4 rounded-xl border transition-all ${
+                    i === activeJob 
+                      ? "bg-white/10 border-white/30 shadow-lg" 
+                      : "bg-white/5 border-white/10 hover:bg-white/10"
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className={`p-2 rounded-lg ${job.color} bg-opacity-20 mt-1`}>
+                      {(() => {
+                        const IconComponent = job.icon;
+                        return <IconComponent className="w-5 h-5 text-white" />;
+                      })()}
+                    </div>
+                    <div className="text-left">
+                      <div className="font-semibold text-white mb-1 line-clamp-1">{job.role}</div>
+                      <div className="text-xs text-white/70 flex items-center gap-1">
+                        <span>{job.type}</span>
+                        <span>•</span>
+                        <span>{job.location}</span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+            <style jsx>{`
+              .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
+          </div>
+        </div>
+
         <div className="relative group">
           <div className={`absolute -inset-0.5 bg-gradient-to-r ${jobs[activeJob].color} rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`} />
 
           <div className="relative glass-card p-8 rounded-3xl backdrop-blur-xl border border-white/10">
             <div className="flex flex-col lg:flex-row gap-8">
-
-              {/* LEFT */}
+              {/* LEFT - Job Details */}
               <div className="lg:w-2/3">
-                <div className="flex items-start justify-between mb-6">
+                <div className="flex flex-col sm:flex-row items-start justify-between mb-6 gap-4">
                   <div>
-                    <h3 className="text-3xl font-bold mb-2">{jobs[activeJob].role}</h3>
-                    <div className="flex flex-wrap gap-4 text-sm ">
-                      <div className="flex items-center gap-2 ">
-                        <Briefcase className="w-4 h-4 "  />
-                        {jobs[activeJob].type}
+                    <div className="flex items-center gap-3 mb-4 lg:hidden">
+                      <div className={`p-3 rounded-xl ${jobs[activeJob].color} bg-opacity-20`}>
+                        {(() => {
+                          const IconComponent = jobs[activeJob].icon;
+                          return <IconComponent className="w-6 h-6 text-white" />;
+                        })()}
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-white/70">Current Role</div>
+                        <div className="text-lg font-bold text-white">{jobs[activeJob].role}</div>
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-3xl font-bold mb-2 hidden lg:block">{jobs[activeJob].role}</h3>
+                    <div className="flex flex-wrap gap-4 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Briefcase className="w-4 h-4 text-white/70" />
+                        <span className="text-white/80">{jobs[activeJob].type}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 "  />
-                        {jobs[activeJob].location}
+                        <MapPin className="w-4 h-4 text-white/70" />
+                        <span className="text-white/80">{jobs[activeJob].location}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 " />
-                        {jobs[activeJob].experience}
+                        <Calendar className="w-4 h-4 text-white/70" />
+                        <span className="text-white/80">{jobs[activeJob].experience}</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className={`p-4 rounded-xl bg-gradient-to-br ${jobs[activeJob].color}/20`}>
+                  <div className={`hidden lg:flex p-4 rounded-xl bg-gradient-to-br ${jobs[activeJob].color}/20`}>
                     {(() => {
                       const IconComponent = jobs[activeJob].icon;
-                      return <IconComponent className="w-8 h-8 !text-white" />;
+                      return <IconComponent className="w-8 h-8 text-white" />;
                     })()}
                   </div>
                 </div>
@@ -264,10 +331,10 @@ export default function CareersContent() {
                 </p>
 
                 <div className="mb-8">
-                  <h4 className="text-lg font-semibold mb-4">Tech Stack</h4>
+                  <h4 className="text-lg font-semibold mb-4 text-white">Tech Stack</h4>
                   <div className="flex flex-wrap gap-2">
                     {jobs[activeJob].tech.map((tech, i) => (
-                      <span key={i} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm">
+                      <span key={i} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-white/80">
                         {tech}
                       </span>
                     ))}
@@ -278,20 +345,20 @@ export default function CareersContent() {
                   <Link
                     href={`/careers/apply?role=${encodeURIComponent(jobs[activeJob].role)}`}
                     className="group relative px-8 py-4 rounded-xl text-white font-semibold 
-                      bg-gradient-to-r from-blue-500  to-indigo-600
-                      hover:from-blue-600  hover:to-indigo-700
+                      bg-gradient-to-r from-blue-500 to-indigo-600
+                      hover:from-blue-600 hover:to-indigo-700
                       transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                       flex items-center justify-center gap-3"
                   >
                     <span className="relative !text-white">Apply Now</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-5 h-5 !text-white group-hover:translate-x-1 transition-transform" />
                   </Link>
 
                   <Link
                     href="/contact"
                     className="group relative px-8 py-4 rounded-xl !text-white font-semibold 
-                      bg-gradient-to-r from-orange-500  to-orange-600
-                      hover:from-orange-600  hover:to-orange-700
+                      bg-gradient-to-r from-orange-500 to-orange-600
+                      hover:from-orange-600 hover:to-orange-700
                       transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                       flex items-center justify-center gap-3"
                   >
@@ -301,10 +368,10 @@ export default function CareersContent() {
                 </div>
               </div>
 
-              {/* RIGHT NAVIGATION */}
-              <div className="lg:w-1/3">
+              {/* DESKTOP: Open Positions on RIGHT SIDE */}
+              <div className="hidden lg:block lg:w-1/3">
                 <div className="glass-card p-6 rounded-2xl backdrop-blur-xl border border-white/10">
-                  <h4 className="text-lg font-semibold mb-4">Open Positions</h4>
+                  <h4 className="text-lg font-semibold mb-4 text-white">Open Positions</h4>
 
                   <div className="space-y-3">
                     {jobs.map((job, i) => (
@@ -312,17 +379,17 @@ export default function CareersContent() {
                         key={i}
                         onClick={() => setActiveJob(i)}
                         className={`w-full text-left p-4 rounded-xl transition-all 
-                          ${i === activeJob ? "bg-gray-200/50" : "!bg-gray-200/20 hover:!bg-gray-200/30"}`}
+                          ${i === activeJob ? "bg-white/10 border border-white/20" : "bg-white/5 hover:bg-white/10 border border-transparent"}`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             {(() => {
                               const IconComponent = job.icon;
-                              return <IconComponent className="w-5 h-5" />;
+                              return <IconComponent className="w-5 h-5 text-white/70" />;
                             })()}
                             <div>
-                              <div className="font-medium">{job.role}</div>
-                              <div className="text-sm  mt-1">
+                              <div className="font-medium text-white">{job.role}</div>
+                              <div className="text-sm text-white/60 mt-1">
                                 {job.type} • {job.location}
                               </div>
                             </div>
@@ -335,10 +402,8 @@ export default function CareersContent() {
                       </button>
                     ))}
                   </div>
-
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -353,8 +418,7 @@ export default function CareersContent() {
         className="mb-32"
       >
         <div className="text-center mb-12">
-         
-           <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-transparent bg-clip-text bg-orange-500">
                Our Hiring Process
             </span>
@@ -378,8 +442,8 @@ export default function CareersContent() {
                 <span className="text-2xl font-bold text-white">{item.step}</span>
               </div>
 
-              <h4 className="text-lg font-semibold mb-3">{item.title}</h4>
-              <p className="text-sm ">{item.desc}</p>
+              <h4 className="text-lg font-semibold mb-3 text-white">{item.title}</h4>
+              <p className="text-sm text-white/70">{item.desc}</p>
 
               {i < 3 && (
                 <div className="hidden md:block absolute top-8 left-3/4 w-full h-px 
@@ -391,70 +455,111 @@ export default function CareersContent() {
         </div>
       </motion.div>
 
-      {/* FINAL CTA */}
-      <motion.div
+      {/* FINAL CTA - FIXED */}
+       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         className="text-center"
       >
-        <div className="glass-card p-12 rounded-3xl backdrop-blur-xl border border-white/10 max-w-4xl mx-auto">
-         
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-orange-500">
-              Ready to Join Our Team?
-            </span>
-          </h2>
+        <div className="relative group">
+          {/* Glow background */}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/20 to-orange-500/20 rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
 
-          <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
-            Don't see the perfect role? We're always looking for talented individuals.
-            Send us your resume and let's explore opportunities together.
-          </p>
+          {/* Card */}
+          <div className="relative glass-card p-6 sm:p-10 md:p-12 rounded-3xl backdrop-blur-xl border border-white/10 max-w-4xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
+                Ready to Join Our Team?
+              </span>
+            </h2>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <p className="text-base sm:text-lg md:text-xl text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Don't see the perfect role? We're always looking for talented individuals.
+              Send us your resume and let's explore opportunities together.
+            </p>
 
-            <Link
-              href="mailto:salman.nizam@coderlala.com"
-              className="group relative px-8 py-4 rounded-xl !text-white font-semibold 
-                bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800
-                hover:scale-[1.02] hover:shadow-2xl transition-all flex items-center gap-3"
-            >
-              <Mail className="w-5 h-5" />
-              salman.nizam@coderlala.com
-            </Link>
+            {/* CTA buttons */}
+            <div className="flex flex-col items-center gap-6 mb-10">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+                {/* Mail button */}
+                <Link
+                  href="mailto:salman.nizam@coderlala.com"
+                  className="group relative
+                    px-6 py-3 sm:px-8 sm:py-4
+                    rounded-xl !text-white font-semibold
+                    bg-gradient-to-r from-blue-600 to-blue-700
+                    hover:from-blue-700 hover:to-blue-800
+                    transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
+                    flex items-center justify-center gap-3
+                    w-full sm:w-auto sm:min-w-[280px]"
+                >
+                  <Mail className="w-5 h-5 shrink-0" />
+                  <span className="break-all text-center !text-white">
+                    salman.nizam@coderlala.com
+                  </span>
+                </Link>
 
-            <div className="flex gap-4">
-              <a
-                href="https://linkedin.com/company/coderlala"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20 transition-all"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
+                {/* Contact form button */}
+                <Link
+                  href="/contact"
+                  className="group relative
+                    px-6 py-3 sm:px-8 sm:py-4
+                    rounded-xl !text-white font-semibold
+                    bg-gradient-to-r from-orange-600 to-orange-700
+                    hover:from-orange-700 hover:to-orange-800
+                    transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
+                    flex items-center justify-center gap-3
+                    w-full sm:w-auto sm:min-w-[280px]"
+                >
+                  <ArrowRight className="w-5 h-5 shrink-0 " />
+                  <span className="!text-white">Contact Form</span>
+                </Link>
+              </div>
 
-              <a
-                href="https://github.com/coderlala"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20 transition-all"
-              >
-                <Github className="w-5 h-5" />
-              </a>
+              {/* Social icons */}
+              <div className="flex gap-4 mt-4">
+                <a
+                  href="https://linkedin.com/company/coderlala"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative p-4 rounded-xl bg-white/5 border border-white/10 
+                    hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                >
+                  <Linkedin className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+                  
+                </a>
+
+                <a
+                  href="https://github.com/coderlala"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative p-4 rounded-xl bg-white/5 border border-white/10 
+                    hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                >
+                  <Github className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+                 
+                </a>
+              </div>
             </div>
 
+            {/* Footer note */}
+            <div className="pt-8 border-t border-white/10">
+              <div className="flex items-start gap-3 max-w-2xl mx-auto">
+                <div className="p-2 rounded-lg bg-blue-500/20 shrink-0">
+                  <Heart className="w-5 h-5 text-blue-300" />
+                </div>
+                <p className="text-sm text-white/60 text-left">
+                  <span className="font-semibold text-white">We respond to all applications</span>{" "}
+                  within 3–5 business days. Feel free to follow up if you haven't heard back from us.
+                </p>
+              </div>
+            </div>
           </div>
-
-          <div className="mt-12 pt-8 border-t border-white/10">
-            <p className="text-sm text-white/60">
-              <span className="font-semibold text-white">Note:</span> We respond to all applications within 3–5 business days.
-              Feel free to follow up if you haven’t heard back.
-            </p>
-          </div>
-
         </div>
       </motion.div>
+
 
     </div>
   );

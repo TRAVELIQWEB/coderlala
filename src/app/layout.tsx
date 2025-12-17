@@ -1,9 +1,9 @@
 import "../../styles/globals.css";
 import { ThemeProvider } from "./components/theme-provider";
-
 import Footer from "./components/footer";
 import GalaxyBackground from "./components/galaxy-background";
 import NavbarClientWrapper from "./components/navbar-client-wrapper";
+import GalaxyBackgroundNew from "./components/GalaxyBackgroundNew";
 
 export const metadata = {
   metadataBase: new URL("https://coderlala.com"),
@@ -96,6 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <div className="fixed inset-0 -z-20">
             <GalaxyBackground />
+             {/* <GalaxyBackgroundNew /> */}
           </div>
           <NavbarClientWrapper />
           <main className="min-h-screen">{children}</main>
