@@ -12,6 +12,7 @@ const navItems = [
   { name: "Services", path: "/services" },
   { name: "Portfolio", path: "/portfolio" },
   { name: "About", path: "/about" },
+  { name: "Our Team", path: "/our-team" },
   { name: "Careers", path: "/careers" },
   { name: "Contact", path: "/contact" },
 ];
@@ -82,21 +83,21 @@ export default function EnhancedNavbar() {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${getNavbarBackground()}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20">
 
-          {/* LOGO */}
+          {/* LOGO - RESPONSIVE SIZING */}
           <Link href="/" className="flex items-center group">
-            <div className="relative w-[200px] h-[60px]">
+            <div className="relative w-28 h-8 sm:w-36 sm:h-10 md:w-[180px] md:h-[55px] lg:w-[200px] lg:h-[60px]">
               {!isDarkMode ? (
                 <img 
-                 src="/logo/CoderLalaLogoLight.svg" 
+                  src="/logo/CoderLalaLogoLight.svg" 
                   alt="CoderLalaLogo Light"
                   className="w-full h-full object-contain"
                   key="dark-logo"
                 />
               ) : (
                 <img 
-                 src="/logo/CoderLalaLogoDark.svg" 
+                  src="/logo/CoderLalaLogoDark.svg" 
                   alt="CoderLalaLogo Dark"
                   className="w-full h-full object-contain"
                   key="light-logo"
@@ -208,7 +209,8 @@ export default function EnhancedNavbar() {
                 }}
               >
                 <div className="flex items-center justify-between">
-                  <div className="w-28 h-6 ">
+                  {/* Mobile Menu Logo - Smaller */}
+                  <div className="w-32 h-10">
                     {!isDarkMode ? (
                       <img 
                         src="/logo/CoderLalaLogoLight.svg" 
