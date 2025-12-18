@@ -87,7 +87,7 @@ export default function EnhancedNavbar() {
 
           {/* LOGO - RESPONSIVE SIZING */}
           <Link href="/" className="flex items-center group">
-            <div className="relative w-28 h-8 sm:w-36 sm:h-10 md:w-[180px] md:h-[55px] lg:w-[200px] lg:h-[60px]">
+            <div className="relative h-12 sm:w-36 sm:h-10 md:w-[180px] md:h-[55px] lg:w-[200px] lg:h-[60px]">
               {!isDarkMode ? (
                 <img 
                   src="/logo/CoderLalaLogoLight.svg" 
@@ -210,7 +210,7 @@ export default function EnhancedNavbar() {
               >
                 <div className="flex items-center justify-between">
                   {/* Mobile Menu Logo - Smaller */}
-                  <div className="w-32 h-10">
+                  <div className="h-12">
                     {!isDarkMode ? (
                       <img 
                         src="/logo/CoderLalaLogoLight.svg" 
