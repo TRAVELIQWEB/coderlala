@@ -100,6 +100,10 @@ export default function AboutContent() {
       role: "Co-Founder & Full-Stack Developer"
     },
     {
+      name: "Ansh Garg",
+      role: "Younger Developer"
+    },
+    {
       name: "Aman Singh",
       role: "Senior Full-Stack Developer"
     },
