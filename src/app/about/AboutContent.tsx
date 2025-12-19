@@ -101,7 +101,7 @@ export default function AboutContent() {
     },
     {
       name: "Ansh Garg",
-      role: "Young Talent"
+      role: "Young Developer"
     },
     {
       name: "Aman Singh",
