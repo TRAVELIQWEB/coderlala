@@ -67,7 +67,7 @@ export default function Hero() {
             >
               <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300 group-hover:rotate-12 transition-transform" />
               <span className="text-xs sm:text-sm font-medium tracking-wide">
-                <span className="text-blue-400">Trusted Partner</span> for 100+ Global Startups
+                <span className="text-blue-400">Trusted Partner</span> for 25+ Global Startups
               </span>
             </motion.div>
 
@@ -185,13 +185,13 @@ export default function Hero() {
               <div className="grid grid-cols-2 gap-4 sm:gap-6">
                 {[
                   { 
-                    value: "100+", 
+                    value: "25+", 
                     label: "Projects", 
                     description: "Successfully delivered",
                     bg: "bg-[#4087CC]"
                   },
                   { 
-                    value: "50+", 
+                    value: "20+", 
                     label: "Clients", 
                     description: "Global partnerships",
                     bg: "bg-[#F78631]"
