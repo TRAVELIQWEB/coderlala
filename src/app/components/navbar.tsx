@@ -15,6 +15,7 @@ const navItems = [
   { name: "Our Team", path: "/our-team" },
   { name: "Careers", path: "/careers" },
   { name: "Contact", path: "/contact" },
+  
 ];
 
 export default function EnhancedNavbar() {
