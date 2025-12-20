@@ -343,7 +343,12 @@ export default function CareersContent() {
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href={`/careers/apply?role=${encodeURIComponent(jobs[activeJob].role)}`}
+                    // href={`
+                    //   /careers/apply?role=${encodeURIComponent(jobs[activeJob].role)}
+                    //   `}
+                     href={`
+                     /contact
+                      `}
                     className="group relative px-8 py-4 rounded-xl text-white font-semibold 
                       bg-gradient-to-r from-blue-500 to-indigo-600
                       hover:from-blue-600 hover:to-indigo-700

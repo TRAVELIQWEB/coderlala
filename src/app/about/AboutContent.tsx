@@ -420,7 +420,7 @@ export default function AboutContent() {
 
           <p className="text-gray-700 dark:text-white/70 text-xs sm:text-sm">
             We're currently expanding our team!
-            <Link href="/careers" className="text-blue-600 dark:text-blue-300 hover:underline ml-1">
+            <Link href="/our-team" className="text-blue-600 dark:text-blue-300 hover:underline ml-1">
               View Open Positions →
             </Link>
           </p>
