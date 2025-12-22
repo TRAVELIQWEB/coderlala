@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
   Phone,
   MapPin,
-  Globe,
   Clock,
   Send,
   CheckCircle,
@@ -15,8 +14,13 @@ import {
   Calendar,
   Shield,
   Rocket,
-  Building
+  Building,
+  X,
+  AlertCircle,
+  Check,
+  XCircle
 } from "lucide-react";
+import { submitContact } from "@/services/contact.service";
 
 export default function ContactContent() {
   const [form, setForm] = useState({
@@ -27,27 +31,178 @@ export default function ContactContent() {
     budget: "",
     message: ""
   });
-  const [status, setStatus] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    budget: "",
+    message: ""
+  });
+
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    budget: false,
+    message: false
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [countdown, setCountdown] = useState(5);
+
+  // Validation functions
+  const validateField = (name: string, value: string) => {
+    let error = "";
+    
+    switch (name) {
+      case "name":
+        if (!value.trim()) error = "Name is required";
+        else if (value.trim().length < 2) error = "Name must be at least 2 characters";
+        break;
+      
+      case "email":
+        if (!value.trim()) error = "Email is required";
+        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+          error = "Please enter a valid email address";
+        }
+        break;
+      
+      case "phone":
+        if (value && !/^[0-9]{10}$/.test(value.replace(/\D/g, ''))) {
+          error = "Phone number must be exactly 10 digits";
+        }
+        break;
+      
+      case "budget":
+        if (!value.trim()) error = "Please select a budget option";
+        break;
+      
+      case "message":
+        if (!value.trim()) error = "Project details are required";
+        else if (value.trim().length < 10) error = "Please provide more details (at least 10 characters)";
+        break;
+    }
+    
+    return error;
+  };
+
+  // Validate all fields
+  const validateForm = () => {
+    const newErrors = {
+      name: validateField("name", form.name),
+      email: validateField("email", form.email),
+      phone: validateField("phone", form.phone),
+      budget: validateField("budget", form.budget),
+      message: validateField("message", form.message)
+    };
+    
+    setErrors(newErrors);
+    
+    // Return true if no errors
+    return !Object.values(newErrors).some(error => error !== "");
+  };
+
+  // Countdown timer for modal auto-close
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    
+    if (showSuccessModal && countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            setShowSuccessModal(false);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [showSuccessModal, countdown]);
+
+  // Reset countdown when modal opens
+  useEffect(() => {
+    if (showSuccessModal) {
+      setCountdown(5);
+    }
+  }, [showSuccessModal]);
+
+  // Handle field changes with validation
   const handleChange = (e: any) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    
+    // Format phone number - only allow digits and limit to 10
+    let formattedValue = value;
+    if (name === "phone") {
+      // Remove all non-digit characters
+      formattedValue = value.replace(/\D/g, '');
+      // Limit to 10 digits
+      formattedValue = formattedValue.slice(0, 10);
+    }
+    
+    setForm(prev => ({ ...prev, [name]: formattedValue }));
+    
+    // Validate field if it has been touched
+    if (touched[name as keyof typeof touched]) {
+      const error = validateField(name, formattedValue);
+      setErrors(prev => ({ ...prev, [name]: error }));
+    }
+  };
+
+  // Handle blur (when user leaves a field)
+  const handleBlur = (e: any) => {
+    const { name } = e.target;
+    setTouched(prev => ({ ...prev, [name]: true }));
+    
+    // Validate the field
+    const error = validateField(name, form[name as keyof typeof form]);
+    setErrors(prev => ({ ...prev, [name]: error }));
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    
+    // Mark all fields as touched to show errors
+    const allTouched = {
+      name: true,
+      email: true,
+      phone: true,
+      budget: true,
+      message: true
+    };
+    setTouched(allTouched);
+    
+    // Validate form
+    if (!validateForm()) {
+      // Scroll to first error
+      const firstErrorField = Object.keys(errors).find(key => errors[key as keyof typeof errors]);
+      if (firstErrorField) {
+        const element = document.getElementsByName(firstErrorField)[0];
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          element.focus();
+        }
+      }
+      return;
+    }
+    
     setIsSubmitting(true);
-    setStatus("Sending your message...");
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await submitContact(form);
 
-      if (res.ok) {
-        setStatus("Message sent successfully! We'll contact you within 24 hours.");
+      if (res.status === "success") {
+        // Show success modal
+        setShowSuccessModal(true);
+        // Reset form
         setForm({
           name: "",
           email: "",
@@ -56,15 +211,36 @@ export default function ContactContent() {
           budget: "",
           message: ""
         });
-        setTimeout(() => setStatus(""), 5000);
+        // Reset touched state
+        setTouched({
+          name: false,
+          email: false,
+          phone: false,
+          budget: false,
+          message: false
+        });
       } else {
-        setStatus("Failed to send message. Please try again.");
+        // Show error modal
+        setErrorMessage("Failed to send message. Please try again.");
+        setShowErrorModal(true);
       }
-    } catch {
-      setStatus("Something went wrong. Please try again.");
+    } catch (error: any) {
+      // Show error modal
+      setErrorMessage(error.message || "Something went wrong. Please try again.");
+      setShowErrorModal(true);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const closeSuccessModal = () => {
+    setShowSuccessModal(false);
+    setCountdown(5);
+  };
+
+  const closeErrorModal = () => {
+    setShowErrorModal(false);
+    setErrorMessage("");
   };
 
   const contactInfo = [
@@ -89,8 +265,154 @@ export default function ContactContent() {
     "Not sure yet"
   ];
 
+  // Helper function to check if a field is valid
+  const isFieldValid = (fieldName: string) => {
+    return touched[fieldName as keyof typeof touched] && !errors[fieldName as keyof typeof errors];
+  };
+
+  // Helper function to check if a field has error
+  const hasError = (fieldName: string) => {
+    return touched[fieldName as keyof typeof touched] && errors[fieldName as keyof typeof errors];
+  };
+
   return (
-    <div className="px-4 sm:px-6 lg:px-8">
+    <div className="px-4 sm:px-6 lg:px-8 relative">
+      <AnimatePresence>
+        {/* Success Modal */}
+        {showSuccessModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+              onClick={closeSuccessModal}
+            />
+            
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-md z-10"
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl blur opacity-60" />
+              <div className="relative glass-card p-6 sm:p-8 rounded-2xl backdrop-blur-xl border border-white/10">
+                {/* Close button */}
+                <button
+                  onClick={closeSuccessModal}
+                  className="absolute top-3 right-3 p-1 rounded-full hover:bg-white/10 transition-colors"
+                >
+                  <X className="w-5 h-5 text-white/70" />
+                </button>
+
+                {/* Success content */}
+                <div className="text-center">
+                  <div className="inline-flex p-3 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-600/20 mb-4">
+                    <CheckCircle className="w-12 h-12 text-green-400" />
+                  </div>
+
+                  <h3 className="text-2xl font-bold mb-2">Message Sent Successfully!</h3>
+                  
+                  <p className="text-white/80 mb-6">
+                    Thank you for contacting us. We've received your message and will get back to you within 24 hours.
+                  </p>
+
+                  {/* Countdown timer */}
+                  <div className="mb-6">
+                    <div className="text-sm text-white/60 mb-2">This modal will close in:</div>
+                    <div className="flex justify-center">
+                      <div className="px-4 py-2 rounded-lg bg-white/10">
+                        <span className="text-lg font-mono">{countdown}</span>
+                        <span className="ml-2">seconds</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Continue button */}
+                  <button
+                    onClick={closeSuccessModal}
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 
+                      hover:from-green-600 hover:to-emerald-700 
+                      transition-all duration-300 font-semibold"
+                  >
+                    Continue Browsing
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+
+        {/* Error Modal */}
+        {showErrorModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+              onClick={closeErrorModal}
+            />
+            
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-md z-10"
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-orange-600 rounded-2xl blur opacity-60" />
+              <div className="relative glass-card p-6 sm:p-8 rounded-2xl backdrop-blur-xl border border-white/10">
+                {/* Close button */}
+                <button
+                  onClick={closeErrorModal}
+                  className="absolute top-3 right-3 p-1 rounded-full hover:bg-white/10 transition-colors"
+                >
+                  <X className="w-5 h-5 text-white/70" />
+                </button>
+
+                {/* Error content */}
+                <div className="text-center">
+                  <div className="inline-flex p-3 rounded-full bg-gradient-to-br from-red-500/20 to-orange-600/20 mb-4">
+                    <AlertCircle className="w-12 h-12 text-red-400" />
+                  </div>
+
+                  <h3 className="text-2xl font-bold mb-2">Oops! Something Went Wrong</h3>
+                  
+                  <p className="text-white/80 mb-6">
+                    {errorMessage}
+                  </p>
+
+                  <div className="space-y-3">
+                    <button
+                      onClick={closeErrorModal}
+                      className="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-600 
+                        hover:from-red-600 hover:to-orange-700 
+                        transition-all duration-300 font-semibold"
+                    >
+                      Try Again
+                    </button>
+                    
+                    <button
+                      onClick={closeErrorModal}
+                      className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 
+                        transition-all duration-300 font-semibold"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -163,28 +485,78 @@ export default function ContactContent() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
                     <label className="block text-sm font-medium mb-2">Full Name *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="John Doe"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border !border-blue-200 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
-                    />
+                    <div className="relative">
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        value={form.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="John Doe"
+                        className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border transition-colors text-sm sm:text-base pr-10
+                          ${hasError('name') ? '!border-red-500 focus:!border-red-500' : 
+                            isFieldValid('name') ? '!border-green-500 focus:!border-green-500' : 
+                            '!border-blue-200 focus:!border-blue-500'}`}
+                      />
+                      {touched.name && (
+                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                          {errors.name ? (
+                            <XCircle className="w-5 h-5 text-red-500" />
+                          ) : (
+                            <Check className="w-5 h-5 text-green-500" />
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    {hasError('name') && (
+                      <motion.p 
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-red-400 text-xs mt-1 flex items-center gap-1"
+                      >
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.name}
+                      </motion.p>
+                    )}
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">Email Address *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={form.email}
-                      onChange={handleChange}
-                      placeholder="john@company.com"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border !border-blue-200 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
-                    />
+                    <div className="relative">
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        value={form.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="john@company.com"
+                        className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border transition-colors text-sm sm:text-base pr-10
+                          ${hasError('email') ? '!border-red-500 focus:!border-red-500' : 
+                            isFieldValid('email') ? '!border-green-500 focus:!border-green-500' : 
+                            '!border-blue-200 focus:!border-blue-500'}`}
+                      />
+                      {touched.email && (
+                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                          {errors.email ? (
+                            <XCircle className="w-5 h-5 text-red-500" />
+                          ) : (
+                            <Check className="w-5 h-5 text-green-500" />
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    {hasError('email') && (
+                      <motion.p 
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-red-400 text-xs mt-1 flex items-center gap-1"
+                      >
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.email}
+                      </motion.p>
+                    )}
                   </div>
                 </div>
 
@@ -197,25 +569,76 @@ export default function ContactContent() {
                       value={form.company}
                       onChange={handleChange}
                       placeholder="Your company"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border !border-blue-200 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border !border-blue-200 focus:!border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">Phone Number</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={form.phone}
-                      onChange={handleChange}
-                      placeholder="+91 98765 43210"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border !border-blue-200 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
-                    />
+                    <div className="relative">
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={form.phone}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="9876543210"
+                        maxLength={10}
+                        className={`w-full px-10 sm:px-10 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border transition-colors text-sm sm:text-base pr-10
+                          ${hasError('phone') ? '!border-red-500 focus:!border-red-500' : 
+                            (form.phone && form.phone.length === 10) ? '!border-green-500 focus:!border-green-500' : 
+                            '!border-blue-200 focus:!border-blue-500'}`}
+                      />
+                      {touched.phone && form.phone && (
+                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                          {errors.phone ? (
+                            <XCircle className="w-5 h-5 text-red-500" />
+                          ) : form.phone.length === 10 ? (
+                            <Check className="w-5 h-5 text-green-500" />
+                          ) : null}
+                        </div>
+                      )}
+                      {form.phone && (
+                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50 text-sm">
+                          +91
+                        </div>
+                      )}
+                      {form.phone && (
+                        <div className="absolute right-10 top-1/2 transform -translate-y-1/2 text-white/50 text-sm">
+                          {form.phone.length}/10
+                        </div>
+                      )}
+                    </div>
+                    {hasError('phone') && (
+                      <motion.p 
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-red-400 text-xs mt-1 flex items-center gap-1"
+                      >
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.phone}
+                      </motion.p>
+                    )}
+                    {!errors.phone && form.phone && form.phone.length < 10 && form.phone.length > 0 && (
+                      <p className="text-orange-400 text-xs mt-1">
+                        Enter {10 - form.phone.length} more digit{10 - form.phone.length !== 1 ? 's' : ''}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-2">Project Budget *</label>
+                  {hasError('budget') && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-400 text-xs mb-2 flex items-center gap-1"
+                    >
+                      <AlertCircle className="w-3 h-3" />
+                      {errors.budget}
+                    </motion.p>
+                  )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
                     {budgetOptions.map((option, i) => (
                       <label key={i} className="flex items-center cursor-pointer">
@@ -225,16 +648,23 @@ export default function ContactContent() {
                           value={option}
                           checked={form.budget === option}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           className="hidden"
-                          required={i === 0}
                         />
                         <div
-                          className={`w-full px-3 py-2 text-xs sm:text-sm rounded-lg text-center transition-all ${form.budget === option
-                              ? "bg-blue-500/20 border border-blue-500"
-                              : "bg-white/5 border border-blue-200 hover:border-white/20"
+                          className={`w-full px-3 py-2 text-xs sm:text-sm rounded-lg text-center transition-all flex items-center justify-center gap-2
+                            ${form.budget === option
+                                ? hasError('budget') ? 'bg-red-500/10 border border-red-500' : 'bg-blue-500/20 border border-blue-500'
+                                : hasError('budget') && touched.budget ? 'bg-red-500/5 border border-red-500/30' : 'bg-white/5 border border-blue-200 hover:border-white/20'
                             }`}
                         >
                           {option}
+                          {form.budget === option && !hasError('budget') && (
+                            <Check className="w-3 h-3 sm:w-4 sm:h-4 text-green-500" />
+                          )}
+                          {form.budget === option && hasError('budget') && (
+                            <XCircle className="w-3 h-3 sm:w-4 sm:h-4 text-red-500" />
+                          )}
                         </div>
                       </label>
                     ))}
@@ -243,15 +673,45 @@ export default function ContactContent() {
 
                 <div>
                   <label className="block text-sm font-medium mb-2">Project Details *</label>
-                  <textarea
-                    name="message"
-                    required
-                    rows={4}
-                    value={form.message}
-                    onChange={handleChange}
-                    placeholder="Tell us about your project, requirements, and goals..."
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border !border-blue-200 focus:border-blue-500 focus:outline-none transition-colors resize-none text-sm sm:text-base"
-                  />
+                  <div className="relative">
+                    <textarea
+                      name="message"
+                      required
+                      rows={4}
+                      value={form.message}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder="Tell us about your project, requirements, and goals..."
+                      className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border transition-colors resize-none text-sm sm:text-base pr-10
+                        ${hasError('message') ? '!border-red-500 focus:!border-red-500' : 
+                          isFieldValid('message') ? '!border-green-500 focus:!border-green-500' : 
+                          '!border-blue-200 focus:!border-blue-500'}`}
+                    />
+                    {touched.message && (
+                      <div className="absolute right-3 top-3">
+                        {errors.message ? (
+                          <XCircle className="w-5 h-5 text-red-500" />
+                        ) : (
+                          <Check className="w-5 h-5 text-green-500" />
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  {hasError('message') && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-400 text-xs mt-1 flex items-center gap-1"
+                    >
+                      <AlertCircle className="w-3 h-3" />
+                      {errors.message}
+                    </motion.p>
+                  )}
+                  {form.message && !errors.message && (
+                    <p className={`text-xs mt-1 ${form.message.length < 10 ? 'text-orange-400' : 'text-green-400'}`}>
+                      {form.message.length} characters (minimum 10 required)
+                    </p>
+                  )}
                 </div>
 
                 <button
@@ -277,24 +737,6 @@ export default function ContactContent() {
                     </>
                   )}
                 </button>
-
-                {status && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={`p-3 sm:p-4 rounded-xl ${status.includes("successfully")
-                        ? "bg-green-500/10 border-green-500/20"
-                        : "bg-blue-500/10 border-blue-500/20"
-                      } border text-center`}
-                  >
-                    <div className="flex items-center justify-center gap-2">
-                      {status.includes("successfully") && (
-                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
-                      )}
-                      <span className="text-xs sm:text-sm">{status}</span>
-                    </div>
-                  </motion.div>
-                )}
               </form>
             </div>
           </motion.div>
