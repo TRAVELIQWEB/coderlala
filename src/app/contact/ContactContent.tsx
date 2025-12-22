@@ -67,12 +67,21 @@ export default function ContactContent() {
     }
   };
 
-  const contactInfo = [
-    { icon: Mail, title: "Email", value: "salman.nizam@coderlala.com", desc: "For general inquiries" },
-    { icon: Phone, title: "Phone", value: "+91 7830836770, 8949541483", desc: "Mon-Fri, 9AM-6PM IST" },
-    { icon: MapPin, title: "Location", value: "JMD Megapolis, Sec-48 Gurugram (India)", desc: "Serving clients globally" },
-    { icon: Clock, title: "Response Time", value: "< 24 Hours", desc: "For all business inquiries" },
+  type ContactInfo = {
+    icon: React.ElementType;
+    title: string;
+    value: React.ReactNode; // Changed to support HTML
+    value2?: React.ReactNode; // Changed to support HTML
+    desc: string;
+  };
+
+  const contactInfo: ContactInfo[] = [
+    { icon: Mail, title: "Email", value: <a href="mailto:salman.nizam@coderlala.com">salman.nizam@coderlala.com</a>, desc: "For general inquiries" },
+    { icon: Phone, title: "Phone", value: <a href="tel:+917830836770">+91 7830836770</a>, value2: <a href="tel:+918949541483">+91 8949541483</a>, desc: "Mon-Fri, 9AM-6PM IST" },
+    { icon: MapPin, title: "Location", value: <a target="_blank" href="https://maps.app.goo.gl/W3xgFfxU4H8JXJeq7">Unit No.712, 7th Floor, JMD Megapolis, sector-48 Gurgaon, Haryana 122018</a>, desc: "Serving clients globally" },
+    { icon: Clock, title: "Response Time", value: "24x7 Hours", desc: "For all business inquiries" },
   ];
+
 
   const contactReasons = [
     { icon: Users, title: "Project Inquiry", desc: "Discuss new projects or partnerships" },
@@ -133,6 +142,7 @@ export default function ContactContent() {
             </div>
             <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2">{info.title}</h3>
             <p className="text-white/90 text-sm sm:text-base mb-1">{info.value}</p>
+            <p className="text-white/90 text-sm sm:text-base mb-1">{info.value2}</p>
             <p className="text-xs sm:text-sm text-white/60">{info.desc}</p>
           </div>
         ))}
@@ -230,8 +240,8 @@ export default function ContactContent() {
                         />
                         <div
                           className={`w-full px-3 py-2 text-xs sm:text-sm rounded-lg text-center transition-all ${form.budget === option
-                              ? "bg-blue-500/20 border border-blue-500"
-                              : "bg-white/5 border border-blue-200 hover:border-white/20"
+                            ? "bg-blue-500/20 border border-blue-500"
+                            : "bg-white/5 border border-blue-200 hover:border-white/20"
                             }`}
                         >
                           {option}
@@ -283,8 +293,8 @@ export default function ContactContent() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className={`p-3 sm:p-4 rounded-xl ${status.includes("successfully")
-                        ? "bg-green-500/10 border-green-500/20"
-                        : "bg-blue-500/10 border-blue-500/20"
+                      ? "bg-green-500/10 border-green-500/20"
+                      : "bg-blue-500/10 border-blue-500/20"
                       } border text-center`}
                   >
                     <div className="flex items-center justify-center gap-2">
