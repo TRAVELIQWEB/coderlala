@@ -145,8 +145,8 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="font-medium text-sm md:text-base">Phone</p>
-                  <a href="tel:+91 7830836770" className="text-xs md:text-sm opacity-70 break-all sm:break-normal">+91 7830836770</a>
-                  <a href="tel:+91 7830836770" className="text-xs md:text-sm opacity-70 break-all sm:break-normal">+91 8949541483</a>
+                  <a href="tel:+91 7830836770" className="block text-xs md:text-sm opacity-70 break-all sm:break-normal">+91 7830836770</a>
+                  <a href="tel:+91 7830836770" className="block text-xs md:text-sm opacity-70 break-all sm:break-normal">+91 8949541483</a>
                 </div>
               </div>
               <a
