@@ -5,6 +5,33 @@ export const metadata: Metadata = {
   title: "About CoderLala Technologies | Our Journey, Mission & Vision",
   description:
     "Learn about CoderLala Technologies — our mission, vision, core values, achievements, and global journey in building digital products for enterprises and startups.",
+  keywords: [
+    "about CoderLala",
+    "tech company mission",
+    "software development company",
+    "digital transformation",
+    "enterprise solutions",
+  ],
+  openGraph: {
+    title: "About CoderLala Technologies | Our Journey, Mission & Vision",
+    description:
+      "Learn about CoderLala Technologies — our mission, vision, core values, achievements, and global journey in building digital products for enterprises and startups.",
+    url: "https://coderlala.com/about",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About CoderLala Technologies | Our Journey, Mission & Vision",
+    description:
+      "Learn about CoderLala Technologies — our mission, vision, core values, achievements, and global journey in building digital products for enterprises and startups.",
+  },
+  alternates: {
+    canonical: "https://coderlala.com/about",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function AboutPage() {

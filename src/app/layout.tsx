@@ -8,8 +8,9 @@ import GalaxyBackgroundNew from "./components/GalaxyBackgroundNew";
 export const metadata = {
   metadataBase: new URL("https://coderlala.com"),
   title: "CoderLala Technologies Pvt. Ltd. | Next-Gen Digital Solutions",
-  description:
-    "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions with modern engineering excellence.",
+  // title: "Web Development Company Gurgaon | Next.js React SaaS – CoderLala",
+  description: "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions with modern engineering excellence.",
+  // description: "Leading web development company in Gurgaon. Next.js, React Native apps, Node.js backend, AWS cloud. Fast delivery.",
   keywords: [
     "web development",
     "app development",
@@ -60,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@type": "Organization",
               name: "CoderLala Technologies Pvt. Ltd.",
               url: "https://coderlala.com",
-              logo: "https://coderlala.com/logo.png",
+              logo: "https://www.coderlala.com/images/og-banner.png",
               description:
                 "A modern tech company building SaaS platforms, mobile apps, cloud infrastructures, and AI-driven solutions.",
               sameAs: [

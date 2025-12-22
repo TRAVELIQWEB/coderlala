@@ -6,6 +6,35 @@ export const metadata: Metadata = {
   title: "Portfolio | CoderLala Technologies - Enterprise, SaaS, AI/ML & DevOps Projects",
   description:
     "Explore CoderLala’s portfolio featuring enterprise platforms, SaaS solutions, AI/ML systems, DevOps automation, mobile apps, fintech security platforms, and real-time analytics dashboards.",
+  keywords: [
+    "portfolio",
+    "case studies",
+    "enterprise projects",
+    "SaaS solutions",
+    "AI ML projects",
+    "DevOps automation",
+    "mobile apps",
+  ],
+  openGraph: {
+    title: "Portfolio | CoderLala Technologies - Enterprise, SaaS, AI/ML & DevOps Projects",
+    description:
+      "Explore CoderLala’s portfolio featuring enterprise platforms, SaaS solutions, AI/ML systems, DevOps automation, mobile apps, fintech security platforms, and real-time analytics dashboards.",
+    url: "https://coderlala.com/portfolio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Portfolio | CoderLala Technologies - Enterprise, SaaS, AI/ML & DevOps Projects",
+    description:
+      "Explore CoderLala’s portfolio featuring enterprise platforms, SaaS solutions, AI/ML systems, DevOps automation, mobile apps, fintech security platforms, and real-time analytics dashboards.",
+  },
+  alternates: {
+    canonical: "https://coderlala.com/portfolio",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function PortfolioPage() {

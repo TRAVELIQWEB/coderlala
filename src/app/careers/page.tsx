@@ -5,6 +5,33 @@ export const metadata: Metadata = {
   title: "Careers at CoderLala | Join Our Team of Innovators",
   description:
     "Explore open positions at CoderLala Technologies. Join a passionate team building cutting-edge apps, SaaS platforms, AI systems, and cloud infrastructure.",
+  keywords: [
+    "careers",
+    "job openings",
+    "join CoderLala",
+    "software engineer jobs",
+    "tech careers",
+  ],
+  openGraph: {
+    title: "Careers at CoderLala | Join Our Team of Innovators",
+    description:
+      "Explore open positions at CoderLala Technologies. Join a passionate team building cutting-edge apps, SaaS platforms, AI systems, and cloud infrastructure.",
+    url: "https://coderlala.com/careers",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Careers at CoderLala | Join Our Team of Innovators",
+    description:
+      "Explore open positions at CoderLala Technologies. Join a passionate team building cutting-edge apps, SaaS platforms, AI systems, and cloud infrastructure.",
+  },
+  alternates: {
+    canonical: "https://coderlala.com/careers",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function CareersPage() {

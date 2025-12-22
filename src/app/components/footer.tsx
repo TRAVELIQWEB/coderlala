@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FaLinkedin, FaGithub, FaTwitter, FaInstagram, FaEnvelope, FaFacebook, FaYoutube } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaTwitter, FaInstagram, FaEnvelope, FaFacebook, FaYoutube, FaMapMarked, FaPhone } from "react-icons/fa";
 import { SiHashnode } from "react-icons/si";
 
 export default function Footer() {
@@ -15,16 +15,16 @@ export default function Footer() {
       const isDark = document.documentElement.classList.contains('dark');
       setIsDarkMode(isDark);
     };
-    
+
     checkTheme();
-    
+
     // Observe theme changes
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class']
     });
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -32,23 +32,23 @@ export default function Footer() {
     <footer className="border-t border-white/10  px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-12">
-          
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12">
+
           {/* Branding Column - Full width on mobile */}
           <div className="sm:col-span-2 lg:col-span-1 space-y-4 md:space-y-5">
             <div>
               <Link href="/" className="inline-block">
-                <div className="relative w-40 h-12 sm:w-48 sm:h-14 md:w-56 md:h-16">
+                <div className="relative w-38 h-18 sm:w-46 sm:h-10 md:w-[150px] md:h-[45px] lg:w-[200px] lg:h-[60px]">
                   {!isDarkMode ? (
-                    <img 
-                      src="/logo/CoderLalaLogoLight.svg" 
+                    <img
+                      src="/logo/CoderLalaLogoLight.svg"
                       alt="CoderLalaLogo Light"
                       className="w-full h-full object-contain"
                       key="dark-logo"
                     />
                   ) : (
-                    <img 
-                      src="/logo/CoderLalaLogoDark.svg" 
+                    <img
+                      src="/logo/CoderLalaLogoDark.svg"
                       alt="CoderLalaLogo Dark"
                       className="w-full h-full object-contain"
                       key="light-logo"
@@ -60,7 +60,7 @@ export default function Footer() {
                 Building next-generation digital products with modern engineering and cutting-edge technology.
               </p>
             </div>
-            
+
             {/* Social Media Icons */}
             <div className="pt-2">
               <h4 className="font-semibold mb-3 md:mb-4 text-white/90 text-base md:text-lg">Follow Us</h4>
@@ -68,7 +68,7 @@ export default function Footer() {
                 {[
                   { icon: FaLinkedin, href: "https://in.linkedin.com/company/coderlala", label: "LinkedIn", color: "hover:text-blue-400" },
                   { icon: FaGithub, href: "https://in.linkedin.com/company/coderlala", label: "GitHub", color: "hover:text-gray-300" },
-                  { icon: FaTwitter, href: "https://in.linkedin.com/company/coderlala", label: "Twitter", color: "hover:text-blue-300" },
+                  // { icon: FaTwitter, href: "https://in.linkedin.com/company/coderlala", label: "Twitter", color: "hover:text-blue-300" },
                   { icon: FaInstagram, href: "https://www.instagram.com/coderlalatech?igsh=emlmamhiNXUxMTU3", label: "Instagram", color: "hover:text-pink-400" },
                   { icon: FaFacebook, href: "https://in.linkedin.com/company/coderlala", label: "Hashnode", color: "hover:text-blue-500" },
                 ].map((social, index) => (
@@ -98,10 +98,10 @@ export default function Footer() {
                 { label: "Our Team", href: "/our-team" },
                 { label: "Careers", href: "/careers" },
                 { label: "Contact", href: "/contact" },
-              ].map((link, index) => ( 
+              ].map((link, index) => (
                 <li key={index}>
-                  <Link 
-                    href={link.href} 
+                  <Link
+                    href={link.href}
                     className="text-white/70 hover:text-white transition-colors text-sm md:text-base block py-1 md:py-1.5 hover:pl-1 transition-all duration-200"
                   >
                     {link.label}
@@ -136,19 +136,42 @@ export default function Footer() {
           <div className="space-y-3 md:space-y-5 sm:col-span-2 lg:col-span-1">
             <h4 className="font-semibold text-white/90 text-base md:text-lg">Get in Touch</h4>
             <div className="space-y-3 md:space-y-4">
-              <a 
-                href="mailto:salman.nizam@coderlala.com" 
+              <div
+                // href="mailto:salman.nizam@coderlala.com"
+                className="flex items-start sm:items-center gap-3 text-white/70 hover:text-white transition-colors group"
+              >
+                <div className="flex-shrink-0 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10 transition-all">
+                  <FaPhone className="rotate-90 w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:text-white" />
+                </div>
+                <div>
+                  <p className="font-medium text-sm md:text-base">Phone</p>
+                  <a href="tel:+91 7830836770" className="block text-xs md:text-sm opacity-70 break-all sm:break-normal">+91 7830836770</a>
+                  <a href="tel:+91 7830836770" className="block text-xs md:text-sm opacity-70 break-all sm:break-normal">+91 8949541483</a>
+                </div>
+              </div>
+              <a
+                href="mailto:salman.nizam@coderlala.com"
                 className="flex items-start sm:items-center gap-3 text-white/70 hover:text-white transition-colors group"
               >
                 <div className="flex-shrink-0 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10 transition-all">
                   <FaEnvelope className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:text-white" />
                 </div>
                 <div>
-                  <p className="font-medium text-sm md:text-base">Email Us</p>
+                  <p className="font-medium text-sm md:text-base">Email us</p>
                   <p className="text-xs md:text-sm opacity-70 break-all sm:break-normal">salman.nizam@coderlala.com</p>
                 </div>
               </a>
-              
+              <a
+                href="https://maps.app.goo.gl/W3xgFfxU4H8JXJeq7" target="_blank"
+                className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group"
+              >
+
+                <div>
+                  <p className="font-medium text-sm md:text-base">Address</p>
+                  <p className="text-xs md:text-sm opacity-70 break-all sm:break-normal">Unit No.712, 7th Floor, JMD Megapolis, sector-48 Gurgaon, Haryana 122018</p>
+                </div>
+              </a>
+
               <div className="pt-1">
                 <h5 className="font-medium text-white/80 mb-1.5 md:mb-2 text-sm md:text-base">Office Hours</h5>
                 <p className="text-white/70 text-xs md:text-sm">Mon - Fri: 9AM - 6PM</p>
@@ -159,19 +182,19 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-white/10 my-6 md:my-8"></div>
+        <div className="border-t border-white/10 my-3"></div>
 
         {/* Copyright & Legal */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 md:gap-6">
-          <p className="text-xs md:text-sm  text-center sm:text-left order-2 sm:order-1">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 my-2 py-2 md:gap-6">
+          <p className="text-xs md:text-sm  text-center sm:text-left order-2 sm:order-1 font-semibold">
             © {currentYear} CoderLala Technologies Pvt. Ltd. — All rights reserved.
           </p>
-          
+
           <div className="flex flex-wrap justify-center gap-3 md:gap-4 text-xs md:text-sm text-white/70 order-1 sm:order-2">
-            <Link href="/privacy" className="hover:text-white transition-colors px-1">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors px-1">Terms of Service</Link>
-            <Link href="/cookies" className="hover:text-white transition-colors px-1">Cookie Policy</Link>
-            <Link href="/sitemap" className="hover:text-white transition-colors px-1">Sitemap</Link>
+            <Link href="/privacy-policy" className="font-semibold hover:text-blue-700 transition-colors px-1">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="font-semibold hover:text-blue-700 transition-colors px-1">Terms of Service</Link>
+            <Link href="/cookie-policy" className="font-semibold hover:text-blue-700 transition-colors px-1">Cookie Policy</Link>
+            <Link href="/coderlala-sitemap" className="font-semibold hover:text-blue-700 transition-colors px-1">Sitemap</Link>
           </div>
         </div>
       </div>

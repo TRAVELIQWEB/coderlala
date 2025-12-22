@@ -15,6 +15,7 @@ const navItems = [
   { name: "Our Team", path: "/our-team" },
   { name: "Careers", path: "/careers" },
   { name: "Contact", path: "/contact" },
+  
 ];
 
 export default function EnhancedNavbar() {
@@ -86,8 +87,8 @@ export default function EnhancedNavbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
 
           {/* LOGO - RESPONSIVE SIZING */}
-          <Link href="/" className="flex items-center group">
-            <div className="relative w-28 h-8 sm:w-36 sm:h-10 md:w-[180px] md:h-[55px] lg:w-[200px] lg:h-[60px]">
+          <Link href="/" className="flex items-center group btn">
+            <div className="relative w-38 h-18 sm:w-46 sm:h-10 md:w-[150px] md:h-[45px] lg:w-[200px] lg:h-[60px]">
               {!isDarkMode ? (
                 <img 
                   src="/logo/CoderLalaLogoLight.svg" 
@@ -210,7 +211,7 @@ export default function EnhancedNavbar() {
               >
                 <div className="flex items-center justify-between">
                   {/* Mobile Menu Logo - Smaller */}
-                  <div className="w-32 h-10">
+                  <div className="relative w-38  sm:w-46  md:w-[150px]  lg:w-[200px] ">
                     {!isDarkMode ? (
                       <img 
                         src="/logo/CoderLalaLogoLight.svg" 

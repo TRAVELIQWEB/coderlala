@@ -6,6 +6,35 @@ export const metadata: Metadata = {
   title: "Services | CoderLala Technologies - Web, Mobile, Cloud & AI",
   description:
     "CoderLala Technologies provides web development, mobile apps, SaaS platforms, backend APIs, UI/UX design, cloud & DevOps, AI/ML solutions, enterprise software, and QA services.",
+  keywords: [
+    "web development services",
+    "mobile app development",
+    "SaaS development",
+    "cloud solutions",
+    "AI ML services",
+    "DevOps",
+    "enterprise software",
+  ],
+  openGraph: {
+    title: "Services | CoderLala Technologies - Web, Mobile, Cloud & AI",
+    description:
+      "CoderLala Technologies provides web development, mobile apps, SaaS platforms, backend APIs, UI/UX design, cloud & DevOps, AI/ML solutions, enterprise software, and QA services.",
+    url: "https://coderlala.com/services",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services | CoderLala Technologies - Web, Mobile, Cloud & AI",
+    description:
+      "CoderLala Technologies provides web development, mobile apps, SaaS platforms, backend APIs, UI/UX design, cloud & DevOps, AI/ML solutions, enterprise software, and QA services.",
+  },
+  alternates: {
+    canonical: "https://coderlala.com/services",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function ServicesPage() {
