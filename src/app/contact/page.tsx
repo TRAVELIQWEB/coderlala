@@ -5,6 +5,33 @@ export const metadata: Metadata = {
   title: "Contact Us | CoderLala Technologies",
   description:
     "Get in touch with CoderLala Technologies for project inquiries, consultations, meetings, and technical support. We respond to all business inquiries within 24 hours.",
+  keywords: [
+    "contact CoderLala",
+    "get quote",
+    "project inquiry",
+    "technical support",
+    "consultation",
+  ],
+  openGraph: {
+    title: "Contact Us | CoderLala Technologies",
+    description:
+      "Get in touch with CoderLala Technologies for project inquiries, consultations, meetings, and technical support. We respond to all business inquiries within 24 hours.",
+    url: "https://coderlala.com/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us | CoderLala Technologies",
+    description:
+      "Get in touch with CoderLala Technologies for project inquiries, consultations, meetings, and technical support. We respond to all business inquiries within 24 hours.",
+  },
+  alternates: {
+    canonical: "https://coderlala.com/contact",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function ContactPage() {

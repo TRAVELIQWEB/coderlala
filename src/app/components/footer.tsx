@@ -32,7 +32,7 @@ export default function Footer() {
     <footer className="border-t border-white/10  px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12">
           
           {/* Branding Column - Full width on mobile */}
           <div className="sm:col-span-2 lg:col-span-1 space-y-4 md:space-y-5">
@@ -68,7 +68,7 @@ export default function Footer() {
                 {[
                   { icon: FaLinkedin, href: "https://in.linkedin.com/company/coderlala", label: "LinkedIn", color: "hover:text-blue-400" },
                   { icon: FaGithub, href: "https://in.linkedin.com/company/coderlala", label: "GitHub", color: "hover:text-gray-300" },
-                  { icon: FaTwitter, href: "https://in.linkedin.com/company/coderlala", label: "Twitter", color: "hover:text-blue-300" },
+                  // { icon: FaTwitter, href: "https://in.linkedin.com/company/coderlala", label: "Twitter", color: "hover:text-blue-300" },
                   { icon: FaInstagram, href: "https://www.instagram.com/coderlalatech?igsh=emlmamhiNXUxMTU3", label: "Instagram", color: "hover:text-pink-400" },
                   { icon: FaFacebook, href: "https://in.linkedin.com/company/coderlala", label: "Hashnode", color: "hover:text-blue-500" },
                 ].map((social, index) => (
@@ -159,19 +159,19 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-white/10 my-6 md:my-8"></div>
+        <div className="border-t border-white/10 my-3"></div>
 
         {/* Copyright & Legal */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 md:gap-6">
-          <p className="text-xs md:text-sm  text-center sm:text-left order-2 sm:order-1">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 my-2 py-2 md:gap-6">
+          <p className="text-xs md:text-sm  text-center sm:text-left order-2 sm:order-1 font-semibold">
             © {currentYear} CoderLala Technologies Pvt. Ltd. — All rights reserved.
           </p>
           
           <div className="flex flex-wrap justify-center gap-3 md:gap-4 text-xs md:text-sm text-white/70 order-1 sm:order-2">
-            <Link href="/privacy" className="hover:text-white transition-colors px-1">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors px-1">Terms of Service</Link>
-            <Link href="/cookies" className="hover:text-white transition-colors px-1">Cookie Policy</Link>
-            <Link href="/sitemap" className="hover:text-white transition-colors px-1">Sitemap</Link>
+            <Link href="/privacy-policy" className="font-semibold hover:text-blue-700 transition-colors px-1">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="font-semibold hover:text-blue-700 transition-colors px-1">Terms of Service</Link>
+            <Link href="/cookie-policy" className="font-semibold hover:text-blue-700 transition-colors px-1">Cookie Policy</Link>
+            <Link href="/coderlala-sitemap" className="font-semibold hover:text-blue-700 transition-colors px-1">Sitemap</Link>
           </div>
         </div>
       </div>

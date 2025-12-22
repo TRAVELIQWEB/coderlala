@@ -87,7 +87,7 @@ export default function EnhancedNavbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
 
           {/* LOGO - RESPONSIVE SIZING */}
-          <Link href="/" className="flex items-center group">
+          <Link href="/" className="flex items-center group btn">
             <div className="relative w-38 h-18 sm:w-46 sm:h-10 md:w-[150px] md:h-[45px] lg:w-[200px] lg:h-[60px]">
               {!isDarkMode ? (
                 <img 
