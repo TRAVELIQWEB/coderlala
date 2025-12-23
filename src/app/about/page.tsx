@@ -2,36 +2,34 @@ import type { Metadata } from "next";
 import AboutContent from "./AboutContent";
 
 export const metadata: Metadata = {
-  title: "About CoderLala Technologies | Our Journey, Mission & Vision",
+  title: "About CoderLala Technologies | Software Development Company",
   description:
-    "Learn about CoderLala Technologies — our mission, vision, core values, achievements, and global journey in building digital products for enterprises and startups.",
+    "Learn about CoderLala Technologies, a software development company delivering enterprise digital solutions, SaaS, mobile apps, AI/ML, and DevOps services.",
+
   keywords: [
-    "about CoderLala",
-    "tech company mission",
+    "About CoderLala Technologies",
     "software development company",
-    "digital transformation",
-    "enterprise solutions",
+    "enterprise digital solutions",
+    "SaaS and mobile app development",
+    "AI ML and DevOps services",
+    "IT solutions company in India"
   ],
   openGraph: {
-    title: "About CoderLala Technologies | Our Journey, Mission & Vision",
+    title: "About CoderLala Technologies",
     description:
-      "Learn about CoderLala Technologies — our mission, vision, core values, achievements, and global journey in building digital products for enterprises and startups.",
-    url: "https://coderlala.com/about",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About CoderLala Technologies | Our Journey, Mission & Vision",
-    description:
-      "Learn about CoderLala Technologies — our mission, vision, core values, achievements, and global journey in building digital products for enterprises and startups.",
-  },
-  alternates: {
-    canonical: "https://coderlala.com/about",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+      "Discover CoderLala Technologies—experts in enterprise software, SaaS platforms, mobile apps, AI/ML, and DevOps solutions.",
+    url: "https://www.coderlala.com/about",
+    siteName: "CoderLala Technologies",
+    images: [
+      {
+        url: "/images/feature-images/og-images/og-about.jpg",
+        width: 1200,
+        height: 630,
+        alt: "About - CoderLala Technologies"
+      }
+    ],
+    type: "website"
+  }
 };
 
 export default function AboutPage() {

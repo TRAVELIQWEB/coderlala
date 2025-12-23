@@ -116,7 +116,7 @@ export default function CareersContent() {
         className="text-center mb-20"
       >
         <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full 
-          bg-gradient-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20">
+          bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20">
           <Rocket className="w-4 h-4 text-blue-300" />
           <span className="text-sm font-medium">Join Our Team</span>
         </div>
@@ -126,7 +126,7 @@ export default function CareersContent() {
             Build the Future
           </span>
           <span className="block text-transparent bg-clip-text bg-orange-500">
-             With Us
+            With Us
           </span>
         </h1>
 
@@ -187,7 +187,7 @@ export default function CareersContent() {
               whileHover={{ y: -8 }}
               className="glass-card p-6 rounded-2xl backdrop-blur-xl border border-white/10 group cursor-pointer"
             >
-              <div className="inline-flex p-3 mb-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-orange-500/10">
+              <div className="inline-flex p-3 mb-4 rounded-xl bg-linear-to-br from-blue-500/10 to-orange-500/10">
                 <benefit.icon className="w-6 h-6 text-blue-300 group-hover:text-orange-300 transition-colors" />
               </div>
               <h3 className="text-xl font-bold mb-3">{benefit.title}</h3>
@@ -221,13 +221,13 @@ export default function CareersContent() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xl font-bold">Select a Role</h3>
             <div className="flex gap-2">
-              <button 
+              <button
                 onClick={scrollLeft}
                 className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
-              <button 
+              <button
                 onClick={scrollRight}
                 className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
               >
@@ -235,9 +235,9 @@ export default function CareersContent() {
               </button>
             </div>
           </div>
-          
+
           <div className="relative">
-            <div 
+            <div
               ref={scrollContainerRef}
               className="flex gap-3 pb-4 overflow-x-auto scrollbar-hide"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -246,11 +246,10 @@ export default function CareersContent() {
                 <button
                   key={i}
                   onClick={() => setActiveJob(i)}
-                  className={`flex-shrink-0 w-64 p-4 rounded-xl border transition-all ${
-                    i === activeJob 
-                      ? "bg-white/10 border-white/30 shadow-lg" 
+                  className={`shrink-0 w-64 p-4 rounded-xl border transition-all ${i === activeJob
+                      ? "bg-white/10 border-white/30 shadow-lg"
                       : "bg-white/5 border-white/10 hover:bg-white/10"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-start gap-3">
                     <div className={`p-2 rounded-lg ${job.color} bg-opacity-20 mt-1`}>
@@ -280,7 +279,7 @@ export default function CareersContent() {
         </div>
 
         <div className="relative group">
-          <div className={`absolute -inset-0.5 bg-gradient-to-r ${jobs[activeJob].color} rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`} />
+          <div className={`absolute -inset-0.5 bg-linear-to-r ${jobs[activeJob].color} rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`} />
 
           <div className="relative glass-card p-8 rounded-3xl backdrop-blur-xl border border-white/10">
             <div className="flex flex-col lg:flex-row gap-8">
@@ -300,7 +299,7 @@ export default function CareersContent() {
                         <div className="text-lg font-bold text-white">{jobs[activeJob].role}</div>
                       </div>
                     </div>
-                    
+
                     <h3 className="text-3xl font-bold mb-2 hidden lg:block">{jobs[activeJob].role}</h3>
                     <div className="flex flex-wrap gap-4 text-sm">
                       <div className="flex items-center gap-2">
@@ -318,7 +317,7 @@ export default function CareersContent() {
                     </div>
                   </div>
 
-                  <div className={`hidden lg:flex p-4 rounded-xl bg-gradient-to-br ${jobs[activeJob].color}/20`}>
+                  <div className={`hidden lg:flex p-4 rounded-xl bg-linear-to-br ${jobs[activeJob].color}/20`}>
                     {(() => {
                       const IconComponent = jobs[activeJob].icon;
                       return <IconComponent className="w-8 h-8 text-white" />;
@@ -346,28 +345,28 @@ export default function CareersContent() {
                     // href={`
                     //   /careers/apply?role=${encodeURIComponent(jobs[activeJob].role)}
                     //   `}
-                     href={`
+                    href={`
                      /contact
                       `}
                     className="group relative px-8 py-4 rounded-xl text-white font-semibold 
-                      bg-gradient-to-r from-blue-500 to-indigo-600
+                      bg-linear-to-r from-blue-500 to-indigo-600
                       hover:from-blue-600 hover:to-indigo-700
                       transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                       flex items-center justify-center gap-3"
                   >
-                    <span className="relative !text-white">Apply Now</span>
-                    <ArrowRight className="w-5 h-5 !text-white group-hover:translate-x-1 transition-transform" />
+                    <span className="relative text-white!">Apply Now</span>
+                    <ArrowRight className="w-5 h-5 text-white! group-hover:translate-x-1 transition-transform" />
                   </Link>
 
                   <Link
                     href="/contact"
-                    className="group relative px-8 py-4 rounded-xl !text-white font-semibold 
-                      bg-gradient-to-r from-orange-500 to-orange-600
+                    className="group relative px-8 py-4 rounded-xl text-white! font-semibold 
+                      bg-linear-to-r from-orange-500 to-orange-600
                       hover:from-orange-600 hover:to-orange-700
                       transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                       flex items-center justify-center gap-3"
                   >
-                    <span className="relative !text-white">Learn More</span>
+                    <span className="relative text-white!">Learn More</span>
                     <Mail className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
@@ -401,7 +400,7 @@ export default function CareersContent() {
                           </div>
 
                           {i === activeJob && (
-                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-orange-500" />
+                            <div className="w-2 h-2 rounded-full bg-linear-to-r from-blue-500 to-orange-500" />
                           )}
                         </div>
                       </button>
@@ -425,7 +424,7 @@ export default function CareersContent() {
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-transparent bg-clip-text bg-orange-500">
-               Our Hiring Process
+              Our Hiring Process
             </span>
           </h2>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
@@ -442,7 +441,7 @@ export default function CareersContent() {
           ].map((item, i) => (
             <div key={i} className="relative text-center">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full 
-                bg-gradient-to-br from-blue-500/20 to-orange-500/20 border border-white/10 mb-6"
+                bg-linear-to-br from-blue-500/20 to-orange-500/20 border border-white/10 mb-6"
               >
                 <span className="text-2xl font-bold text-white">{item.step}</span>
               </div>
@@ -452,7 +451,7 @@ export default function CareersContent() {
 
               {i < 3 && (
                 <div className="hidden md:block absolute top-8 left-3/4 w-full h-px 
-                  bg-gradient-to-r from-blue-500/20 via-orange-500/20 to-transparent"
+                  bg-linear-to-r from-blue-500/20 via-orange-500/20 to-transparent"
                 />
               )}
             </div>
@@ -461,7 +460,7 @@ export default function CareersContent() {
       </motion.div>
 
       {/* FINAL CTA - FIXED */}
-       <motion.div
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -470,12 +469,12 @@ export default function CareersContent() {
       >
         <div className="relative group">
           {/* Glow background */}
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/20 to-orange-500/20 rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
+          <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500/20 to-orange-500/20 rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
 
           {/* Card */}
           <div className="relative glass-card p-6 sm:p-10 md:p-12 rounded-3xl backdrop-blur-xl border border-white/10 max-w-4xl mx-auto">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-orange-400">
                 Ready to Join Our Team?
               </span>
             </h2>
@@ -493,15 +492,15 @@ export default function CareersContent() {
                   href="mailto:salman.nizam@coderlala.com"
                   className="group relative
                     px-6 py-3 sm:px-8 sm:py-4
-                    rounded-xl !text-white font-semibold
-                    bg-gradient-to-r from-blue-600 to-blue-700
+                    rounded-xl text-white! font-semibold
+                    bg-linear-to-r from-blue-600 to-blue-700
                     hover:from-blue-700 hover:to-blue-800
                     transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
                     flex items-center justify-center gap-3
                     w-full sm:w-auto sm:min-w-[280px]"
                 >
                   <Mail className="w-5 h-5 shrink-0" />
-                  <span className="break-all text-center !text-white">
+                  <span className="break-all text-center text-white!">
                     salman.nizam@coderlala.com
                   </span>
                 </Link>
@@ -511,15 +510,15 @@ export default function CareersContent() {
                   href="/contact"
                   className="group relative
                     px-6 py-3 sm:px-8 sm:py-4
-                    rounded-xl !text-white font-semibold
-                    bg-gradient-to-r from-orange-600 to-orange-700
+                    rounded-xl text-white! font-semibold
+                    bg-linear-to-r from-orange-600 to-orange-700
                     hover:from-orange-700 hover:to-orange-800
                     transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
                     flex items-center justify-center gap-3
                     w-full sm:w-auto sm:min-w-[280px]"
                 >
                   <ArrowRight className="w-5 h-5 shrink-0 " />
-                  <span className="!text-white">Contact Form</span>
+                  <span className="text-white!">Contact Form</span>
                 </Link>
               </div>
 
@@ -533,7 +532,7 @@ export default function CareersContent() {
                     hover:bg-white/10 hover:border-white/20 transition-all duration-300"
                 >
                   <Linkedin className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
-                  
+
                 </a>
 
                 <a
@@ -544,7 +543,7 @@ export default function CareersContent() {
                     hover:bg-white/10 hover:border-white/20 transition-all duration-300"
                 >
                   <Github className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
-                 
+
                 </a>
               </div>
             </div>

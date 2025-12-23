@@ -3,31 +3,34 @@ import type { Metadata } from "next";
 import PortfolioContent from "./PortfolioContent";
 
 export const metadata: Metadata = {
-  title: "Portfolio | CoderLala Technologies - Enterprise, SaaS, AI/ML & DevOps Projects",
+  title: "CoderLala Portfolio - Innovative Solutions in Tech",
   description:
-    "Explore CoderLala’s portfolio featuring enterprise platforms, SaaS solutions, AI/ML systems, DevOps automation, mobile apps, fintech security platforms, and real-time analytics dashboards.",
+    "Discover CoderLala’s innovative portfolio showcasing cutting-edge technology solutions across various domains including SaaS, AI/ML, and DevOps.",
   keywords: [
     "portfolio",
     "case studies",
-    "enterprise projects",
-    "SaaS solutions",
-    "AI ML projects",
-    "DevOps automation",
-    "mobile apps",
+    "technology solutions",
+    "SaaS",
+    "AI ML",
+    "DevOps",
+    "innovation",
   ],
   openGraph: {
-    title: "Portfolio | CoderLala Technologies - Enterprise, SaaS, AI/ML & DevOps Projects",
+    title: "CoderLala Portfolio - Innovative Solutions in Tech",
     description:
-      "Explore CoderLala’s portfolio featuring enterprise platforms, SaaS solutions, AI/ML systems, DevOps automation, mobile apps, fintech security platforms, and real-time analytics dashboards.",
+      "Discover CoderLala’s innovative portfolio showcasing cutting-edge technology solutions across various domains including SaaS, AI/ML, and DevOps.",
     url: "https://coderlala.com/portfolio",
+    images: [
+      {
+        url: "/images/feature-images/og-images/og-portfolio.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Portfolio - CoderLala Technologies"
+      }
+    ],
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Portfolio | CoderLala Technologies - Enterprise, SaaS, AI/ML & DevOps Projects",
-    description:
-      "Explore CoderLala’s portfolio featuring enterprise platforms, SaaS solutions, AI/ML systems, DevOps automation, mobile apps, fintech security platforms, and real-time analytics dashboards.",
-  },
+
   alternates: {
     canonical: "https://coderlala.com/portfolio",
   },

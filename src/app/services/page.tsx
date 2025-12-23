@@ -20,14 +20,17 @@ export const metadata: Metadata = {
     description:
       "CoderLala Technologies provides web development, mobile apps, SaaS platforms, backend APIs, UI/UX design, cloud & DevOps, AI/ML solutions, enterprise software, and QA services.",
     url: "https://coderlala.com/services",
+    images: [
+      {
+        url: "/images/feature-images/og-images/og-services.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Services - CoderLala Technologies"
+      }
+    ],
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Services | CoderLala Technologies - Web, Mobile, Cloud & AI",
-    description:
-      "CoderLala Technologies provides web development, mobile apps, SaaS platforms, backend APIs, UI/UX design, cloud & DevOps, AI/ML solutions, enterprise software, and QA services.",
-  },
+
   alternates: {
     canonical: "https://coderlala.com/services",
   },

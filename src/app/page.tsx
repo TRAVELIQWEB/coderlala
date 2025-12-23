@@ -23,18 +23,12 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.png",
+        url: "/images/feature-images/og-images/og-home.jpg",
         width: 1200,
         height: 630,
         alt: "CoderLala Technologies",
       },
     ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "CoderLala Technologies Pvt. Ltd.",
-    description: "Building next-generation digital solutions.",
-    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "https://coderlala.com",

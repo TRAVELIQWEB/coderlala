@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ContactContent from "./ContactContent";
 
 export const metadata: Metadata = {
-  title: "Contact Us | CoderLala Technologies",
+  title: "Get in Touch | CoderLala Technologies",
   description:
-    "Get in touch with CoderLala Technologies for project inquiries, consultations, meetings, and technical support. We respond to all business inquiries within 24 hours.",
+    "Get in touch with CoderLala Technologies for inquiries, consultations, and support. We respond within 24 hours.",
   keywords: [
     "contact CoderLala",
     "get quote",
@@ -13,17 +13,20 @@ export const metadata: Metadata = {
     "consultation",
   ],
   openGraph: {
-    title: "Contact Us | CoderLala Technologies",
+    title: "Get in Touch | CoderLala Technologies",
     description:
-      "Get in touch with CoderLala Technologies for project inquiries, consultations, meetings, and technical support. We respond to all business inquiries within 24 hours.",
+      "Get in touch with CoderLala Technologies for inquiries, consultations, and support. We respond within 24 hours.",
     url: "https://coderlala.com/contact",
+    siteName: "CoderLala Technologies",
+    images: [
+      {
+        url: "/images/feature-images/og-images/og-contact.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Contact - CoderLala Technologies"
+      }
+    ],
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact Us | CoderLala Technologies",
-    description:
-      "Get in touch with CoderLala Technologies for project inquiries, consultations, meetings, and technical support. We respond to all business inquiries within 24 hours.",
   },
   alternates: {
     canonical: "https://coderlala.com/contact",

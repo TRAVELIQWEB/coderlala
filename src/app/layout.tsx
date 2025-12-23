@@ -6,7 +6,7 @@ import NavbarClientWrapper from "./components/navbar-client-wrapper";
 import GalaxyBackgroundNew from "./components/GalaxyBackgroundNew";
 
 export const metadata = {
-  metadataBase: new URL("https://coderlala.com"),
+  // metadataBase: new URL("https://coderlala.com"),
   title: "CoderLala Technologies Pvt. Ltd. | Next-Gen Digital Solutions",
   // title: "Web Development Company Gurgaon | Next.js React SaaS – CoderLala",
   description: "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions with modern engineering excellence.",

@@ -57,36 +57,36 @@ export default function ContactContent() {
   // Validation functions
   const validateField = (name: string, value: string) => {
     let error = "";
-    
+
     switch (name) {
       case "name":
         if (!value.trim()) error = "Name is required";
         else if (value.trim().length < 2) error = "Name must be at least 2 characters";
         break;
-      
+
       case "email":
         if (!value.trim()) error = "Email is required";
         else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
           error = "Please enter a valid email address";
         }
         break;
-      
+
       case "phone":
         if (value && !/^[0-9]{10}$/.test(value.replace(/\D/g, ''))) {
           error = "Phone number must be exactly 10 digits";
         }
         break;
-      
+
       case "budget":
         if (!value.trim()) error = "Please select a budget option";
         break;
-      
+
       case "message":
         if (!value.trim()) error = "Project details are required";
         else if (value.trim().length < 10) error = "Please provide more details (at least 10 characters)";
         break;
     }
-    
+
     return error;
   };
 
@@ -99,9 +99,9 @@ export default function ContactContent() {
       budget: validateField("budget", form.budget),
       message: validateField("message", form.message)
     };
-    
+
     setErrors(newErrors);
-    
+
     // Return true if no errors
     return !Object.values(newErrors).some(error => error !== "");
   };
@@ -109,7 +109,7 @@ export default function ContactContent() {
   // Countdown timer for modal auto-close
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    
+
     if (showSuccessModal && countdown > 0) {
       timer = setInterval(() => {
         setCountdown((prev) => {
@@ -138,7 +138,7 @@ export default function ContactContent() {
   // Handle field changes with validation
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    
+
     // Format phone number - only allow digits and limit to 10
     let formattedValue = value;
     if (name === "phone") {
@@ -147,9 +147,9 @@ export default function ContactContent() {
       // Limit to 10 digits
       formattedValue = formattedValue.slice(0, 10);
     }
-    
+
     setForm(prev => ({ ...prev, [name]: formattedValue }));
-    
+
     // Validate field if it has been touched
     if (touched[name as keyof typeof touched]) {
       const error = validateField(name, formattedValue);
@@ -161,7 +161,7 @@ export default function ContactContent() {
   const handleBlur = (e: any) => {
     const { name } = e.target;
     setTouched(prev => ({ ...prev, [name]: true }));
-    
+
     // Validate the field
     const error = validateField(name, form[name as keyof typeof form]);
     setErrors(prev => ({ ...prev, [name]: error }));
@@ -169,7 +169,7 @@ export default function ContactContent() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    
+
     // Mark all fields as touched to show errors
     const allTouched = {
       name: true,
@@ -179,7 +179,7 @@ export default function ContactContent() {
       message: true
     };
     setTouched(allTouched);
-    
+
     // Validate form
     if (!validateForm()) {
       // Scroll to first error
@@ -193,13 +193,13 @@ export default function ContactContent() {
       }
       return;
     }
-    
+
     setIsSubmitting(true);
 
     try {
       const res = await submitContact(form);
 
-      if (res.status === "success") {
+      if (true) {
         // Show success modal
         setShowSuccessModal(true);
         // Reset form
@@ -242,12 +242,18 @@ export default function ContactContent() {
     setShowErrorModal(false);
     setErrorMessage("");
   };
-
-  const contactInfo = [
-    { icon: Mail, title: "Email", value: "salman.nizam@coderlala.com", desc: "For general inquiries" },
-    { icon: Phone, title: "Phone", value: "+91 7830836770, 8949541483", desc: "Mon-Fri, 9AM-6PM IST" },
-    { icon: MapPin, title: "Location", value: "JMD Megapolis, Sec-48 Gurugram (India)", desc: "Serving clients globally" },
-    { icon: Clock, title: "Response Time", value: "< 24 Hours", desc: "For all business inquiries" },
+  type ContactInfo = {
+    icon: React.ElementType;
+    title: string;
+    value: React.ReactNode; // Changed to support HTML
+    value2?: React.ReactNode; // Changed to support HTML
+    desc: string;
+  };
+  const contactInfo: ContactInfo[] = [
+    { icon: Mail, title: "Email", value: <a href="mailto:salman.nizam@coderlala.com">salman.nizam@coderlala.com</a>, desc: "For general inquiries" },
+    { icon: Phone, title: "Phone", value: <a href="tel:+917830836770">+91 7830836770</a>, value2: <a href="tel:+918949541483">+91 8949541483</a>, desc: "Mon-Fri, 9AM-6PM IST" },
+    { icon: MapPin, title: "Location", value: <a target="_blank" href="https://maps.app.goo.gl/W3xgFfxU4H8JXJeq7">Unit No.712, 7th Floor, JMD Megapolis, sector-48 Gurgaon, Haryana 122018</a>, desc: "Serving clients globally" },
+    { icon: Clock, title: "Response Time", value: "24x7 Hours", desc: "For all business inquiries" },
   ];
 
 
@@ -290,7 +296,7 @@ export default function ContactContent() {
               className="absolute inset-0 bg-black/70 backdrop-blur-sm"
               onClick={closeSuccessModal}
             />
-            
+
             {/* Modal */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -299,7 +305,7 @@ export default function ContactContent() {
               transition={{ duration: 0.3 }}
               className="relative w-full max-w-md z-10"
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl blur opacity-60" />
+              <div className="absolute -inset-0.5 bg-linear-to-r from-green-500 to-emerald-600 rounded-2xl blur opacity-60" />
               <div className="relative glass-card p-6 sm:p-8 rounded-2xl backdrop-blur-xl border border-white/10">
                 {/* Close button */}
                 <button
@@ -311,12 +317,12 @@ export default function ContactContent() {
 
                 {/* Success content */}
                 <div className="text-center">
-                  <div className="inline-flex p-3 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-600/20 mb-4">
+                  <div className="inline-flex p-3 rounded-full bg-linear-to-br from-green-500/20 to-emerald-600/20 mb-4">
                     <CheckCircle className="w-12 h-12 text-green-400" />
                   </div>
 
                   <h3 className="text-2xl font-bold mb-2">Message Sent Successfully!</h3>
-                  
+
                   <p className="text-white/80 mb-6">
                     Thank you for contacting us. We've received your message and will get back to you within 24 hours.
                   </p>
@@ -335,7 +341,7 @@ export default function ContactContent() {
                   {/* Continue button */}
                   <button
                     onClick={closeSuccessModal}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 
+                    className="w-full py-3 rounded-xl bg-linear-to-r from-green-500 to-emerald-600 
                       hover:from-green-600 hover:to-emerald-700 
                       transition-all duration-300 font-semibold"
                   >
@@ -358,7 +364,7 @@ export default function ContactContent() {
               className="absolute inset-0 bg-black/70 backdrop-blur-sm"
               onClick={closeErrorModal}
             />
-            
+
             {/* Modal */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -367,7 +373,7 @@ export default function ContactContent() {
               transition={{ duration: 0.3 }}
               className="relative w-full max-w-md z-10"
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-orange-600 rounded-2xl blur opacity-60" />
+              <div className="absolute -inset-0.5 bg-linear-to-r from-red-500 to-orange-600 rounded-2xl blur opacity-60" />
               <div className="relative glass-card p-6 sm:p-8 rounded-2xl backdrop-blur-xl border border-white/10">
                 {/* Close button */}
                 <button
@@ -379,12 +385,12 @@ export default function ContactContent() {
 
                 {/* Error content */}
                 <div className="text-center">
-                  <div className="inline-flex p-3 rounded-full bg-gradient-to-br from-red-500/20 to-orange-600/20 mb-4">
+                  <div className="inline-flex p-3 rounded-full bg-linear-to-br from-red-500/20 to-orange-600/20 mb-4">
                     <AlertCircle className="w-12 h-12 text-red-400" />
                   </div>
 
                   <h3 className="text-2xl font-bold mb-2">Oops! Something Went Wrong</h3>
-                  
+
                   <p className="text-white/80 mb-6">
                     {errorMessage}
                   </p>
@@ -392,13 +398,13 @@ export default function ContactContent() {
                   <div className="space-y-3">
                     <button
                       onClick={closeErrorModal}
-                      className="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-600 
+                      className="w-full py-3 rounded-xl bg-linear-to-r from-red-500 to-orange-600 
                         hover:from-red-600 hover:to-orange-700 
                         transition-all duration-300 font-semibold"
                     >
                       Try Again
                     </button>
-                    
+
                     <button
                       onClick={closeErrorModal}
                       className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 
@@ -421,7 +427,7 @@ export default function ContactContent() {
         transition={{ duration: 0.6 }}
         className="text-center mb-12 lg:mb-20"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
           <MessageSquare className="w-4 h-4 text-blue-300" />
           <span className="text-sm font-medium">Get in Touch</span>
         </div>
@@ -451,7 +457,7 @@ export default function ContactContent() {
       >
         {contactInfo.map((info, i) => (
           <div key={i} className="glass-card p-4 sm:p-6 rounded-xl lg:rounded-2xl backdrop-blur-xl border border-white/10 group hover:scale-[1.02] transition-transform cursor-pointer">
-            <div className="inline-flex p-2 sm:p-3 rounded-xl bg-gradient-to-br from-blue-500/10 to-orange-500/10 mb-3 sm:mb-4">
+            <div className="inline-flex p-2 sm:p-3 rounded-xl bg-linear-to-br from-blue-500/10 to-orange-500/10 mb-3 sm:mb-4">
               <info.icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-300 group-hover:text-orange-300 transition-colors" />
             </div>
             <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2">{info.title}</h3>
@@ -473,7 +479,7 @@ export default function ContactContent() {
             transition={{ duration: 0.6 }}
             className="relative group"
           >
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl lg:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
+            <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500 to-blue-600 rounded-2xl lg:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
 
             <div className="relative glass-card p-4 sm:p-6 lg:p-8 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10">
               <div className="mb-6 lg:mb-8">
@@ -496,10 +502,10 @@ export default function ContactContent() {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder="John Doe"
-                        className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border transition-colors text-sm sm:text-base pr-10
-                          ${hasError('name') ? '!border-red-500 focus:!border-red-500' : 
-                            isFieldValid('name') ? '!border-green-500 focus:!border-green-500' : 
-                            '!border-blue-200 focus:!border-blue-500'}`}
+                        className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl bg-white/5! border! transition-colors text-sm sm:text-base pr-10
+                          ${hasError('name') ? 'border-red-500! focus:border-red-500!' :
+                            isFieldValid('name') ? 'border-green-500! focus:border-green-500!' :
+                              'border-blue-200! focus:border-blue-500!'}`}
                       />
                       {touched.name && (
                         <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -512,7 +518,7 @@ export default function ContactContent() {
                       )}
                     </div>
                     {hasError('name') && (
-                      <motion.p 
+                      <motion.p
                         initial={{ opacity: 0, y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-red-400 text-xs mt-1 flex items-center gap-1"
@@ -534,10 +540,10 @@ export default function ContactContent() {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder="john@company.com"
-                        className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border transition-colors text-sm sm:text-base pr-10
-                          ${hasError('email') ? '!border-red-500 focus:!border-red-500' : 
-                            isFieldValid('email') ? '!border-green-500 focus:!border-green-500' : 
-                            '!border-blue-200 focus:!border-blue-500'}`}
+                        className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl bg-white/5! border! transition-colors text-sm sm:text-base pr-10
+                          ${hasError('email') ? 'border-red-500! focus:border-red-500!' :
+                            isFieldValid('email') ? 'border-green-500! focus:border-green-500!' :
+                              'border-blue-200! focus:border-blue-500!'}`}
                       />
                       {touched.email && (
                         <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -550,7 +556,7 @@ export default function ContactContent() {
                       )}
                     </div>
                     {hasError('email') && (
-                      <motion.p 
+                      <motion.p
                         initial={{ opacity: 0, y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-red-400 text-xs mt-1 flex items-center gap-1"
@@ -571,7 +577,7 @@ export default function ContactContent() {
                       value={form.company}
                       onChange={handleChange}
                       placeholder="Your company"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border !border-blue-200 focus:!border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl bg-white/5! border! border-blue-200! focus:border-blue-500! focus:outline-none transition-colors text-sm sm:text-base"
                     />
                   </div>
 
@@ -586,10 +592,10 @@ export default function ContactContent() {
                         onBlur={handleBlur}
                         placeholder="9876543210"
                         maxLength={10}
-                        className={`w-full px-10 sm:px-10 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border transition-colors text-sm sm:text-base pr-10
-                          ${hasError('phone') ? '!border-red-500 focus:!border-red-500' : 
-                            (form.phone && form.phone.length === 10) ? '!border-green-500 focus:!border-green-500' : 
-                            '!border-blue-200 focus:!border-blue-500'}`}
+                        className={`w-full px-10 sm:px-10 py-2 sm:py-3 rounded-lg lg:rounded-xl bg-white/5! border! transition-colors text-sm sm:text-base pr-10
+                          ${hasError('phone') ? 'border-red-500! focus:border-red-500!' :
+                            (form.phone && form.phone.length === 10) ? 'border-green-500! focus:border-green-500!' :
+                              'border-blue-200! focus:border-blue-500!'}`}
                       />
                       {touched.phone && form.phone && (
                         <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -612,7 +618,7 @@ export default function ContactContent() {
                       )}
                     </div>
                     {hasError('phone') && (
-                      <motion.p 
+                      <motion.p
                         initial={{ opacity: 0, y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-red-400 text-xs mt-1 flex items-center gap-1"
@@ -632,7 +638,7 @@ export default function ContactContent() {
                 <div>
                   <label className="block text-sm font-medium mb-2">Project Budget *</label>
                   {hasError('budget') && (
-                    <motion.p 
+                    <motion.p
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="text-red-400 text-xs mb-2 flex items-center gap-1"
@@ -656,8 +662,8 @@ export default function ContactContent() {
                         <div
                           className={`w-full px-3 py-2 text-xs sm:text-sm rounded-lg text-center transition-all flex items-center justify-center gap-2
                             ${form.budget === option
-                                ? hasError('budget') ? 'bg-red-500/10 border border-red-500' : 'bg-blue-500/20 border border-blue-500'
-                                : hasError('budget') && touched.budget ? 'bg-red-500/5 border border-red-500/30' : 'bg-white/5 border border-blue-200 hover:border-white/20'
+                              ? hasError('budget') ? 'bg-red-500/10 border border-red-500' : 'bg-blue-500/20 border border-blue-500'
+                              : hasError('budget') && touched.budget ? 'bg-red-500/5 border border-red-500/30' : 'bg-white/5 border border-blue-200 hover:border-white/20'
                             }`}
                         >
                           {option}
@@ -684,10 +690,10 @@ export default function ContactContent() {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       placeholder="Tell us about your project, requirements, and goals..."
-                      className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl !bg-white/5 !border transition-colors resize-none text-sm sm:text-base pr-10
-                        ${hasError('message') ? '!border-red-500 focus:!border-red-500' : 
-                          isFieldValid('message') ? '!border-green-500 focus:!border-green-500' : 
-                          '!border-blue-200 focus:!border-blue-500'}`}
+                      className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl bg-white/5! border! transition-colors resize-none text-sm sm:text-base pr-10
+                        ${hasError('message') ? 'border-red-500! focus:border-red-500!' :
+                          isFieldValid('message') ? 'border-green-500! focus:border-green-500!' :
+                            'border-blue-200! focus:border-blue-500!'}`}
                     />
                     {touched.message && (
                       <div className="absolute right-3 top-3">
@@ -700,7 +706,7 @@ export default function ContactContent() {
                     )}
                   </div>
                   {hasError('message') && (
-                    <motion.p 
+                    <motion.p
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="text-red-400 text-xs mt-1 flex items-center gap-1"
@@ -720,7 +726,7 @@ export default function ContactContent() {
                   type="submit"
                   disabled={isSubmitting}
                   className="group relative w-full px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl text-white font-semibold 
-                    bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800
+                    bg-linear-to-r from-blue-600 via-blue-700 to-blue-800
                     hover:from-blue-700 hover:via-blue-800 hover:to-blue-900
                     disabled:opacity-50 disabled:cursor-not-allowed
                     transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
@@ -734,8 +740,8 @@ export default function ContactContent() {
                     </>
                   ) : (
                     <>
-                      <span className="relative !text-white">Send Message</span>
-                      <Send className="w-4 h-4 sm:w-5 sm:h-5 !text-white group-hover:translate-x-1 transition-transform" />
+                      <span className="relative text-white!">Send Message</span>
+                      <Send className="w-4 h-4 sm:w-5 sm:h-5 text-white! group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
                 </button>
@@ -761,7 +767,7 @@ export default function ContactContent() {
                   key={i}
                   className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
                 >
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-orange-500/10 flex-shrink-0">
+                  <div className="p-2 rounded-lg bg-linear-to-br from-blue-500/10 to-orange-500/10 shrink-0">
                     <reason.icon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-300" />
                   </div>
                   <div>
@@ -776,7 +782,7 @@ export default function ContactContent() {
           {/* Company Info */}
           <div className="glass-card p-4 sm:p-6 lg:p-8 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10">
             <div className="flex items-center gap-3 mb-4 lg:mb-6">
-              <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/20">
+              <div className="p-2 rounded-lg bg-linear-to-br from-blue-500/20 to-blue-600/20">
                 <Building className="w-5 h-5 sm:w-6 sm:h-6 text-blue-300" />
               </div>
               <h3 className="text-xl sm:text-2xl font-bold">Company Information</h3>
@@ -807,7 +813,7 @@ export default function ContactContent() {
               </div>
             </div>
 
-            <div className="mt-6 p-4 sm:p-6 rounded-xl lg:rounded-2xl bg-gradient-to-r from-blue-500/10 to-orange-500/10">
+            <div className="mt-6 p-4 sm:p-6 rounded-xl lg:rounded-2xl bg-linear-to-r from-blue-500/10 to-orange-500/10">
               <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                 <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-blue-300" />
                 <h4 className="font-semibold text-sm sm:text-base">Quick Response Guarantee</h4>
@@ -848,7 +854,7 @@ export default function ContactContent() {
       >
         <div className="glass-card p-6 sm:p-8 lg:p-12 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10 max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-orange-400">
               Ready to Start Your Project?
             </span>
           </h2>
@@ -862,25 +868,25 @@ export default function ContactContent() {
               onClick={() =>
                 window.open("https://calendly.com/coderlala/consultation", "_blank")
               }
-              className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl !text-white font-semibold 
-                bg-gradient-to-r from-blue-500 to-indigo-600
+              className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl text-white! font-semibold 
+                bg-linear-to-r from-blue-500 to-indigo-600
                 hover:from-blue-600 hover:to-indigo-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
                 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base"
             >
-              <Calendar className="w-4 h-4 sm:w-5 sm:h-5 !text-white" />
+              <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-white!" />
               Schedule a Call
             </button>
 
             <a
               href="mailto:salman.nizam@coderlala.com"
-              className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl !text-white font-semibold 
-                bg-gradient-to-r from-orange-500 to-orange-600
+              className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl text-white! font-semibold 
+                bg-linear-to-r from-orange-500 to-orange-600
                 hover:from-orange-600 hover:to-orange-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
                 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base"
             >
-              <Mail className="w-4 h-4 sm:w-5 sm:h-5 !text-white" />
+              <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-white!" />
               Email Us Directly
             </a>
           </div>

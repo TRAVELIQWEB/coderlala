@@ -126,7 +126,7 @@ export default function AboutContent() {
         transition={{ duration: 0.6 }}
         className="text-center mb-12 md:mb-20"
       >
-        <div className="about-hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-4 md:mb-6">
+        <div className="about-hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-4 md:mb-6">
           <Code2 className="w-4 h-4 text-blue-500 dark:text-blue-300" />
           <span className="text-sm font-medium">
             Our Story
@@ -135,7 +135,7 @@ export default function AboutContent() {
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6">
           <span className="text-transparent bg-clip-text bg-blue-500">
-            Building the Future
+            Building the Future 
           </span>
           <span className="block text-transparent bg-clip-text bg-orange-500">
             of Technology
@@ -159,7 +159,7 @@ export default function AboutContent() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {[
             { value: "25+", label: "Projects Delivered", icon: Rocket, color: "text-blue-500" },
-            { value: "25+", label: "Happy Clients", icon: Users, color: "text-orange-500" },
+            { value: "20+", label: "Happy Clients", icon: Users, color: "text-orange-500" },
             { value: "5+", label: "Years Experience", icon: Calendar, color: "text-purple-500" },
             { value: "99%", label: "Client Satisfaction", icon: Heart, color: "text-green-500" },
           ].map((stat, i) => (
@@ -187,7 +187,7 @@ export default function AboutContent() {
           transition={{ duration: 0.6 }}
           className="relative group"
         >
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl sm:rounded-2xl lg:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
+          <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500 to-blue-600 rounded-xl sm:rounded-2xl lg:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
 
           <div className="relative glass-card p-6 md:p-8 rounded-xl sm:rounded-2xl lg:rounded-3xl border border-black/10 dark:border-white/10">
             <div className="inline-flex p-3 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 mb-4 md:mb-6">
@@ -219,7 +219,7 @@ export default function AboutContent() {
           transition={{ duration: 0.6 }}
           className="relative group"
         >
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl sm:rounded-2xl lg:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
+          <div className="absolute -inset-0.5 bg-linear-to-r from-orange-500 to-orange-600 rounded-xl sm:rounded-2xl lg:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
 
           <div className="relative glass-card p-6 md:p-8 rounded-xl sm:rounded-2xl lg:rounded-3xl border border-black/10 dark:border-white/10">
             <div className="inline-flex p-3 rounded-xl bg-orange-500/10 dark:bg-orange-500/20 mb-4 md:mb-6">
@@ -312,7 +312,7 @@ export default function AboutContent() {
 
         <div className="relative">
           {/* Desktop timeline */}
-          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-blue-600 via-purple-500 to-orange-500" />
+          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-0.5 h-full bg-linear-to-b from-blue-600 via-purple-500 to-orange-500" />
 
           {timeline.map((item, index) => (
             <div key={index}>
@@ -336,9 +336,9 @@ export default function AboutContent() {
                     {item.desc}
                   </p>
                 </div>
-                <div className="absolute left-4 -translate-x-1/2 flex-shrink-0">
+                <div className="absolute left-4 -translate-x-1/2 shrink-0">
                   <div
-                    className={`w-4 h-4 rounded-full bg-gradient-to-br ${item.color} border-2 border-white dark:border-[#0a0e27]`}
+                    className={`w-4 h-4 rounded-full bg-linear-to-br ${item.color} border-2 border-white dark:border-[#0a0e27]`}
                   />
                 </div>
               </div>
@@ -373,9 +373,9 @@ export default function AboutContent() {
                   </div>
                 </div>
 
-                <div className="relative flex-shrink-0 w-6">
+                <div className="relative shrink-0 w-6">
                   <div
-                    className={`w-6 h-6 rounded-full bg-gradient-to-br ${item.color} border-4 border-white dark:border-[#0a0e27]`}
+                    className={`w-6 h-6 rounded-full bg-linear-to-br ${item.color} border-4 border-white dark:border-[#0a0e27]`}
                   />
                 </div>
 
@@ -436,7 +436,7 @@ export default function AboutContent() {
       >
         <div className="glass-card p-6 sm:p-8 lg:p-12 rounded-xl sm:rounded-2xl lg:rounded-3xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/10 max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-orange-600 dark:from-blue-400 dark:to-orange-400">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-orange-600 dark:from-blue-400 dark:to-orange-400">
               Ready to Build Together?
             </span>
           </h2>
@@ -448,25 +448,25 @@ export default function AboutContent() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/contact"
-              className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl !text-white font-semibold 
-                bg-gradient-to-r from-blue-500 to-indigo-600 
+              className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl text-white! font-semibold 
+                bg-linear-to-r from-blue-500 to-indigo-600 
                 hover:from-blue-600 hover:to-indigo-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
                 flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
             >
-              <span className="relative !text-white">Start Your Project</span>
+              <span className="relative text-white!">Start Your Project</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
 
             <Link
               href="/portfolio"
-              className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl !text-white font-semibold 
-                bg-gradient-to-r from-orange-500 to-orange-600
+              className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl text-white! font-semibold 
+                bg-linear-to-r from-orange-500 to-orange-600
                 hover:from-orange-600 hover:to-orange-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
                 flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
             >
-              <span className="relative !text-white">View Our Work</span>
+              <span className="relative text-white!">View Our Work</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

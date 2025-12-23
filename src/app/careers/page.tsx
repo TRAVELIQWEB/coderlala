@@ -17,14 +17,17 @@ export const metadata: Metadata = {
     description:
       "Explore open positions at CoderLala Technologies. Join a passionate team building cutting-edge apps, SaaS platforms, AI systems, and cloud infrastructure.",
     url: "https://coderlala.com/careers",
+    images: [
+      {
+        url: "/images/feature-images/og-images/og-careers.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Careers - CoderLala Technologies"
+      }
+    ],
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Careers at CoderLala | Join Our Team of Innovators",
-    description:
-      "Explore open positions at CoderLala Technologies. Join a passionate team building cutting-edge apps, SaaS platforms, AI systems, and cloud infrastructure.",
-  },
+
   alternates: {
     canonical: "https://coderlala.com/careers",
   },
