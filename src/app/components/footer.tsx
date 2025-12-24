@@ -187,7 +187,7 @@ export default function Footer() {
         {/* Copyright & Legal */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 my-2 py-2 md:gap-6">
           <p className="text-xs md:text-sm  text-center sm:text-left order-2 sm:order-1 font-semibold">
-            © {currentYear} CoderLala Technologies Pvt. Ltd. — All rights reserved.
+            © {currentYear} CoderLala Technologies Private Limited — All rights reserved.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 md:gap-4 text-xs md:text-sm text-white/70 order-1 sm:order-2">

@@ -29,7 +29,7 @@ const teamMembers = [
     id: 1,
     name: "Salman Nizam",
     role: "Co-Founder & DevOps Engineer",
-    image: "/team/salman.jpg",
+    image: "/images/team/user-profile.webp",
     description: "Expert in cloud architecture, containerization, and scalable infrastructure. Leads our DevOps practices and ensures 99.9% uptime for all client projects.",
     skills: ["AWS", "Docker", "Kubernetes", "Terraform", "CI/CD"],
     experience: "5+ years",
@@ -43,7 +43,7 @@ const teamMembers = [
     id: 2,
     name: "Achal Singh",
     role: "Co-Founder & Full-Stack Developer",
-    image: "/team/achal.jpg",
+    image: "/images/team/user-profile.webp",
     description: "Full-stack specialist with expertise in modern web technologies. Architect of scalable SaaS platforms and enterprise-grade applications.",
     skills: ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL"],
     experience: "5+ years",
@@ -71,7 +71,7 @@ const teamMembers = [
     id: 4,
     name: "Aman Singh",
     role: "Senior Full-Stack Developer",
-    image: "/team/aman.jpg",
+    image: "/images/team/user-profile.webp",
     description: "Specializes in building performant web applications with modern frameworks. Passionate about clean code and user experience.",
     skills: ["React", "Vue.js", "Python", "Django", "MongoDB"],
     experience: "3+ years",
@@ -85,12 +85,12 @@ const teamMembers = [
     id: 5,
     name: "Ravi Kaliya",
     role: "Senior Frontend Developer",
-    image: "/images/team/ravi.jpeg",
+    image: "/images/team/user-profile.webp",
     description: "Frontend expert with a keen eye for design and user experience. Creates beautiful, responsive interfaces with modern CSS and JavaScript.",
     skills: ["HTML", "CSS" ,"Tailwind", "Bootstrap","Javascript", "Typescript" ,"PHP" ,"MySQL" ,"WordPress", "Nodejs", "Reactjs", "Nextjs" ,"  Git", "Github"],
     experience: "5+ years",
     location: "Gurugram, India",
-    email: "ravi.kaliya@coderlala.com",
+    email: "ravi.k@coderlala.com",
     linkedin: "https://linkedin.com/in/ravikaliya",
     github: "https://github.com/ravikaliya",
     color: "bg-green-500"
@@ -99,7 +99,7 @@ const teamMembers = [
     id: 6,
     name: "Raghib Nizam",
     role: "Full-Stack Developer",
-    image: "/team/raghib.jpg",
+    image: "/images/team/user-profile.webp",
     description: "Versatile developer with expertise across the stack. Focuses on creating efficient, maintainable code and seamless user experiences.",
     skills: ["HTML", "CSS", "JavaScript", "React", "Next.js", "Node.js", "Express", "TypeScript", "MongoDB", "Git", "Github", "Redis", "Tailwind CSS", "Bootstrap", "WordPress"],
     experience: "2+ years",
@@ -121,7 +121,7 @@ export default function OurTeamContent() {
         transition={{ duration: 0.6 }}
         className="text-center mb-12 md:mb-20"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-6">
           <Users className="w-4 h-4 text-blue-500 dark:text-blue-300" />
           <span className="text-sm font-medium">Meet Our Team</span>
         </div>
@@ -210,7 +210,7 @@ export default function OurTeamContent() {
                           priority={index < 2} // Prioritize first two images
                         />
                       ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-linear-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
                           <Users className="w-32 h-32 text-gray-400 dark:text-gray-600" />
                         </div>
                       )}
@@ -264,7 +264,7 @@ export default function OurTeamContent() {
                         {member.skills.map((skill, i) => (
                           <span 
                             key={i}
-                            className="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/10 border !border-gray-400/80 dark:border-white/10 text-sm font-medium"
+                            className="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/10 border border-gray-400/80! dark:border-white/10 text-sm font-medium"
                           >
                             {skill}
                           </span>

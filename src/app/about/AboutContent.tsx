@@ -129,22 +129,21 @@ export default function AboutContent() {
         <div className="about-hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-4 md:mb-6">
           <Code2 className="w-4 h-4 text-blue-500 dark:text-blue-300" />
           <span className="text-sm font-medium">
-            Our Story
+            Leading Software Development Company
           </span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6">
           <span className="text-transparent bg-clip-text bg-blue-500">
-            Building the Future 
+            Gurgaon's Premier 
           </span>
           <span className="block text-transparent bg-clip-text bg-orange-500">
-            of Technology
+            Technology Solutions Provider
           </span>
         </h1>
 
         <p className="about-hero-desc text-base sm:text-lg md:text-xl max-w-3xl mx-auto px-4 sm:px-0">
-          We are a team of passionate engineers, designers, and innovators dedicated to
-          transforming businesses through cutting-edge digital solutions.
+          As a leading web development company and software development company in Gurgaon, we specialize in custom software development and innovative technology solutions that drive digital transformation.
         </p>
       </motion.div>
 
@@ -256,7 +255,7 @@ export default function AboutContent() {
         <div className="text-center mb-8 md:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6">
             <span className="text-transparent bg-clip-text bg-orange-500">
-              Our Core Values
+              Our Technology Company Values
             </span>
           </h2>
 
@@ -301,7 +300,7 @@ export default function AboutContent() {
         <div className="text-center mb-8 md:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6">
             <span className="text-transparent bg-clip-text bg-orange-500">
-              Our Journey
+              Our Digital Solutions Journey
             </span>
           </h2>
 
@@ -395,11 +394,11 @@ export default function AboutContent() {
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6">
           <span className="text-transparent bg-clip-text bg-orange-500">
-            Meet Our Team
+            Meet Our Software Development Team
           </span>
         </h2>
         <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 md:mb-12 px-4 sm:px-0">
-          A diverse team of passionate engineers, designers, and innovators dedicated to excellence.
+          A diverse team of expert developers and IT solutions specialists delivering innovative technology solutions in Gurgaon.
         </p>
 
         <div className="glass-card p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl lg:rounded-3xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/10 max-w-3xl mx-auto">
@@ -437,12 +436,12 @@ export default function AboutContent() {
         <div className="glass-card p-6 sm:p-8 lg:p-12 rounded-xl sm:rounded-2xl lg:rounded-3xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/10 max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
             <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-orange-600 dark:from-blue-400 dark:to-orange-400">
-              Ready to Build Together?
+              Ready to Transform Your Business?
             </span>
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-white/70 mb-6 md:mb-8 max-w-2xl mx-auto px-4 sm:px-0">
-            Join hundreds of businesses that transformed their operations with our expertise.
+            Join hundreds of businesses that achieved digital transformation through our custom software development and IT solutions services.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
@@ -454,7 +453,7 @@ export default function AboutContent() {
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
                 flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
             >
-              <span className="relative text-white!">Start Your Project</span>
+              <span className="relative text-white!">Get Technology Solutions Quote</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
 
@@ -466,7 +465,7 @@ export default function AboutContent() {
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
                 flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
             >
-              <span className="relative text-white!">View Our Work</span>
+              <span className="relative text-white!">View Software Development Portfolio</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

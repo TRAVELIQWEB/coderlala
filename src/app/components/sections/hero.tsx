@@ -67,7 +67,7 @@ export default function Hero() {
             >
               <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300 group-hover:rotate-12 transition-transform" />
               <span className="text-xs sm:text-sm font-medium tracking-wide">
-                <span className="text-blue-400">Trusted Partner</span> for 25+ Global Startups
+                <span className="text-blue-400">Leading Software Development Company</span> for 25+ Global Startups
               </span>
             </motion.div>
 
@@ -83,7 +83,7 @@ export default function Hero() {
                   Best {" "}
                  
                     <span className="text-orange-500">
-                      Web, App & Software
+                      Web, Mobile App & SaaS
                     </span>
                   
                 </span>
@@ -106,8 +106,8 @@ export default function Hero() {
               className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto lg:mx-0"
             >
               As a{" "}
-              <span className="font-semibold text-white">top web, mobile app and software development company in Gurgaon, </span>{" "}
-              we create reliable, scalable digital products designed to enhance business performance and customer experience.
+              <span className="font-semibold text-white">leading web development company, mobile app development, and SaaS development firm in Gurgaon, </span>{" "}
+              we specialize in custom software development, web application development, and mobile application development to drive your digital transformation with cutting-edge technology solutions.
             </motion.p>
 
             {/* Key Features */}
@@ -118,10 +118,10 @@ export default function Hero() {
               className="mt-6 sm:mt-8 grid grid-cols-2 gap-3 sm:gap-4"
             >
               {[
-                { icon: Rocket, text: "Fast Delivery", color: "text-orange-400", bg: "from-orange-500/10 to-orange-600/10" },
-                { icon: Zap, text: "High Performance", color: "text-blue-400", bg: "from-blue-500/10 to-cyan-500/10" },
-                { icon: Target, text: "Future-Ready Tech", color: "text-purple-400", bg: "from-purple-500/10 to-pink-500/10" },
-                { icon: Users, text: "Expert Developers", color: "text-green-400", bg: "from-green-500/10 to-emerald-500/10" },
+                { icon: Rocket, text: "Agile Development", color: "text-orange-400", bg: "from-orange-500/10 to-orange-600/10" },
+                { icon: Zap, text: "High-Performance Apps", color: "text-blue-400", bg: "from-blue-500/10 to-cyan-500/10" },
+                { icon: Target, text: "Digital Transformation", color: "text-purple-400", bg: "from-purple-500/10 to-pink-500/10" },
+                { icon: Users, text: "Expert IT Consulting", color: "text-green-400", bg: "from-green-500/10 to-emerald-500/10" },
               ].map((feature, i) => (
                 <div key={i} className="flex items-center gap-2 sm:gap-3 group">
                   <div className={`p-1.5 sm:p-2 rounded-lg bg-linear-to-r ${feature.bg} ${feature.color} group-hover:scale-110 transition-transform`}>
@@ -149,7 +149,7 @@ export default function Hero() {
                 {/* Button shine effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
                 
-                <span className="relative text-sm sm:text-base">Start Your Project</span>
+                <span className="relative text-sm sm:text-base">Get Custom Software Quote</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                 
                 {/* Glow effect */}
@@ -164,7 +164,7 @@ export default function Hero() {
                 {/* Button shine effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
                 
-                <span className="relative text-sm sm:text-base">View Case Studies</span>
+                <span className="relative text-sm sm:text-base">View Development Portfolio</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                 
                 {/* Glow effect */}
@@ -237,7 +237,7 @@ export default function Hero() {
               >
                 <p className="text-xs sm:text-sm text-white/70 text-center">
                   <span className="font-semibold text-white">Proven Results:</span>{" "}
-                  Join hundreds of satisfied clients who transformed their businesses with our solutions.
+                  Join hundreds of satisfied clients who achieved digital transformation through our web development, mobile app development, and SaaS development services.
                 </p>
               </motion.div>
             </motion.div>
@@ -288,7 +288,7 @@ export default function Hero() {
             }}
             className="flex flex-col items-center gap-2 text-white/70 hover:text-white transition-colors cursor-pointer"
           >
-            <span className="text-sm font-medium">Explore More</span>
+            <span className="text-sm font-medium">Explore Our Services</span>
             <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center group-hover:border-white/60 transition-colors">
               <motion.div
                 animate={{ y: [0, 6, 0] }}

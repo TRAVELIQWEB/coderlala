@@ -429,21 +429,20 @@ export default function ContactContent() {
       >
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
           <MessageSquare className="w-4 h-4 text-blue-300" />
-          <span className="text-sm font-medium">Get in Touch</span>
+          <span className="text-sm font-medium">Contact Our Software Development Team</span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 lg:mb-6">
           <span className="text-transparent bg-clip-text bg-blue-500">
-            Let's Build
+            Contact Our
           </span>
           <span className="block text-transparent bg-clip-text bg-orange-500">
-            Something Amazing
+            Web Development Company
           </span>
         </h1>
 
         <p className="text-base sm:text-lg lg:text-xl text-white/70 max-w-3xl mx-auto px-4">
-          Have a project in mind? Let's discuss how we can bring your vision to life
-          with cutting-edge technology and expert engineering.
+          Ready to start your digital transformation? Contact our mobile app development and SaaS development experts in Gurgaon for custom software development services.
         </p>
       </motion.div>
 
@@ -483,9 +482,9 @@ export default function ContactContent() {
 
             <div className="relative glass-card p-4 sm:p-6 lg:p-8 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10">
               <div className="mb-6 lg:mb-8">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-3 lg:mb-4">Send Us a Message</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-3 lg:mb-4">Get Your Custom Software Quote</h2>
                 <p className="text-white/70 text-sm sm:text-base">
-                  Fill out the form below and we'll get back to you within 24 hours.
+                  Contact our technology solutions experts and get a detailed project roadmap within 24 hours.
                 </p>
               </div>
 
@@ -760,7 +759,7 @@ export default function ContactContent() {
         >
           {/* Why Contact Us */}
           <div className="glass-card p-4 sm:p-6 lg:p-8 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10">
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 lg:mb-6">Why Contact Us?</h3>
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 lg:mb-6">Why Contact Our Software Development Company?</h3>
             <div className="space-y-3 sm:space-y-4">
               {contactReasons.map((reason, i) => (
                 <div
@@ -785,7 +784,7 @@ export default function ContactContent() {
               <div className="p-2 rounded-lg bg-linear-to-br from-blue-500/20 to-blue-600/20">
                 <Building className="w-5 h-5 sm:w-6 sm:h-6 text-blue-300" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold">Company Information</h3>
+              <h3 className="text-xl sm:text-2xl font-bold">About CoderLala Technologies</h3>
             </div>
 
             <div className="space-y-3 sm:space-y-4">
@@ -816,7 +815,7 @@ export default function ContactContent() {
             <div className="mt-6 p-4 sm:p-6 rounded-xl lg:rounded-2xl bg-linear-to-r from-blue-500/10 to-orange-500/10">
               <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                 <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-blue-300" />
-                <h4 className="font-semibold text-sm sm:text-base">Quick Response Guarantee</h4>
+                <h4 className="font-semibold text-sm sm:text-base">IT Consulting Response Guarantee</h4>
               </div>
               <p className="text-xs sm:text-sm text-white/70">
                 We respond to all business inquiries within 24 hours. For urgent matters,
@@ -827,7 +826,7 @@ export default function ContactContent() {
 
           {/* FAQ */}
           <div className="glass-card p-4 sm:p-6 lg:p-8 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10">
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 lg:mb-6">Frequently Asked</h3>
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 lg:mb-6">Software Development Services FAQ</h3>
             <div className="space-y-3 sm:space-y-4">
               {[
                 { q: "What's your typical response time?", a: "Within 24 hours for all business inquiries." },
@@ -855,12 +854,11 @@ export default function ContactContent() {
         <div className="glass-card p-6 sm:p-8 lg:p-12 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10 max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6">
             <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-orange-400">
-              Ready to Start Your Project?
+              Ready to Start Your Digital Transformation?
             </span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-white/70 mb-6 lg:mb-8 max-w-2xl mx-auto px-4 sm:px-0">
-            Schedule a free consultation call with our experts to discuss your requirements
-            and get a detailed project roadmap.
+            Schedule a free consultation with our web development and mobile app development experts to discuss your custom software development needs.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
@@ -875,7 +873,7 @@ export default function ContactContent() {
                 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base"
             >
               <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-white!" />
-              Schedule a Call
+              Schedule Technology Consultation
             </button>
 
             <a
@@ -887,7 +885,7 @@ export default function ContactContent() {
                 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base"
             >
               <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-white!" />
-              Email Us Directly
+              Contact Software Development Experts
             </a>
           </div>
         </div>

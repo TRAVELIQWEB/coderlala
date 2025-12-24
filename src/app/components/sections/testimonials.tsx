@@ -183,16 +183,16 @@ export default function Testimonials() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4 md:mb-6">
             <Quote className="w-3 h-3 md:w-4 md:h-4" />
-            <span className="text-xs md:text-sm font-medium">Client Success Stories</span>
+            <span className="text-xs md:text-sm font-medium">Success Stories from Software Development</span>
           </div>
 
           <h2 className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6">
             <span className="text-transparent bg-clip-text bg-blue-500"> Trusted by </span>
-            <span className="block text-transparent bg-clip-text bg-orange-500"> Industry Leaders </span>
+            <span className="block text-transparent bg-clip-text bg-orange-500"> Leading Software Development Clients </span>
           </h2>
 
           <p className="text-base md:text-lg lg:text-xl text-white/70 max-w-3xl mx-auto px-4">
-            Don&apos;t just take our word for it — hear from businesses that transformed their operations with our solutions.
+            Don&apos;t just take our word for it — hear from businesses that achieved digital transformation through our web development, mobile app development, and SaaS development services.
           </p>
         </motion.div>
 
@@ -311,7 +311,7 @@ export default function Testimonials() {
           className="mt-12 md:mt-20 lg:mt-24 pt-6 md:pt-8 lg:pt-12 border-t border-white/10"
         >
           <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-center  mb-6 md:mb-8 text-white/80">
-            Trusted by Companies Worldwide
+            Trusted Technology Solutions Provider Worldwide
           </h3>
           
           {/* COLORFUL ICONS ONLY - keeping your original card design */}
@@ -345,7 +345,7 @@ export default function Testimonials() {
             className="text-center mt-8 md:mt-12"
           >
             <p className="text-base md:text-lg text-white/80 mb-4 md:mb-6 max-w-2xl mx-auto px-4">
-              Ready to join our growing list of satisfied clients?
+              Ready to join our growing list of satisfied clients and start your digital transformation journey?
             </p>
             <motion.a
               href="/contact"
@@ -353,7 +353,7 @@ export default function Testimonials() {
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-lg md:rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 !text-white font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 text-sm md:text-base"
             >
-              Start Your Success Story
+              Get Your Custom Software Quote
               <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
             </motion.a>
           </motion.div>
