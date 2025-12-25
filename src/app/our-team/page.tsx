@@ -132,7 +132,7 @@ export default function OurTeamPage() {
       />
 
       <div className="max-w-7xl mx-auto px-4 py-20">
-<OurTeamContent/>
+        <OurTeamContent />
       </div>
     </div>
   );
