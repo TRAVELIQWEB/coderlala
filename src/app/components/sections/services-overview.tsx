@@ -202,15 +202,15 @@ export default function ServicesOverview() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 mb-4 sm:mb-6">
             <Code2 className="w-3 h-3 sm:w-4 sm:h-4 text-gray-800 dark:text-white" />
-            <span className="text-xs sm:text-sm font-medium text-gray-800 dark:text-white">Our Expertise</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-800 dark:text-white">Comprehensive Technology Solutions</span>
           </div>
           <h2 className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400">Building Powerful</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600 dark:from-orange-400 dark:to-red-400">Digital Products</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400">Expert Web Development &</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600 dark:from-orange-400 dark:to-red-400">Custom Software Solutions</span>
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-white dark:text-gray-300 max-w-3xl mx-auto px-2">
-          We deliver end-to-end technology solutions that help businesses grow with reliable, scalable, and innovative software.  
+          We deliver comprehensive web development services, mobile app development services, and SaaS development services that drive digital transformation through innovative technology solutions and expert IT consulting.  
            </p>
         </motion.div>
 
@@ -293,7 +293,7 @@ export default function ServicesOverview() {
           className="mt-16 sm:mt-20 md:mt-24 pt-8 sm:pt-10 md:pt-12 border-t border-white/20"
         >
           <h3 className="text-xl sm:text-2xl font-semibold text-center mb-6 sm:mb-8 text-white">
-           Technologies We Work With
+           Advanced Technologies for Enterprise Software Development
           </h3>
           <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-5 md:gap-6 lg:gap-8 px-2">
             {techStack.map((tech, i) => {
@@ -329,7 +329,7 @@ export default function ServicesOverview() {
             className="text-center mt-8 sm:mt-10 md:mt-12"
           >
             <p className="text-sm sm:text-base md:text-lg text-white/80 mb-4 sm:mb-6 max-w-2xl mx-auto px-2">
-              Ready to join our growing list of satisfied clients?
+              Ready to transform your business with our custom software development services and cloud solutions?
             </p>
             <motion.a
               href="/contact"
@@ -337,7 +337,7 @@ export default function ServicesOverview() {
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 !text-white font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
             >
-              Start Your Success Story
+              Start Your Digital Transformation
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.a>
           </motion.div>

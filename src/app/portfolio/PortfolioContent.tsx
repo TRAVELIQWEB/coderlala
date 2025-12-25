@@ -164,23 +164,22 @@ export default function PortfolioContent() {
         transition={{ duration: 0.6 }}
         className="text-center mb-12 sm:mb-16 md:mb-20"
       >
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 sm:mb-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 sm:mb-6">
           <Award className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300" />
-          <span className="text-xs sm:text-sm font-medium">Our Portfolio</span>
+          <span className="text-xs sm:text-sm font-medium">Software Development Portfolio</span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6">
           <span className="text-transparent bg-clip-text bg-blue-500">
-            Engineering
+            Web & Mobile App
           </span>
           <span className="block text-transparent bg-clip-text bg-orange-500">
-            Excellence
+            Development Portfolio
           </span>
         </h1>
 
         <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-3xl mx-auto px-4 sm:px-0">
-          A showcase of our most impactful projects — from enterprise platforms to AI solutions, 
-          each delivering exceptional value and performance.
+          Explore our custom software development portfolio showcasing web development, mobile app development, and SaaS development projects that drive digital transformation for businesses.
         </p>
       </motion.div>
 
@@ -219,7 +218,7 @@ export default function PortfolioContent() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8">
           <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-0">
             <Filter className="w-4 h-4 sm:w-5 sm:h-5 text-blue-300" />
-            <h3 className="text-xl sm:text-2xl font-bold text-white">Filter by Category</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-white">Filter Technology Solutions Portfolio</h3>
           </div>
           <div className="text-sm text-white/70">
             {filteredProjects.length} project{filteredProjects.length !== 1 ? "s" : ""} found
@@ -258,9 +257,9 @@ export default function PortfolioContent() {
                   <button
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
-                    className={`flex-shrink-0 w-48 p-4 rounded-xl border transition-all ${
+                    className={`shrink-0 w-48 p-4 rounded-xl border transition-all ${
                       activeCategory === category.id 
-                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 border-white/30 shadow-lg" 
+                        ? "bg-linear-to-r from-blue-600 to-indigo-600 border-white/30 shadow-lg" 
                         : "bg-white/5 border-white/10 hover:bg-white/10"
                     }`}
                   >
@@ -296,7 +295,7 @@ export default function PortfolioContent() {
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 className={`group flex items-center gap-3 px-6 py-3 rounded-xl transition-all ${activeCategory === category.id
-                    ? "bg-gradient-to-r from-blue-500 to-indigo-600 !text-white"
+                    ? "bg-linear-to-r from-blue-500 to-indigo-600 text-white!"
                     : "bg-white/5 hover:bg-white/10 border border-white/10"
                   }`}
               >
@@ -341,7 +340,7 @@ export default function PortfolioContent() {
                 {/* Icon + Category */}
                 <div className="flex items-start justify-between mb-4 sm:mb-6">
                   <div className={`p-3 sm:p-4 rounded-xl ${project.color}/20`}>
-                    <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 !text-white" />
+                    <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-white!" />
                   </div>
                   <div className="text-xs px-2 sm:px-3 py-1 rounded-full bg-white/10 border border-white/10 capitalize">
                     {project.category}
@@ -372,7 +371,7 @@ export default function PortfolioContent() {
 
                 {/* Footer */}
                 <div className="flex items-center justify-between mt-auto pt-4 sm:pt-6 border-t border-white/10">
-                  <div className="text-xs sm:text-sm font-medium bg-gradient-to-r from-blue-300 to-orange-300 bg-clip-text text-transparent">
+                  <div className="text-xs sm:text-sm font-medium bg-linear-to-r from-blue-300 to-orange-300 bg-clip-text text-transparent">
                     {project.stats}
                   </div>
 
@@ -420,7 +419,7 @@ export default function PortfolioContent() {
                 >
                   <Link
                     href="/contact"
-                    className="px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-blue-600 to-orange-600 !text-white font-semibold hover:scale-105 transition-transform text-sm sm:text-base"
+                    className="px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-linear-to-r from-blue-600 to-orange-600 text-white! font-semibold hover:scale-105 transition-transform text-sm sm:text-base"
                   >
                     Build Similar Project
                   </Link>
@@ -441,10 +440,10 @@ export default function PortfolioContent() {
       >
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6"> 
-            <span className="text-transparent bg-clip-text bg-orange-500">Our Process</span> 
+            <span className="text-transparent bg-clip-text bg-orange-500">Software Development Process</span> 
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-3xl mx-auto px-4 sm:px-0">
-            Every project follows our proven methodology to ensure quality, timeliness, and client satisfaction.
+            Every custom software development project follows our proven methodology to ensure quality, timeliness, and client satisfaction in our web development portfolio.
           </p>
         </div>
 
@@ -456,14 +455,14 @@ export default function PortfolioContent() {
             { step: "04", title: "Launch & Support", desc: "Deploy, monitor, and provide ongoing support" },
           ].map((item, i) => (
             <div key={i} className="relative text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-blue-500/20 to-orange-500/20 border border-white/10 mb-4 sm:mb-6">
+              <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-linear-to-br from-blue-500/20 to-orange-500/20 border border-white/10 mb-4 sm:mb-6">
                 <span className="text-lg sm:text-xl md:text-2xl font-bold text-white">{item.step}</span>
               </div>
               <h4 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">{item.title}</h4>
               <p className="text-xs sm:text-sm ">{item.desc}</p>
 
               {i < 3 && (
-                <div className="hidden lg:block absolute top-6 sm:top-8 left-3/4 w-full h-px bg-gradient-to-r from-blue-500/20 via-orange-500/20 to-transparent" />
+                <div className="hidden lg:block absolute top-6 sm:top-8 left-3/4 w-full h-px bg-linear-to-r from-blue-500/20 via-orange-500/20 to-transparent" />
               )}
             </div>
           ))}
@@ -480,40 +479,39 @@ export default function PortfolioContent() {
       >
         <div className="glass-card p-6 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10 max-w-4xl mx-auto">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
-              Ready to Start Your Project?
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-orange-400">
+              Ready to Join Our Portfolio?
             </span>
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-white/70 mb-6 sm:mb-8 max-w-2xl mx-auto px-4 sm:px-0">
-            Let's discuss how we can build something amazing together. Share your vision and 
-            we'll create a custom solution tailored to your needs.
+            Let's discuss how we can add your digital transformation project to our software development portfolio. Share your vision and we'll create a custom solution.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/contact"
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl !text-white font-semibold 
-                bg-gradient-to-r from-blue-500 to-indigo-600
+              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold 
+                bg-linear-to-r from-blue-500 to-indigo-600
                 hover:from-blue-600 hover:to-blue-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                 shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)]
                 flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
             >
-              <span className="relative !text-white">Start Your Project</span>
+              <span className="relative text-white!">Start Your Custom Software Project</span>
               <Zap className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
 
             <Link
               href="/services"
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl !text-white font-semibold 
-                bg-gradient-to-r from-orange-500 to-orange-600
+              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold 
+                bg-linear-to-r from-orange-500 to-orange-600
                 hover:from-orange-600 hover:to-orange-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                 shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)]
                 flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
             >
-              <span className="relative !text-white">View Our Services</span>
+              <span className="relative text-white!">Explore Technology Solutions</span>
               <Eye className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

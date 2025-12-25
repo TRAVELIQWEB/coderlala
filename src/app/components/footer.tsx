@@ -102,7 +102,7 @@ export default function Footer() {
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-white/70 hover:text-white transition-colors text-sm md:text-base block py-1 md:py-1.5 hover:pl-1 transition-all duration-200"
+                    className="text-white/70 hover:text-white text-sm md:text-base block py-1 md:py-1.5 hover:pl-1 transition-all duration-200"
                   >
                     {link.label}
                   </Link>
@@ -140,7 +140,7 @@ export default function Footer() {
                 // href="mailto:salman.nizam@coderlala.com"
                 className="flex items-start sm:items-center gap-3 text-white/70 hover:text-white transition-colors group"
               >
-                <div className="flex-shrink-0 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10 transition-all">
+                <div className="shrink-0 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10 transition-all">
                   <FaPhone className="rotate-90 w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:text-white" />
                 </div>
                 <div>
@@ -153,7 +153,7 @@ export default function Footer() {
                 href="mailto:salman.nizam@coderlala.com"
                 className="flex items-start sm:items-center gap-3 text-white/70 hover:text-white transition-colors group"
               >
-                <div className="flex-shrink-0 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10 transition-all">
+                <div className="shrink-0 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10 transition-all">
                   <FaEnvelope className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:text-white" />
                 </div>
                 <div>
@@ -187,7 +187,7 @@ export default function Footer() {
         {/* Copyright & Legal */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 my-2 py-2 md:gap-6">
           <p className="text-xs md:text-sm  text-center sm:text-left order-2 sm:order-1 font-semibold">
-            © {currentYear} CoderLala Technologies Pvt. Ltd. — All rights reserved.
+            © {currentYear} CoderLala Technologies Private Limited — All rights reserved.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 md:gap-4 text-xs md:text-sm text-white/70 order-1 sm:order-2">

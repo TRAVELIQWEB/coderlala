@@ -12,7 +12,7 @@ export default function CookiePolicyContent() {
         transition={{ duration: 0.6 }}
         className="text-center md:mt-10 mb-12 sm:mb-16 md:mb-20"
       >
-        <div className="about-hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-4 md:mb-6">
+        <div className="about-hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-4 md:mb-6">
           <Cookie className="w-4 h-4 text-orange-500 dark:text-orange-300" />
           <span className="text-sm font-medium">
             Cookies & Tracking
@@ -45,7 +45,7 @@ export default function CookiePolicyContent() {
           className="glass-card-without-hover text-left mb-20 backdrop-blur-xl mt-6 rounded-lg border border-white/10 p-6 shadow-xl shadow-black/50 sm:p-8 relative"
         >
           {/* gradient glow */}
-          <div className="pointer-events-none absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-sky-500/30 via-transparent to-indigo-500/30 blur-2xl opacity-60" />
+          <div className="pointer-events-none absolute inset-0 -z-10 rounded-2xl bg-linear-to-br from-sky-500/30 via-transparent to-indigo-500/30 blur-2xl opacity-60" />
 
           <article className="prose prose-invert prose-sm max-w-none sm:prose-base prose-headings:text-slate-50 prose-a:text-sky-300">
             <p>

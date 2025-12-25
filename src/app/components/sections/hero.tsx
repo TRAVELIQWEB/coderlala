@@ -15,14 +15,14 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.15, scale: 1 }}
           transition={{ duration: 2, delay: 0.2 }}
-          className="absolute top-1/4 left-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-gradient-to-br from-blue-500/20 via-purple-500/15 to-transparent blur-[60px] sm:blur-[80px] lg:blur-[120px] rounded-full"
+          className="absolute top-1/4 left-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-linear-to-br from-blue-500/20 via-purple-500/15 to-transparent blur-[60px] sm:blur-[80px] lg:blur-[120px] rounded-full"
         />
         
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.12, scale: 1 }}
           transition={{ duration: 2, delay: 0.4 }}
-          className="absolute bottom-1/3 right-1/4 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] lg:w-[500px] lg:h-[500px] bg-gradient-to-tl from-orange-500/15 via-pink-500/10 to-transparent blur-[50px] sm:blur-[80px] lg:blur-[100px] rounded-full"
+          className="absolute bottom-1/3 right-1/4 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] lg:w-[500px] lg:h-[500px] bg-linear-to-tl from-orange-500/15 via-pink-500/10 to-transparent blur-[50px] sm:blur-[80px] lg:blur-[100px] rounded-full"
         />
         
         {/* Floating particles */}
@@ -63,11 +63,11 @@ export default function Hero() {
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-blue-500/20 to-orange-500/20 backdrop-blur-sm border border-white/20 mb-6 sm:mb-8 hover:from-blue-500/15 hover:to-orange-500/15 transition-colors group cursor-pointer"
+              className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-linear-to-r from-blue-500/20 to-orange-500/20 backdrop-blur-sm border border-white/20 mb-6 sm:mb-8 hover:from-blue-500/15 hover:to-orange-500/15 transition-colors group cursor-pointer"
             >
               <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300 group-hover:rotate-12 transition-transform" />
               <span className="text-xs sm:text-sm font-medium tracking-wide">
-                <span className="text-blue-400">Trusted Partner</span> for 25+ Global Startups
+                <span className="text-blue-400">Leading Software Development Company</span> for 25+ Global Startups
               </span>
             </motion.div>
 
@@ -83,7 +83,7 @@ export default function Hero() {
                   Best {" "}
                  
                     <span className="text-orange-500">
-                      Web, App & Software
+                      Web, Mobile App & SaaS
                     </span>
                   
                 </span>
@@ -106,8 +106,8 @@ export default function Hero() {
               className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto lg:mx-0"
             >
               As a{" "}
-              <span className="font-semibold text-white">top web, mobile app and software development company in Gurgaon, </span>{" "}
-              we create reliable, scalable digital products designed to enhance business performance and customer experience.
+              <span className="font-semibold text-white">leading web development company, mobile app development, and SaaS development firm in Gurgaon, </span>{" "}
+              we specialize in custom software development, web application development, and mobile application development to drive your digital transformation with cutting-edge technology solutions.
             </motion.p>
 
             {/* Key Features */}
@@ -118,13 +118,13 @@ export default function Hero() {
               className="mt-6 sm:mt-8 grid grid-cols-2 gap-3 sm:gap-4"
             >
               {[
-                { icon: Rocket, text: "Fast Delivery", color: "text-orange-400", bg: "from-orange-500/10 to-orange-600/10" },
-                { icon: Zap, text: "High Performance", color: "text-blue-400", bg: "from-blue-500/10 to-cyan-500/10" },
-                { icon: Target, text: "Future-Ready Tech", color: "text-purple-400", bg: "from-purple-500/10 to-pink-500/10" },
-                { icon: Users, text: "Expert Developers", color: "text-green-400", bg: "from-green-500/10 to-emerald-500/10" },
+                { icon: Rocket, text: "Agile Development", color: "text-orange-400", bg: "from-orange-500/10 to-orange-600/10" },
+                { icon: Zap, text: "High-Performance Apps", color: "text-blue-400", bg: "from-blue-500/10 to-cyan-500/10" },
+                { icon: Target, text: "Digital Transformation", color: "text-purple-400", bg: "from-purple-500/10 to-pink-500/10" },
+                { icon: Users, text: "Expert IT Consulting", color: "text-green-400", bg: "from-green-500/10 to-emerald-500/10" },
               ].map((feature, i) => (
                 <div key={i} className="flex items-center gap-2 sm:gap-3 group">
-                  <div className={`p-1.5 sm:p-2 rounded-lg bg-gradient-to-r ${feature.bg} ${feature.color} group-hover:scale-110 transition-transform`}>
+                  <div className={`p-1.5 sm:p-2 rounded-lg bg-linear-to-r ${feature.bg} ${feature.color} group-hover:scale-110 transition-transform`}>
                     <feature.icon className="w-3 h-3 sm:w-4 sm:h-4" />
                   </div>
                   <span className="text-xs sm:text-sm font-medium group-hover:text-gray-600 transition-colors">
@@ -144,31 +144,31 @@ export default function Hero() {
               {/* Primary Button - Blue */}
               <Link
                 href="/contact"
-                className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-xl !text-white font-semibold bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:via-blue-700 hover:to-blue-900 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)] flex items-center justify-center gap-2 sm:gap-3 overflow-hidden"
+                className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-xl text-white! font-semibold bg-linear-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:via-blue-700 hover:to-blue-900 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)] flex items-center justify-center gap-2 sm:gap-3 overflow-hidden"
               >
                 {/* Button shine effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
                 
-                <span className="relative text-sm sm:text-base">Start Your Project</span>
+                <span className="relative text-sm sm:text-base">Get Custom Software Quote</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                 
                 {/* Glow effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-blue-800/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+                <div className="absolute -inset-1 bg-linear-to-r from-blue-600/20 to-blue-800/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
               </Link>
 
               {/* Secondary Button - Orange */}
               <Link
                 href="/portfolio"
-                className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-xl !text-white font-semibold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)] flex items-center justify-center gap-2 sm:gap-3 overflow-hidden"
+                className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-xl text-white! font-semibold bg-linear-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)] flex items-center justify-center gap-2 sm:gap-3 overflow-hidden"
               >
                 {/* Button shine effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
                 
-                <span className="relative text-sm sm:text-base">View Case Studies</span>
+                <span className="relative text-sm sm:text-base">View Development Portfolio</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                 
                 {/* Glow effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-orange-600/20 to-orange-800/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+                <div className="absolute -inset-1 bg-linear-to-r from-orange-600/20 to-orange-800/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
               </Link>
             </motion.div>
           </div>
@@ -221,7 +221,7 @@ export default function Hero() {
                       {stat.value}
                     </div>
                     <div className="text-sm sm:text-lg font-semibold mt-1 sm:mt-2">{stat.label}</div>
-                    <div className="text-xs sm:text-sm !text-gray-100 mt-1">
+                    <div className="text-xs sm:text-sm text-gray-100! mt-1">
                       {stat.description}
                     </div>
                   </motion.div>
@@ -237,7 +237,7 @@ export default function Hero() {
               >
                 <p className="text-xs sm:text-sm text-white/70 text-center">
                   <span className="font-semibold text-white">Proven Results:</span>{" "}
-                  Join hundreds of satisfied clients who transformed their businesses with our solutions.
+                  Join hundreds of satisfied clients who achieved digital transformation through our web development, mobile app development, and SaaS development services.
                 </p>
               </motion.div>
             </motion.div>
@@ -253,7 +253,7 @@ export default function Hero() {
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-2xl backdrop-blur-sm border border-white/10 rotate-12"
+              className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-linear-to-br from-blue-500/20 to-blue-600/20 rounded-2xl backdrop-blur-sm border border-white/10 rotate-12"
             />
             
             <motion.div
@@ -267,7 +267,7 @@ export default function Hero() {
                 ease: "easeInOut",
                 delay: 0.5
               }}
-              className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-tr from-orange-500/15 to-orange-600/15 rounded-xl backdrop-blur-sm border border-white/10 -rotate-12"
+              className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-linear-to-tr from-orange-500/15 to-orange-600/15 rounded-xl backdrop-blur-sm border border-white/10 -rotate-12"
             />
           </div>
         </div>
@@ -288,7 +288,7 @@ export default function Hero() {
             }}
             className="flex flex-col items-center gap-2 text-white/70 hover:text-white transition-colors cursor-pointer"
           >
-            <span className="text-sm font-medium">Explore More</span>
+            <span className="text-sm font-medium">Explore Our Services</span>
             <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center group-hover:border-white/60 transition-colors">
               <motion.div
                 animate={{ y: [0, 6, 0] }}
@@ -297,7 +297,7 @@ export default function Hero() {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="w-1 h-3 bg-gradient-to-b from-blue-400 to-orange-400 rounded-full mt-2"
+                className="w-1 h-3 bg-linear-to-b from-blue-400 to-orange-400 rounded-full mt-2"
               />
             </div>
           </motion.div>

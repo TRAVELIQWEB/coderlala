@@ -4,13 +4,23 @@ import Footer from "./components/footer";
 import GalaxyBackground from "./components/galaxy-background";
 import NavbarClientWrapper from "./components/navbar-client-wrapper";
 import GalaxyBackgroundNew from "./components/GalaxyBackgroundNew";
+import {
+  OrganizationSchema,
+  WebSiteSchema,
+  LocalBusinessSchema,
+  ContactPointSchema,
+  BreadcrumbSchema
+} from "./components/structured-data";
 
 export const metadata = {
   metadataBase: new URL("https://coderlala.com"),
-  title: "CoderLala Technologies Pvt. Ltd. | Next-Gen Digital Solutions",
-  // title: "Web Development Company Gurgaon | Next.js React SaaS – CoderLala",
-  description: "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions with modern engineering excellence.",
-  // description: "Leading web development company in Gurgaon. Next.js, React Native apps, Node.js backend, AWS cloud. Fast delivery.",
+  title: {
+    default:
+      "CoderLala Technologies Private Limited | Next-Gen Digital Solutions",
+    template: "%s | CoderLala Technologies Private Limited"
+  },
+  description:
+    "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions.",
   keywords: [
     "web development",
     "app development",
@@ -21,22 +31,11 @@ export const metadata = {
   ],
   authors: [{ name: "CoderLala Technologies" }],
   openGraph: {
-    title: "CoderLala Technologies Pvt. Ltd.",
-    description: "Building next-generation digital solutions.",
-    url: "https://coderlala.com",
-    siteName: "CoderLala Technologies",
+    siteName: "CoderLala Technologies Private Limited",
     type: "website",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "CoderLala Technologies",
-      },
-    ],
   },
   alternates: {
-    canonical: "https://coderlala.com",
+    canonical: './', // current pathname becomes canonical
   },
   robots: {
     index: true,
@@ -52,42 +51,73 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://coderlala.com" />
 
-        {/* JSON-LD Organization Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "CoderLala Technologies Pvt. Ltd.",
-              url: "https://coderlala.com",
-              logo: "https://www.coderlala.com/images/og-banner.png",
-              description:
-                "A modern tech company building SaaS platforms, mobile apps, cloud infrastructures, and AI-driven solutions.",
-              sameAs: [
-                "https://www.linkedin.com/company/coderlala",
-                "https://github.com/coderlala",
-              ],
-            }),
+        {/* Structured Data Components */}
+        <OrganizationSchema
+          data={{
+            name: "CoderLala Technologies Pvt. Ltd.",
+            url: "https://coderlala.com",
+            logo: "https://www.coderlala.com/images/og-banner.png",
+            description:
+              "A modern tech company building SaaS platforms, mobile apps, cloud infrastructures, and AI-driven solutions.",
+            sameAs: [
+              "https://www.linkedin.com/company/coderlala",
+              "https://github.com/coderlala",
+            ],
           }}
         />
 
-        {/* Breadcrumb Schema (Home Only) */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                {
-                  "@type": "ListItem",
-                  position: 1,
-                  name: "Home",
-                  item: "https://coderlala.com",
-                },
-              ],
-            }),
+        <WebSiteSchema
+          data={{
+            name: "CoderLala Technologies Pvt. Ltd.",
+            url: "https://coderlala.com",
+            description: "Building next-generation digital solutions.",
+            publisher: {
+              "@type": "Organization",
+              name: "CoderLala Technologies Pvt. Ltd."
+            },
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://coderlala.com/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }}
+        />
+
+        <LocalBusinessSchema
+          data={{
+            name: "CoderLala Technologies Pvt. Ltd.",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "Unit No.712, 7th Floor, JMD Megapolis, sector-48",
+              addressLocality: "Gurgaon",
+              addressRegion: "Haryana",
+              postalCode: "122018",
+              addressCountry: "IN"
+            },
+            url: "https://coderlala.com",
+            email: "salman.nizam@coderlala.com",
+            openingHours: "Mo-Fr 09:00-18:00, Sa 10:00-16:00"
+          }}
+        />
+
+        <ContactPointSchema
+          data={{
+            contactType: "customer service",
+            email: "salman.nizam@coderlala.com",
+            availableLanguage: "English"
+          }}
+        />
+
+        <BreadcrumbSchema
+          data={{
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://coderlala.com",
+              },
+            ],
           }}
         />
       </head>
@@ -97,7 +127,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <div className="fixed inset-0 -z-20">
             <GalaxyBackground />
-             {/* <GalaxyBackgroundNew /> */}
+            {/* <GalaxyBackgroundNew /> */}
           </div>
           <NavbarClientWrapper />
           <main className="min-h-screen">{children}</main>
