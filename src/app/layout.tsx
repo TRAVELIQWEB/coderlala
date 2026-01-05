@@ -52,19 +52,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="canonical" href="https://coderlala.com" />
 
         {/* Structured Data Components */}
+
         <OrganizationSchema
           data={{
+            "@id": "https://www.wikidata.org/wiki/Q137691754", // Coderlala Wikidata Q-code
             name: "CoderLala Technologies Pvt. Ltd.",
             url: "https://coderlala.com",
             logo: "https://www.coderlala.com/images/og-banner.png",
             description:
               "A modern tech company building SaaS platforms, mobile apps, cloud infrastructures, and AI-driven solutions.",
+            founder: {
+              "@type": "Person",
+              "@id": "https://www.wikidata.org/wiki/Q137691662",
+              name: "Salman Nizam"
+            },
             sameAs: [
+              "https://www.wikidata.org/wiki/Q137691754",
               "https://www.linkedin.com/company/coderlala",
-              "https://github.com/coderlala",
+              "https://github.com/coderlala"
             ],
           }}
         />
+
 
         <WebSiteSchema
           data={{
@@ -73,6 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             description: "Building next-generation digital solutions.",
             publisher: {
               "@type": "Organization",
+              "@id": "https://www.wikidata.org/wiki/Q137691754",
               name: "CoderLala Technologies Pvt. Ltd."
             },
             potentialAction: {
