@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import { FAQSchema } from "../components/structured-data";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | CoderLala Technologies - Data Protection & Privacy",
-  description: "Read CoderLala Technologies' comprehensive privacy policy. Learn how we collect, use, and protect your personal information in compliance with data protection laws and regulations.",
+  title: "Privacy Policy | CoderLala Data Protection",
+  description: "Understand CoderLala's data privacy practices: collection, usage, sharing & protection compliant with GDPR and Indian data laws.",
   keywords: [
     "privacy policy CoderLala",
     "data protection policy",
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   creator: "CoderLala Technologies",
   publisher: "CoderLala Technologies",
   openGraph: {
-    title: "Privacy Policy | CoderLala Technologies - Data Protection & Privacy",
-    description: "Learn how CoderLala Technologies protects your personal information and complies with data protection regulations.",
+    title: "Privacy Policy | CoderLala Data Protection",
+    description: "Understand CoderLala's data privacy practices: collection, usage, sharing & protection compliant with GDPR and Indian data laws.",
     url: "https://coderlala.com/privacy-policy",
     siteName: "CoderLala Technologies",
     type: "website",
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy Policy | CoderLala Technologies",
-    description: "Learn how we protect your personal information and comply with data protection regulations.",
+    title: "Privacy Policy | CoderLala Data Protection",
+    description: "Understand CoderLala's data privacy practices: collection, usage, sharing & protection compliant with GDPR and Indian data laws.",
     images: ["/images/feature-images/og-images/og-privacy.jpg"],
     creator: "@coderlala",
     site: "@coderlala",

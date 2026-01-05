@@ -3,8 +3,8 @@ import CareersContent from "./CareersContent";
 import { FAQSchema } from "../components/structured-data";
 
 export const metadata: Metadata = {
-  title: "Careers at CoderLala | Join Our Team of Tech Innovators",
-  description: "Join CoderLala Technologies and work on cutting-edge technology projects. We're hiring developers, designers, DevOps engineers, and AI specialists. Competitive salaries, growth opportunities, and innovative work culture in Gurugram.",
+  title: "Careers | CoderLala Technologies Gurugram Hiring",
+  description: "Join CoderLala's team of innovators—designers, DevOps engineers, AI specialists. We're hiring developers for cutting-edge projects in Gurugram.",
   keywords: [
     "careers CoderLala Technologies",
     "software developer jobs India",
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   creator: "CoderLala Technologies",
   publisher: "CoderLala Technologies",
   openGraph: {
-    title: "Careers at CoderLala | Join Our Team of Tech Innovators",
-    description: "Join CoderLala Technologies and work on cutting-edge technology projects. We're hiring developers, designers, and engineers. Located in Gurugram, India.",
+    title: "Careers | CoderLala Technologies Gurugram Hiring",
+    description: "Join CoderLala's team of innovators—designers, DevOps engineers, AI specialists. We're hiring developers for cutting-edge projects in Gurugram.",
     url: "https://coderlala.com/careers",
     siteName: "CoderLala Technologies",
     type: "website",
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Careers at CoderLala Technologies",
-    description: "Join our team of tech innovators. We're hiring developers, designers, and engineers for cutting-edge projects.",
+    title: "Careers | CoderLala Technologies Gurugram Hiring",
+    description: "Join CoderLala's team of innovators—designers, DevOps engineers, AI specialists. We're hiring developers for cutting-edge projects in Gurugram.",
     images: ["/images/feature-images/og-images/og-careers.jpg"],
     creator: "@coderlala",
     site: "@coderlala",

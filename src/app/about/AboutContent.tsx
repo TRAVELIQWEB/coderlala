@@ -142,7 +142,7 @@ export default function AboutContent() {
           </span>
         </h1>
 
-        <p className="about-hero-desc text-base sm:text-lg md:text-xl max-w-3xl mx-auto px-4 sm:px-0">
+        <p className="about-hero-desc max-w-3xl mx-auto px-4 sm:px-0">
           As a leading web development company and software development company in Gurgaon, we specialize in custom software development and innovative technology solutions that drive digital transformation.
         </p>
       </motion.div>

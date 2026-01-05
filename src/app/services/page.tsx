@@ -4,8 +4,8 @@ import ServicesContent from "./ServicesContent";
 import { FAQSchema } from "../components/structured-data";
 
 export const metadata: Metadata = {
-  title: "Our Services | CoderLala Technologies - Web, Mobile, Cloud & AI Solutions",
-  description: "Comprehensive software development services including web development, mobile apps, SaaS platforms, AI/ML solutions, cloud infrastructure, DevOps, UI/UX design, and enterprise software development.",
+  title: "CoderLala Services | Web, Mobile & AI Development",
+  description: "Expert software development: web, mobile apps, SaaS platforms, AI/ML, cloud services, DevOps & enterprise solutions in Gurugram.",
   keywords: [
     "web development services",
     "mobile app development company",
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   creator: "CoderLala Technologies",
   publisher: "CoderLala Technologies",
   openGraph: {
-    title: "Our Services | CoderLala Technologies - Web, Mobile, Cloud & AI Solutions",
-    description: "Expert software development services: web apps, mobile apps, SaaS platforms, AI/ML solutions, cloud infrastructure, and enterprise software development.",
+    title: "CoderLala Services | Web, Mobile & AI Development",
+    description: "Expert software development: web, mobile apps, SaaS platforms, AI/ML, cloud services, DevOps & enterprise solutions in Gurugram.",
     url: "https://coderlala.com/services",
     siteName: "CoderLala Technologies",
     type: "website",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Our Services | CoderLala Technologies",
-    description: "Comprehensive software development services including web, mobile, SaaS, AI/ML, and cloud solutions.",
+    description: "Expert software development: web, mobile apps, SaaS platforms, AI/ML, cloud services, DevOps & enterprise solutions in Gurugram.",
     images: ["/images/feature-images/og-images/og-services.jpg"],
     creator: "@coderlala",
     site: "@coderlala",

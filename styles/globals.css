@@ -853,3 +853,7 @@ html:not(.dark) .mobile-nav a {
     animation-duration: 2s !important;
   }
 }
+
+button{
+  cursor: pointer;
+}

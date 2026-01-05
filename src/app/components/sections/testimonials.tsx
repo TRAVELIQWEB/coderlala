@@ -168,8 +168,8 @@ export default function Testimonials() {
     <section className="relative py-12 md:py-20 lg:py-32 overflow-hidden">
       {/* BACKGROUND */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-gradient-to-br from-purple-500/10 to-transparent blur-3xl rounded-full" />
-        <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-gradient-to-tl from-blue-500/10 to-transparent blur-3xl rounded-full" />
+        <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-purple-500/10 to-transparent blur-3xl rounded-full" />
+        <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-blue-500/10 to-transparent blur-3xl rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -238,10 +238,10 @@ export default function Testimonials() {
 
           {/* CARD */}
           <div className="glass-card p-4 md:p-6 lg:p-10 rounded-2xl md:rounded-3xl backdrop-blur-xl border border-white/10 relative overflow-hidden">
-            <div className={`absolute top-0 right-0 w-32 h-32 md:w-64 md:h-64 bg-gradient-to-br ${testimonials[activeTestimonial].color} opacity-10 blur-3xl`} />
+            <div className={`absolute top-0 right-0 w-32 h-32 md:w-64 md:h-64 bg-linear-to-br ${testimonials[activeTestimonial].color} opacity-10 blur-3xl`} />
             <div className="relative">
               <div className="flex flex-col sm:flex-row sm:items-start gap-4 md:gap-6 mb-6 md:mb-8">
-                <div className={`w-16 h-16 md:w-20 md:h-20 rounded-xl md:rounded-2xl bg-gradient-to-br ${testimonials[activeTestimonial].color} flex items-center justify-center text-white text-xl md:text-2xl font-bold`}>
+                <div className={`w-16 h-16 md:w-20 md:h-20 rounded-xl md:rounded-2xl bg-linear-to-br ${testimonials[activeTestimonial].color} flex items-center justify-center text-white text-xl md:text-2xl font-bold`}>
                   {testimonials[activeTestimonial].image}
                 </div>
                 <div className="flex-1">
@@ -351,7 +351,7 @@ export default function Testimonials() {
               href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-lg md:rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 !text-white font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 text-sm md:text-base"
+              className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-lg md:rounded-xl bg-linear-to-r from-blue-600 to-purple-600 text-white! font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 text-sm md:text-base"
             >
               Get Your Custom Software Quote
               <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />

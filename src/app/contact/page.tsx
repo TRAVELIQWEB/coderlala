@@ -3,8 +3,8 @@ import ContactContent from "./ContactContent";
 import { FAQSchema } from "../components/structured-data";
 
 export const metadata: Metadata = {
-  title: "Contact Us | CoderLala Technologies - Get Your Project Quote",
-  description: "Get in touch with CoderLala Technologies for project inquiries, consultations, and support. We respond within 24 hours. Located in Gurugram, India. Contact us for web development, mobile apps, and SaaS solutions.",
+  title: "Contact CoderLala | Get Software Project Quote Now",
+  description: "Contact Gurugram's CoderLala Technologies for custom software development, mobile apps or SaaS quotes. Expert digital transformation starts here.",
   keywords: [
     "contact CoderLala Technologies",
     "software development quote",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   creator: "CoderLala Technologies",
   publisher: "CoderLala Technologies",
   openGraph: {
-    title: "Contact Us | CoderLala Technologies - Get Your Project Quote",
-    description: "Get in touch with CoderLala Technologies for project inquiries and consultations. We respond within 24 hours. Located in Gurugram, India.",
+    title: "Contact CoderLala | Get Software Project Quote Now",
+    description: "Contact Gurugram's CoderLala Technologies for custom software development, mobile apps or SaaS quotes. Expert digital transformation starts here.",
     url: "https://coderlala.com/contact",
     siteName: "CoderLala Technologies",
     type: "website",
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact CoderLala Technologies",
-    description: "Get your project quote from India's leading software development company. We respond within 24 hours.",
+    title: "Contact CoderLala | Get Software Project Quote Now",
+    description: "Contact Gurugram's CoderLala Technologies for custom software development, mobile apps or SaaS quotes. Expert digital transformation starts here.",
     images: ["/images/feature-images/og-images/og-contact.jpg"],
     creator: "@coderlala",
     site: "@coderlala",

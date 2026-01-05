@@ -3,8 +3,8 @@ import AboutContent from "./AboutContent";
 import { FAQSchema } from "../components/structured-data";
 
 export const metadata: Metadata = {
-  title: "About Us | CoderLala Technologies - Leading Software Development Company",
-  description: "Learn about CoderLala Technologies, a premier software development company in India delivering enterprise digital solutions, SaaS platforms, mobile apps, AI/ML systems, and DevOps services since 2020.",
+  title: "About CoderLala Technologies | Top Software Company India",
+  description: "Discover CoderLala Technologies: premier software development firm in Gurugram delivering enterprise solutions, SaaS, mobile apps & AI since 2020.",
   keywords: [
     "about CoderLala Technologies",
     "software development company India",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   creator: "CoderLala Technologies",
   publisher: "CoderLala Technologies",
   openGraph: {
-    title: "About Us | CoderLala Technologies - Leading Software Development Company",
-    description: "Discover CoderLala Technologies—experts in enterprise software, SaaS platforms, mobile apps, AI/ML, and DevOps solutions. Based in Gurugram, India.",
+    title: "About CoderLala Technologies | Top Software Company India",
+    description: "Discover CoderLala Technologies: premier software development firm in Gurugram delivering enterprise solutions, SaaS, mobile apps & AI since 2020.",
     url: "https://coderlala.com/about",
     siteName: "CoderLala Technologies",
     type: "website",
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About CoderLala Technologies",
-    description: "Leading software development company in India specializing in web apps, mobile apps, SaaS platforms, and AI-driven systems.",
+    title: "About CoderLala Technologies | Top Software Company India",
+    description: "Discover CoderLala Technologies: premier software development firm in Gurugram delivering enterprise solutions, SaaS, mobile apps & AI since 2020.",
     images: ["/images/feature-images/og-images/og-about.jpg"],
     creator: "@coderlala",
     site: "@coderlala",

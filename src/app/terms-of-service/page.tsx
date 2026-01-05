@@ -5,8 +5,8 @@ import { FAQSchema } from "../components/structured-data";
 // import { Award } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | CoderLala Technologies - Legal Terms & Conditions",
-  description: "Review CoderLala Technologies' terms of service and conditions. Understand the legal agreements, user responsibilities, service warranties, and governing terms for our software development services.",
+  title: "Terms & Conditions | CoderLala Technologies",
+  description: "CoderLala Technologies' Terms of Service: clear legal agreements, user responsibilities & service terms for web, mobile & SaaS development.",
   keywords: [
     "terms of service CoderLala",
     "terms and conditions",
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   creator: "CoderLala Technologies",
   publisher: "CoderLala Technologies",
   openGraph: {
-    title: "Terms of Service | CoderLala Technologies - Legal Terms & Conditions",
-    description: "Review our comprehensive terms of service covering software development agreements, user responsibilities, and legal terms.",
+    title: "Terms & Conditions | CoderLala Technologies",
+    description: "CoderLala Technologies' Terms of Service: clear legal agreements, user responsibilities & service terms for web, mobile & SaaS development.",
     url: "https://coderlala.com/terms-of-service",
     siteName: "CoderLala Technologies",
     type: "website",
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terms of Service | CoderLala Technologies",
-    description: "Review our comprehensive terms of service and legal agreements for software development services.",
+    title: "Terms & Conditions | CoderLala Technologies",
+    description: "CoderLala Technologies' Terms of Service: clear legal agreements, user responsibilities & service terms for web, mobile & SaaS development.",
     images: ["/images/feature-images/og-images/og-terms.jpg"],
     creator: "@coderlala",
     site: "@coderlala",

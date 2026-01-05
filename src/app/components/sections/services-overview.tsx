@@ -183,12 +183,12 @@ const techStack = [
 
 export default function ServicesOverview() {
   return (
-    <section className="relative pt-12 sm:pt-16 md:pt-20 overflow-hidden">
+    <section className="relative overflow-hidden">
 
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-gradient-to-br from-blue-500/10 to-transparent blur-2xl sm:blur-3xl rounded-full dark:from-blue-500/5" />
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-gradient-to-tl from-purple-500/10 to-transparent blur-2xl sm:blur-3xl rounded-full dark:from-purple-500/5" />
-        <div className="absolute top-3/4 left-1/2 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 bg-gradient-to-r from-orange-500/10 to-transparent blur-2xl sm:blur-3xl rounded-full dark:from-orange-500/5" />
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-linear-to-br from-blue-500/10 to-transparent blur-2xl sm:blur-3xl rounded-full dark:from-blue-500/5" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-linear-to-tl from-purple-500/10 to-transparent blur-2xl sm:blur-3xl rounded-full dark:from-purple-500/5" />
+        <div className="absolute top-3/4 left-1/2 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 bg-linear-to-r from-orange-500/10 to-transparent blur-2xl sm:blur-3xl rounded-full dark:from-orange-500/5" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -205,8 +205,8 @@ export default function ServicesOverview() {
             <span className="text-xs sm:text-sm font-medium text-gray-800 dark:text-white">Comprehensive Technology Solutions</span>
           </div>
           <h2 className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400">Expert Web Development &</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600 dark:from-orange-400 dark:to-red-400">Custom Software Solutions</span>
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400">Expert Web Development &</span>
+            <span className="block text-transparent bg-clip-text bg-linear-to-r from-orange-600 to-red-600 dark:from-orange-400 dark:to-red-400">Custom Software Solutions</span>
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-white dark:text-gray-300 max-w-3xl mx-auto px-2">
@@ -230,18 +230,18 @@ export default function ServicesOverview() {
               className="group relative"
             >
 
-              <div className={`absolute -inset-0.5 bg-gradient-to-r ${service.color} rounded-2xl sm:rounded-3xl blur opacity-0 group-hover:opacity-20 dark:group-hover:opacity-10 transition duration-500`} />
+              <div className={`absolute -inset-0.5 bg-linear-to-r ${service.color} rounded-2xl sm:rounded-3xl blur opacity-0 group-hover:opacity-20 dark:group-hover:opacity-10 transition duration-500`} />
 
 
               <div className="glass-card p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10 relative overflow-hidden">
 
 
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 dark:group-hover:opacity-10 transition-opacity duration-500`} />
+                <div className={`absolute inset-0 bg-linear-to-br ${service.color} opacity-0 group-hover:opacity-5 dark:group-hover:opacity-10 transition-opacity duration-500`} />
 
 
                 <div className="relative mb-4 sm:mb-6 z-10">
-                  <div className={`relative inline-flex items-center justify-center p-3 sm:p-4 rounded-xl bg-gradient-to-br ${service.color} shadow-lg dark:shadow-black/30`}>
-                    <service.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 !text-white" />
+                  <div className={`relative inline-flex items-center justify-center p-3 sm:p-4 rounded-xl bg-linear-to-br ${service.color} shadow-lg dark:shadow-black/30`}>
+                    <service.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white!" />
                   </div>
                 </div>
 
@@ -259,8 +259,8 @@ export default function ServicesOverview() {
                 <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-8 relative z-10">
                   {service.features.map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-2 sm:gap-3">
-                      <div className={`flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-br ${service.color} flex items-center justify-center shadow-sm mt-0.5`}>
-                        <Check className="w-2 h-2 sm:w-3 sm:h-3 !text-white" />
+                      <div className={`shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-linear-to-br ${service.color} flex items-center justify-center shadow-sm mt-0.5`}>
+                        <Check className="w-2 h-2 sm:w-3 sm:h-3 text-white!" />
                       </div>
                       <span className="text-xs sm:text-sm font-medium text-white/90 dark:text-gray-300">
                         {feature}
@@ -274,8 +274,8 @@ export default function ServicesOverview() {
                   <span className="text-xs sm:text-sm font-semibold text-white/90 dark:text-gray-400">
                     Learn more
                   </span>
-                  <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br ${service.color} flex items-center justify-center cursor-pointer shadow-md hover:shadow-lg transition-shadow`}>
-                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 !text-white" />
+                  <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-linear-to-br ${service.color} flex items-center justify-center cursor-pointer shadow-md hover:shadow-lg transition-shadow`}>
+                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white!" />
                   </div>
                 </div>
               </div>
@@ -314,7 +314,7 @@ export default function ServicesOverview() {
                   </div>
                   
                   {/* Subtle glow effect on hover */}
-                  <div className={`absolute -inset-1 bg-gradient-to-r ${tech.color.replace('text-', 'from-')} to-transparent rounded-xl blur opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10`} />
+                  <div className={`absolute -inset-1 bg-linear-to-r ${tech.color.replace('text-', 'from-')} to-transparent rounded-xl blur opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10`} />
                 </motion.div>
               );
             })}
@@ -335,7 +335,7 @@ export default function ServicesOverview() {
               href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 !text-white font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 rounded-xl bg-linear-to-r from-blue-600 to-purple-600 text-white! font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
             >
               Start Your Digital Transformation
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />

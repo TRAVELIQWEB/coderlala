@@ -57,7 +57,7 @@ const teamMembers = [
     id: 3,
     name: "Ansh Garg",
     role: "Young Developer",
-    image: "/images/team/ansh.jpeg",
+    image: "/images/team/ansh-garg.webp",
     description: "Energetic young developer with a passion for learning new technologies. Contributes to frontend development and brings fresh perspectives to projects.",
     skills: ["HTML/CSS", "JavaScript", "React Basics", "Python", "Git", "Github", "TypeScript", "Bootstrap", "Responsive Design"],
     experience: "1+ year",
@@ -71,9 +71,9 @@ const teamMembers = [
     id: 4,
     name: "Aman Singh",
     role: "Senior Full-Stack Developer",
-    image: "/images/team/user-profile.webp",
+    image: "/images/team/aman-singh.webp",
     description: "Specializes in building performant web applications with modern frameworks. Passionate about clean code and user experience.",
-    skills: ["React", "Vue.js", "Python", "Django", "MongoDB"],
+    skills: ["JavaScript", "React", "TypeScript", "Nodejs", "Git", "Github", "Nextjs", "Python", "SQL", "MongoDB", "Redux"],
     experience: "3+ years",
     location: "Gurugram, India",
     email: "aman.singh@coderlala.com",
@@ -87,7 +87,7 @@ const teamMembers = [
     role: "Senior Frontend Developer",
     image: "/images/team/ravi.webp",
     description: "Frontend expert with a keen eye for design and user experience. Creates beautiful, responsive interfaces with modern CSS and JavaScript.",
-    skills: ["HTML", "CSS", "Tailwind", "Bootstrap", "Javascript", "Typescript", "PHP", "MySQL", "WordPress", "Nodejs", "Reactjs", "Nextjs", "  Git", "Github"],
+    skills: ["HTML", "CSS", "Tailwind", "Bootstrap", "Javascript", "Typescript", "PHP", "MySQL", "WordPress", "Nodejs", "Reactjs", "Nextjs", "Git", "Github", "Redux", ""],
     experience: "5+ years",
     location: "Gurugram, India",
     email: "ravi.k@coderlala.com",
@@ -343,7 +343,7 @@ export default function OurTeamContent() {
       >
         <div className="glass-card p-6 sm:p-8 md:p-12 rounded-2xl md:rounded-3xl border border-black/10 dark:border-white/10 max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-orange-600 dark:from-blue-400 dark:to-orange-400">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-orange-600 dark:from-blue-400 dark:to-orange-400">
               Want to Join Our Team?
             </span>
           </h2>
