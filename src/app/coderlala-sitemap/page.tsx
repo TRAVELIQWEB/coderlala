@@ -4,8 +4,8 @@ import SitemapContent from './SitemapContent';
 import { FAQSchema } from "../components/structured-data";
 
 export const metadata: Metadata = {
-  title: "Sitemap | CoderLala Technologies - Website Navigation Guide",
-  description: "Browse the complete sitemap of CoderLala Technologies website. Find all important pages including services, portfolio, about, careers, contact, and legal information for easy navigation.",
+  title: "Site Map | CoderLala All Pages",
+  description: "CoderLala Technologies complete sitemap: discover services, projects, team, careers, contact & privacy pages in one organized guide.",
   keywords: [
     "CoderLala sitemap",
     "website navigation",
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   creator: "CoderLala Technologies",
   publisher: "CoderLala Technologies",
   openGraph: {
-    title: "Sitemap | CoderLala Technologies - Website Navigation Guide",
-    description: "Complete sitemap of CoderLala Technologies website. Find all pages including services, portfolio, about, careers, and contact information.",
+    title: "Site Map | CoderLala All Pages",
+    description: "CoderLala Technologies complete sitemap: discover services, projects, team, careers, contact & privacy pages in one organized guide.",
     url: "https://coderlala.com/coderlala-sitemap",
     siteName: "CoderLala Technologies",
     type: "website",
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sitemap | CoderLala Technologies",
-    description: "Complete website navigation guide. Find all pages and sections of CoderLala Technologies website.",
+    title: "Site Map | CoderLala All Pages",
+    description: "CoderLala Technologies complete sitemap: discover services, projects, team, careers, contact & privacy pages in one organized guide.",
     images: ["/images/feature-images/og-images/og-sitemap.jpg"],
     creator: "@coderlala",
     site: "@coderlala",

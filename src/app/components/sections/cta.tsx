@@ -27,8 +27,8 @@ export default function CTA() {
         <Link
           href="/contact"
           className="inline-block mt-6 sm:mt-8 md:mt-10 px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 
-          rounded-lg sm:rounded-xl md:rounded-2xl !text-white font-semibold 
-          bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg hover:shadow-blue-500/25 
+          rounded-lg sm:rounded-xl md:rounded-2xl text-white! font-semibold 
+          bg-linear-to-r from-blue-500 to-indigo-600 shadow-lg hover:shadow-blue-500/25 
           hover:scale-[1.03] sm:hover:scale-[1.05] transition-all duration-300 text-sm sm:text-base md:text-lg"
         >
           Start Your Project →

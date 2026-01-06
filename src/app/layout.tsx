@@ -11,9 +11,21 @@ import {
   ContactPointSchema,
   BreadcrumbSchema
 } from "./components/structured-data";
+import StarBackground from "./components/StarBackground";
 
 export const metadata = {
   metadataBase: new URL("https://coderlala.com"),
+  // NEW: Icons (place files in /app or /public)
+  icons: {
+    icon: '/favicon.ico',        // Default favicon (32x32+)
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',  // 180x180 for iOS
+  },
+  verification: {
+    google: 'YOUR_VERIFICATION_CODE_HERE', // just the code, no 'google-site-verification='
+    // or, if Google gives you a full name/content tag:
+    // other: { 'google-site-verification': 'YOUR_VERIFICATION_CODE_HERE' },
+  },
   title: {
     default:
       "CoderLala Technologies Private Limited | Next-Gen Digital Solutions",
@@ -137,6 +149,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <div className="fixed inset-0 -z-20">
             <GalaxyBackground />
+            {/* <StarBackground /> */}
             {/* <GalaxyBackgroundNew /> */}
           </div>
           <NavbarClientWrapper />

@@ -6,8 +6,8 @@ import { ServiceSchema, FAQSchema } from "./components/structured-data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Next-Gen Digital Solutions",
-  description: "Leading software development company specializing in web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise cloud solutions. Transform your business with modern engineering excellence.",
+  title: "CoderLala Technologies | Software Development Gurugram",
+  description: "Leading Gurugram company for custom software, web/mobile apps, SaaS platforms, AI/ML & DevOps. Transform your business—get a quote today.",
   keywords: [
     "web development company",
     "mobile app development",
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "Next-Gen Digital Solutions",
-    description: "Leading software development company in India specializing in web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise cloud solutions.",
+    title: "CoderLala Technologies | Software Development Gurugram",
+    description: "Leading Gurugram company for custom software, web/mobile apps, SaaS platforms, AI/ML & DevOps. Transform your business—get a quote today.",
     url: "https://coderlala.com",
     siteName: "CoderLala Technologies",
     type: "website",
@@ -42,18 +42,17 @@ export const metadata: Metadata = {
         url: "/images/feature-images/og-images/og-home.jpg",
         width: 1200,
         height: 630,
-        alt: "CoderLala Technologies - Next-Gen Digital Solutions",
+        alt: "CoderLala Technologies | Software Development Gurugram",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Next-Gen Digital Solutions",
-    description: "Leading software development company specializing in web apps, mobile apps, SaaS platforms, and AI-driven systems.",
+    title: "CoderLala Technologies | Software Development Gurugram",
+    description: "Leading Gurugram company for custom software, web/mobile apps, SaaS platforms, AI/ML & DevOps. Transform your business—get a quote today.",
     images: ["/images/feature-images/og-images/og-home.jpg"],
     creator: "@coderlala",
-    site: "@coderlala",
   },
   alternates: {
     canonical: '/',

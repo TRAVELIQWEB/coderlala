@@ -4,8 +4,8 @@ import PortfolioContent from "./PortfolioContent";
 import { FAQSchema } from "../components/structured-data";
 
 export const metadata: Metadata = {
-  title: "Portfolio | CoderLala Technologies - Innovative Software Solutions",
-  description: "Explore CoderLala's portfolio of innovative technology solutions including SaaS platforms, AI/ML systems, enterprise software, mobile applications, and cloud infrastructure projects. Real case studies and success stories.",
+  title: "CoderLala Portfolio | SaaS AI Enterprise Projects",
+  description: "View our work: enterprise software, mobile apps, fintech platforms, SaaS solutions, AI/ML development & DevOps services from Gurugram.",
   keywords: [
     "CoderLala portfolio",
     "software development case studies",
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   creator: "CoderLala Technologies",
   publisher: "CoderLala Technologies",
   openGraph: {
-    title: "Portfolio | CoderLala Technologies - Innovative Software Solutions",
-    description: "Explore our portfolio of cutting-edge technology solutions: SaaS platforms, AI/ML systems, enterprise software, mobile apps, and cloud infrastructure projects.",
+    title: "CoderLala Portfolio | SaaS AI Enterprise Projects",
+    description: "View our work: enterprise software, mobile apps, fintech platforms, SaaS solutions, AI/ML development & DevOps services from Gurugram.",
     url: "https://coderlala.com/portfolio",
     siteName: "CoderLala Technologies",
     type: "website",
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CoderLala Technologies Portfolio",
-    description: "Explore our innovative software solutions portfolio including SaaS, AI/ML, enterprise software, and mobile applications.",
+    title: "CoderLala Portfolio | SaaS AI Enterprise Projects",
+    description: "View our work: enterprise software, mobile apps, fintech platforms, SaaS solutions, AI/ML development & DevOps services from Gurugram.",
     images: ["/images/feature-images/og-images/og-portfolio.jpg"],
     creator: "@coderlala",
     site: "@coderlala",

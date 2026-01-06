@@ -7,7 +7,7 @@ import { ArrowRight, Sparkles, Rocket, Zap, Target, Users } from "lucide-react";
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-25 md:pt-20 lg:pt-20">
-      
+
       {/* Enhanced Background Effects */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         {/* Dynamic gradient orbs with galaxy integration */}
@@ -17,20 +17,20 @@ export default function Hero() {
           transition={{ duration: 2, delay: 0.2 }}
           className="absolute top-1/4 left-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-linear-to-br from-blue-500/20 via-purple-500/15 to-transparent blur-[60px] sm:blur-[80px] lg:blur-[120px] rounded-full"
         />
-        
+
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.12, scale: 1 }}
           transition={{ duration: 2, delay: 0.4 }}
           className="absolute bottom-1/3 right-1/4 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] lg:w-[500px] lg:h-[500px] bg-linear-to-tl from-orange-500/15 via-pink-500/10 to-transparent blur-[50px] sm:blur-[80px] lg:blur-[100px] rounded-full"
         />
-        
+
         {/* Floating particles */}
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: -20 }}
-            animate={{ 
+            animate={{
               opacity: [0.3, 0.6, 0.3],
               y: [0, -30, 0],
               x: [0, Math.sin(i) * 20, 0]
@@ -63,11 +63,11 @@ export default function Hero() {
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-linear-to-r from-blue-500/20 to-orange-500/20 backdrop-blur-sm border border-white/20 mb-6 sm:mb-8 hover:from-blue-500/15 hover:to-orange-500/15 transition-colors group cursor-pointer"
+              className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-linear-to-r from-blue-500/20 to-orange-500/20 backdrop-blur-sm border border-white/20 mb-6 sm:mb-8 hover:from-blue-500/15 hover:to-orange-500/15 transition-colors group"
             >
               <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300 group-hover:rotate-12 transition-transform" />
               <span className="text-xs sm:text-sm font-medium tracking-wide">
-                <span className="text-blue-400">Leading Software Development Company</span> for 25+ Global Startups
+                <span className="text-blue-400">Leading Software Development Company in Gurgaon</span> for 25+ Global Startups
               </span>
             </motion.div>
 
@@ -77,23 +77,23 @@ export default function Hero() {
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold leading-tight sm:leading-[1.15]"
+                className="font-bold leading-tight sm:leading-[1.15]"
               >
-                <span className="block">
+                <span className="block text-2xl">
                   Best {" "}
-                 
-                    <span className="text-orange-500">
-                      Web, Mobile App & SaaS
-                    </span>
-                  
+
+                  <span className="text-orange-500">
+                    Web, Mobile App & SaaS
+                  </span>
+
                 </span>
                 <motion.span
                   initial={{ y: 40, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.8, delay: 0.5 }}
-                  className="block mt-2 sm:mt-4"
+                  className="block mt-5 text-3xl line-height md:text-4xl lg:text-5xl"
                 >
-                  Development Company in Gurgaon
+                  Leading Software Development Company in Gurgaon
                 </motion.span>
               </motion.h1>
             </div>
@@ -103,7 +103,7 @@ export default function Hero() {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto lg:mx-0"
+              className="mt-4 sm:mt-6 text-base font-light sm:text-md text-white/80 max-w-2xl mx-auto lg:mx-0"
             >
               As a{" "}
               <span className="font-semibold text-white">leading web development company, mobile app development, and SaaS development firm in Gurgaon, </span>{" "}
@@ -148,10 +148,10 @@ export default function Hero() {
               >
                 {/* Button shine effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
-                
+
                 <span className="relative text-sm sm:text-base">Get Custom Software Quote</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-                
+
                 {/* Glow effect */}
                 <div className="absolute -inset-1 bg-linear-to-r from-blue-600/20 to-blue-800/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
               </Link>
@@ -163,10 +163,10 @@ export default function Hero() {
               >
                 {/* Button shine effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
-                
+
                 <span className="relative text-sm sm:text-base">View Development Portfolio</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-                
+
                 {/* Glow effect */}
                 <div className="absolute -inset-1 bg-linear-to-r from-orange-600/20 to-orange-800/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
               </Link>
@@ -184,27 +184,27 @@ export default function Hero() {
             >
               <div className="grid grid-cols-2 gap-4 sm:gap-6">
                 {[
-                  { 
-                    value: "25+", 
-                    label: "Projects", 
+                  {
+                    value: "25+",
+                    label: "Projects",
                     description: "Successfully delivered",
                     bg: "bg-[#4087CC]"
                   },
-                  { 
-                    value: "20+", 
-                    label: "Clients", 
+                  {
+                    value: "20+",
+                    label: "Clients",
                     description: "Global partnerships",
                     bg: "bg-[#F78631]"
                   },
-                  { 
-                    value: "99%", 
-                    label: "Satisfaction", 
+                  {
+                    value: "99%",
+                    label: "Satisfaction",
                     description: "Client retention rate",
                     bg: "bg-purple-400"
                   },
-                  { 
-                    value: "24/7", 
-                    label: "Support", 
+                  {
+                    value: "24/7",
+                    label: "Support",
                     description: "Always available",
                     bg: "bg-green-400"
                   },
@@ -227,7 +227,7 @@ export default function Hero() {
                   </motion.div>
                 ))}
               </div>
-              
+
               {/* Stats Description */}
               <motion.div
                 initial={{ opacity: 0 }}
@@ -244,7 +244,7 @@ export default function Hero() {
 
             {/* Floating Elements - Blue and Orange */}
             <motion.div
-              animate={{ 
+              animate={{
                 y: [0, -10, 0],
                 rotate: [0, 5, 0]
               }}
@@ -255,9 +255,9 @@ export default function Hero() {
               }}
               className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-linear-to-br from-blue-500/20 to-blue-600/20 rounded-2xl backdrop-blur-sm border border-white/10 rotate-12"
             />
-            
+
             <motion.div
-              animate={{ 
+              animate={{
                 y: [0, 10, 0],
                 rotate: [0, -3, 0]
               }}

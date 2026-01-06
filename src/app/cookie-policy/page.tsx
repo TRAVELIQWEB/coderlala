@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { FAQSchema } from "../components/structured-data";
 
 export const metadata: Metadata = {
-  title: "Cookie Policy | CoderLala Technologies - Cookie Usage & Privacy Settings",
-  description: "Learn about how CoderLala Technologies uses cookies and similar technologies to enhance your browsing experience, provide personalized content, and analyze site usage. Control your cookie preferences.",
+  title: "Cookie Policy | CoderLala Technologies",
+  description: "Learn how CoderLala Technologies uses cookies to enhance browsing, personalize content & analyze usage. Manage your cookie preferences anytime.",
   keywords: [
     "cookie policy CoderLala",
     "cookie usage policy",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   creator: "CoderLala Technologies",
   publisher: "CoderLala Technologies",
   openGraph: {
-    title: "Cookie Policy | CoderLala Technologies - Cookie Usage & Privacy Settings",
-    description: "Learn how we use cookies to enhance your experience and how to control your cookie preferences and privacy settings.",
+    title: "Cookie Policy | CoderLala Technologies",
+    description: "Learn how CoderLala Technologies uses cookies to enhance browsing, personalize content & analyze usage. Manage your cookie preferences anytime.",
     url: "https://coderlala.com/cookie-policy",
     siteName: "CoderLala Technologies",
     type: "website",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Cookie Policy | CoderLala Technologies",
-    description: "Learn about our cookie usage and how to manage your privacy settings and cookie preferences.",
+    description: "Learn how CoderLala Technologies uses cookies to enhance browsing, personalize content & analyze usage. Manage your cookie preferences anytime.",
     images: ["/images/feature-images/og-images/og-cookies.jpg"],
     creator: "@coderlala",
     site: "@coderlala",

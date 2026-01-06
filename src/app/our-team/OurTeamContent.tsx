@@ -2,14 +2,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  Users, 
-  Code2, 
-  Cloud, 
-  Palette, 
-  Shield, 
-  Globe, 
-  Rocket, 
+import {
+  Users,
+  Code2,
+  Cloud,
+  Palette,
+  Shield,
+  Globe,
+  Rocket,
   ArrowRight,
   Mail,
   Linkedin,
@@ -57,7 +57,7 @@ const teamMembers = [
     id: 3,
     name: "Ansh Garg",
     role: "Young Developer",
-    image: "/images/team/ansh.jpeg",
+    image: "/images/team/ansh-garg.webp",
     description: "Energetic young developer with a passion for learning new technologies. Contributes to frontend development and brings fresh perspectives to projects.",
     skills: ["HTML/CSS", "JavaScript", "React Basics", "Python", "Git", "Github", "TypeScript", "Bootstrap", "Responsive Design"],
     experience: "1+ year",
@@ -71,9 +71,9 @@ const teamMembers = [
     id: 4,
     name: "Aman Singh",
     role: "Senior Full-Stack Developer",
-    image: "/images/team/user-profile.webp",
+    image: "/images/team/aman-singh.webp",
     description: "Specializes in building performant web applications with modern frameworks. Passionate about clean code and user experience.",
-    skills: ["React", "Vue.js", "Python", "Django", "MongoDB"],
+    skills: ["JavaScript", "React", "TypeScript", "Nodejs", "Git", "Github", "Nextjs", "Python", "SQL", "MongoDB", "Redux"],
     experience: "3+ years",
     location: "Gurugram, India",
     email: "aman.singh@coderlala.com",
@@ -85,9 +85,9 @@ const teamMembers = [
     id: 5,
     name: "Ravi Kaliya",
     role: "Senior Frontend Developer",
-    image: "/images/team/user-profile.webp",
+    image: "/images/team/ravi.webp",
     description: "Frontend expert with a keen eye for design and user experience. Creates beautiful, responsive interfaces with modern CSS and JavaScript.",
-    skills: ["HTML", "CSS" ,"Tailwind", "Bootstrap","Javascript", "Typescript" ,"PHP" ,"MySQL" ,"WordPress", "Nodejs", "Reactjs", "Nextjs" ,"  Git", "Github"],
+    skills: ["HTML", "CSS", "Tailwind", "Bootstrap", "Javascript", "Typescript", "PHP", "MySQL", "WordPress", "Nodejs", "Reactjs", "Nextjs", "Git", "Github", "Redux", ""],
     experience: "5+ years",
     location: "Gurugram, India",
     email: "ravi.k@coderlala.com",
@@ -134,7 +134,7 @@ export default function OurTeamContent() {
             Behind The Magic
           </span>
         </h1>
-        
+
         <p className="text-base sm:text-lg md:text-xl  max-w-3xl mx-auto px-4 sm:px-0">
           A passionate team of engineers, designers, and innovators dedicated to building
           exceptional digital experiences that transform businesses.
@@ -171,33 +171,33 @@ export default function OurTeamContent() {
       <div className="space-y-12 md:space-y-20 lg:space-y-24 mb-20 md:mb-32">
         {teamMembers.map((member, index) => {
           const isEven = index % 2 === 0;
-          
+
           return (
             <div key={member.id} className="relative">
               {/* Alternating Layout Container */}
               <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 md:gap-12 lg:gap-16 items-center`}>
-                
+
                 {/* Image Container - Slides in from left/right */}
                 <motion.div
-                  initial={{ 
-                    opacity: 0, 
-                    x: isEven ? -100 : 100 
+                  initial={{
+                    opacity: 0,
+                    x: isEven ? -100 : 100
                   }}
-                  whileInView={{ 
-                    opacity: 1, 
-                    x: 0 
+                  whileInView={{
+                    opacity: 1,
+                    x: 0
                   }}
                   viewport={{ once: true, margin: "-100px" }}
-                  transition={{ 
-                    duration: 0.8, 
-                    ease: "easeOut" 
+                  transition={{
+                    duration: 0.8,
+                    ease: "easeOut"
                   }}
                   className={`w-full lg:w-1/2 ${isEven ? 'lg:pr-8' : 'lg:pl-8'}`}
                 >
                   <div className="relative group">
                     {/* Glow Effect */}
                     <div className={`absolute -inset-4 ${member.color} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
-                    
+
                     {/* Image Container */}
                     <div className="relative aspect-square rounded-2xl md:rounded-3xl overflow-hidden border-4 border-white dark:border-gray-900 shadow-2xl">
                       {member.image ? (
@@ -215,7 +215,7 @@ export default function OurTeamContent() {
                         </div>
                       )}
                     </div>
-                    
+
                     {/* Role Badge */}
                     <div className="absolute -bottom-4 left-1/2 -translate-x-1/2">
                       <div className={`px-4 py-2 rounded-full ${member.color} text-white font-semibold text-sm shadow-lg`}>
@@ -227,19 +227,19 @@ export default function OurTeamContent() {
 
                 {/* Details Container - Slides in from opposite side */}
                 <motion.div
-                  initial={{ 
-                    opacity: 0, 
-                    x: isEven ? 100 : -100 
+                  initial={{
+                    opacity: 0,
+                    x: isEven ? 100 : -100
                   }}
-                  whileInView={{ 
-                    opacity: 1, 
-                    x: 0 
+                  whileInView={{
+                    opacity: 1,
+                    x: 0
                   }}
                   viewport={{ once: true, margin: "-100px" }}
-                  transition={{ 
-                    duration: 0.8, 
+                  transition={{
+                    duration: 0.8,
                     ease: "easeOut",
-                    delay: 0.2 
+                    delay: 0.2
                   }}
                   className={`w-full lg:w-1/2 ${isEven ? 'lg:pl-8' : 'lg:pr-8'}`}
                 >
@@ -262,7 +262,7 @@ export default function OurTeamContent() {
                       <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Expertise</h4>
                       <div className="flex flex-wrap gap-2">
                         {member.skills.map((skill, i) => (
-                          <span 
+                          <span
                             key={i}
                             className="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/10 border border-gray-400/80! dark:border-white/10 text-sm font-medium"
                           >
@@ -283,7 +283,7 @@ export default function OurTeamContent() {
                           <div className="font-medium">{member.experience}</div>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-gray-100 dark:bg-white/10">
                           <MapPin className="w-4 h-4 text-gray-600 dark:text-gray-400" />
@@ -304,7 +304,7 @@ export default function OurTeamContent() {
                         <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                         <span className="text-sm font-medium">Email</span>
                       </a>
-                      
+
                       <a
                         href={member.linkedin}
                         target="_blank"
@@ -314,7 +314,7 @@ export default function OurTeamContent() {
                         <Linkedin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                         <span className="text-sm font-medium">LinkedIn</span>
                       </a>
-                      
+
                       <a
                         href={member.github}
                         target="_blank"
@@ -343,7 +343,7 @@ export default function OurTeamContent() {
       >
         <div className="glass-card p-6 sm:p-8 md:p-12 rounded-2xl md:rounded-3xl border border-black/10 dark:border-white/10 max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-orange-600 dark:from-blue-400 dark:to-orange-400">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-orange-600 dark:from-blue-400 dark:to-orange-400">
               Want to Join Our Team?
             </span>
           </h2>
@@ -355,25 +355,25 @@ export default function OurTeamContent() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/careers"
-              className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg md:rounded-xlfont-semibold 
-                bg-gradient-to-r from-blue-500 to-indigo-600 
+              className={`group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg md:rounded-xl font-semibold 
+                bg-linear-to-r from-blue-500 to-indigo-600 
                 hover:from-blue-600 hover:to-indigo-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
-                flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
+                flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base`}
             >
-              <span className="relative  !text-white ">View Open Positions</span>
-              <ArrowRight className="w-4 h-4 !text-white sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+              <span className="relative  text-white! ">View Open Positions</span>
+              <ArrowRight className="w-4 h-4 text-white! sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
 
             <Link
               href="/contact"
-              className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg md:rounded-xl !text-white font-semibold 
-                bg-gradient-to-r from-orange-500 to-orange-600
+              className={`group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg md:rounded-xl text-white! font-semibold 
+                bg-linear-to-r from-orange-500 to-orange-600
                 hover:from-orange-600 hover:to-orange-700
                 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
-                flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
+                flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base`}
             >
-              <span className="relative !text-white">Contact Us</span>
+              <span className="relative text-white!">Contact Us</span>
               <Mail className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

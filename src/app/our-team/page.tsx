@@ -5,8 +5,8 @@ import { FAQSchema } from "../components/structured-data";
 
 
 export const metadata: Metadata = {
-  title: "Our Team | CoderLala Technologies - Expert Software Developers",
-  description: "Meet the CoderLala Technologies team of expert software developers, designers, and engineers. Our skilled professionals in Gurugram deliver cutting-edge web, mobile, SaaS, and AI solutions with 3-8+ years of experience.",
+  title: "Our Team | Expert Developers CoderLala Gurugram",
+  description: "CoderLala's Gurugram team: skilled developers, designers & engineers delivering web apps, mobile, SaaS platforms & AI solutions.",
   keywords: [
     "CoderLala team",
     "software developers India",
@@ -26,15 +26,15 @@ export const metadata: Metadata = {
   creator: "CoderLala Technologies",
   publisher: "CoderLala Technologies",
   openGraph: {
-    title: "Our Team | CoderLala Technologies - Expert Software Developers",
-    description: "Meet our expert team of software developers, designers, and engineers in Gurugram. Skilled professionals delivering cutting-edge technology solutions.",
+    title: "Our Team | Expert Developers CoderLala Gurugram",
+    description: "CoderLala's Gurugram team: skilled developers, designers & engineers delivering web apps, mobile, SaaS platforms & AI solutions.",
     url: "https://coderlala.com/our-team",
     siteName: "CoderLala Technologies",
     type: "website",
     locale: "en_US",
     images: [
       {
-        url: "/images/team/coderlala-team.jpg",
+        url: "/images/feature-images/og-images/og-our-teams.jpg",
         width: 1200,
         height: 630,
         alt: "CoderLala Technologies Team - Expert Software Developers",
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Our Team | CoderLala Technologies",
-    description: "Meet our expert team of software developers and engineers delivering cutting-edge technology solutions.",
+    title: "Our Team | Expert Developers CoderLala Gurugram",
+    description: "CoderLala's Gurugram team: skilled developers, designers & engineers delivering web apps, mobile, SaaS platforms & AI solutions.",
     images: ["/images/team/coderlala-team.jpg"],
     creator: "@coderlala",
     site: "@coderlala",
@@ -132,7 +132,7 @@ export default function OurTeamPage() {
       />
 
       <div className="max-w-7xl mx-auto px-4 py-20">
-<OurTeamContent/>
+        <OurTeamContent />
       </div>
     </div>
   );

@@ -1,0 +1,8 @@
+/* Remove if using only Tailwind */
+.container {
+  @apply fixed inset-0 z-[-1] pointer-events-none;
+}
+
+.canvas {
+  @apply w-full h-full block;
+}
