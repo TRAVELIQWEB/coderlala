@@ -21,9 +21,6 @@ export const metadata: Metadata = {
     "mobile app requirements",
     "SaaS project planning"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
   openGraph: {
     title: "Project Requirements | CoderLala Technologies - Get Your Project Started",
     description: "Share your project requirements and get detailed estimates for web development, mobile apps, SaaS platforms, and AI solutions.",

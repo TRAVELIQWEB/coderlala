@@ -20,9 +20,6 @@ export const metadata: Metadata = {
     "website organization",
     "content structure"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
   openGraph: {
     title: "Site Map | CoderLala All Pages",
     description: "CoderLala Technologies complete sitemap: discover services, projects, team, careers, contact & privacy pages in one organized guide.",

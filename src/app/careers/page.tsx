@@ -20,9 +20,6 @@ export const metadata: Metadata = {
     "remote tech jobs",
     "full stack developer jobs"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
   openGraph: {
     title: "Careers | CoderLala Technologies Gurugram Hiring",
     description: "Join CoderLala's team of innovators—designers, DevOps engineers, AI specialists. We're hiring developers for cutting-edge projects in Gurugram.",

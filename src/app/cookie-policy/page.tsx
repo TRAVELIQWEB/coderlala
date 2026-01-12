@@ -19,9 +19,6 @@ export const metadata: Metadata = {
     "third party cookies",
     "cookie settings"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
   openGraph: {
     title: "Cookie Policy | CoderLala Technologies",
     description: "Learn how CoderLala Technologies uses cookies to enhance browsing, personalize content & analyze usage. Manage your cookie preferences anytime.",

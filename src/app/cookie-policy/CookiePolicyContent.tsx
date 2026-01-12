@@ -138,10 +138,10 @@ export default function CookiePolicyContent() {
               If you have any questions about this Cookie Policy or our use of
               cookies, you can contact us at{" "}
               <a
-                href="mailto:salman.nizam@coderlala.com"
+                href="mailto:info@coderlala.com"
                 className="font-medium text-orange-500 hover:text-orange-300"
               >
-                salman.nizam@coderlala.com
+                info@coderlala.com
               </a>
               .
             </p>
@@ -153,10 +153,10 @@ export default function CookiePolicyContent() {
               Last updated: {new Date().getFullYear()} · For cookie and tracking
               questions, contact{" "}
               <a
-                href="mailto:salman.nizam@coderlala.com"
+                href="mailto:info@coderlala.com"
                 className="font-medium text-orange-500 hover:text-orange-300"
               >
-                salman.nizam@coderlala.com
+                info@coderlala.com
               </a>
               .
             </p>

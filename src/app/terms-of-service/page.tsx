@@ -21,9 +21,6 @@ export const metadata: Metadata = {
     "service agreement",
     "legal terms India"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
   openGraph: {
     title: "Terms & Conditions | CoderLala Technologies",
     description: "CoderLala Technologies' Terms of Service: clear legal agreements, user responsibilities & service terms for web, mobile & SaaS development.",

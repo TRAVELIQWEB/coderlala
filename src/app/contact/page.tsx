@@ -19,9 +19,6 @@ export const metadata: Metadata = {
     "CoderLala contact details",
     "Gurugram software company"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
   openGraph: {
     title: "Contact CoderLala | Get Software Project Quote Now",
     description: "Contact Gurugram's CoderLala Technologies for custom software development, mobile apps or SaaS quotes. Expert digital transformation starts here.",

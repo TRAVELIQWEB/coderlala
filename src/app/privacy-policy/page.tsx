@@ -20,9 +20,7 @@ export const metadata: Metadata = {
     "user privacy protection",
     "data processing policy"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
+
   openGraph: {
     title: "Privacy Policy | CoderLala Data Protection",
     description: "Understand CoderLala's data privacy practices: collection, usage, sharing & protection compliant with GDPR and Indian data laws.",
@@ -132,7 +130,7 @@ export default function PrivacyPolicyPage() {
               name: "How can I contact CoderLala about privacy concerns?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "You can contact us about privacy concerns by emailing salman.nizam@coderlala.com or using the contact form on our website. We respond to all privacy inquiries within 24 hours."
+                text: "You can contact us about privacy concerns by emailing info@coderlala.com or using the contact form on our website. We respond to all privacy inquiries within 24 hours."
               }
             }
           ]

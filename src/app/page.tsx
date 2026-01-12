@@ -22,14 +22,6 @@ export const metadata: Metadata = {
     "UI/UX design",
     "full stack development"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
   openGraph: {
     title: "CoderLala Technologies | Software Development Gurugram",
     description: "Leading Gurugram company for custom software, web/mobile apps, SaaS platforms, AI/ML & DevOps. Transform your business—get a quote today.",

@@ -250,7 +250,7 @@ export default function ContactContent() {
     desc: string;
   };
   const contactInfo: ContactInfo[] = [
-    { icon: Mail, title: "Email", value: <a href="mailto:salman.nizam@coderlala.com">salman.nizam@coderlala.com</a>, desc: "For general inquiries" },
+    { icon: Mail, title: "Email", value: <a href="mailto:info@coderlala.com">info@coderlala.com</a>, desc: "For general inquiries" },
     { icon: Phone, title: "Phone", value: <a href="tel:+917830836770">+91 7830836770</a>, value2: <a href="tel:+918949541483">+91 8949541483</a>, desc: "Mon-Fri, 9AM-6PM IST" },
     { icon: MapPin, title: "Location", value: <a target="_blank" href="https://maps.app.goo.gl/W3xgFfxU4H8JXJeq7">Unit No.712, 7th Floor, JMD Megapolis, sector-48 Gurgaon, Haryana 122018</a>, desc: "Serving clients globally" },
     { icon: Clock, title: "Response Time", value: "24x7 Hours", desc: "For all business inquiries" },
@@ -795,7 +795,7 @@ export default function ContactContent() {
 
               <div className="p-3 sm:p-4 rounded-xl bg-white/5">
                 <p className="text-xs sm:text-sm text-white/60 mb-1">Email Address</p>
-                <p className="font-medium text-sm sm:text-base">salman.nizam@coderlala.com</p>
+                <p className="font-medium text-sm sm:text-base">info@coderlala.com</p>
                 <p className="text-xs sm:text-sm text-white/60 mt-1">For business inquiries</p>
               </div>
 
@@ -877,7 +877,7 @@ export default function ContactContent() {
             </button>
 
             <a
-              href="mailto:salman.nizam@coderlala.com"
+              href="mailto:info@coderlala.com"
               className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl text-white! font-semibold 
                 bg-linear-to-r from-orange-500 to-orange-600
                 hover:from-orange-600 hover:to-orange-700
