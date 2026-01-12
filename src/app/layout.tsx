@@ -18,8 +18,8 @@ export const metadata = {
   // NEW: Icons (place files in /app or /public)
   icons: {
     icon: '/favicon.ico',        // Default favicon (32x32+)
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',  // 180x180 for iOS
+    shortcut: '/logo/favicon-16x16.png',
+    apple: '/logo/apple-touch-icon.png',  // 180x180 for iOS
   },
   verification: {
     google: '7dJiKc0vNEpuoWpOB6GCNYcPbnF80X5msZ6KcJClyOA', // just the code, no 'google-site-verification='
