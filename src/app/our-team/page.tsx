@@ -22,9 +22,6 @@ export const metadata: Metadata = {
     "skilled developers",
     "tech professionals Gurugram"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
   openGraph: {
     title: "Our Team | Expert Developers CoderLala Gurugram",
     description: "CoderLala's Gurugram team: skilled developers, designers & engineers delivering web apps, mobile, SaaS platforms & AI solutions.",

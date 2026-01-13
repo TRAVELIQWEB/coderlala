@@ -489,7 +489,7 @@ export default function CareersContent() {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
                 {/* Mail button */}
                 <Link
-                  href="mailto:salman.nizam@coderlala.com"
+                  href="mailto:info@coderlala.com"
                   className="group relative
                     px-6 py-3 sm:px-8 sm:py-4
                     rounded-xl text-white! font-semibold
@@ -501,7 +501,7 @@ export default function CareersContent() {
                 >
                   <Mail className="w-5 h-5 shrink-0" />
                   <span className="break-all text-center text-white!">
-                    salman.nizam@coderlala.com
+                    info@coderlala.com
                   </span>
                 </Link>
 

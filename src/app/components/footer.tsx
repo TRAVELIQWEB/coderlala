@@ -137,7 +137,7 @@ export default function Footer() {
             <h4 className="font-semibold text-white/90 text-base md:text-lg">Get in Touch</h4>
             <div className="space-y-3 md:space-y-4">
               <div
-                // href="mailto:salman.nizam@coderlala.com"
+                // href="mailto:info@coderlala.com"
                 className="flex items-start sm:items-center gap-3 text-white/70 hover:text-white transition-colors group"
               >
                 <div className="shrink-0 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10 transition-all">
@@ -150,7 +150,7 @@ export default function Footer() {
                 </div>
               </div>
               <a
-                href="mailto:salman.nizam@coderlala.com"
+                href="mailto:info@coderlala.com"
                 className="flex items-start sm:items-center gap-3 text-white/70 hover:text-white transition-colors group"
               >
                 <div className="shrink-0 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10 transition-all">
@@ -158,7 +158,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="font-medium text-sm md:text-base">Email us</p>
-                  <p className="text-xs md:text-sm opacity-70 break-all sm:break-normal">salman.nizam@coderlala.com</p>
+                  <p className="text-xs md:text-sm opacity-70 break-all sm:break-normal">info@coderlala.com</p>
                 </div>
               </a>
               <a

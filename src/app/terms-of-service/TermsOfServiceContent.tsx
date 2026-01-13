@@ -110,9 +110,9 @@ export default function TermsOfServiceContent() {
                 Last updated: {new Date().getFullYear()} · For questions about
                 these Terms, contact{" "}
                 <a
-                  href="mailto:salman.nizam@coderlala.com"
+                  href="mailto:info@coderlala.com"
                   className="font-medium text-orange-500 text-orange-700"
-                >salman.nizam@coderlala.com</a>
+                >info@coderlala.com</a>
                 .
               </p>
             </div>

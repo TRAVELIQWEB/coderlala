@@ -22,9 +22,6 @@ export const metadata: Metadata = {
     "API development",
     "microservices architecture"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
   openGraph: {
     title: "CoderLala Services | Web, Mobile & AI Development",
     description: "Expert software development: web, mobile apps, SaaS platforms, AI/ML, cloud services, DevOps & enterprise solutions in Gurugram.",

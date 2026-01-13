@@ -34,7 +34,7 @@ const teamMembers = [
     skills: ["AWS", "Docker", "Kubernetes", "Terraform", "CI/CD"],
     experience: "5+ years",
     location: "Gurugram, India",
-    email: "salman.nizam@coderlala.com",
+    email: "info@coderlala.com",
     linkedin: "https://linkedin.com/in/salmannizam",
     github: "https://github.com/salmannizam",
     color: "bg-blue-500"

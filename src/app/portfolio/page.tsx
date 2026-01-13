@@ -20,9 +20,6 @@ export const metadata: Metadata = {
     "digital transformation projects",
     "custom software portfolio"
   ],
-  authors: [{ name: "CoderLala Technologies" }],
-  creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
   openGraph: {
     title: "CoderLala Portfolio | SaaS AI Enterprise Projects",
     description: "View our work: enterprise software, mobile apps, fintech platforms, SaaS solutions, AI/ML development & DevOps services from Gurugram.",

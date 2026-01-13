@@ -18,11 +18,11 @@ export const metadata = {
   // NEW: Icons (place files in /app or /public)
   icons: {
     icon: '/favicon.ico',        // Default favicon (32x32+)
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',  // 180x180 for iOS
+    shortcut: '/logo/favicon-16x16.png',
+    apple: '/logo/apple-touch-icon.png',  // 180x180 for iOS
   },
   verification: {
-    google: 'YOUR_VERIFICATION_CODE_HERE', // just the code, no 'google-site-verification='
+    google: '7dJiKc0vNEpuoWpOB6GCNYcPbnF80X5msZ6KcJClyOA', // just the code, no 'google-site-verification='
     // or, if Google gives you a full name/content tag:
     // other: { 'google-site-verification': 'YOUR_VERIFICATION_CODE_HERE' },
   },
@@ -42,6 +42,12 @@ export const metadata = {
     "digital transformation",
   ],
   authors: [{ name: "CoderLala Technologies" }],
+  creator: "CoderLala Technologies",
+  publisher: "CoderLala Technologies", formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     siteName: "CoderLala Technologies Private Limited",
     type: "website",
@@ -117,7 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               addressCountry: "IN"
             },
             url: "https://coderlala.com",
-            email: "salman.nizam@coderlala.com",
+            email: "info@coderlala.com",
             openingHours: "Mo-Fr 09:00-18:00, Sa 10:00-16:00"
           }}
         />
@@ -125,7 +131,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ContactPointSchema
           data={{
             contactType: "customer service",
-            email: "salman.nizam@coderlala.com",
+            email: "info@coderlala.com",
             availableLanguage: "English"
           }}
         />

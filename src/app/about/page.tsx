@@ -21,7 +21,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "CoderLala Technologies" }],
   creator: "CoderLala Technologies",
-  publisher: "CoderLala Technologies",
+  publisher: "CoderLala Technologies", formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+
   openGraph: {
     title: "About CoderLala Technologies | Top Software Company India",
     description: "Discover CoderLala Technologies: premier software development firm in Gurugram delivering enterprise solutions, SaaS, mobile apps & AI since 2020.",

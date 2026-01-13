@@ -100,10 +100,10 @@ export default function PrivacyPolicyContent() {
               You may request access, correction or deletion of your personal
               data by contacting us at{" "}
               <a
-                href="mailto:salman.nizam@coderlala.com"
+                href="mailto:info@coderlala.com"
                 className="font-medium text-orange-500"
               >
-                salman.nizam@coderlala.com
+                info@coderlala.com
               </a>
 
             </p>
@@ -123,10 +123,10 @@ export default function PrivacyPolicyContent() {
               Last updated: {new Date().getFullYear()} · For questions about
               this Privacy Policy, contact{" "}
               <a
-                href="mailto:salman.nizam@coderlala.com"
+                href="mailto:info@coderlala.com"
                 className="font-medium text-orange-500"
               >
-                salman.nizam@coderlala.com
+                info@coderlala.com
               </a>
 
             </p>
