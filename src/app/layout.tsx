@@ -17,10 +17,23 @@ export const metadata = {
   metadataBase: new URL("https://coderlala.com"),
   // NEW: Icons (place files in /app or /public)
   icons: {
-    icon: '/favicon.ico',        // Default favicon (32x32+)
-    shortcut: '/logo/favicon-16x16.png',
-    apple: '/logo/apple-touch-icon.png',  // 180x180 for iOS
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" }
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+    other: [
+      {
+        rel: "icon",
+        url: "/favicon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    manifest: "/manifest.json",
   },
+
   verification: {
     google: '7dJiKc0vNEpuoWpOB6GCNYcPbnF80X5msZ6KcJClyOA', // just the code, no 'google-site-verification='
     // or, if Google gives you a full name/content tag:
@@ -68,6 +81,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://coderlala.com" />
+
+
 
         {/* Structured Data Components */}
 
