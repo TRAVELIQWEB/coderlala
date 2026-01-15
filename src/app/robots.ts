@@ -4,7 +4,7 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      allow: ["/", "/site.webmanifest", "/manifest.json", "/favicon.ico", "/favicon"],
+      allow: ["/",],
       // disallow: "/private/",
       // Example disallows if needed:
       disallow: ["/private"],
