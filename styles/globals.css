@@ -609,9 +609,7 @@ html.dark .tech-stack span {
 /* Base glass-card */
 .glass-card {
   background: #ffffff0d;
-  @apply dark:bg-white/5 border border-black/10 dark:border-white/20 
-         backdrop-blur-xl rounded-2xl shadow-lg transition-all duration-300 
-         hover:shadow-xl hover:dark:shadow-white/10;
+  @apply dark:bg-white/5 border border-black/10 dark:border-white/20 backdrop-blur-xl rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl hover:dark:shadow-white/10;
 }
 
 /* Light-mode tuned glass overrides */
@@ -623,6 +621,7 @@ html:not(.dark) .glass-card {
     0 10px 40px rgba(0, 0, 0, 0.08),
     0 4px 20px rgba(0, 0, 0, 0.05);
 }
+
 html:not(.dark) .glass-card-without-hover {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
@@ -854,6 +853,22 @@ html:not(.dark) .mobile-nav a {
   }
 }
 
-button{
+button {
   cursor: pointer;
+}
+
+.gradient-button {
+  @apply ml-4 px-3 py-2 rounded-lg text-white! font-semibold bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:shadow-blue-500/25 flex items-center gap-2
+}
+
+.gradient-button {
+  @apply ml-4 px-3 py-2 rounded-lg text-white! font-semibold bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:shadow-blue-500/25 flex items-center gap-2
+}
+
+.profile-icon {
+  @apply inline-flex p-2 border-2 border-white/5 rounded-full bg-linear-to-br from-blue-500/10 to-orange-500/10 transition-all duration-1000 hover:from-blue-500/20 hover:to-orange-500/20 hover:scale-105
+}
+
+.skill-badge {
+  @apply rounded-lg border bg-gray-700! dark:bg-white/10! border-white/5 px-3 py-1 text-xs font-medium text-gray-300 transition-colors
 }

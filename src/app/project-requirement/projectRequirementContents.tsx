@@ -108,7 +108,7 @@ export default function ProjectRequirementContents() {
         transition={{ duration: 0.6 }}
         className="text-center mb-12 md:mb-16"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-6">
           <Target className="w-4 h-4 text-blue-500 dark:text-blue-300" />
           <span className="text-sm font-medium">Company Details</span>
         </div>
@@ -143,7 +143,7 @@ export default function ProjectRequirementContents() {
             { value: "Custom", label: "Proposal", icon: CheckCircle, color: "text-purple-500" },
           ].map((stat, i) => (
             <div key={i} className="text-center p-4">
-              <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 shadow-sm mb-3 ${stat.color}`}>
+              <div className={`inline-flex p-3 rounded-xl bg-linear-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 shadow-sm mb-3 ${stat.color}`}>
                 <stat.icon className="w-6 h-6 md:w-8 md:h-8" />
               </div>
               <div className="text-xl md:text-2xl font-bold mb-1">{stat.value}</div>
@@ -368,7 +368,7 @@ export default function ProjectRequirementContents() {
                     className={`group relative w-full px-8 py-4 rounded-xl font-bold text-lg
                       flex items-center justify-center gap-3 overflow-hidden transition-all duration-300
                       ${isFormValid() && !isSubmitting
-                        ? 'bg-gradient-to-r from-blue-600 to-blue-800 text-white hover:shadow-xl'
+                        ? 'bg-linear-to-r from-blue-600 to-blue-800 text-white hover:shadow-xl'
                         : 'bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed'
                       }`}
                   >
@@ -379,12 +379,12 @@ export default function ProjectRequirementContents() {
                       </>
                     ) : (
                       <>
-                        <Send className="w-5 h-5 !text-white" />
-                        <span className="!text-white">Submit Company Details</span>
+                        <Send className="w-5 h-5 text-white!" />
+                        <span className="text-white!">Submit Company Details</span>
                         <motion.span
                           animate={{ x: [0, 5, 0] }}
                           transition={{ repeat: Infinity, duration: 1.5 }}
-                          className="inline-block !text-white"
+                          className="inline-block text-white!"
                         >
                           →
                         </motion.span>
@@ -407,7 +407,7 @@ export default function ProjectRequirementContents() {
               {/* Why Us Card */}
               <div className="glass-card p-6 rounded-2xl border border-black/10 dark:border-white/10">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 rounded-lg bg-gradient-to-r from-blue-500/10 to-orange-500/10">
+                  <div className="p-2 rounded-lg bg-linear-to-r from-blue-500/10 to-orange-500/10">
                     <Target className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">
@@ -425,7 +425,7 @@ export default function ProjectRequirementContents() {
                     "Source code ownership"
                   ].map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3">
-                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
                       <span className="text-sm text-gray-700 dark:text-gray-300">{benefit}</span>
                     </div>
                   ))}
@@ -479,7 +479,7 @@ export default function ProjectRequirementContents() {
                     { step: "4", title: "Get Proposal", desc: "Receive detailed quote" },
                   ].map((item) => (
                     <div key={item.step} className="flex items-center gap-4">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full border-1 text-white flex items-center justify-center font-bold text-sm">
+                      <div className="shrink-0 w-8 h-8 rounded-full border text-white flex items-center justify-center font-bold text-sm">
                         {item.step}
                       </div>
                       <div>

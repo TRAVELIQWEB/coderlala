@@ -195,11 +195,12 @@ export default function Home() {
           ]
         }}
       />
-
-      <Hero />
-      <ServicesOverview />
-      <Testimonials />
-      <CTA />
+      <div className=" grid gap-4">
+        <Hero />
+        <ServicesOverview />
+        <Testimonials />
+        <CTA />
+      </div>
     </>
   );
 }

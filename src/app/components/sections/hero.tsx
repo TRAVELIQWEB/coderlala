@@ -6,7 +6,7 @@ import { ArrowRight, Sparkles, Rocket, Zap, Target, Users } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-25 md:pt-20 lg:pt-20">
+    <section className="relative mt-20 py-14 flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
 
       {/* Enhanced Background Effects */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
@@ -271,37 +271,6 @@ export default function Hero() {
             />
           </div>
         </div>
-
-        {/* Scroll Indicator - SHOW ONLY ON LAPTOP (lg) AND ABOVE */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="hidden lg:block absolute bottom-10 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="flex flex-col items-center gap-2 text-white/70 hover:text-white transition-colors cursor-pointer"
-          >
-            <span className="text-sm font-medium">Explore Our Services</span>
-            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center group-hover:border-white/60 transition-colors">
-              <motion.div
-                animate={{ y: [0, 6, 0] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="w-1 h-3 bg-linear-to-b from-blue-400 to-orange-400 rounded-full mt-2"
-              />
-            </div>
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   );

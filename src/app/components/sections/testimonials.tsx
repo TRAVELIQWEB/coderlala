@@ -104,50 +104,50 @@ const stats = [
 
 // Colorful icons only - no background colors
 const industries = [
-  { 
-    label: "Startups", 
+  {
+    label: "Startups",
     icon: Rocket,
     iconColor: "text-purple-400",
     hoverColor: "group-hover:text-purple-300"
   },
-  { 
-    label: "Enterprise", 
+  {
+    label: "Enterprise",
     icon: Building2,
     iconColor: "text-blue-400",
     hoverColor: "group-hover:text-blue-300"
   },
-  { 
-    label: "Healthcare", 
+  {
+    label: "Healthcare",
     icon: HeartPulse,
     iconColor: "text-green-400",
     hoverColor: "group-hover:text-green-300"
   },
-  { 
-    label: "Fintech", 
+  {
+    label: "Fintech",
     icon: DollarSign,
     iconColor: "text-blue-500",
     hoverColor: "group-hover:text-blue-400"
   },
-  { 
-    label: "E-commerce", 
+  {
+    label: "E-commerce",
     icon: ShoppingCart,
     iconColor: "text-orange-400",
     hoverColor: "group-hover:text-orange-300"
   },
-  { 
-    label: "Education", 
+  {
+    label: "Education",
     icon: GraduationCap,
     iconColor: "text-red-400",
     hoverColor: "group-hover:text-red-300"
   },
-  { 
-    label: "Government", 
+  {
+    label: "Government",
     icon: Landmark,
     iconColor: "text-gray-400",
     hoverColor: "group-hover:text-gray-300"
   },
-  { 
-    label: "SaaS", 
+  {
+    label: "SaaS",
     icon: Cloud,
     iconColor: "text-cyan-400",
     hoverColor: "group-hover:text-cyan-300"
@@ -165,7 +165,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="relative py-12 md:py-20 lg:py-32 overflow-hidden">
+    <section className="relative py-10 overflow-hidden">
       {/* BACKGROUND */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-purple-500/10 to-transparent blur-3xl rounded-full" />
@@ -272,9 +272,8 @@ export default function Testimonials() {
                     <button
                       key={i}
                       onClick={() => setActiveTestimonial(i)}
-                      className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all ${
-                        i === activeTestimonial ? "bg-white" : "bg-white/30 hover:bg-white/50"
-                      }`}
+                      className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all ${i === activeTestimonial ? "bg-white" : "bg-white/30 hover:bg-white/50"
+                        }`}
                     />
                   ))}
                 </div>
@@ -313,7 +312,7 @@ export default function Testimonials() {
           <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-center  mb-6 md:mb-8 text-white/80">
             Trusted Technology Solutions Provider Worldwide
           </h3>
-          
+
           {/* COLORFUL ICONS ONLY - keeping your original card design */}
           <div className="flex flex-wrap justify-center items-center gap-3 md:gap-4 lg:gap-6">
             {industries.map((item, i) => (
