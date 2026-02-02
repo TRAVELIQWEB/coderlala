@@ -56,7 +56,9 @@ export const ProjectDetails = (service: any) => {
             <div className="pt-6 border-t border-gray-200">
               <p className="text-sm text-gray-600">Have questions? Let's discuss your specific needs.</p>
               <Link
-                href={`/contact`}
+                href={`https://calendly.com/salman-nizam-coderlala/30min`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group relative mt-5 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white font-semibold 
                                bg-linear-to-r from-blue-500 to-indigo-600
                                hover:from-blue-600 hover:to-indigo-700
