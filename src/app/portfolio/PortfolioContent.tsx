@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  Globe, 
-  Cloud, 
-  Cpu, 
-  Brain, 
-  Database, 
+import {
+  Globe,
+  Cloud,
+  Cpu,
+  Brain,
+  Database,
   Smartphone,
   ShoppingCart,
   BarChart,
@@ -23,108 +23,131 @@ import {
   ChevronLeft,
   ChevronRight
 } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import Link from "next/link";
 
-const projects = [
+type CategoryId =
+  | "all"
+  | "enterprise"
+  | "saas"
+  | "ai"
+  | "mobile"
+  | "devops";
+
+interface Project {
+  title: string;
+  category: Exclude<CategoryId, "all">;
+  desc: string;
+  tech: string[];
+  icon: React.ElementType;
+  color: string;
+  stats: string;
+  liveUrl?: string | null;
+  githubUrl?: string | null;
+}
+
+interface Category {
+  id: CategoryId;
+  label: string;
+  icon: React.ElementType;
+}
+
+
+const projects: Project[] = [
   {
     title: "TravelTech Enterprise Platform",
     category: "enterprise",
-    desc: "A comprehensive bus, rail, and air booking ecosystem handling 50,000+ daily transactions with real-time APIs, multi-provider integration, and digital wallet system.",
+    desc:
+      "A comprehensive bus, rail, and air booking ecosystem handling 50,000+ daily transactions.",
     tech: ["Next.js", "NestJS", "MongoDB", "Redis", "Docker", "AWS"],
     icon: Globe,
-    color: "bg-blue-500 ",
+    color: "bg-blue-500",
     stats: "350% Revenue Growth",
-    liveUrl: "#",
-    githubUrl: null
   },
   {
     title: "SaaS Billing & Subscription Engine",
     category: "saas",
-    desc: "Scalable multi-tenant billing system with automated invoicing, usage-based pricing, subscription management, and real-time analytics dashboard.",
-    tech: ["React", "Node.js", "PostgreSQL", "BullMQ", "Stripe", "WebSockets"],
+    desc:
+      "Scalable multi-tenant billing system with automated invoicing and usage-based pricing.",
+    tech: ["React", "Node.js", "PostgreSQL", "Stripe", "WebSockets"],
     icon: BarChart,
-    color: "bg-orange-500 ",
+    color: "bg-orange-500",
     stats: "Zero Downtime",
     liveUrl: "https://wallet.saarthii.co.in",
-    githubUrl: null
   },
   {
     title: "Cloud Deployment Automation",
     category: "devops",
-    desc: "Full CI/CD pipeline with zero-downtime deployments, auto-scaling, server orchestration, and comprehensive monitoring for enterprise applications.",
-    tech: ["AWS", "Docker", "Kubernetes", "Terraform", "GitHub Actions", "Prometheus"],
+    desc:
+      "Full CI/CD pipeline with zero-downtime deployments and auto-scaling.",
+    tech: ["AWS", "Docker", "Kubernetes", "Terraform"],
     icon: Cloud,
-    color: "bg-purple-500 ",
+    color: "bg-purple-500",
     stats: "80% Faster Deployments",
-    liveUrl: null,
-    githubUrl: null
   },
   {
     title: "AI Document Intelligence System",
     category: "ai",
-    desc: "Smart OCR and NLP pipeline extracting structured data from invoices, IDs, and financial documents with 99.5% accuracy and real-time processing.",
-    tech: ["Python", "OpenCV", "TensorFlow", "FastAPI", "Redis", "Docker"],
+    desc:
+      "OCR + NLP pipeline extracting structured data with 99.5% accuracy.",
+    tech: ["Python", "OpenCV", "TensorFlow", "FastAPI"],
     icon: Brain,
-    color: "bg-green-500 ",
+    color: "bg-green-500",
     stats: "99.5% Accuracy",
-    liveUrl: "https://ai-docs.example.com",
-    githubUrl: null
   },
   {
     title: "E-commerce Mobile Platform",
     category: "mobile",
-    desc: "High-performance mobile shopping platform with AR product previews, instant checkout, and personalized recommendations for 100K+ monthly users.",
-    tech: ["React Native", "Node.js", "MongoDB", "Redis", "AWS", "Firebase"],
+    desc:
+      "High-performance mobile shopping platform for 100K+ users.",
+    tech: ["React Native", "Node.js", "MongoDB"],
     icon: ShoppingCart,
-    color: "bg-red-500 ",
+    color: "bg-red-500",
     stats: "100K+ Monthly Users",
-    liveUrl: null,
-    githubUrl: null
   },
   {
     title: "Fintech Security Platform",
     category: "enterprise",
-    desc: "Bank-grade security platform with real-time fraud detection, transaction monitoring, and compliance automation for financial institutions.",
-    tech: ["Next.js", "Python", "PostgreSQL", "Redis", "Docker", "AWS"],
+    desc:
+      "Bank-grade security platform with real-time fraud detection.",
+    tech: ["Next.js", "Python", "PostgreSQL"],
     icon: Shield,
-    color: "bg-indigo-500 ",
+    color: "bg-indigo-500",
     stats: "Bank-Grade Security",
-    liveUrl: null,
-    githubUrl: null
   },
   {
     title: "Healthcare Telemedicine System",
     category: "enterprise",
-    desc: "HIPAA-compliant telemedicine platform with video consultations, EHR integration, appointment scheduling, and prescription management.",
-    tech: ["React", "Node.js", "PostgreSQL", "WebRTC", "Docker", "AWS"],
+    desc:
+      "HIPAA-compliant telemedicine platform with video consultations.",
+    tech: ["React", "Node.js", "PostgreSQL", "WebRTC"],
     icon: Users,
-    color: "bg-cyan-500 ",
+    color: "bg-cyan-500",
     stats: "10K+ Daily Consultations",
-    liveUrl: null,
-    githubUrl: null
   },
   {
     title: "Real-time Analytics Dashboard",
     category: "saas",
-    desc: "Enterprise analytics platform with real-time data visualization, custom reporting, and predictive analytics for business intelligence.",
-    tech: ["React", "Node.js", "MongoDB", "WebSockets", "D3.js", "AWS"],
+    desc:
+      "Enterprise analytics platform with real-time data visualization.",
+    tech: ["React", "Node.js", "MongoDB", "D3.js"],
     icon: TrendingUp,
-    color: "bg-yellow-500 ",
+    color: "bg-yellow-500",
     stats: "Real-time Insights",
-    liveUrl: null,
-    githubUrl: null
   },
 ];
 
-const categories = [
-  { id: "all", label: "All Projects", icon: Zap, count: 27 },
-  { id: "enterprise", label: "Enterprise", icon: Database, count: 3 },
-  { id: "saas", label: "SaaS", icon: Cloud, count: 2 },
-  { id: "ai", label: "AI/ML", icon: Brain, count: 0 },
-  { id: "mobile", label: "Mobile", icon: Smartphone, count: 2 },
-  { id: "devops", label: "DevOps", icon: Cpu, count: 3 },
+
+const categories: Category[] = [
+  { id: "all", label: "All Projects", icon: Zap },
+  { id: "enterprise", label: "Enterprise", icon: Database },
+  { id: "saas", label: "SaaS", icon: Cloud },
+  { id: "ai", label: "AI/ML", icon: Brain },
+  { id: "mobile", label: "Mobile", icon: Smartphone },
+  { id: "devops", label: "DevOps", icon: Cpu },
 ];
+
+
 
 const stats = [
   { value: "25+", label: "Projects Completed", icon: Award, color: "text-blue-400" },
@@ -134,26 +157,42 @@ const stats = [
 ];
 
 export default function PortfolioContent() {
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [activeCategory, setActiveCategory] = useState<CategoryId>("all");
   const categoryScrollRef = useRef<HTMLDivElement | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
+  // Calculate project counts per category
 
-  const filteredProjects = activeCategory === "all"
-    ? projects
-    : projects.filter((p) => p.category === activeCategory);
+  /* Dynamic counts */
+  const categoryCounts = useMemo<Record<CategoryId, number>>(() => {
+    const counts = {
+      all: projects.length,
+      enterprise: 0,
+      saas: 0,
+      ai: 0,
+      mobile: 0,
+      devops: 0,
+    };
 
-  const scrollCategoriesLeft = () => {
-    if (categoryScrollRef.current) {
-      categoryScrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    for (const project of projects) {
+      counts[project.category]++;
     }
-  };
 
-  const scrollCategoriesRight = () => {
-    if (categoryScrollRef.current) {
-      categoryScrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
-    }
-  };
+    return counts;
+  }, []);
+
+  /* Filtered projects */
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === "all") return projects;
+    return projects.filter((p) => p.category === activeCategory);
+  }, [activeCategory]);
+
+  const scrollLeft = () =>
+    categoryScrollRef.current?.scrollBy({ left: -240, behavior: "smooth" });
+
+  const scrollRight = () =>
+    categoryScrollRef.current?.scrollBy({ left: 240, behavior: "smooth" });
+
 
   return (
     <>
@@ -230,23 +269,23 @@ export default function PortfolioContent() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-white">Select Category</h3>
             <div className="flex gap-2">
-              <button 
-                onClick={scrollCategoriesLeft}
+              <button
+                onClick={scrollLeft}
                 className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
               >
                 <ChevronLeft className="w-4 h-4 text-white" />
               </button>
-              <button 
-                onClick={scrollCategoriesRight}
+              <button
+                onClick={scrollRight}
                 className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
               >
                 <ChevronRight className="w-4 h-4 text-white" />
               </button>
             </div>
           </div>
-          
+
           <div className="relative">
-            <div 
+            <div
               ref={categoryScrollRef}
               className="flex gap-3 pb-4 overflow-x-auto scrollbar-hide"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -257,11 +296,10 @@ export default function PortfolioContent() {
                   <button
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
-                    className={`shrink-0 w-48 p-4 rounded-xl border transition-all ${
-                      activeCategory === category.id 
-                        ? "bg-linear-to-r from-blue-600 to-indigo-600 border-white/30 shadow-lg" 
-                        : "bg-white/5 border-white/10 hover:bg-white/10"
-                    }`}
+                    className={`shrink-0 w-48 p-4 rounded-xl border transition-all ${activeCategory === category.id
+                      ? "bg-linear-to-r from-blue-600 to-indigo-600 border-white/30 shadow-lg"
+                      : "bg-white/5 border-white/10 hover:bg-white/10"
+                      }`}
                   >
                     <div className="flex items-start gap-3">
                       <div className="p-2 rounded-lg bg-white/10">
@@ -270,7 +308,7 @@ export default function PortfolioContent() {
                       <div className="text-left">
                         <div className="font-semibold text-white mb-1 line-clamp-1">{category.label}</div>
                         <div className="text-xs text-white">
-                          {category.count} projects
+                          {categoryCounts[category.id] || 0} projects
                         </div>
                       </div>
                     </div>
@@ -295,8 +333,8 @@ export default function PortfolioContent() {
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 className={`group flex items-center gap-3 px-6 py-3 rounded-xl transition-all ${activeCategory === category.id
-                    ? "bg-linear-to-r from-blue-500 to-indigo-600 text-white!"
-                    : "bg-white/5 hover:bg-white/10 border border-white/10"
+                  ? "bg-linear-to-r from-blue-500 to-indigo-600 text-white!"
+                  : "bg-white/5 hover:bg-white/10 border border-white/10"
                   }`}
               >
                 <Icon className="w-4 h-4" />
@@ -305,7 +343,7 @@ export default function PortfolioContent() {
                   className={`text-xs px-2 py-1 rounded-full ${activeCategory === category.id ? "bg-white/20" : "bg-white/5"
                     }`}
                 >
-                  {category.count}
+                  {categoryCounts[category.id] || 0}
                 </span>
               </button>
             );
@@ -336,94 +374,97 @@ export default function PortfolioContent() {
               />
 
               {/* Card */}
-              <div className="relative glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10 h-full">
-                {/* Icon + Category */}
-                <div className="flex items-start justify-between mb-4 sm:mb-6">
-                  <div className={`p-3 sm:p-4 rounded-xl ${project.color}/20`}>
-                    <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-white!" />
+              <div className="relative flex flex-col justify-between glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10 h-full">
+                <div className="grid">
+                  {/* Icon + Category */}
+                  <div className="flex items-start justify-between mb-4 sm:mb-6">
+                    <div className={`p-3 sm:p-4 rounded-xl ${project.color}`}>
+                      <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-white!" />
+                    </div>
+                    <div className="text-xs px-2 sm:px-3 py-1 rounded-full bg-white/10 border border-white/10 capitalize">
+                      {project.category}
+                    </div>
                   </div>
-                  <div className="text-xs px-2 sm:px-3 py-1 rounded-full bg-white/10 border border-white/10 capitalize">
-                    {project.category}
+
+                  {/* Title */}
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 group-hover:text-white transition-colors">
+                    {project.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-white/70 text-sm sm:text-base mb-4 sm:mb-6">{project.desc}</p>
+
+                  {/* Tech */}
+                  <div className="mb-4 sm:mb-6">
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
+                      {project.tech.map((tech, i) => (
+                        <span
+                          key={i}
+                          className="px-2 py-1 text-xs rounded-full bg-white/5 border border-white/10"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
+
                 </div>
-
-                {/* Title */}
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 group-hover:text-white transition-colors">
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-white/70 text-sm sm:text-base mb-4 sm:mb-6">{project.desc}</p>
-
-                {/* Tech */}
-                <div className="mb-4 sm:mb-6">
-                  <div className="flex flex-wrap gap-1 sm:gap-2">
-                    {project.tech.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-1 text-xs rounded-full bg-white/5 border border-white/10"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
                 {/* Footer */}
-                <div className="flex items-center justify-between mt-auto pt-4 sm:pt-6 border-t border-white/10">
-                  <div className="text-xs sm:text-sm font-medium bg-linear-to-r from-blue-300 to-orange-300 bg-clip-text text-transparent">
-                    {project.stats}
-                  </div>
+                <div className="grid gap-2">
+                  {/* <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/10">
+                    <p className="text-xs sm:text-sm font-medium bg-linear-to-r bg-clip-text text-transparent">
+                      {project.stats}
+                    </p>
 
-                  <div className="flex gap-1 sm:gap-2">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-1.5 sm:p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
-                        title="View Live Demo"
-                      >
-                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
-                      </a>
-                    )}
+                    <div className="flex gap-1 sm:gap-2">
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 sm:p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                          title="View Live Demo"
+                        >
+                          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
+                        </a>
+                      )}
 
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-1.5 sm:p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
-                        title="View Source Code"
-                      >
-                        <Github className="w-3 h-3 sm:w-4 sm:h-4" />
-                      </a>
-                    )}
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 sm:p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                          title="View Source Code"
+                        >
+                          <Github className="w-3 h-3 sm:w-4 sm:h-4" />
+                        </a>
+                      )}
 
-                    {!project.liveUrl && !project.githubUrl && (
-                      <div
-                        className="p-1.5 sm:p-2 rounded-lg bg-white/5 border border-white/10 cursor-not-allowed"
-                        title="Private Project"
-                      >
-                        <Lock className="w-3 h-3 sm:w-4 sm:h-4 text-white/40" />
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Hover Overlay */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: hoveredProject === index ? 1 : 0 }}
-                  className="absolute inset-0 to-transparent rounded-2xl sm:rounded-3xl flex items-end justify-center p-4 sm:p-6"
-                >
+                      {!project.liveUrl && !project.githubUrl && (
+                        <div
+                          className="p-1.5 sm:p-2 rounded-lg bg-white/5 border border-white/10 cursor-not-allowed"
+                          title="Private Project"
+                        >
+                          <Lock className="w-3 h-3 sm:w-4 sm:h-4 text-white/40" />
+                        </div>
+                      )}
+                    </div>
+                  </div> */}
                   <Link
                     href="/contact"
-                    className="px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-linear-to-r from-blue-600 to-orange-600 text-white! font-semibold hover:scale-105 transition-transform text-sm sm:text-base"
+                    className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold 
+                bg-linear-to-r from-blue-500 to-indigo-600
+                hover:from-blue-600 hover:to-blue-700
+                transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
+                shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)]
+                flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
                   >
-                    Build Similar Project
+                    <span className="relative text-white!">Build Similar Project</span>
+                    <Zap className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
-                </motion.div>
+                </div>
+
               </div>
             </motion.div>
           );
@@ -439,8 +480,8 @@ export default function PortfolioContent() {
         className="mb-12 sm:mb-20 md:mb-32 px-4 sm:px-0"
       >
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6"> 
-            <span className="text-transparent bg-clip-text bg-orange-500">Software Development Process</span> 
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
+            <span className="text-transparent bg-clip-text bg-orange-500">Software Development Process</span>
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-3xl mx-auto px-4 sm:px-0">
             Every custom software development project follows our proven methodology to ensure quality, timeliness, and client satisfaction in our web development portfolio.

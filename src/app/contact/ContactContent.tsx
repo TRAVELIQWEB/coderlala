@@ -864,7 +864,7 @@ export default function ContactContent() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <button
               onClick={() =>
-                window.open("https://calendly.com/coderlala/consultation", "_blank")
+                window.open("https://calendly.com/salman-nizam-coderlala/30min", "_blank")
               }
               className="group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl text-white! font-semibold 
                 bg-linear-to-r from-blue-500 to-indigo-600

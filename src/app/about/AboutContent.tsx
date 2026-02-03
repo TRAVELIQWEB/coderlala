@@ -90,33 +90,6 @@ export default function AboutContent() {
     },
   ];
 
-  const TeamMembers = [
-    {
-      name: "Salman Nizam",
-      role: "Co-Founder & DevOps Engineer"
-    },
-    {
-      name: "Achal Singh",
-      role: "Co-Founder & Full-Stack Developer"
-    },
-    {
-      name: "Ansh Garg",
-      role: "Young Developer"
-    },
-    {
-      name: "Aman Singh",
-      role: "Senior Full-Stack Developer"
-    },
-    {
-      name: "Ravi Kaliya",
-      role: "Senior Frontend Developer"
-    },
-    {
-      name: "Raghib Nizam",
-      role: "Full-Stack Developer"
-    }
-  ];
-
   return (
     <div className="px-4 sm:px-6 lg:px-0">
       {/* HERO SECTION */}
@@ -126,7 +99,7 @@ export default function AboutContent() {
         transition={{ duration: 0.6 }}
         className="text-center mb-12 md:mb-20"
       >
-        <div className="about-hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-4 md:mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
           <Code2 className="w-4 h-4 text-blue-500 dark:text-blue-300" />
           <span className="text-sm font-medium">
             Leading Software Development Company
@@ -135,7 +108,7 @@ export default function AboutContent() {
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6">
           <span className="text-transparent bg-clip-text bg-blue-500">
-            Gurgaon's Premier 
+            Gurgaon's Premier
           </span>
           <span className="block text-transparent bg-clip-text bg-orange-500">
             Technology Solutions Provider
@@ -347,9 +320,8 @@ export default function AboutContent() {
                 initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`hidden md:relative md:flex items-center mb-12 ${
-                  index % 2 === 0 ? "flex-row" : "flex-row-reverse"
-                }`}
+                className={`hidden md:relative md:flex items-center mb-12 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                  }`}
               >
                 <div className={`w-5/12 ${index % 2 === 0 ? "pr-12 text-right" : "pl-12"}`}>
                   <div className="glass-card p-6 rounded-2xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/10">
@@ -386,7 +358,7 @@ export default function AboutContent() {
       </motion.div>
 
       {/* TEAM */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -424,7 +396,7 @@ export default function AboutContent() {
             </Link>
           </p>
         </div>
-      </motion.div>
+      </motion.div> */}
 
       {/* CTA */}
       <motion.div

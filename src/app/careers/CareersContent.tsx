@@ -115,8 +115,7 @@ export default function CareersContent() {
         transition={{ duration: 0.6 }}
         className="text-center mb-20"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full 
-          bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20">
+        <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20">
           <Rocket className="w-4 h-4 text-blue-300" />
           <span className="text-sm font-medium">Join Our Team</span>
         </div>

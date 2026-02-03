@@ -13,7 +13,7 @@ export default function TermsOfServiceContent() {
         transition={{ duration: 0.6 }}
         className="text-center md:mt-10 mb-12 sm:mb-16 md:mb-20"
       >
-        <div className="about-hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-4 md:mb-6">
+        <div className="about-hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-black/10 dark:border-white/20 mb-4 md:mb-6">
           <Code2 className="w-4 h-4 text-blue-500 dark:text-blue-300" />
           <span className="text-sm font-medium">
             Our Story
@@ -46,7 +46,7 @@ export default function TermsOfServiceContent() {
           {/* Card container */}
           {/* <div className="relative rounded-2xl border border-white/10  p-6 shadow-xl shadow-black/50 backdrop-blur-sm sm:p-8"> */}
             {/* faint gradient border glow */}
-            <div className="pointer-events-none absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-sky-500/30 via-transparent to-indigo-500/30 blur-2xl opacity-60" />
+            <div className="pointer-events-none absolute inset-0 -z-10 rounded-2xl bg-linear-to-br from-sky-500/30 via-transparent to-indigo-500/30 blur-2xl opacity-60" />
 
             {/* Content – use prose styles if you have @tailwindcss/typography */}
             <article className="prose prose-invert prose-sm max-w-none sm:prose-base prose-headings:text-slate-50 prose-a:text-sky-300">
@@ -111,7 +111,7 @@ export default function TermsOfServiceContent() {
                 these Terms, contact{" "}
                 <a
                   href="mailto:info@coderlala.com"
-                  className="font-medium text-orange-500 text-orange-700"
+                  className="font-medium text-orange-500"
                 >info@coderlala.com</a>
                 .
               </p>

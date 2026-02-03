@@ -16,12 +16,13 @@ import {
   ArrowRight,
   Check
 } from "lucide-react";
+import Link from "next/link";
 
 // Tech stack icons - FIXED IMPORTS
-import { 
-  SiNextdotjs, 
-  SiReact, 
-  SiTypescript, 
+import {
+  SiNextdotjs,
+  SiReact,
+  SiTypescript,
   SiNodedotjs,
   SiPython,
   SiAmazon,        // AWS
@@ -72,6 +73,7 @@ import {
 
 const services = [
   {
+    slug: "web-development",
     title: "Web Development",
     description: "Build modern, responsive websites optimized for speed, SEO, and user experience.",
     icon: Globe,
@@ -79,27 +81,31 @@ const services = [
     features: ["Next.js / React Development", "SEO Optimization for Higher Visibility", "Progressive Web App (PWA) Support", "High-Performance Web Solutions"]
   },
   {
-    title: "Mobile Apps",
+    slug: "mobile-app-development",
+    title: "Mobile App Development",
     description: "Cross-platform mobile solutions for iOS and Android with seamless performance and security.",
     icon: Smartphone,
     color: "from-purple-500 to-pink-500",
     features: ["React Native Development", "iOS & Android Compatible", "App Store Ready Applications", "Push Notifications & Engagement"]
   },
   {
-    title: "SaaS Platforms",
+    slug: "saas-platform-development",
+    title: "SaaS Platform Development",
     description: "End-to-end SaaS solutions with subscription management and scalable architecture.",
     icon: Cloud,
     color: "from-orange-500 to-red-500",
     features: ["Subscription Billing Systems", "Multi-Tenancy Architecture", "Analytics & Reporting", "API Integration"]
   },
   {
-    title: "Backend Engineering",
+    slug: "backend-api-development",
+    title: "Backend & API Development",
     description: "Robust backend systems for enterprise-grade performance and scalability.",
     icon: Server,
     color: "from-green-500 to-emerald-500",
     features: ["Node.js / Python / Go Development", "Microservices Architecture", "REST / GraphQL APIs", "Database Design & Management"]
   },
   {
+    slug: "ui-ux-design",
     title: "UI/UX Design",
     description: "User-centered design with wireframing, prototyping, and design systems",
     icon: Palette,
@@ -107,6 +113,7 @@ const services = [
     features: ["Figma / Adobe XD Design", "Comprehensive Design Systems", "User Research & Testing", "Rapid Prototyping"]
   },
   {
+    slug: "cloud-devops",
     title: "Cloud Infrastructure",
     description: "Deploy and manage applications on cloud platforms efficiently and securely.",
     icon: Cpu,
@@ -114,20 +121,22 @@ const services = [
     features: ["AWS / Azure / Google Cloud Deployment", "Containerization with Docker & Kubernetes", "CI/CD Pipelines & Automation", "Serverless Architecture"]
   },
   {
+    slug: "ai-ml-solutions",
     title: "AI & ML Solutions",
     description: "Intelligent systems leveraging machine learning, NLP, and predictive analytics..",
     icon: Zap,
     color: "from-cyan-500 to-blue-500",
     features: ["Machine Learning Models", "Natural Language Processing (NLP)", "Computer Vision Applications", "Predictive Analytics Solutions"]
   },
+  // {
+  //   title: "DevOps & Security",
+  //   description: "Secure, automated development lifecycle for reliable software delivery.",
+  //   icon: Shield,
+  //   color: "from-red-500 to-orange-500",
+  //   features: ["Security Audits & Compliance", "Automated Testing & CI/CD", "Monitoring & Incident Management", "Governance & Risk Management"]
+  // },
   {
-    title: "DevOps & Security",
-    description: "Secure, automated development lifecycle for reliable software delivery.",
-    icon: Shield,
-    color: "from-red-500 to-orange-500",
-    features: ["Security Audits & Compliance", "Automated Testing & CI/CD", "Monitoring & Incident Management", "Governance & Risk Management"]
-  },
-  {
+    slug: "enterprise-software",
     title: "Enterprise Software",
     description: "Custom enterprise solutions with ERP, CRM integration.",
     icon: Workflow,
@@ -177,7 +186,7 @@ const techStack = [
 
   { name: "Angular", icon: SiAngular, color: "text-red-600" },
 
- 
+
   { name: "Laravel", icon: SiLaravel, color: "text-red-500" }
 ];
 
@@ -191,7 +200,7 @@ export default function ServicesOverview() {
         <div className="absolute top-3/4 left-1/2 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 bg-linear-to-r from-orange-500/10 to-transparent blur-2xl sm:blur-3xl rounded-full dark:from-orange-500/5" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -210,8 +219,8 @@ export default function ServicesOverview() {
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-white dark:text-gray-300 max-w-3xl mx-auto px-2">
-          We deliver comprehensive web development services, mobile app development services, and SaaS development services that drive digital transformation through innovative technology solutions and expert IT consulting.  
-           </p>
+            We deliver comprehensive web development services, mobile app development services, and SaaS development services that drive digital transformation through innovative technology solutions and expert IT consulting.
+          </p>
         </motion.div>
 
 
@@ -270,14 +279,14 @@ export default function ServicesOverview() {
                 </div>
 
 
-                <div className="flex items-center justify-between pt-4 sm:pt-6 border-t border-white/50 dark:border-gray-700/50 relative z-10">
+                <Link href={`/services/${service.slug}`} className="flex items-center justify-between pt-4 sm:pt-6 border-t border-white/50 dark:border-gray-700/50 relative z-10">
                   <span className="text-xs sm:text-sm font-semibold text-white/90 dark:text-gray-400">
                     Learn more
                   </span>
                   <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-linear-to-br ${service.color} flex items-center justify-center cursor-pointer shadow-md hover:shadow-lg transition-shadow`}>
                     <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white!" />
                   </div>
-                </div>
+                </Link>
               </div>
             </motion.div>
           ))}
@@ -292,9 +301,13 @@ export default function ServicesOverview() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-16 sm:mt-20 md:mt-24 pt-8 sm:pt-10 md:pt-12 border-t border-white/20"
         >
-          <h3 className="text-xl sm:text-2xl font-semibold text-center mb-6 sm:mb-8 text-white">
-           Advanced Technologies for Enterprise Software Development
-          </h3>
+          <h2 className="text-3xl text-center sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400">Advanced Technologies for</span>
+            <span className="block text-transparent bg-clip-text bg-linear-to-r from-orange-600 to-red-600 dark:from-orange-400 dark:to-red-400">Enterprise Software Development</span>
+          </h2>
+          <p className="text-base text-center mb-12 sm:text-lg md:text-xl text-white dark:text-gray-300 max-w-3xl mx-auto px-2">
+            We deliver comprehensive web development services, mobile app development services, and SaaS development services that drive digital transformation through innovative technology solutions and expert IT consulting.
+          </p>
           <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-5 md:gap-6 lg:gap-8 px-2">
             {techStack.map((tech, i) => {
               const Icon = tech.icon;
@@ -312,7 +325,7 @@ export default function ServicesOverview() {
                     <Icon className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 ${tech.color} group-hover:scale-110 transition-transform`} />
                     <span className="text-xs sm:text-sm font-medium  text-center">{tech.name}</span>
                   </div>
-                  
+
                   {/* Subtle glow effect on hover */}
                   <div className={`absolute -inset-1 bg-linear-to-r ${tech.color.replace('text-', 'from-')} to-transparent rounded-xl blur opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10`} />
                 </motion.div>

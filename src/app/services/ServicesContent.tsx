@@ -79,6 +79,7 @@ import {
 
 import Link from "next/link";
 import { useState, useRef } from "react";
+import { FinalCTA } from "../components/sections/cta";
 
 const techStack = [
   { name: "Next.js", icon: SiNextdotjs, color: "!text-black dark:text-white" },
@@ -107,8 +108,9 @@ const techStack = [
   { name: "Laravel", icon: SiLaravel, color: "text-red-500" }
 ];
 
-const services = [
+export const services = [
   {
+    slug: "web-development",
     title: "Web Development",
     desc: "Modern, responsive websites and web applications built with Next.js, React, and cutting-edge frameworks for optimal performance and SEO.",
     icon: Globe,
@@ -124,6 +126,7 @@ const services = [
     delivery: "8-12 Weeks",
   },
   {
+    slug: "mobile-app-development",
     title: "Mobile App Development",
     desc: "Cross-platform mobile applications for iOS & Android using React Native and Flutter for maximum reach and native performance.",
     icon: Smartphone,
@@ -139,6 +142,7 @@ const services = [
     delivery: "8-14 Weeks",
   },
   {
+    slug: "saas-platform-development",
     title: "SaaS Platform Development",
     desc: "End-to-end SaaS solutions with subscription management, multi-tenancy, analytics, and scalable architecture.",
     icon: Cloud,
@@ -154,6 +158,7 @@ const services = [
     delivery: "12-36 Weeks",
   },
   {
+    slug: "backend-api-development",
     title: "Backend & API Development",
     desc: "Robust backend systems with Node.js, Python, Go, and microservices architecture for enterprise needs.",
     icon: Server,
@@ -165,10 +170,11 @@ const services = [
       "Database Design",
       "Authentication",
     ],
-    projects: "10+",
+    projects: "30+",
     delivery: "6-10 Weeks",
   },
   {
+    slug: "ui-ux-design",
     title: "UI/UX Design",
     desc: "User-centric design with wireframing, prototyping, and design systems for exceptional user experiences.",
     icon: Palette,
@@ -184,6 +190,7 @@ const services = [
     delivery: "4-8 Weeks",
   },
   {
+    slug: "cloud-devops",
     title: "Cloud & DevOps",
     desc: "AWS, Azure, and Google Cloud deployment with CI/CD, containerization, and serverless architecture.",
     icon: Cpu,
@@ -199,6 +206,7 @@ const services = [
     delivery: "4-8 Weeks",
   },
   {
+    slug: "ai-ml-solutions",
     title: "AI & ML Solutions",
     desc: "Intelligent systems with machine learning, natural language processing, and predictive analytics.",
     icon: Zap,
@@ -214,6 +222,7 @@ const services = [
     delivery: "12-20 Weeks",
   },
   {
+    slug: "enterprise-software",
     title: "Enterprise Software",
     desc: "Custom enterprise solutions with ERP, CRM integration, legacy system modernization, and workflow automation.",
     icon: Workflow,
@@ -292,8 +301,8 @@ const stats = [
 
 export default function ServicesContent() {
   const [activeService, setActiveService] = useState(0);
-  const servicesScrollRef =useRef<HTMLDivElement | null>(null);
-const techScrollRef = useRef<HTMLDivElement | null>(null);
+  const servicesScrollRef = useRef<HTMLDivElement | null>(null);
+  const techScrollRef = useRef<HTMLDivElement | null>(null);
 
 
   const scrollServicesLeft = () => {
@@ -329,7 +338,7 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
         transition={{ duration: 0.6 }}
         className="text-center mb-12 sm:mb-16 md:mb-20"
       >
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 sm:mb-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 sm:mb-6">
           <Layers className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300" />
           <span className="text-xs sm:text-sm font-medium">Our Services</span>
         </div>
@@ -385,7 +394,7 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
       >
         <div className="relative group">
           <div
-            className={`absolute -inset-0.5 bg-gradient-to-r ${services[activeService].color} rounded-2xl sm:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`}
+            className={`absolute -inset-0.5 bg-linear-to-r ${services[activeService].color} rounded-2xl sm:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`}
           />
 
           <div className="relative glass-card p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10">
@@ -394,13 +403,13 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold text-white">Select a Service</h3>
                 <div className="flex gap-2">
-                  <button 
+                  <button
                     onClick={scrollServicesLeft}
                     className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
                   >
                     <ChevronLeft className="w-4 h-4 text-white" />
                   </button>
-                  <button 
+                  <button
                     onClick={scrollServicesRight}
                     className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
                   >
@@ -408,9 +417,9 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
                   </button>
                 </div>
               </div>
-              
+
               <div className="relative">
-                <div 
+                <div
                   ref={servicesScrollRef}
                   className="flex gap-3 pb-4 overflow-x-auto scrollbar-hide"
                   style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -421,11 +430,10 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
                       <button
                         key={i}
                         onClick={() => setActiveService(i)}
-                        className={`flex-shrink-0 w-64 p-4 rounded-xl border transition-all ${
-                          i === activeService 
-                            ? "bg-white/10 border-white/30 shadow-lg" 
-                            : "bg-white/5 border-white/10 hover:bg-white/10"
-                        }`}
+                        className={`shrink-0 w-64 p-4 rounded-xl border transition-all ${i === activeService
+                          ? "bg-white/10 border-white/30 shadow-lg"
+                          : "bg-white/5 border-white/10 hover:bg-white/10"
+                          }`}
                       >
                         <div className="flex items-start gap-3">
                           <div className={`p-2 rounded-lg ${service.color} bg-opacity-20 mt-1`}>
@@ -456,7 +464,7 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
               <div>
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 md:mb-6">
                   <div className="mb-4 sm:mb-0">
-                    <div className="inline-flex p-2 sm:p-3 rounded-xl bg-gradient-to-br from-blue-500/10 to-orange-500/10 mb-3 sm:mb-4">
+                    <div className="inline-flex p-2 sm:p-3 rounded-xl bg-linear-to-br from-blue-500/10 to-orange-500/10 mb-3 sm:mb-4">
                       {(() => {
                         const IconComponent = services[activeService].icon;
                         return (
@@ -493,7 +501,7 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
                   <div className="space-y-2 sm:space-y-3">
                     {services[activeService].features.map((feature, i) => (
                       <div key={i} className="flex items-center gap-2 sm:gap-3">
-                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 shrink-0" />
                         <span className="text-white/80 text-sm sm:text-base">{feature}</span>
                       </div>
                     ))}
@@ -502,29 +510,29 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Link
-                    href="/contact"
-                    className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl !text-white font-semibold 
-                               bg-gradient-to-r from-blue-500 to-indigo-600
+                    href={`/services/${services[activeService].slug}`}
+                    className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold 
+                               bg-linear-to-r from-blue-500 to-indigo-600
                                hover:from-blue-600 hover:to-indigo-700
                                transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                                shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)]
                                flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
                   >
-                    <span className="relative !text-white">Get Started</span>
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                    <span className="relative text-white!">Get Started</span>
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform shrink-0" />
                   </Link>
 
                   <Link
                     href="/portfolio"
-                    className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl !text-white font-semibold 
-                               bg-gradient-to-r from-orange-500 to-orange-600
+                    className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold 
+                               bg-linear-to-r from-orange-500 to-orange-600
                                hover:from-orange-600 hover:to-orange-700
                                transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
                                shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)]
                                flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
                   >
-                    <span className="relative !text-white">View Examples</span>
-                    <Award className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                    <span className="relative text-white!">View Examples</span>
+                    <Award className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform shrink-0" />
                   </Link>
                 </div>
               </div>
@@ -537,32 +545,31 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
                     {services.map((service, i) => {
                       const IconComponent = service.icon;
                       return (
-                        <button
+                        <div
                           key={i}
+                          // href={`/services/${service.slug}`}
                           onClick={() => setActiveService(i)}
-                          className={`w-full text-left p-4 rounded-xl transition-all ${i === activeService
-                              ? "bg-gray-500/15"
-                              : "bg-gray-500/5 hover:bg-gray-500/10"
+                          className={`flex cursor-pointer items-center justify-between w-full text-left p-4 rounded-xl transition-all ${i === activeService
+                            ? "bg-gray-500/15"
+                            : "bg-gray-500/5 hover:bg-gray-500/10"
                             }`}
                         >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <IconComponent className="w-5 h-5" />
-                              <div>
-                                <div className="font-medium">
-                                  {service.title}
-                                </div>
-                                <div className="text-xs mt-1">
-                                  {service.projects} projects •{" "}
-                                  {service.delivery}
-                                </div>
+                          <div className="flex items-center gap-3">
+                            <IconComponent className="w-5 h-5" />
+                            <div>
+                              <div className="font-medium">
+                                {service.title}
+                              </div>
+                              <div className="text-xs mt-1">
+                                {service.projects} projects •{" "}
+                                {service.delivery}
                               </div>
                             </div>
-                            {i === activeService && (
-                              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-orange-500" />
-                            )}
                           </div>
-                        </button>
+                          {i === activeService && (
+                            <div className="w-2 h-2 rounded-full bg-linear-to-r from-blue-500 to-orange-500" />
+                          )}
+                        </div>
                       );
                     })}
                   </div>
@@ -597,47 +604,51 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
           {services.map((service, i) => {
             const IconComponent = service.icon;
             return (
-              <motion.div
+              <Link
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                whileHover={{ y: -8 }}
-                onClick={() => setActiveService(i)}
-                className={`glass-card p-4 sm:p-6 rounded-xl sm:rounded-2xl backdrop-blur-xl border border-white/10 cursor-pointer transition-all ${i === activeService ? "ring-2 ring-blue-500/30" : ""
-                  }`}
+                href={`/services/${service.slug}`}
               >
-                <div className="flex items-start justify-between mb-3 sm:mb-4">
-                  <div className={`p-2 sm:p-3 rounded-xl ${service.color}/20`}>
-                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 !text-white" />
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  whileHover={{ y: -8 }}
+                  onClick={() => setActiveService(i)}
+                  className={`glass-card p-4 sm:p-6 rounded-xl sm:rounded-2xl backdrop-blur-xl border border-white/10 cursor-pointer transition-all h-full ${i === activeService ? "ring-2 ring-blue-500/30" : ""
+                    }`}
+                >
+                  <div className="flex items-start justify-between mb-3 sm:mb-4">
+                    <div className={`p-2 sm:p-3 rounded-xl ${service.color}/20`}>
+                      <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white!" />
+                    </div>
+                    <div className="text-xs px-2 sm:px-3 py-1 rounded-full bg-white/10">
+                      {service.projects} projects
+                    </div>
                   </div>
-                  <div className="text-xs px-2 sm:px-3 py-1 rounded-full bg-white/10">
-                    {service.projects} projects
+
+                  <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">{service.title}</h3>
+                  <p className="text-white/70 text-xs sm:text-sm mb-3 sm:mb-4">{service.desc}</p>
+
+                  <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                    {service.features.slice(0, 3).map((feature, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-1 text-xs rounded-lg bg-white/5 border border-white/10"
+                      >
+                        {feature}
+                      </span>
+                    ))}
                   </div>
-                </div>
 
-                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">{service.title}</h3>
-                <p className="text-white/70 text-xs sm:text-sm mb-3 sm:mb-4">{service.desc}</p>
-
-                <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
-                  {service.features.slice(0, 3).map((feature, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-1 text-xs rounded-lg bg-white/5 border border-white/10"
-                    >
-                      {feature}
+                  <div className="flex items-center justify-between text-xs sm:text-sm">
+                    <span className="text-white/60">
+                      Delivery: {service.delivery}
                     </span>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between text-xs sm:text-sm">
-                  <span className="text-white/60">
-                    Delivery: {service.delivery}
-                  </span>
-                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300" />
-                </div>
-              </motion.div>
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </motion.div>
+              </Link>
             );
           })}
         </div>
@@ -667,7 +678,7 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
           {process.map((step, i) => (
             <div key={i} className="relative">
               <div className="glass-card p-4 sm:p-6 rounded-xl sm:rounded-2xl backdrop-blur-xl border border-white/10 h-full">
-                <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-500/20 to-orange-500/20 border border-white/10 mb-3 sm:mb-4">
+                <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-linear-to-br from-blue-500/20 to-orange-500/20 border border-white/10 mb-3 sm:mb-4">
                   <span className="text-base sm:text-lg font-bold text-white">
                     {step.step}
                   </span>
@@ -677,7 +688,7 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
               </div>
 
               {i < process.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 right-0 w-full h-px bg-gradient-to-r from-blue-500/20 via-orange-500/20 to-transparent transform translate-x-1/2" />
+                <div className="hidden lg:block absolute top-1/2 right-0 w-full h-px bg-linear-to-r from-blue-500/20 via-orange-500/20 to-transparent transform translate-x-1/2" />
               )}
             </div>
           ))}
@@ -709,13 +720,13 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
           <div className="flex items-center justify-between px-2">
             <h3 className="text-lg font-semibold text-white">Scroll to explore</h3>
             <div className="flex gap-2">
-              <button 
+              <button
                 onClick={scrollTechLeft}
                 className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
               >
                 <ChevronLeft className="w-4 h-4 text-white" />
               </button>
-              <button 
+              <button
                 onClick={scrollTechRight}
                 className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
               >
@@ -739,12 +750,12 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
                   whileHover={{ scale: 1.05, y: -2 }}
                   className="group relative"
                 >
-                  <div className="px-3 py-2 sm:px-4 sm:py-3 md:px-5 md:py-4 rounded-xl glass-card backdrop-blur-sm hover:bg-white hover:border-white/30 transition-all duration-300 flex flex-col items-center justify-center min-w-[80px] sm:min-w-[100px] gap-1 sm:gap-2">
+                  <div className="px-3 py-2 sm:px-4 sm:py-3 md:px-5 md:py-4 rounded-xl glass-card backdrop-blur-sm hover:bg-white hover:border-white/30 transition-all duration-300 flex flex-col items-center justify-center min-w-20 sm:min-w-[100px] gap-1 sm:gap-2">
                     <Icon className={`w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 ${tech.color} group-hover:scale-110 transition-transform`} />
                     <span className="text-xs sm:text-sm font-medium text-center">{tech.name}</span>
                   </div>
 
-                  <div className={`absolute -inset-0.5 sm:-inset-1 bg-gradient-to-r ${tech.color.replace('text-', 'from-')} to-transparent rounded-xl blur opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10`} />
+                  <div className={`absolute -inset-0.5 sm:-inset-1 bg-linear-to-r ${tech.color.replace('text-', 'from-')} to-transparent rounded-xl blur opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10`} />
                 </motion.div>
               );
             })}
@@ -753,7 +764,7 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
           {/* Mobile Horizontal Scrollable Tech Stack */}
           <div className="lg:hidden">
             <div className="relative">
-              <div 
+              <div
                 ref={techScrollRef}
                 className="flex gap-3 pb-4 overflow-x-auto scrollbar-hide px-2"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -767,7 +778,7 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.3, delay: i * 0.05 }}
-                      className="flex-shrink-0"
+                      className="shrink-0"
                     >
                       <div className="px-4 py-3 rounded-xl glass-card backdrop-blur-sm border border-white/10 transition-all duration-300 flex flex-col items-center justify-center w-32 gap-2">
                         <Icon className={`w-6 h-6 ${tech.color}`} />
@@ -782,54 +793,7 @@ const techScrollRef = useRef<HTMLDivElement | null>(null);
         </div>
       </motion.div>
 
-      {/* Final CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center px-4 sm:px-0"
-      >
-        <div className="glass-card p-6 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10 max-w-4xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400">
-              Ready to Transform Your Business?
-            </span>
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl text-white/70 mb-6 sm:mb-8 max-w-2xl mx-auto px-4 sm:px-0">
-            Let&apos;s discuss your project requirements and create a custom solution
-            tailored to your business goals and technical needs.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl !text-white font-semibold 
-                         bg-gradient-to-r from-blue-500 to-indigo-600
-                         hover:from-blue-600 hover:to-indigo-700
-                         transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
-                         shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)]
-                         flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
-            >
-              <span className="relative !text-white">Start Your Project</span>
-              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
-            </Link>
-
-            <Link
-              href="/contact"
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl !text-white font-semibold 
-                         bg-gradient-to-r from-orange-500 to-orange-600
-                         hover:from-orange-600 hover:to-orange-700
-                         transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
-                         shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)]
-                         flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
-            >
-              <span className="relative !text-white">Free Consultation</span>
-              <Clock className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
-            </Link>
-          </div>
-        </div>
-      </motion.div>
+      <FinalCTA />
     </>
   );
 }

@@ -9,13 +9,13 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
   { name: "Services", path: "/services" },
   { name: "Portfolio", path: "/portfolio" },
-  { name: "About", path: "/about" },
   { name: "Our Team", path: "/our-team" },
   { name: "Careers", path: "/careers" },
   { name: "Contact", path: "/contact" },
-  
+
 ];
 
 export default function EnhancedNavbar() {
@@ -28,30 +28,30 @@ export default function EnhancedNavbar() {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
-    
+
     // Check if mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    
+
     // Check initial theme
     const checkTheme = () => {
       const isDark = document.documentElement.classList.contains('dark');
       setIsDarkMode(isDark);
     };
-    
+
     checkTheme();
-    
+
     // Observe theme changes
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class']
     });
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", checkMobile);
@@ -90,15 +90,15 @@ export default function EnhancedNavbar() {
           <Link href="/" className="flex items-center group btn">
             <div className="relative w-38 h-18 sm:w-46 sm:h-10 md:w-[150px] md:h-[45px] lg:w-[200px] lg:h-[60px]">
               {!isDarkMode ? (
-                <img 
-                  src="/logo/CoderLalaLogoLight.svg" 
+                <img
+                  src="/logo/CoderLalaLogoLight.svg"
                   alt="CoderLalaLogo Light"
                   className="w-full h-full object-contain"
                   key="dark-logo"
                 />
               ) : (
-                <img 
-                  src="/logo/CoderLalaLogoDark.svg" 
+                <img
+                  src="/logo/CoderLalaLogoDark.svg"
                   alt="CoderLalaLogo Dark"
                   className="w-full h-full object-contain"
                   key="light-logo"
@@ -120,8 +120,8 @@ export default function EnhancedNavbar() {
                     relative text-sm font-medium transition-colors group 
                     ${isActive
                       ? "text-blue-600 dark:text-blue-400"
-                      : isDarkMode 
-                        ? "text-white hover:text-blue-400" 
+                      : isDarkMode
+                        ? "text-white hover:text-blue-400"
                         : "text-gray-800 hover:text-blue-600"
                     }
                   `}
@@ -131,7 +131,7 @@ export default function EnhancedNavbar() {
                   {/* Underline */}
                   <span
                     className={`
-                      absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r
+                      absolute -bottom-1 left-0 h-0.5 bg-linear-to-r
                       from-blue-500 to-purple-500 transition-all duration-300
                       ${isActive ? "w-full" : "w-0 group-hover:w-full"}  
                     `}
@@ -144,8 +144,8 @@ export default function EnhancedNavbar() {
             <Link
               href="/contact"
               className="
-                ml-4 px-6 py-3 rounded-lg !text-white font-semibold 
-                bg-gradient-to-r from-blue-600 to-purple-600
+                ml-4 px-6 py-3 rounded-lg text-white! font-semibold 
+                bg-linear-to-r from-blue-600 to-purple-600
                 hover:from-blue-700 hover:to-purple-700
                 transition-all shadow-lg hover:shadow-xl hover:shadow-blue-500/25 
                 flex items-center gap-2
@@ -166,7 +166,7 @@ export default function EnhancedNavbar() {
               onClick={() => setIsOpen(true)}
               className="
                 p-2 rounded-lg 
-                !bg-blue-700 
+                bg-blue-700! 
                 hover:bg-gray-300 dark:hover:bg-gray-700
                 transition-colors
               "
@@ -190,7 +190,7 @@ export default function EnhancedNavbar() {
               className="fixed inset-0 bg-black/50 z-40 md:hidden"
               onClick={() => setIsOpen(false)}
             />
-            
+
             {/* Menu panel with slide animation */}
             <motion.div
               initial={{ x: "-100%" }}
@@ -213,14 +213,14 @@ export default function EnhancedNavbar() {
                   {/* Mobile Menu Logo - Smaller */}
                   <div className="relative w-38  sm:w-46  md:w-[150px]  lg:w-[200px] ">
                     {!isDarkMode ? (
-                      <img 
-                        src="/logo/CoderLalaLogoLight.svg" 
+                      <img
+                        src="/logo/CoderLalaLogoLight.svg"
                         alt="CoderLala Logo"
                         className="w-full h-full object-contain"
                       />
                     ) : (
-                      <img 
-                        src="/logo/CoderLalaLogoDark.svg" 
+                      <img
+                        src="/logo/CoderLalaLogoDark.svg"
                         alt="CoderLala Logo"
                         className="w-full h-full object-contain"
                       />
@@ -233,7 +233,7 @@ export default function EnhancedNavbar() {
                       backgroundColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
                     }}
                   >
-                    <X className="w-5 h-5" 
+                    <X className="w-5 h-5"
                       style={{
                         color: isDarkMode ? '#d1d5db' : '#374151'
                       }}
@@ -259,7 +259,7 @@ export default function EnhancedNavbar() {
                         onClick={() => setIsOpen(false)}
                         className="block py-3 px-4 rounded-lg mb-2 font-medium transition-all"
                         style={{
-                          backgroundColor: isActive 
+                          backgroundColor: isActive
                             ? (isDarkMode ? 'rgba(59, 130, 246, 0.2)' : 'rgba(59, 130, 246, 0.1)')
                             : 'transparent',
                           color: isActive
@@ -287,8 +287,8 @@ export default function EnhancedNavbar() {
                     onClick={() => setIsOpen(false)}
                     className="
                       block mt-6 py-3 px-4 rounded-lg text-center
-                      bg-gradient-to-r from-blue-600 to-purple-600 
-                      !text-white font-semibold
+                      bg-linear-to-r from-blue-600 to-purple-600 
+                      text-white! font-semibold
                       hover:from-blue-700 hover:to-purple-700
                       transition-all
                     "
@@ -297,7 +297,7 @@ export default function EnhancedNavbar() {
                   </Link>
                 </motion.div>
 
-                
+
               </div>
             </motion.div>
           </>

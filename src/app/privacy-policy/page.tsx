@@ -137,7 +137,7 @@ export default function PrivacyPolicyPage() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4">
         <PrivacyPolicyContent />
       </div>
     </div>
