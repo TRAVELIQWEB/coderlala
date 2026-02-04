@@ -29,7 +29,7 @@ export default function AboutContent() {
       color: "from-blue-500 to-cyan-500",
     },
     {
-      year: "2025",
+      year: "2026",
       title: "First 10 Clients",
       desc: "Successfully delivered 10+ projects for startups and established businesses.",
       icon: Users,
@@ -43,7 +43,7 @@ export default function AboutContent() {
       color: "from-purple-500 to-pink-500",
     },
     {
-      year: "2025",
+      year: "2026",
       title: "Enterprise Partnerships",
       desc: "Became trusted technology partner for Fortune companies and unicorn startups.",
       icon: Award,

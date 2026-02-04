@@ -393,9 +393,9 @@ export default function ServicesContent() {
         className="mb-12 sm:mb-16 md:mb-20 px-4 sm:px-0"
       >
         <div className="relative group">
-          <div
+          {/* <div
             className={`absolute -inset-0.5 bg-linear-to-r ${services[activeService].color} rounded-2xl sm:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`}
-          />
+          /> */}
 
           <div className="relative glass-card p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10">
             {/* MOBILE: HORIZONTAL SCROLLABLE SERVICE SELECTOR (LIKE CAREERS PAGE) */}
@@ -431,7 +431,7 @@ export default function ServicesContent() {
                         key={i}
                         onClick={() => setActiveService(i)}
                         className={`shrink-0 w-64 p-4 rounded-xl border transition-all ${i === activeService
-                          ? "bg-white/10 border-white/30 shadow-lg"
+                          ? `"bg-white/10 border-white/30 shadow-lg"`
                           : "bg-white/5 border-white/10 hover:bg-white/10"
                           }`}
                       >
@@ -550,7 +550,7 @@ export default function ServicesContent() {
                           // href={`/services/${service.slug}`}
                           onClick={() => setActiveService(i)}
                           className={`flex cursor-pointer items-center justify-between w-full text-left p-4 rounded-xl transition-all ${i === activeService
-                            ? "bg-gray-500/15"
+                            ? `${services[activeService].color} text-white!`
                             : "bg-gray-500/5 hover:bg-gray-500/10"
                             }`}
                         >

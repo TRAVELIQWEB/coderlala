@@ -4,27 +4,15 @@
 import { motion } from "framer-motion";
 import {
   Users,
-  Code2,
-  Cloud,
-  Palette,
-  Shield,
-  Globe,
-  Rocket,
   ArrowRight,
-  Mail,
   Linkedin,
   Github,
-  Calendar,
   MapPin,
-  Briefcase,
-  Award,
-  ExternalLink
+  Briefcase
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { DiJavascript } from "react-icons/di";
-import { SiTypescript } from "react-icons/si";
-import { teamMembers } from "./team-data";
+import { getExperience, teamMembers } from "./team-data";
 
 
 export default function OurTeamContent2() {
@@ -75,7 +63,7 @@ export default function OurTeamContent2() {
                             </div>
                             <div>
                               <div className="text-sm font-medium">Experience</div>
-                              <div className="font-medium text-gray-500 dark:text-gray-400">{member.experience}</div>
+                              <div className="font-medium text-gray-500 dark:text-gray-400">{getExperience(member.experience)}</div>
                             </div>
                           </div>
 

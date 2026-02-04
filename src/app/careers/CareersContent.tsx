@@ -246,8 +246,8 @@ export default function CareersContent() {
                   key={i}
                   onClick={() => setActiveJob(i)}
                   className={`shrink-0 w-64 p-4 rounded-xl border transition-all ${i === activeJob
-                      ? "bg-white/10 border-white/30 shadow-lg"
-                      : "bg-white/5 border-white/10 hover:bg-white/10"
+                    ? `${job.color} border-white/30 shadow-lg`
+                    : "bg-white/5 border-white/10 hover:bg-white/10"
                     }`}
                 >
                   <div className="flex items-start gap-3">
@@ -278,7 +278,7 @@ export default function CareersContent() {
         </div>
 
         <div className="relative group">
-          <div className={`absolute -inset-0.5 bg-linear-to-r ${jobs[activeJob].color} rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`} />
+          {/* <div className={`absolute -inset-0.5 bg-linear-to-r ${jobs[activeJob].color} rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`} /> */}
 
           <div className="relative glass-card p-8 rounded-3xl backdrop-blur-xl border border-white/10">
             <div className="flex flex-col lg:flex-row gap-8">
@@ -382,17 +382,17 @@ export default function CareersContent() {
                         key={i}
                         onClick={() => setActiveJob(i)}
                         className={`w-full text-left p-4 rounded-xl transition-all 
-                          ${i === activeJob ? "bg-white/10 border border-white/20" : "bg-white/5 hover:bg-white/10 border border-transparent"}`}
+                          ${i === activeJob ? `${job.color} text-white! border border-white/20` : "bg-white/5 hover:bg-white/10 border border-transparent"}`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             {(() => {
                               const IconComponent = job.icon;
-                              return <IconComponent className="w-5 h-5 text-white/70" />;
+                              return <IconComponent className="w-5 h-5" />;
                             })()}
                             <div>
-                              <div className="font-medium text-white">{job.role}</div>
-                              <div className="text-sm text-white/60 mt-1">
+                              <div className="font-medium">{job.role}</div>
+                              <div className="text-sm mt-1">
                                 {job.type} • {job.location}
                               </div>
                             </div>
