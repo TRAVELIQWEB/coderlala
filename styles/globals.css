@@ -872,3 +872,11 @@ button {
 .skill-badge {
   @apply rounded-lg border bg-gray-700! dark:bg-white/10! border-white/5 px-3 py-1 text-xs font-medium text-gray-300 transition-colors
 }
+
+.auth-input {
+  @apply w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-purple-500 focus:outline-none transition-colors text-white;
+}
+
+.auth-input-login {
+  @apply w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500 focus:outline-none transition-colors text-white; 
+}

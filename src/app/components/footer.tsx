@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaLinkedin, FaGithub, FaTwitter, FaInstagram, FaEnvelope, FaFacebook, FaYoutube, FaMapMarked, FaPhone } from "react-icons/fa";
 import { SiHashnode } from "react-icons/si";
-import { services } from "../services/data/services/service";
+import { services } from "../(main)/services/data/services/service";
+// import { services } from "../services/data/services/service";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
