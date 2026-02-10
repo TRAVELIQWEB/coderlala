@@ -67,10 +67,13 @@ export default function Header() {
             <div className="w-10 h-10 bg-linear-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
               <User size={20} className="text-white" />
             </div>
-            {/* <div>
-              <p className="font-semibold">User</p>
-              <p className="text-sm text-gray-500">Admin</p>
-            </div> */}
+            {/* Add this logout button */}
+            <button
+              // onClick={handleLogout}
+              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>

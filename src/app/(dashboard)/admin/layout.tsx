@@ -1,7 +1,6 @@
 import Header from "@/app/components/admin/dashboard/Header";
 import Sidebar from "@/app/components/admin/dashboard/Sidebar";
 import api from '@/lib/axios';
-import LogoutBtn from "./LogoutBtn";
 
 export const metadata = {
     title: 'Dashboard - CoderLala',
@@ -28,6 +27,7 @@ export default function DashboardLayout({
                         </div>
 
                     </main>
+                            
                 </div>
             </div>
         </>
