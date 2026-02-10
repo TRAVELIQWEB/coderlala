@@ -20,11 +20,11 @@ export function middleware(req: NextRequest) {
   console.log("ACCESS TOKEN =>", accessToken);
 
   if (pathname.startsWith("/admin") && role !== "ADMIN") {
-    return NextResponse.redirect(new URL("/agent/dashboard", req.url));
+    return NextResponse.redirect(new URL("/agent", req.url));
   }
 
   if (pathname.startsWith("/agent") && role !== "AGENT") {
-    return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+    return NextResponse.redirect(new URL("/admin", req.url));
   }
 
   return NextResponse.next();
