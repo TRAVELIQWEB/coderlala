@@ -53,9 +53,16 @@ export default function AdminInitializeForm() {
             // if (!response.ok) throw new Error('Registration failed');
 
             // Redirect to login or specialized success page
+            if(response.data.status === "success"){
             router.push("/auth/login?registered=true");
-        } catch (err) {
-            setError("Registration failed. Please try again.");
+            }else{
+                setError(response.data.message || "An unexpected error occurred");
+            }
+            
+        } catch (err:any) {
+            console.log(err?.response?.data?.message || "An unexpected error occurred");
+            
+               setError(err?.response?.data?.message || "An unexpected error occurred");
         } finally {
             setIsLoading(false);
         }

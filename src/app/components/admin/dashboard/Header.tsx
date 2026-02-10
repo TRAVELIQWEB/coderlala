@@ -68,7 +68,7 @@ export default function Header() {
               <User size={20} className="text-white" />
             </div>
             <div>
-              <p className="font-semibold">Salman Nizam</p>
+              <p className="font-semibold">User</p>
               <p className="text-sm text-gray-500">Admin</p>
             </div>
           </div>

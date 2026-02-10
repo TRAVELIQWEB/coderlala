@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.NEST_PUBLIC_API_URL,
+  baseURL: "http://192.168.1.186:4000",
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: false,
+  withCredentials: true,
 });
 
 export default api;

@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "./AuthCommon";
+import api from "@/lib/axios";
 
 export default function LoginForm() {
     const router = useRouter();
@@ -29,23 +30,31 @@ export default function LoginForm() {
         setError(null);
 
         try {
-            const response = await fetch(`${process.env.BASEURL}/auth/login`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, rememberMe }),
-            });
+        
+            const response = await api.post('auth/login', {
+                email,
+                password,
+            })
+            console.log(response);
 
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.message || 'Login failed');
+           
+
+
+            if (!response.data.ok) {
+                const data = await response.data
+                  setError(data.message || 'Login failed');
             }
-
-            // Handle successful login (e.g., store token, redirect)
-            // For now, redirect to dashboard or home
-            router.push("/dashboard");
-
+            if(response.data.role === "admin"){
+                router.push("/admin/dashboard");
+            }else{
+                router.push("/user/dashboard");
+            }
+           
         } catch (err: any) {
-            setError(err.message || "An unexpected error occurred");
+
+            setError(err?.response?.data?.message || "An unexpected error occurred");
+            
+            
         } finally {
             setIsLoading(false);
         }
