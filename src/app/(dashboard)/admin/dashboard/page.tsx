@@ -7,14 +7,6 @@ import api from '@/lib/axios';
 export default function DashboardPage() {
     const [userRole, setUserRole] = useState<'Admin' | 'Agent'>('Admin');
 
-    // Add this logout function
-    const handleLogout = async () => {
-        await api.post('/auth/logout', {}, {
-            withCredentials: true, // 🔴 mandatory
-        });
-
-
-    };
 
     return (
         <div>

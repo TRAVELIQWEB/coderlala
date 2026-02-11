@@ -3,6 +3,7 @@ import Footer from "@/app/components/footer";
 import GalaxyBackground from "@/app/components/galaxy-background";
 import NavbarClientWrapper from "@/app/components/navbar-client-wrapper";
 import Script from "next/script";
+import 'react-quill/dist/quill.snow.css';
 
 export const metadata = {
     metadataBase: new URL("https://coderlala.com"),

@@ -4,97 +4,130 @@ import {
   Home,
   FileText,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  X
 } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
-interface MenuItem {
-  icon: React.ReactNode;
-  label: string;
-  href: string;
-}
-
-const menuItems: MenuItem[] = [
-  { icon: <Home size={20} />, label: 'Dashboard', href: '/admin/dashboard' },
-  { icon: <FileText size={20} />, label: 'Blog', href: '/admin/blog' },
+const menuItems = [
+  { icon: Home, label: 'Dashboard', href: '/admin/dashboard' },
+  { icon: FileText, label: 'Blog', href: '/admin/blog' },
 ];
-
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
   return (
-    <aside
-      className={`
-        fixed left-0 top-0 h-screen
-        bg-linear-to-b from-[#0f1a2e] to-[#1a2d4a]
-        text-white transition-all duration-300 z-40
-        ${collapsed ? 'w-20' : 'w-64'}
-      `}
-    >
-      {/* Logo */}
-      <div className="p-6 border-b border-white/10">
-        <div className="flex items-center justify-between">
+    <>
+      {/* Mobile Overlay */}
+      {mobileOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      {/* Mobile Toggle Button */}
+      <button
+        onClick={() => setMobileOpen(true)}
+        className="fixed top-4 left-4 z-30 lg:hidden p-2 bg-white rounded-lg shadow-md border border-gray-200"
+      >
+        <ChevronRight size={20} />
+      </button>
+
+      <aside
+        className={`
+          fixed top-0 left-0 h-full
+          bg-white border-r border-gray-200
+          transition-all duration-300 z-50
+          ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+          ${collapsed ? 'w-20' : 'w-64'}
+        `}
+      >
+        {/* Logo - Matching Header Style */}
+        <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200">
           {!collapsed ? (
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-linear-to-r from-blue-500 to-cyan-400 rounded-lg" />
-              <span className="text-xl font-bold">CoderLala Admin</span>
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold">A</span>
+              </div>
+              <span className="text-lg font-bold text-gray-900">CoderLala</span>
             </div>
           ) : (
-            <div className="w-8 h-8 bg-linear-to-r from-blue-500 to-cyan-400 rounded-lg mx-auto" />
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mx-auto">
+              <span className="text-white font-bold text-sm">A</span>
+            </div>
           )}
 
+          {/* Desktop Toggle */}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20"
+            className="hidden lg:block p-1.5 rounded-lg hover:bg-gray-100 text-gray-600"
           >
             {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
           </button>
+
+          {/* Mobile Close */}
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="lg:hidden p-1.5 rounded-lg hover:bg-gray-100 text-gray-600"
+          >
+            <X size={18} />
+          </button>
         </div>
-      </div>
 
-      {/* Navigation */}
-      <nav className="p-4 space-y-2">
-        {menuItems.map((item) => {
-          const isActive = pathname.startsWith(item.href);
+        {/* Navigation */}
+        <nav className="p-3 space-y-1 mt-2">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
 
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`
-          flex items-center rounded-lg px-4 py-3 transition-all
-          ${isActive
-                  ? 'bg-linear-to-r from-blue-600 to-cyan-500 text-white shadow-lg'
-                  : 'text-gray-300 hover:bg-white/10'
-                }
-        `}
-            >
-              <span className="shrink-0">{item.icon}</span>
-              {!collapsed && (
-                <span className="ml-3 font-medium">{item.label}</span>
-              )}
-            </Link>
-          );
-        })}
-      </nav>
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className={`
+                  flex items-center rounded-lg px-3 py-2.5 transition-all
+                  ${collapsed ? 'justify-center' : ''}
+                  ${isActive 
+                    ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' 
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                  }
+                `}
+              >
+                <Icon size={20} className={isActive ? 'text-blue-600' : ''} />
+                {!collapsed && <span className="ml-3 font-medium text-sm">{item.label}</span>}
+              </Link>
+            );
+          })}
+        </nav>
 
-
-      {/* User Profile */}
-      {!collapsed && (
-        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-white/10">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-linear-to-r from-purple-500 to-pink-500 rounded-full" />
-            <div>
-              <p className="font-semibold">Salman Nizam</p>
-              <p className="text-sm text-gray-400">Administrator</p>
+        {/* User Profile - Matching Header Style */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-white">
+          {!collapsed ? (
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center text-white">
+                <span className="font-bold">SN</span>
+              </div>
+              <div>
+                <p className="font-semibold text-gray-900 text-sm">Salman Nizam</p>
+                <p className="text-xs text-gray-500">Administrator</p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                SN
+              </div>
+            </div>
+          )}
         </div>
-      )}
-    </aside>
+      </aside>
+    </>
   );
 }

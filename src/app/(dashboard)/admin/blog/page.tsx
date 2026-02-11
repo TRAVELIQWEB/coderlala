@@ -1,172 +1,489 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Plus, Pencil, Trash2 } from 'lucide-react';
+import { useEffect, useState, useCallback } from 'react';
+import { Plus, Pencil, Trash2, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import CreatePostModal from '@/app/components/admin/CreatePostModal';
+import UpdatePostModal from '@/app/components/admin/UpdatePostModal';
+import api from '@/lib/axios';
+// Remove the debounce import since we're not using it
 
-type Post = {
-  id: number;
+// Define a base Post type without createdAt for modals
+type BasePost = {
+  _id: string;
   title: string;
   desc: string;
   content: string;
   status: 'active' | 'inactive';
 };
 
+// Extended Post type with createdAt for the main page
+type Post = BasePost & {
+  createdAt: string;
+};
+
+type PaginationInfo = {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+};
+
 export default function BlogPage() {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [open, setOpen] = useState(false);
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [editingPost, setEditingPost] = useState<Post | null>(null);
 
-  /* -------- Load default posts -------- */
-  useEffect(() => {
-    const stored = localStorage.getItem('blog-posts');
+  
+  // Pagination and filter states
+  const [pagination, setPagination] = useState<PaginationInfo>({
+    currentPage: 1,
+    totalPages: 1,
+    totalItems: 0,
+    hasNextPage: false,
+    hasPrevPage: false,
+  });
+  
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [loading, setLoading] = useState(false);
 
-    if (stored) {
-      setPosts(JSON.parse(stored));
-    } else {
-      const defaults: Post[] = [
-        {
-          id: 1,
-          title: 'Next.js Admin Dashboard',
-          desc: 'This post explains how to build a modern admin dashboard.',
-          content: 'This post explains how to build a modern admin dashboard.',
-          status: 'active',
-        },
-        {
-          id: 2,
-          title: 'Tailwind Tips',
-          desc: 'Utility-first CSS tips',
-          content: 'Best practices for writing clean Tailwind CSS.',
-          status: 'inactive',
-        },
-      ];
+  // Fetch blogs with pagination and filters
+  const fetchBlogs = useCallback(async (page: number = 1, search: string = '', status: string = 'all') => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams({
+        page: page.toString(),
+        ...(search && { searchQuery: search }),
+        ...(status !== 'all' && { status: status })
+      });
 
-      setPosts(defaults);
-      localStorage.setItem('blog-posts', JSON.stringify(defaults));
+      const res = await api.get(`admin/blogs?${params.toString()}`);
+      
+      // Map API response to match your Post type
+      const mappedPosts = res.data?.data?.blogs?.map((post: any) => ({
+        _id: post._id,
+        title: post.title,
+        desc: post.description || '',
+        content: post.content,
+        status: post.status,
+        createdAt: post.createdAt
+      }));
+      
+      setPosts(mappedPosts);
+      setPagination({
+         currentPage: page,
+        totalItems:res?.data?.data?.total,
+        totalPages:res?.data?.data?.totalpage,
+        hasNextPage: page < res?.data?.data?.totalpage,
+        hasPrevPage: page > 1,
+      }
+      )
+
+      
+      console.log('Fetched posts:', mappedPosts);
+    } catch (error) {
+      console.error('Failed to fetch blogs', error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
-  const savePosts = (data: Post[]) => {
-    setPosts(data);
-    localStorage.setItem('blog-posts', JSON.stringify(data));
+  // Initial fetch
+  useEffect(() => {
+    fetchBlogs(1, '', 'all');
+  }, [fetchBlogs]);
+
+  // // Simple debounce implementation without lodash
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     fetchBlogs(1, searchQuery, statusFilter);
+  //   }, 500);
+
+  //   return () => clearTimeout(timer);
+  // }, [searchQuery]);
+
+  // Fetch when search or status changes
+  useEffect(() => {
+    fetchBlogs(1, searchQuery, statusFilter);
+  }, [ fetchBlogs]);
+
+  // Create new post
+  const createPost = async (post: BasePost) => {
+    try {
+      const res = await api.post('/admin/blogs/create', {
+        title: post.title,
+        description: post.desc,
+        content: post.content,
+        status: post.status
+      });
+      
+      const newPost: Post = {
+        _id: res.data._id,
+        title: res.data.title,
+        desc: res.data.description,
+        content: res.data.content,
+        status: res.data.status,
+        createdAt: res.data.createdAt || new Date().toISOString()
+      };
+      
+      // Add new post and refetch to maintain pagination order
+      setPosts([newPost, ...posts.slice(0, 19)]); // Keep only 20 items
+      console.log('Post created:', newPost);
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
   };
 
-  const createPost = (post: Post) => {
-    savePosts([post, ...posts]);
+  // Update existing post
+  const updatePost = async (updatedPost: BasePost) => {
+    try {
+      const res = await api.put(`/admin/blogs/${updatedPost._id}`, {
+        title: updatedPost.title,
+        description: updatedPost.desc,
+        content: updatedPost.content,
+        status: updatedPost.status
+      });
+      
+      console.log('Update response:', res.data);
+      
+      // Update post in state
+      const updatedPosts = posts.map(post => 
+        post._id === updatedPost._id ? {
+          ...post, // Keep the existing createdAt
+          ...updatedPost,
+          desc: res.data?.description || updatedPost.desc
+        } : post
+      );
+      
+      setPosts(updatedPosts);
+      console.log('Post updated:', updatedPost);
+    } catch (error) {
+      console.error('Error updating post:', error);
+    }
   };
 
-  const deletePost = (id: number) => {
-    savePosts(posts.filter(p => p.id !== id));
+  // Delete post
+  const deletePost = async (_id: string) => {
+    if (!confirm('Are you sure you want to delete this post?')) return;
+    
+    try {
+      await api.delete(`/admin/blogs/${_id}`);
+      setPosts(posts.filter(p => p._id !== _id));
+      console.log('Post deleted:', _id);
+    } catch (error) {
+      console.error('Error deleting post:', error);
+    }
+  };
+
+  // Pagination handlers
+  const handleNextPage = () => {
+    if (pagination.hasNextPage) {
+      fetchBlogs(pagination.currentPage + 1, searchQuery, statusFilter);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (pagination.hasPrevPage) {
+      fetchBlogs(pagination.currentPage - 1, searchQuery, statusFilter);
+    }
+  };
+
+  const handlePageClick = (page: number) => {
+    fetchBlogs(page, searchQuery, statusFilter);
+  };
+
+  // Generate page numbers for pagination
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxPagesToShow = 5;
+    let startPage = Math.max(1, pagination.currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = startPage + maxPagesToShow - 1;
+
+    if (endPage > pagination.totalPages) {
+      endPage = pagination.totalPages;
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
+
+  // Handle edit button click
+  const handleEditClick = (post: Post) => {
+    setEditingPost(post);
+    setUpdateModalOpen(true);
+    console.log('Editing post:', post);
+  };
+
+  // Handle create button click
+  const handleCreateClick = () => {
+    setCreateModalOpen(true);
+  };
+
+  // Handle modal close
+  const handleCloseCreateModal = () => {
+    setCreateModalOpen(false);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setUpdateModalOpen(false);
+    setEditingPost(null);
+  };
+
+  // Handle search
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    fetchBlogs(1, searchQuery, statusFilter);
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-800">Blog</h1>
-          <p className="text-gray-600 mt-1 mb-4">Manage blog posts</p>
+          <p className="text-gray-600 mt-1">Manage blog posts</p>
         </div>
       </div>
 
       {/* Filter Header */}
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div className="bg-white rounded-xl shadow border border-gray-300 p-4">
+        <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-3 items-end">
+          <div className="flex-1">
+            <label className="text-sm font-medium  mb-1 block">
+              Search
+            </label>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search by title..."
+                className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm outline-none border-gray-300 focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
 
-        <div className="flex flex-col md:flex-row gap-3 w-full">
-          {/* Search Input */}
-          <input
-            type="text"
-            placeholder="Search by title or description..."
-            className="w-full md:w-64 border rounded-lg px-4 py-2 text-sm outline-none border-gray-300 focus:ring-2 focus:ring-blue-500"
-          />
+          <div className="w-full md:w-auto">
+            <label className="text-sm font-medium text-gray-600 mb-1 block">
+              Status
+            </label>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="w-full md:w-48 rounded-lg px-3 py-2 text-sm font-medium border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            >
+              <option value="all">All Status</option>
+              <option value="active">🟢 Active</option>
+              <option value="inactive">🔴 Inactive</option>
+            </select>
+          </div>
 
-          <select
-            className="rounded-lg pl-1 pr-8 py-2 text-sm font-medium border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-linear-to-r from-gray-50 to-white"
-          >
-            <option value="all">⚪ All Status</option>
-            <option value="active" className="text-green-600">🟢 Active</option>
-            <option value="inactive" className="text-red-600">🔴 Inactive</option>
-          </select>
+          <div className="w-full md:w-auto">
+            <button
+              type="submit"
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 !text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full md:w-auto justify-center"
+            >
+              <Search size={16} />
+              Search
+            </button>
+          </div>
 
-
-          {/* Search Button */}
-          <button
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white! px-4 py-2 rounded-lg text-sm font-medium"
-          >
-            Search
-          </button>
-          <button
-            onClick={() => setOpen(true)}
-            className="flex ms-auto items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white! px-4 py-2 rounded-lg text-sm font-medium"
-          >
-            Create Post
-            <Plus size={16} />
-          </button>
-        </div>
+          <div className="w-full md:w-auto">
+            <button
+              type="button"
+              onClick={handleCreateClick}
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 !text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full md:w-auto justify-center"
+            >
+              <Plus size={16} />
+              Create Post
+            </button>
+          </div>
+        </form>
       </div>
 
-
-
-      {/* Table (UNCHANGED) */}
+      {/* Table */}
       <div className="bg-white rounded-xl shadow border border-gray-300 overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="bg-gray-200 text-gray-600">
-            <tr>
-              <th className="px-6 py-3 text-left">S. No</th>
-              <th className="px-6 py-3 text-left">Title</th>
-              <th className="px-6 py-3 text-left">Description</th>
-              <th className="px-6 py-3 text-left">Content</th>
-              <th className="px-6 py-3 text-left">Status</th>
-              <th className="px-6 py-3 text-center">Action</th>
-            </tr>
-          </thead>
+        {loading ? (
+          <div className="flex justify-center items-center p-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          </div>
+        ) : (
+          <>
+            <table className="w-full text-sm">
+              <thead className="bg-gray-200 text-gray-600">
+                <tr>
+                  <th className="px-6 py-3 text-left">S. No</th>
+                  <th className="px-6 py-3 text-left">Title</th>
+                  <th className="px-6 py-3 text-left">Description</th>
+                  <th className="px-6 py-3 text-left">Content</th>
+                  <th className="px-6 py-3 text-left">Status</th>
+                  <th className="px-6 py-3 text-left">Created At</th>
+                  <th className="px-6 py-3 text-center">Actions</th>
+                </tr>
+              </thead>
 
-          <tbody className="divide-y divide-gray-300">
-            {posts.map((post, index) => (
-              <tr key={post.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4">{index + 1}</td>
-                <td className="px-6 py-4 font-medium">{post.title}</td>
-                <td className="px-6 py-4 truncate max-w-xs text-gray-500">
-                  {post.desc}
-                </td>
-                <td className="px-6 py-4 truncate max-w-xs text-gray-500">
-                  {post.content}
-                </td>
-                <td className="px-6 py-4">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${post.status === 'active'
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-red-100 text-red-700'
-                      }`}
-                  >
-                    {post.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-center">
-                  <div className="flex justify-center gap-3">
-                    <button className="text-blue-600 hover:text-blue-800"
-                      onClick={() => setOpen(true)}
-                    >
-                      <Pencil size={16} />
-                    </button>
-                    {/* <button
-                      onClick={() => deletePost(post.id)}
-                      className="text-red-600 hover:text-red-800"
-                    >
-                      <Trash2 size={16} />
-                    </button> */}
+              <tbody className="divide-y divide-gray-300">
+                {posts.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} className="px-6 py-8 text-center text-gray-500">
+                      No posts found
+                    </td>
+                  </tr>
+                ) : (
+                  posts.map((post, index) => (
+                    <tr key={post._id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4">
+                        {(pagination.currentPage - 1) * 20 + index + 1}
+                      </td>
+                      <td className="px-6 py-4 font-medium">{post.title}</td>
+                      <td className="px-6 py-4 max-w-xs">
+                        <div className="truncate text-gray-500" title={post.desc}>
+                          {post.desc}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 max-w-xs">
+                        <div className="truncate text-gray-500" title={post.content}>
+                          {post.content}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-medium ${post.status === 'active'
+                            ? 'bg-green-100 text-green-700'
+                            : 'bg-red-100 text-red-700'
+                            }`}
+                        >
+                          {post.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {new Date(post.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex justify-center gap-2">
+                          <button
+                            onClick={() => handleEditClick(post)}
+                            className="p-1.5 !text-blue-600 hover:text-blue-800 !hover:bg-blue-50 rounded transition"
+                            title="Edit"
+                          >
+                            <Pencil size={16} />
+                          </button>
+                          {/* <button
+                            onClick={() => deletePost(post._id)}
+                            className="p-1.5 text-red-600 hover:text-red-800 hover:bg-red-50 rounded transition"
+                            title="Delete"
+                          >
+                            <Trash2 size={16} />
+                          </button> */}
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+
+            {/* Pagination */}
+            {posts.length > 0 && (
+              <div className="border-t border-gray-300 px-6 py-4">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="text-sm text-gray-600">
+                    Showing {((pagination.currentPage - 1) * 20) + 1} to{' '}
+                    {Math.min(pagination.currentPage * 20, pagination.totalItems)} of{' '}
+                    {pagination.totalItems} posts
                   </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                  
+                  <div className="flex items-center gap-1">
+                    {/* Previous button */}
+                    <button
+                      onClick={handlePrevPage}
+                      disabled={!pagination.hasPrevPage}
+                      className={`p-2 rounded-lg border ${pagination.hasPrevPage
+                          ? '!text-gray-700 hover:bg-gray-100 border-gray-300'
+                          : '!text-gray-400 border-gray-200 cursor-not-allowed'
+                        }`}
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+
+                    {/* Page numbers */}
+                    {getPageNumbers().map((page) => (
+                      <button
+                        key={page}
+                        onClick={() => handlePageClick(page)}
+                        className={`min-w-[40px] px-3 py-2 rounded-lg border text-sm font-medium ${page === pagination.currentPage
+                            ? 'bg-blue-600 !text-white border-blue-600'
+                            : 'text-gray-700 hover:bg-gray-100 border-gray-300'
+                          }`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+
+                    {/* Next button */}
+                    <button
+                      onClick={handleNextPage}
+                      disabled={!pagination.hasNextPage}
+                      className={`p-2 rounded-lg border ${pagination.hasNextPage
+                          ? 'text-gray-700 hover:bg-gray-100 border-gray-300'
+                          : 'text-gray-400 border-gray-200 cursor-not-allowed'
+                        }`}
+                    >
+                      <ChevronRight size={18} />
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-gray-600">Go to page:</span>
+                    <input
+                      type="number"
+                      min="1"
+                      max={pagination.totalPages}
+                      defaultValue={pagination.currentPage}
+                      onBlur={(e) => {
+                        const page = parseInt(e.target.value);
+                        if (page >= 1 && page <= pagination.totalPages) {
+                          handlePageClick(page);
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          const page = parseInt((e.target as HTMLInputElement).value);
+                          if (page >= 1 && page <= pagination.totalPages) {
+                            handlePageClick(page);
+                          }
+                        }
+                      }}
+                      className="w-16 px-2 py-1 border border-gray-300 rounded text-center focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    />
+                    <span className="text-gray-600">of {pagination.totalPages}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </div>
 
-      {/* Modal */}
+      {/* Create Modal */}
       <CreatePostModal
-        open={open}
-        onClose={() => setOpen(false)}
+        open={createModalOpen}
+        onClose={handleCloseCreateModal}
         onCreate={createPost}
+      />
+
+      {/* Update Modal */}
+      <UpdatePostModal
+        open={updateModalOpen}
+        onClose={handleCloseUpdateModal}
+        onUpdate={updatePost}
+        editingPost={editingPost}
       />
     </div>
   );
