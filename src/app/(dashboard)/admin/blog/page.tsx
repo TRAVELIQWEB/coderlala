@@ -13,12 +13,34 @@ type BasePost = {
   title: string;
   desc: string;
   content: string;
-  status: 'active' | 'inactive';
+  status: 'active' | 'inactive' | 'archived';
+  slug?: string;
+  primaryTech?: string;
+  level?: string;
+  readingTime?: number;
+  author?: {
+    name: string;
+    role: string;
+    _id: string;
+  };
+  language?: string;
 };
 
-// Extended Post type with createdAt for the main page
+// Extended Post type with createdAt and other fields for the main page
 type Post = BasePost & {
   createdAt: string;
+  updatedAt: string;
+  slug: string;
+  primaryTech: string;
+  level: string;
+  readingTime: number;
+  author: {
+    name: string;
+    role: string;
+    _id: string;
+  };
+  language: string;
+  description: string;
 };
 
 type PaginationInfo = {
@@ -34,7 +56,6 @@ export default function BlogPage() {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<Post | null>(null);
-
 
   // Pagination and filter states
   const [pagination, setPagination] = useState<PaginationInfo>({
@@ -67,24 +88,31 @@ export default function BlogPage() {
         title: post.title,
         desc: post.description || '',
         content: post.content,
+        slug: post.slug || '',
+        primaryTech: post.primaryTech || '',
+        level: post.level || '',
+        readingTime: post.readingTime || 0,
+        author: post.author || { name: '', role: '', _id: '' },
+        language: post.language || '',
         status: post.status,
-        createdAt: post.createdAt
+        description: post.description || '',
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt
       }));
 
-      setPosts(mappedPosts);
+      setPosts(mappedPosts || []);
       setPagination({
         currentPage: page,
-        totalItems: res?.data?.data?.total,
-        totalPages: res?.data?.data?.totalpage,
-        hasNextPage: page < res?.data?.data?.totalpage,
+        totalItems: res?.data?.data?.total || 0,
+        totalPages: res?.data?.data?.totalpage || 1,
+        hasNextPage: page < (res?.data?.data?.totalpage || 1),
         hasPrevPage: page > 1,
-      }
-      )
-
+      });
 
       console.log('Fetched posts:', mappedPosts);
     } catch (error) {
       console.error('Failed to fetch blogs', error);
+      setPosts([]);
     } finally {
       setLoading(false);
     }
@@ -95,19 +123,10 @@ export default function BlogPage() {
     fetchBlogs(1, '', 'all');
   }, [fetchBlogs]);
 
-  // // Simple debounce implementation without lodash
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     fetchBlogs(1, searchQuery, statusFilter);
-  //   }, 500);
-
-  //   return () => clearTimeout(timer);
-  // }, [searchQuery]);
-
   // Fetch when search or status changes
   useEffect(() => {
     fetchBlogs(1, searchQuery, statusFilter);
-  }, [fetchBlogs]);
+  }, [searchQuery, statusFilter, fetchBlogs]);
 
   // Create new post
   const createPost = async (post: BasePost) => {
@@ -124,8 +143,16 @@ export default function BlogPage() {
         title: res.data.title,
         desc: res.data.description,
         content: res.data.content,
+        slug: res.data.slug || '',
+        primaryTech: res.data.primaryTech || '',
+        level: res.data.level || '',
+        readingTime: res.data.readingTime || 0,
+        author: res.data.author || { name: '', role: '', _id: '' },
+        language: res.data.language || '',
         status: res.data.status,
-        createdAt: res.data.createdAt || new Date().toISOString()
+        description: res.data.description || '',
+        createdAt: res.data.createdAt || new Date().toISOString(),
+        updatedAt: res.data.updatedAt || new Date().toISOString()
       };
 
       // Add new post and refetch to maintain pagination order
@@ -151,9 +178,10 @@ export default function BlogPage() {
       // Update post in state
       const updatedPosts = posts.map(post =>
         post._id === updatedPost._id ? {
-          ...post, // Keep the existing createdAt
+          ...post,
           ...updatedPost,
-          desc: res.data?.description || updatedPost.desc
+          desc: res.data?.description || updatedPost.desc,
+          updatedAt: new Date().toISOString()
         } : post
       );
 
@@ -254,7 +282,7 @@ export default function BlogPage() {
       <div className="bg-white rounded-xl shadow border border-gray-300 p-4">
         <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-3 items-end">
           <div className="flex-1">
-            <label className="text-sm font-medium  mb-1 block">
+            <label className="text-sm font-medium mb-1 block">
               Search
             </label>
             <div className="relative">
@@ -281,6 +309,7 @@ export default function BlogPage() {
               <option value="all">All Status</option>
               <option value="active">🟢 Active</option>
               <option value="inactive">🔴 Inactive</option>
+              <option value="archived">📦 Archived</option>
             </select>
           </div>
 
@@ -348,27 +377,49 @@ export default function BlogPage() {
                       </td>
                       <td className="px-6 py-4 font-medium">{post.title}</td>
                       <td className="px-6 py-4 max-w-xs">
-                        <div className="truncate text-gray-500" title={post.desc}>
-                          {post.desc}
+                        <div className="truncate text-gray-500" title={post.slug}>
+                          {post.slug || '-'}
                         </div>
                       </td>
                       <td className="px-6 py-4 max-w-xs">
-                        <div className="truncate text-gray-500" title={post.content}>
-                          {post.content}
+                        <div className="truncate text-gray-500" title={post.description}>
+                          {post.description || post.desc || '-'}
                         </div>
                       </td>
                       <td className="px-6 py-4">
+                        {post.primaryTech || '-'}
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                          {post.level || '-'}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        {post.readingTime ? `${post.readingTime} min` : '-'}
+                      </td>
+                      <td className="px-6 py-4">
+                        {post.author?.name || '-'}
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
+                          {post.language?.toUpperCase() || '-'}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
                         <span
-                          className={`px-3 py-1 rounded-full text-xs font-medium ${post.status === 'active'
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-red-100 text-red-700'
-                            }`}
+                          className={`px-3 py-1 rounded-full text-xs font-medium ${
+                            post.status === 'active'
+                              ? 'bg-green-100 text-green-700'
+                              : post.status === 'inactive'
+                              ? 'bg-red-100 text-red-700'
+                              : 'bg-gray-100 text-gray-700'
+                          }`}
                         >
                           {post.status}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-500">
-                        {new Date(post.createdAt).toLocaleDateString()}
+                        {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : '-'}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex justify-center gap-2">
@@ -409,10 +460,11 @@ export default function BlogPage() {
                     <button
                       onClick={handlePrevPage}
                       disabled={!pagination.hasPrevPage}
-                      className={`p-2 rounded-lg border ${pagination.hasPrevPage
-                        ? '!text-gray-700 hover:bg-gray-100 border-gray-300'
-                        : '!text-gray-400 border-gray-200 cursor-not-allowed'
-                        }`}
+                      className={`p-2 rounded-lg border ${
+                        pagination.hasPrevPage
+                          ? '!text-gray-700 hover:bg-gray-100 border-gray-300'
+                          : '!text-gray-400 border-gray-200 cursor-not-allowed'
+                      }`}
                     >
                       <ChevronLeft size={18} />
                     </button>
@@ -422,10 +474,11 @@ export default function BlogPage() {
                       <button
                         key={page}
                         onClick={() => handlePageClick(page)}
-                        className={`min-w-[40px] px-3 py-2 rounded-lg border text-sm font-medium ${page === pagination.currentPage
-                          ? 'bg-blue-600 !text-white border-blue-600'
-                          : 'text-gray-700 hover:bg-gray-100 border-gray-300'
-                          }`}
+                        className={`min-w-[40px] px-3 py-2 rounded-lg border text-sm font-medium ${
+                          page === pagination.currentPage
+                            ? 'bg-blue-600 !text-white border-blue-600'
+                            : 'text-gray-700 hover:bg-gray-100 border-gray-300'
+                        }`}
                       >
                         {page}
                       </button>
@@ -435,10 +488,11 @@ export default function BlogPage() {
                     <button
                       onClick={handleNextPage}
                       disabled={!pagination.hasNextPage}
-                      className={`p-2 rounded-lg border ${pagination.hasNextPage
-                        ? 'text-gray-700 hover:bg-gray-100 border-gray-300'
-                        : 'text-gray-400 border-gray-200 cursor-not-allowed'
-                        }`}
+                      className={`p-2 rounded-lg border ${
+                        pagination.hasNextPage
+                          ? 'text-gray-700 hover:bg-gray-100 border-gray-300'
+                          : 'text-gray-400 border-gray-200 cursor-not-allowed'
+                      }`}
                     >
                       <ChevronRight size={18} />
                     </button>

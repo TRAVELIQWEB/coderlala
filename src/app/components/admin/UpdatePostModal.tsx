@@ -7,12 +7,35 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import 'prosemirror-view/style/prosemirror.css';
 
+// Complete Post type matching your API response
 type Post = {
   _id: string;
   title: string;
   desc: string;
   content: string;
-  status: 'active' | 'inactive';
+  slug: string;
+  primaryTech: string;
+  level: string;
+  readingTime: number;
+  author: {
+    name: string;
+    role: string;
+    _id: string;
+  };
+  language: string;
+  status: 'active' | 'inactive' | 'archived';
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  techStacks?: string[];
+  tags?: string[];
+  seo?: {
+    title: string;
+    description: string;
+    canonicalUrl: string;
+    _id: string;
+  };
+  userId?: string;
 };
 
 interface Props {
@@ -32,15 +55,30 @@ export default function UpdatePostModal({
     _id: '',
     title: '',
     desc: '',
+    description: '',
     content: '',
     rawContent: '',
-    status: 'active' as 'active' | 'inactive',
+    slug: '',
+    primaryTech: '',
+    level: '',
+    readingTime: 0,
+    author: {
+      name: '',
+      role: '',
+      _id: ''
+    },
+    language: '',
+    status: 'active' as 'active' | 'inactive' | 'archived',
+    techStacks: [] as string[],
+    tags: [] as string[],
   });
 
   const [errors, setErrors] = useState({
     title: '',
     desc: '',
     content: '',
+    slug: '',
+    primaryTech: '',
   });
 
   const [enableHtmlInsert, setEnableHtmlInsert] = useState(false);
@@ -48,7 +86,7 @@ export default function UpdatePostModal({
   const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // ✅ TipTap editor - same as CreatePostModal
+  // ✅ TipTap editor
   const editor = useEditor({
     extensions: [StarterKit],
     content: '',
@@ -69,7 +107,13 @@ export default function UpdatePostModal({
       }));
       
       // Validate content in real-time
-      if (html.trim() === '<p></p>' || text.trim().length < 10) {
+      const cleanText = text.trim();
+      if (html.trim() === '<p></p>' || !cleanText) {
+        setErrors(prev => ({
+          ...prev,
+          content: 'Content is required'
+        }));
+      } else if (cleanText.length < 10) {
         setErrors(prev => ({
           ...prev,
           content: 'Content must be at least 10 characters long'
@@ -96,6 +140,8 @@ export default function UpdatePostModal({
       title: '',
       desc: '',
       content: '',
+      slug: '',
+      primaryTech: '',
     };
     let isValid = true;
 
@@ -124,8 +170,24 @@ export default function UpdatePostModal({
     }
 
     // Validate content
-    if (!form.content.trim() || form.content === '<p></p>' || (form.rawContent && form.rawContent.trim().length < 10)) {
+    const cleanContent = form.content?.replace(/<[^>]*>/g, '').trim() || '';
+    if (!form.content || form.content === '<p></p>' || !cleanContent) {
+      newErrors.content = 'Content is required';
+      isValid = false;
+    } else if (cleanContent.length < 10) {
       newErrors.content = 'Content must be at least 10 characters long';
+      isValid = false;
+    }
+
+    // Validate slug
+    if (!form.slug.trim()) {
+      newErrors.slug = 'Slug is required';
+      isValid = false;
+    }
+
+    // Validate primaryTech
+    if (!form.primaryTech.trim()) {
+      newErrors.primaryTech = 'Primary Tech is required';
       isValid = false;
     }
 
@@ -133,32 +195,43 @@ export default function UpdatePostModal({
     return isValid;
   };
 
-  // 🔥 Load editing post content into editor
+  // 🔥 Load ALL editing post data into form and editor
   useEffect(() => {
     if (editingPost && editor && open) {
       setForm({
         _id: editingPost._id,
-        title: editingPost.title,
-        desc: editingPost.desc,
-        content: editingPost.content,
-        rawContent: editingPost.content.replace(/<[^>]*>/g, ''), // Extract text from HTML
-        status: editingPost.status,
+        title: editingPost.title || '',
+        desc: editingPost.desc || editingPost.description || '',
+        description: editingPost.description || editingPost.desc || '',
+        content: editingPost.content || '',
+        rawContent: editingPost.content?.replace(/<[^>]*>/g, '') || '',
+        slug: editingPost.slug || '',
+        primaryTech: editingPost.primaryTech || '',
+        level: editingPost.level || 'beginner',
+        readingTime: editingPost.readingTime || 5,
+        author: editingPost.author || { name: '', role: '', _id: '' },
+        language: editingPost.language || 'en',
+        status: editingPost.status || 'active',
+        techStacks: editingPost.techStacks || [],
+        tags: editingPost.tags || [],
       });
       
       // Set editor content
-      editor.commands.setContent(editingPost.content);
+      editor.commands.setContent(editingPost.content || '');
       
       // Clear errors when loading new post
       setErrors({
         title: '',
         desc: '',
         content: '',
+        slug: '',
+        primaryTech: '',
       });
     }
   }, [editingPost, editor, open]);
 
   /* -----------------------
-     INPUT HANDLERS WITH VALIDATION
+     INPUT HANDLERS
   ----------------------- */
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -178,7 +251,7 @@ export default function UpdatePostModal({
 
   const handleDescChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setForm({ ...form, desc: value });
+    setForm({ ...form, desc: value, description: value });
     
     if (!value.trim()) {
       setErrors(prev => ({ ...prev, desc: 'Description is required' }));
@@ -189,6 +262,60 @@ export default function UpdatePostModal({
     } else {
       setErrors(prev => ({ ...prev, desc: '' }));
     }
+  };
+
+  const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/--+/g, '-').replace(/^-|-$/g, '');
+    setForm({ ...form, slug: value });
+    
+    if (!value.trim()) {
+      setErrors(prev => ({ ...prev, slug: 'Slug is required' }));
+    } else {
+      setErrors(prev => ({ ...prev, slug: '' }));
+    }
+  };
+
+  const handlePrimaryTechChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setForm({ ...form, primaryTech: value });
+    
+    if (!value.trim()) {
+      setErrors(prev => ({ ...prev, primaryTech: 'Primary Tech is required' }));
+    } else {
+      setErrors(prev => ({ ...prev, primaryTech: '' }));
+    }
+  };
+
+  const handleTechStacksChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const techArray = value.split(',').map(tech => tech.trim()).filter(tech => tech);
+    setForm({ ...form, techStacks: techArray });
+  };
+
+  const handleTagsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const tagsArray = value.split(',').map(tag => tag.trim()).filter(tag => tag);
+    setForm({ ...form, tags: tagsArray });
+  };
+
+  const handleAuthorNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ 
+      ...form, 
+      author: { 
+        ...form.author, 
+        name: e.target.value 
+      } 
+    });
+  };
+
+  const handleAuthorRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ 
+      ...form, 
+      author: { 
+        ...form.author, 
+        role: e.target.value 
+      } 
+    });
   };
 
   // Insert raw HTML
@@ -210,27 +337,67 @@ export default function UpdatePostModal({
     setIsSubmitting(true);
     
     try {
-      const contentToSend = form.content;
+      const contentToSend = form.content || editor.getHTML();
 
+      // Send ALL fields to the API
       const res = await api.put(`/admin/blogs/${form._id}`, {
         title: form.title,
         description: form.desc,
         content: contentToSend,
-        status: form.status,
-      });
-      
-      onUpdate({
-        _id: form._id,
-        title: form.title,
-        desc: form.desc,
-        content: contentToSend,
+        slug: form.slug,
+        primaryTech: form.primaryTech,
+        techStacks: form.techStacks,
+        tags: form.tags,
+        level: form.level,
+        readingTime: form.readingTime,
+        author: form.author,
+        language: form.language,
         status: form.status,
       });
 
-      // Reset
+      // Get the updated post from response
+      const updatedPost: Post = {
+        _id: form._id,
+        title: form.title,
+        desc: form.desc,
+        description: form.desc,
+        content: contentToSend,
+        slug: form.slug,
+        primaryTech: form.primaryTech,
+        level: form.level,
+        readingTime: form.readingTime,
+        author: form.author,
+        language: form.language,
+        status: form.status,
+        techStacks: form.techStacks,
+        tags: form.tags,
+        createdAt: editingPost?.createdAt || new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        ...(res.data || {})
+      };
+      
+      onUpdate(updatedPost);
+
+      // Reset form
       editor?.commands.clearContent();
-      setForm({ _id: '', title: '', desc: '', content: '', rawContent: '', status: 'active' });
-      setErrors({ title: '', desc: '', content: '' });
+      setForm({ 
+        _id: '', 
+        title: '', 
+        desc: '', 
+        description: '',
+        content: '', 
+        rawContent: '', 
+        slug: '',
+        primaryTech: '',
+        level: 'beginner',
+        readingTime: 5,
+        author: { name: '', role: '', _id: '' },
+        language: 'en',
+        status: 'active',
+        techStacks: [],
+        tags: [],
+      });
+      setErrors({ title: '', desc: '', content: '', slug: '', primaryTech: '' });
       onClose();
       
     } catch (error) {
@@ -242,8 +409,24 @@ export default function UpdatePostModal({
 
   const handleClose = () => {
     editor?.commands.clearContent();
-    setForm({ _id: '', title: '', desc: '', content: '', rawContent: '', status: 'active' });
-    setErrors({ title: '', desc: '', content: '' });
+    setForm({ 
+      _id: '', 
+      title: '', 
+      desc: '', 
+      description: '',
+      content: '', 
+      rawContent: '', 
+      slug: '',
+      primaryTech: '',
+      level: 'beginner',
+      readingTime: 5,
+      author: { name: '', role: '', _id: '' },
+      language: 'en',
+      status: 'active',
+      techStacks: [],
+      tags: [],
+    });
+    setErrors({ title: '', desc: '', content: '', slug: '', primaryTech: '' });
     onClose();
   };
 
@@ -274,31 +457,51 @@ export default function UpdatePostModal({
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto flex-1">
-          {/* Title */}
-          <div className="space-y-1">
-            <label className="text-sm font-medium text-gray-600">Title *</label>
-            <input
-              required
-              placeholder="Enter post title"
-              className={`w-full border rounded-lg px-4 py-2 ${
-                errors.title ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-              }`}
-              value={form.title}
-              onChange={handleTitleChange}
-            />
-            {errors.title && (
-              <p className="mt-1 text-sm text-red-600">{errors.title}</p>
-            )}
+          {/* Two Column Layout for Basic Info */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Title */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Title *</label>
+              <input
+                required
+                placeholder="Enter post title"
+                className={`w-full border rounded-lg px-4 py-2 ${
+                  errors.title ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                }`}
+                value={form.title}
+                onChange={handleTitleChange}
+              />
+              {errors.title && (
+                <p className="mt-1 text-sm text-red-600">{errors.title}</p>
+              )}
+            </div>
+
+            {/* Slug */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Slug *</label>
+              <input
+                required
+                placeholder="post-url-slug"
+                className={`w-full border rounded-lg px-4 py-2 ${
+                  errors.slug ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                }`}
+                value={form.slug}
+                onChange={handleSlugChange}
+              />
+              {errors.slug && (
+                <p className="mt-1 text-sm text-red-600">{errors.slug}</p>
+              )}
+            </div>
           </div>
 
-          {/* Description */}
+          {/* Description - Full Width */}
           <div className="space-y-1">
             <label className="text-sm font-medium text-gray-600">Description *</label>
             <input
               required
               placeholder="Short description"
               className={`w-full border rounded-lg px-4 py-2 ${
-                errors.desc ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                errors.desc ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
               }`}
               value={form.desc}
               onChange={handleDescChange}
@@ -306,6 +509,119 @@ export default function UpdatePostModal({
             {errors.desc && (
               <p className="mt-1 text-sm text-red-600">{errors.desc}</p>
             )}
+          </div>
+
+          {/* Two Column Layout for Tech Info */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Primary Tech */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Primary Tech *</label>
+              <input
+                required
+                placeholder="e.g., react, nodejs, python"
+                className={`w-full border rounded-lg px-4 py-2 ${
+                  errors.primaryTech ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                }`}
+                value={form.primaryTech}
+                onChange={handlePrimaryTechChange}
+              />
+              {errors.primaryTech && (
+                <p className="mt-1 text-sm text-red-600">{errors.primaryTech}</p>
+              )}
+            </div>
+
+            {/* Level */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Level</label>
+              <select
+                value={form.level}
+                onChange={e => setForm({ ...form, level: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              >
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Two Column Layout for Additional Info */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Reading Time */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Reading Time (minutes)</label>
+              <input
+                type="number"
+                min="1"
+                max="60"
+                placeholder="5"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={form.readingTime}
+                onChange={e => setForm({ ...form, readingTime: parseInt(e.target.value) || 5 })}
+              />
+            </div>
+
+            {/* Language */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Language</label>
+              <select
+                value={form.language}
+                onChange={e => setForm({ ...form, language: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              >
+                <option value="en">English (EN)</option>
+                <option value="hi">Hindi (HI)</option>
+                <option value="es">Spanish (ES)</option>
+                <option value="fr">French (FR)</option>
+                <option value="de">German (DE)</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Author Information */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Author Name</label>
+              <input
+                placeholder="Author name"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={form.author.name}
+                onChange={handleAuthorNameChange}
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Author Role</label>
+              <input
+                placeholder="e.g., fullstack-engineer"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={form.author.role}
+                onChange={handleAuthorRoleChange}
+              />
+            </div>
+          </div>
+
+          {/* Tech Stacks and Tags */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Tech Stacks</label>
+              <input
+                placeholder="nginx, redis, postgres (comma separated)"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={form.techStacks?.join(', ')}
+                onChange={handleTechStacksChange}
+              />
+              <p className="text-xs text-gray-500">Separate with commas</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Tags</label>
+              <input
+                placeholder="scalability, database (comma separated)"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={form.tags?.join(', ')}
+                onChange={handleTagsChange}
+              />
+              <p className="text-xs text-gray-500">Separate with commas</p>
+            </div>
           </div>
 
           {/* 🔹 Insert HTML (Admin only) - Optional */}
@@ -477,11 +793,12 @@ export default function UpdatePostModal({
             <label className="text-sm font-medium text-gray-600">Status</label>
             <select
               value={form.status}
-              onChange={e => setForm({ ...form, status: e.target.value as 'active' | 'inactive' })}
+              onChange={e => setForm({ ...form, status: e.target.value as 'active' | 'inactive' | 'archived' })}
               className="rounded-lg px-3 py-2 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
             >
               <option value="active">🟢 Active</option>
               <option value="inactive">🔴 Inactive</option>
+              <option value="archived">📦 Archived</option>
             </select>
           </div>
 
@@ -502,7 +819,7 @@ export default function UpdatePostModal({
                 isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
-              {isSubmitting ? 'Updating...' : 'Update'}
+              {isSubmitting ? 'Updating...' : 'Update Post'}
             </button>
           </div>
         </form>

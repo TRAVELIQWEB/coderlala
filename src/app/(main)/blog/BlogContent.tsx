@@ -1,7 +1,7 @@
 "use client";
 
-import React from 'react'
-import { Post, posts } from './data/posts'
+import React, { useEffect, useState } from 'react'
+// import { Post, posts } from './data/posts'
 import { motion } from "framer-motion";
 import {
     Globe,
@@ -28,8 +28,33 @@ import {
 // import { useState, useRef, useMemo } from "react";
 import Link from "next/link";
 import HeroTitle, { HeroTitle2 } from "@/app/components/HeroTitle";
+import api from '@/lib/axios';
+
+export interface Post {
+  id: number;
+  title: string;
+  description: string;
+  content: string;
+}
+
+
 
 const BlogContent = () => {
+const [allBlogs, setAllBlogs] = useState<any[]>([]);
+
+    useEffect(() => {
+    const fetchData = async () => {
+        try {
+           
+            const res= await api.get('/blog')
+            setAllBlogs(res.data);
+        
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+    fetchData();
+} , []);
     return (
         <>
             {/* Hero Section */}
@@ -59,7 +84,7 @@ const BlogContent = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {/* Card */}
-                    {posts.map((post: Post) => (
+                    {allBlogs.map((blog,index) => (
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -67,13 +92,14 @@ const BlogContent = () => {
                             transition={{ duration: 0.4, delay: 0.1 }}
                             whileHover={{ y: -8 }}
                             className="relative group"
+                            key={index}
                         >
                             <div className="relative flex flex-col justify-between glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10 h-full">
                                 <div className="grid gap-4">
                                     {/* Title with link - Show only 7 words */}
                                     <Link href="/contact">
                                         <h3 className="text-lg sm:text-xl md:text-2xl font-bold group-hover:text-white transition-colors overflow-hidden cursor-pointer hover:text-blue-400">
-                                            {post.title
+                                            {blog.title
                                                 .split(' ')
                                                 .slice(0, 7)
                                                 .join(' ')}
@@ -82,7 +108,7 @@ const BlogContent = () => {
 
                                     {/* Short Description - Show only 5 words */}
                                     <p className="text-white/70 w-[90%] text-sm font-bold sm:text-base">
-                                        {post.description
+                                        {blog.description
                                             .split(' ')
                                             .slice(0, 5)
                                             .join(' ')}
@@ -90,7 +116,7 @@ const BlogContent = () => {
 
                                     {/* Content - 3 lines, no ellipsis */}
                                     <p className="text-white/70 text-sm sm:text-base line-clamp-3 overflow-hidden">
-                                        {post.content}
+                                        {blog.content}
                                     </p>
                                 </div>
 
