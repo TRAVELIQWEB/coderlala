@@ -35,7 +35,7 @@ export default function BlogPage() {
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<Post | null>(null);
 
-  
+
   // Pagination and filter states
   const [pagination, setPagination] = useState<PaginationInfo>({
     currentPage: 1,
@@ -44,7 +44,7 @@ export default function BlogPage() {
     hasNextPage: false,
     hasPrevPage: false,
   });
-  
+
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [loading, setLoading] = useState(false);
@@ -60,7 +60,7 @@ export default function BlogPage() {
       });
 
       const res = await api.get(`admin/blogs?${params.toString()}`);
-      
+
       // Map API response to match your Post type
       const mappedPosts = res.data?.data?.blogs?.map((post: any) => ({
         _id: post._id,
@@ -70,18 +70,18 @@ export default function BlogPage() {
         status: post.status,
         createdAt: post.createdAt
       }));
-      
+
       setPosts(mappedPosts);
       setPagination({
-         currentPage: page,
-        totalItems:res?.data?.data?.total,
-        totalPages:res?.data?.data?.totalpage,
+        currentPage: page,
+        totalItems: res?.data?.data?.total,
+        totalPages: res?.data?.data?.totalpage,
         hasNextPage: page < res?.data?.data?.totalpage,
         hasPrevPage: page > 1,
       }
       )
 
-      
+
       console.log('Fetched posts:', mappedPosts);
     } catch (error) {
       console.error('Failed to fetch blogs', error);
@@ -107,7 +107,7 @@ export default function BlogPage() {
   // Fetch when search or status changes
   useEffect(() => {
     fetchBlogs(1, searchQuery, statusFilter);
-  }, [ fetchBlogs]);
+  }, [fetchBlogs]);
 
   // Create new post
   const createPost = async (post: BasePost) => {
@@ -118,7 +118,7 @@ export default function BlogPage() {
         content: post.content,
         status: post.status
       });
-      
+
       const newPost: Post = {
         _id: res.data._id,
         title: res.data.title,
@@ -127,7 +127,7 @@ export default function BlogPage() {
         status: res.data.status,
         createdAt: res.data.createdAt || new Date().toISOString()
       };
-      
+
       // Add new post and refetch to maintain pagination order
       setPosts([newPost, ...posts.slice(0, 19)]); // Keep only 20 items
       console.log('Post created:', newPost);
@@ -145,18 +145,18 @@ export default function BlogPage() {
         content: updatedPost.content,
         status: updatedPost.status
       });
-      
+
       console.log('Update response:', res.data);
-      
+
       // Update post in state
-      const updatedPosts = posts.map(post => 
+      const updatedPosts = posts.map(post =>
         post._id === updatedPost._id ? {
           ...post, // Keep the existing createdAt
           ...updatedPost,
           desc: res.data?.description || updatedPost.desc
         } : post
       );
-      
+
       setPosts(updatedPosts);
       console.log('Post updated:', updatedPost);
     } catch (error) {
@@ -167,7 +167,7 @@ export default function BlogPage() {
   // Delete post
   const deletePost = async (_id: string) => {
     if (!confirm('Are you sure you want to delete this post?')) return;
-    
+
     try {
       await api.delete(`/admin/blogs/${_id}`);
       setPosts(posts.filter(p => p._id !== _id));
@@ -318,12 +318,17 @@ export default function BlogPage() {
             <table className="w-full text-sm">
               <thead className="bg-gray-200 text-gray-600">
                 <tr>
-                  <th className="px-6 py-3 text-left">S. No</th>
-                  <th className="px-6 py-3 text-left">Title</th>
-                  <th className="px-6 py-3 text-left">Description</th>
-                  <th className="px-6 py-3 text-left">Content</th>
-                  <th className="px-6 py-3 text-left">Status</th>
-                  <th className="px-6 py-3 text-left">Created At</th>
+                  <th className="px-6 py-3 text-left text-nowrap">S. No</th>
+                  <th className="px-6 py-3 text-left text-nowrap">Title</th>
+                  <th className="px-6 py-3 text-left text-nowrap">Slug</th>
+                  <th className="px-6 py-3 text-left text-nowrap">Description</th>
+                  <th className="px-6 py-3 text-left text-nowrap">Primary Tech</th>
+                  <th className="px-6 py-3 text-left text-nowrap">Level</th>
+                  <th className="px-6 py-3 text-left text-nowrap">Reading Time</th>
+                  <th className="px-6 py-3 text-left text-nowrap">Author</th>
+                  <th className="px-6 py-3 text-left text-nowrap">Language</th>
+                  <th className="px-6 py-3 text-left text-nowrap">Status</th>
+                  <th className="px-6 py-3 text-left text-nowrap">Created At</th>
                   <th className="px-6 py-3 text-center">Actions</th>
                 </tr>
               </thead>
@@ -331,7 +336,7 @@ export default function BlogPage() {
               <tbody className="divide-y divide-gray-300">
                 {posts.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-6 py-8 text-center text-gray-500">
+                    <td colSpan={13} className="px-6 py-8 text-center text-gray-500">
                       No posts found
                     </td>
                   </tr>
@@ -398,15 +403,15 @@ export default function BlogPage() {
                     {Math.min(pagination.currentPage * 20, pagination.totalItems)} of{' '}
                     {pagination.totalItems} posts
                   </div>
-                  
+
                   <div className="flex items-center gap-1">
                     {/* Previous button */}
                     <button
                       onClick={handlePrevPage}
                       disabled={!pagination.hasPrevPage}
                       className={`p-2 rounded-lg border ${pagination.hasPrevPage
-                          ? '!text-gray-700 hover:bg-gray-100 border-gray-300'
-                          : '!text-gray-400 border-gray-200 cursor-not-allowed'
+                        ? '!text-gray-700 hover:bg-gray-100 border-gray-300'
+                        : '!text-gray-400 border-gray-200 cursor-not-allowed'
                         }`}
                     >
                       <ChevronLeft size={18} />
@@ -418,8 +423,8 @@ export default function BlogPage() {
                         key={page}
                         onClick={() => handlePageClick(page)}
                         className={`min-w-[40px] px-3 py-2 rounded-lg border text-sm font-medium ${page === pagination.currentPage
-                            ? 'bg-blue-600 !text-white border-blue-600'
-                            : 'text-gray-700 hover:bg-gray-100 border-gray-300'
+                          ? 'bg-blue-600 !text-white border-blue-600'
+                          : 'text-gray-700 hover:bg-gray-100 border-gray-300'
                           }`}
                       >
                         {page}
@@ -431,8 +436,8 @@ export default function BlogPage() {
                       onClick={handleNextPage}
                       disabled={!pagination.hasNextPage}
                       className={`p-2 rounded-lg border ${pagination.hasNextPage
-                          ? 'text-gray-700 hover:bg-gray-100 border-gray-300'
-                          : 'text-gray-400 border-gray-200 cursor-not-allowed'
+                        ? 'text-gray-700 hover:bg-gray-100 border-gray-300'
+                        : 'text-gray-400 border-gray-200 cursor-not-allowed'
                         }`}
                     >
                       <ChevronRight size={18} />
