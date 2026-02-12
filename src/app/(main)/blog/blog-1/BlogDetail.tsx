@@ -214,16 +214,7 @@ export class OrderService {
 
 
                         <div className="relative">
-                            <div className="prose prose-lg max-w-none 
-        prose-h2:text-2xl prose-h2:font-light prose-h2:tracking-wide prose-h2:text-gray-800 prose-h2:border-b prose-h2:border-amber-200 prose-h2:pb-3
-        prose-headings:text-gray-900 prose-headings:font-light prose-headings:tracking-wide
-        prose-p:text-gray-600 prose-p:leading-8 prose-p:font-light
-        prose-strong:text-amber-800 prose-strong:font-medium
-        prose-code:text-amber-700 prose-code:bg-amber-50/80 prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:border prose-code:border-amber-200/50
-        prose-pre:bg-gray-900/95 prose-pre:text-amber-50 prose-pre:rounded-xl prose-pre:border prose-pre:border-amber-800/30 prose-pre:shadow-xl
-        prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-600
-        prose-li:marker:text-amber-500
-        prose-blockquote:border-l-2 prose-blockquote:border-amber-400 prose-blockquote:text-gray-600 prose-blockquote:bg-amber-50/30 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-lg prose-blockquote:font-light prose-blockquote:italic">
+                            <div className="prose prose-lg max-w-none prose-h2:text-2xl prose-h2:font-light prose-h2:tracking-wide prose-h2:text-gray-800 prose-h2:border-b prose-h2:border-amber-200 prose-h2:pb-3 prose-headings:text-gray-900 prose-headings:font-light prose-headings:tracking-wide prose-p:text-gray-600 prose-p:leading-8 prose-p:font-light prose-strong:text-amber-800 prose-strong:font-medium prose-code:text-amber-700 prose-code:bg-amber-50/80 prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:border prose-code:border-amber-200/50 prose-pre:bg-gray-900/95 prose-pre:text-amber-50 prose-pre:rounded-xl prose-pre:border prose-pre:border-amber-800/30 prose-pre:shadow-xl prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-600 prose-li:marker:text-amber-500 prose-blockquote:border-l-2 prose-blockquote:border-amber-400 prose-blockquote:text-gray-600 prose-blockquote:bg-amber-50/30 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-lg prose-blockquote:font-light prose-blockquote:italic">
                                 <div dangerouslySetInnerHTML={{ __html: blog.content }} />
                             </div>
 
