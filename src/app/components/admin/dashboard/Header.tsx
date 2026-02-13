@@ -1,11 +1,14 @@
 'use client';
 
 import api from '@/lib/axios';
-import { Bell, Moon, Sun, User, LogOut, Menu } from 'lucide-react';
+import { Moon, Sun, User, Menu } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export default function Header({ onMenuClick }: { onMenuClick?: () => void }) {
+export default function Header({ collapsed, setCollapsed, onMenuClick }: {
+  collapsed: boolean; setCollapsed: (val: boolean) => void; onMenuClick?: () => void
+}) {
   const [darkMode, setDarkMode] = useState(false);
   const [adminAllData, setAdminAllData] = useState(null);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -50,7 +53,7 @@ export default function Header({ onMenuClick }: { onMenuClick?: () => void }) {
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-200 px-4 py-3">
       <div className="flex items-center justify-between">
-        
+
         {/* Left: Mobile Menu Button */}
         <button
           onClick={onMenuClick}
@@ -59,12 +62,20 @@ export default function Header({ onMenuClick }: { onMenuClick?: () => void }) {
           <Menu size={20} />
         </button>
 
-        {/* Spacer for desktop */}
-        <div className="hidden lg:block flex-1"></div>
+        {/* Sidebar Toggle (Desktop) */}
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="hidden lg:flex items-center justify-center p-2 rounded-lg hover:bg-gray-100 text-gray-600 transition"
+        >
+          {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+        </button>
+
+        <div className="flex-1"></div>
+
 
         {/* Right Section */}
         <div className="flex items-center space-x-4">
-          
+
           {/* Dark Mode Toggle */}
           <button
             onClick={toggleDarkMode}
@@ -73,44 +84,15 @@ export default function Header({ onMenuClick }: { onMenuClick?: () => void }) {
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
-          {/* Notifications */}
-          <div className="relative">
-            <button 
-              onClick={() => setShowNotifications(!showNotifications)}
-              className="p-2 rounded-lg hover:bg-gray-100 relative"
-            >
-              <Bell size={20} />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-            </button>
-            
-            {showNotifications && (
-              <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 z-50">
-                <div className="p-4 border-b">
-                  <h3 className="font-semibold">Notifications</h3>
-                </div>
-                <div className="max-h-96 overflow-y-auto">
-                  {notifications.map((notif) => (
-                    <div key={notif.id} className="p-4 hover:bg-gray-50 border-b last:border-0">
-                      <p className="text-sm">{notif.text}</p>
-                      <p className="text-xs text-gray-500 mt-1">{notif.time}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="p-4 border-t">
-                  <a href="#" className="text-blue-600 text-sm font-medium">View all</a>
-                </div>
-              </div>
-            )}
-          </div>
 
           {/* User Profile */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
-              <User size={20} className="text-white" />
+            <div className="w-7 h-7 bg-linear-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
+              <User size={15} className="text-white!" />
             </div>
             <button
               onClick={handleLogout}
-              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+              className="px-4 py-1 bg-red-600 text-white! rounded hover:bg-red-700"
             >
               Logout
             </button>

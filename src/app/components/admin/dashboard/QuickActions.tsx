@@ -40,7 +40,7 @@ export default function QuickActions({ userRole }: QuickActionsProps) {
       </div>
 
       {/* Role-specific tip */}
-      <div className="mt-8 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
+      <div className="mt-8 p-4 bg-linear-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
         <p className="text-sm text-gray-700">
           {userRole === 'Admin' 
             ? 'As an administrator, you have full access to manage users, permissions, and system configurations.'

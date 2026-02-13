@@ -4,6 +4,8 @@ import GalaxyBackground from "@/app/components/galaxy-background";
 import NavbarClientWrapper from "@/app/components/navbar-client-wrapper";
 import Script from "next/script";
 import 'react-quill/dist/quill.snow.css';
+import "./globals.css";
+
 
 export const metadata = {
     metadataBase: new URL("https://coderlala.com"),

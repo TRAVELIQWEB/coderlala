@@ -64,7 +64,7 @@ export default function RecentActivity() {
             key={activity.id}
             className="flex items-center p-4 rounded-xl hover:bg-gray-50 transition-colors border border-gray-100"
           >
-            <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+            <div className="shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
               {activity.icon}
             </div>
             

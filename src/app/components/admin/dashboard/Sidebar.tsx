@@ -16,20 +16,26 @@ const menuItems = [
   { icon: FileText, label: 'Blog', href: '/admin/blog' },
 ];
 
-export default function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+export default function Sidebar({
+  collapsed,
+  setCollapsed,
+}: {
+  collapsed: boolean;
+  setCollapsed: (val: boolean) => void;
+}) {
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
   return (
     <>
       {/* Mobile Overlay */}
-      {mobileOpen && (
-        <div 
+      {/* {mobileOpen && (
+        <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={() => setMobileOpen(false)}
         />
-      )}
+      )} */}
 
       {/* Mobile Toggle Button */}
       <button
@@ -50,26 +56,40 @@ export default function Sidebar() {
       >
         {/* Logo - Matching Header Style */}
         <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200">
-          {!collapsed ? (
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">A</span>
+          <Link href="/admin/dashboard" className="flex items-center group btn">
+            {!collapsed ? (
+              <div className="flex items-center space-x-3">
+                {/* LOGO - RESPONSIVE SIZING */}
+                <div className="relative h-18 sm:h-10 md:w-[150px] md:h-[45px] lg:h-[60px]">
+                  {/* {!isDarkMode ? ( */}
+                  <img
+                    src="/logo/CoderLalaLogoLight.svg"
+                    alt="CoderLalaLogo Light"
+                    className="w-full h-full object-contain"
+                    key="dark-logo"
+                  />
+                  {/* ) : ( */}
+                  {/* <img
+                      src="/logo/CoderLalaLogoDark.svg"
+                      alt="CoderLalaLogo Dark"
+                      className="w-full h-full object-contain"
+                      key="light-logo"
+                    /> */}
+                  {/* )} */}
+                </div>
               </div>
-              <span className="text-lg font-bold text-gray-900">CoderLala</span>
-            </div>
-          ) : (
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mx-auto">
-              <span className="text-white font-bold text-sm">A</span>
-            </div>
-          )}
+            ) : (
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center mx-auto">
+                <img
+                  src="/favicon.svg"
+                  alt="CoderLalaLogo Dark"
+                  className="w-full h-full object-contain"
+                  key="light-logo"
+                />
+              </div>
+            )}
+          </Link>
 
-          {/* Desktop Toggle */}
-          <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="hidden lg:block p-1.5 rounded-lg hover:bg-gray-100 text-gray-600"
-          >
-            {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-          </button>
 
           {/* Mobile Close */}
           <button
@@ -94,8 +114,8 @@ export default function Sidebar() {
                 className={`
                   flex items-center rounded-lg px-3 py-2.5 transition-all
                   ${collapsed ? 'justify-center' : ''}
-                  ${isActive 
-                    ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' 
+                  ${isActive
+                    ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600'
                     : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }
                 `}
@@ -111,7 +131,7 @@ export default function Sidebar() {
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-white">
           {!collapsed ? (
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center text-white">
+              <div className="w-10 h-10 bg-linear-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center text-white">
                 <span className="font-bold">SN</span>
               </div>
               <div>
@@ -121,13 +141,13 @@ export default function Sidebar() {
             </div>
           ) : (
             <div className="flex justify-center">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
+              <div className="w-10 h-10 bg-linear-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
                 SN
               </div>
             </div>
           )}
         </div>
-      </aside>
+      </aside >
     </>
   );
 }

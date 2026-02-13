@@ -50,14 +50,14 @@ export default function StatsGrid() {
                 <span className="text-gray-500 text-sm ml-2">from last month</span>
               </div>
             </div>
-            <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.color} bg-opacity-10`}>
+            <div className={`p-3 rounded-xl bg-linear-to-br ${stat.color} bg-opacity-10`}>
               {stat.icon}
             </div>
           </div>
           <div className="mt-4 pt-4 border-t border-gray-100">
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
               <div
-                className={`h-full bg-gradient-to-r ${stat.color} rounded-full`}
+                className={`h-full bg-linear-to-r ${stat.color} rounded-full`}
                 style={{ width: '75%' }}
               />
             </div>

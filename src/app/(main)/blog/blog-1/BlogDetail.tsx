@@ -149,7 +149,7 @@ export class OrderService {
                             className="object-cover hover:scale-105 transition-transform duration-700"
                             priority
                         />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-purple-600/10" />
+                        <div className="absolute inset-0 bg-linear-to-tr from-blue-600/10 to-purple-600/10" />
                     </div>
 
                     {/* Right: Title and Description */}
@@ -161,7 +161,7 @@ export class OrderService {
 
                             {/* <div className="flex items-center gap-2 text-sm text-gray-500">
                                 <div className="flex items-center gap-1.5 bg-gray-100 px-3 py-1.5 rounded-full">
-                                    <div className="w-5 h-5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                    <div className="w-5 h-5 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                                         <span className="text-[10px] text-white font-medium">AC</span>
                                     </div>
                                     <span className="font-medium text-gray-700">Alex Chen</span>
@@ -200,15 +200,15 @@ export class OrderService {
 
 
                 {/* Variant 10: Elegant Premium */}
-                <div className="glass-card rounded-[2rem]! shadow-2xl relative overflow-hidden">
+                <div className="glass-card rounded-4xl! shadow-2xl relative overflow-hidden">
                     {/* Gold accent */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-[#e38138] rounded-b-full" />
 
                     {/* Corner decorations */}
-                    <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#e38138] rounded-tl-[2rem]" />
-                    <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#e38138] rounded-tr-[2rem]" />
-                    <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#e38138] rounded-bl-[2rem]" />
-                    <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#e38138] rounded-br-[2rem]" />
+                    <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#e38138] rounded-tl-4xl" />
+                    <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#e38138] rounded-tr-4xl" />
+                    <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#e38138] rounded-bl-4xl" />
+                    <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#e38138] rounded-br-4xl" />
 
                     <div className="relative p-10">
 
