@@ -297,59 +297,10 @@ export class OrderService {
                     </div>
                 </div>
                 {/* CoderLala Minimal - Brand Dots (#4948ab) */}
-                <div className="mt-10 pt-2">
-                    <div className="flex items-center gap-2 mb-8">
-                        <span className="ml-2 text-2xl font-bold">Related Posts</span>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                        {[1, 2, 3].map((index) => (
-                            <a
-                                key={index}
-                                href="#"
-                                className="group block p-6 glass-card hover:scale-105 border border-gray-200 rounded-xl transition-all duration-300 relative overflow-hidden"
-                            >
-                                <div className="absolute top-0 right-0 w-20 h-20 bg-[#4948ab]/80 rounded-bl-full" />
-
-                                <div className="flex items-center justify-between mb-3">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-1.5 h-1.5 bg-[#4948ab] rounded-full group-hover:scale-150 transition-transform" />
-                                        <div className="w-1.5 h-1.5 bg-[#e38138] rounded-full group-hover:scale-150 transition-transform delay-75" />
-                                        <span className="text-xs font-medium text-[#4948ab] bg-[#4948ab]/10 px-2 py-1 rounded-md ml-1">
-                                            NESTJS
-                                        </span>
-                                    </div>
-                                    <span className="text-xs text-white! z-10">8 min</span>
-                                </div>
-
-                                <h4 className="text-base font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-[#4948ab]">
-                                    NestJS Microservices with Kafka
-                                </h4>
-
-                                <p className="text-xs text-gray-600 mb-2 line-clamp-1">
-                                    Event-driven architecture • Scalable systems
-                                </p>
-
-                                <p className="text-xs text-gray-500 line-clamp-3 mb-4">
-                                    Build production-ready microservices using NestJS and Apache Kafka. Learn event-driven patterns, CQRS, and deployment strategies for enterprise applications.
-                                </p>
-
-                                <div className="flex items-center justify-between pt-2">
-                                    <span className="text-[10px] text-gray-400">CoderLala • Mar 10, 2026</span>
-                                    <span className="text-xs font-medium text-[#4948ab] group-hover:text-[#4948ab]/80 flex items-center gap-1">
-                                        Read more
-                                        <span className="group-hover:translate-x-1 transition-transform">→</span>
-                                    </span>
-                                </div>
-                            </a>
-                        ))}
-                    </div>
-
-                </div>
-
+                <RelatedPostsCarousel />
                 {/* <RelatedPostsCarousel /> */}
 
             </div>
-        </div>
+        </div >
     );
 }

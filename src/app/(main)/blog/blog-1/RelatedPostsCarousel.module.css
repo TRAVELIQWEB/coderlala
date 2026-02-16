@@ -1,0 +1,269 @@
+/* Brand colors */
+:root {
+  --brand-purple: #4948ab;
+  --brand-orange: #e38239;
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --text-tertiary: #6B7280;
+  --text-muted: #9CA3AF;
+  --border-light: #e5e7eb;
+}
+
+/* Container */
+.container {
+  margin-top: 2.5rem;
+  padding-top: 0.5rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.headerTitle {
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Carousel wrapper */
+.carouselWrapper {
+  position: relative;
+}
+
+/* Swiper overrides */
+.swiper {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.swiperSlide {
+  padding: 2rem 0;
+}
+
+/* Card */
+.card {
+  display: block;
+  padding: 1.5rem;
+  border: 1px solid var(--border-light);
+  border-radius: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Decorative corner */
+.cornerDecoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5rem;
+  height: 5rem;
+  border-bottom-left-radius: 9999px;
+  background-color: var(--brand-purple);
+  opacity: 0.8;
+}
+
+/* Card header */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Brand dots */
+.brandDot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .brandDot {
+  transform: scale(1.5);
+}
+
+.brandDotPurple {
+  composes: brandDot;
+  background-color: var(--brand-purple);
+}
+
+.brandDotOrange {
+  composes: brandDot;
+  background-color: var(--brand-orange);
+}
+
+.delay75 {
+  transition-delay: 75ms;
+}
+
+/* Category badge */
+.categoryBadge {
+  margin-left: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  color: var(--brand-purple);
+  background-color: rgba(73, 72, 171, 0.1);
+}
+
+/* Read time */
+.readTime {
+  font-size: 0.75rem;
+  color: white;
+  z-index: 10;
+}
+
+/* Card title */
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Card subtitle */
+.cardSubtitle {
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Card description */
+.cardDescription {
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+  color: var(--text-tertiary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Card footer */
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+}
+
+.authorDate {
+  font-size: 0.625rem;
+  color: var(--text-muted);
+}
+
+.readMore {
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--brand-purple);
+  transition: color 0.3s ease;
+}
+
+.readMoreArrow {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .readMoreArrow {
+  transform: translateX(0.25rem);
+}
+
+/* Navigation buttons */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: var(--brand-orange);
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.navButton:hover {
+  background-color: var(--brand-orange);
+  filter: brightness(0.95);
+}
+
+.navButton:focus {
+  outline: none;
+}
+
+.navPrev {
+  composes: navButton;
+  left: 0;
+}
+
+.navNext {
+  composes: navButton;
+  right: 0;
+}
+
+.navIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+/* Pagination styles - to be added globally or in a separate CSS file */
+:global(.swiper-pagination-bullet) {
+  background-color: var(--text-muted) !important;
+  opacity: 0.7 !important;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  background-color: var(--brand-purple) !important;
+  opacity: 1 !important;
+}
+
+/* Dark theme pagination - uncomment if needed */
+/*
+:global(.swiper-pagination-bullet) {
+  background-color: var(--text-secondary) !important;
+  opacity: 0.5 !important;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  background-color: var(--brand-purple) !important;
+  opacity: 1 !important;
+}
+*/
