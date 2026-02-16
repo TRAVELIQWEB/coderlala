@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  compiler: {
+    styledComponents: true, // If using styled-components
+  },
   /* config options here */
   reactCompiler: true,
 };

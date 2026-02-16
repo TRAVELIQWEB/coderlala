@@ -13,15 +13,7 @@
 /* ================================================
    THEME ROOT
 ================================================ */
-html {
-  color-scheme: light;
-  @apply bg-white text-gray-900 transition-colors duration-300;
-}
 
-html.dark {
-  color-scheme: dark;
-  @apply bg-[#0a0e27] text-white transition-colors duration-300;
-}
 
 body {
   @apply transition-colors duration-300 overflow-x-hidden;

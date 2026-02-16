@@ -1,0 +1,41 @@
+/* Header.module.css */
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #ef4444;
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: #dc2626;
+}
+
+/* Dark theme */
+:global(.dark) .logoutButton {
+  background-color: #b91c1c;
+}
+
+:global(.dark) .logoutButton:hover {
+  background-color: #991b1b;
+}
+
+/* Outlined variant */
+.logoutButtonOutlined {
+  composes: logoutButton;
+  background-color: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+}
+
+.logoutButtonOutlined:hover {
+  background-color: #fee2e2;
+  color: #dc2626;
+}

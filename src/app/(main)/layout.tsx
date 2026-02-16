@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@/app/components/theme-provider";
 import Footer from "@/app/components/footer";
 import GalaxyBackground from "@/app/components/galaxy-background";
 import NavbarClientWrapper from "@/app/components/navbar-client-wrapper";
@@ -125,7 +124,7 @@ const localBusinessSchema = {
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
     return (
-        <ThemeProvider>
+        <>
             {/* Structured Data Scripts */}
             <Script
                 id="organization-schema"
@@ -149,7 +148,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             <NavbarClientWrapper />
             <main className="min-h-screen">{children}</main>
             <Footer />
-        </ThemeProvider>
+        </>
     );
 }
 

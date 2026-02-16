@@ -10,10 +10,10 @@ export default function DashboardPage() {
 
     return (
         <div>
-            <h1 className="text-3xl font-bold text-gray-800">
+            <h1 className="text-3xl font-bold">
                 Welcome {userRole}
             </h1>
-            <p className="text-gray-600 mt-2">
+            <p className="mt-2">
                 Manage your platform, view analytics, and oversee operations
             </p>
         </div>
