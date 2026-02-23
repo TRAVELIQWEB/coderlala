@@ -1,0 +1,320 @@
+/* MultiSelect.module.css */
+
+/* Trigger Button */
+.trigger {
+  display: flex;
+  min-height: 2.75rem;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: #111827;
+  ring-offset-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+:global(.dark) .trigger {
+  border-color: #2e344e;
+  background-color: #0f1221;
+  color: #ffffff;
+  ring-offset-color: #0f1221;
+}
+
+.trigger:focus-visible {
+  outline: none;
+  ring: 2px;
+  ring-color: #6366f1;
+}
+
+.trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Selected Items Container */
+.selectedItems {
+  display: flex;
+  margin-left: 24px;
+  /* flex-wrap: wrap; */
+  overflow-x: scroll;
+  gap: 0.25rem;
+  
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+  
+  /* Hide scrollbar for IE and Edge */
+  -ms-overflow-style: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.selectedItems::-webkit-scrollbar {
+  display: none;
+}
+.placeholder {
+  color: #6b7280;
+}
+
+:global(.dark) .placeholder {
+  color: #9ca3af;
+}
+
+/* Selected Item Tag */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 0.375rem;
+  background-color: #e0e7ff;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #4f46e5;
+}
+
+:global(.dark) .tag {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+}
+
+.tagRemove {
+  border-radius: 9999px;
+  outline: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.tagRemove:hover {
+  background-color: #c7d2fe;
+}
+
+:global(.dark) .tagRemove:hover {
+  background-color: rgba(99, 102, 241, 0.3);
+}
+
+.tagRemoveIcon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+/* Chevron Icon */
+.chevronIcon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+/* Popover Content */
+.popoverContent {
+  z-index: 50;
+  width: var(--radix-popover-trigger-width);
+  min-width: 200px;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  padding: 0.375rem;
+  color: #111827;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:global(.dark) .popoverContent {
+  border-color: #333c5d;
+  background-color: #1a1f35;
+  color: #ffffff;
+}
+
+.popoverContent[data-state="open"] {
+  animation-name: fadeIn, zoomIn;
+}
+
+.popoverContent[data-state="closed"] {
+  animation-name: fadeOut, zoomOut;
+}
+
+.popoverContent[data-side="bottom"] {
+  animation-name: slideInFromTop;
+}
+
+/* Options Container */
+.optionsContainer {
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+/* Option Item */
+.option {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: background-color 0.2s, color 0.2s;
+  border: none;
+  background: transparent;
+  text-align: left;
+}
+
+.option:hover {
+  background-color: #f3f4f6;
+}
+
+:global(.dark) .option:hover {
+  background-color: rgba(51, 65, 85, 0.8);
+}
+
+/* .option:focus {
+  background-color: #f3f4f6;
+}
+
+:global(.dark) .option:focus {
+  background-color: #1e293b;
+} */
+
+.optionSelected {
+  background-color: rgba(79, 70, 229, 0.05);
+  margin-top: 2px;
+  margin-bottom: 2px;
+  color: #4f46e5;
+}
+
+:global(.dark) .optionSelected {
+  background-color: rgba(99, 102, 241, 0.1);
+  margin-top: 2px;
+  margin-bottom: 2px;
+  color: #a5b4fc;
+}
+
+.optionCheckContainer {
+  position: absolute;
+  left: 0.5rem;
+  display: flex;
+  height: 0.875rem;
+  width: 0.875rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.optionCheckIcon {
+  width: 1rem;
+  height: 1rem;
+  color: #6366f1;
+}
+
+/* Show All Button */
+.showAllButton {
+  composes: option;
+  font-weight: 600;
+}
+
+.showAllButtonSelected {
+  background-color: #eff6ff;
+  color: #4338ca;
+}
+
+:global(.dark) .showAllButtonSelected {
+  background-color: rgba(67, 56, 202, 0.25);
+  color: #818cf8;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 0.375rem 0;
+}
+
+:global(.dark) .divider {
+  background-color: #374151;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.95);
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-0.5rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar Styling */
+.optionsContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.optionsContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.optionsContainer::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 20px;
+}
+
+:global(.dark) .optionsContainer::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+}
+
+.optionsContainer::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}
+
+:global(.dark) .optionsContainer::-webkit-scrollbar-thumb:hover {
+  background-color: #6b7280;
+}

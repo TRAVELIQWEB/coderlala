@@ -4,6 +4,7 @@ import NavbarClientWrapper from "@/app/components/navbar-client-wrapper";
 import Script from "next/script";
 import 'react-quill/dist/quill.snow.css';
 import "./globals.css";
+import "@/app/globals.css";
 
 
 export const metadata = {
