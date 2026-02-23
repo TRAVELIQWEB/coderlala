@@ -454,7 +454,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
       <div className="bg-white text-gray-800 w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden border border-gray-200 flex flex-col h-[90vh]">
 
         {/* Fixed Header */}
-        <div className="flex justify-between items-center px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50 flex-shrink-0">
+        <div className="flex justify-between items-center px-8 py-6 border-b border-gray-100 bg-linear-to-r from-blue-50 to-indigo-50 shrink-0">
           <h2 className="font-bold text-2xl text-gray-900">
             Create New Post
           </h2>
@@ -1092,7 +1092,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
           </div>
 
           {/* Sticky Footer */}
-          <div className="flex-shrink-0 border-t border-gray-200 bg-white px-8 py-4 flex justify-end gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+          <div className="shrink-0 border-t border-gray-200 bg-white px-8 py-4 flex justify-end gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
             <button
               type="button"
               onClick={() => {

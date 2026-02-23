@@ -385,7 +385,7 @@ export default function BlogPage() {
           <div className="w-full md:w-auto">
             <button
               type="submit"
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 !text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full md:w-auto justify-center"
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white! px-4 py-2 rounded-lg text-sm font-medium transition w-full md:w-auto justify-center"
             >
               <Search size={16} />
               Search
@@ -396,7 +396,7 @@ export default function BlogPage() {
             <button
               type="button"
               onClick={() => setCreateModalOpen(true)}
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 !text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full md:w-auto justify-center"
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white! px-4 py-2 rounded-lg text-sm font-medium transition w-full md:w-auto justify-center"
             >
               <Plus size={16} />
               Create Post
@@ -479,7 +479,7 @@ export default function BlogPage() {
                           <div className="flex justify-center gap-2">
                             <button
                               onClick={() => handleEditClick(post)}
-                              className="p-1.5 !text-blue-600 hover:text-blue-800 !hover:bg-blue-50 rounded transition"
+                              className="p-1.5 text-blue-600! hover:text-blue-800 !hover:bg-blue-50 rounded transition"
                               title="Edit"
                             >
                               <Pencil size={16} />
@@ -495,7 +495,7 @@ export default function BlogPage() {
 
             {/* Pagination - Fixed outside scroll, always visible */}
             {posts.length > 0 && pagination.totalPages > 1 && (
-              <div className="border-t border-gray-300 px-6 py-4 bg-white flex-shrink-0">
+              <div className="border-t border-gray-300 px-6 py-4 bg-white shrink-0">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                   <div className="text-sm text-gray-600">
                     Showing {((pagination.currentPage - 1) * 20) + 1} to{' '}
@@ -508,8 +508,8 @@ export default function BlogPage() {
                       onClick={handlePrevPage}
                       disabled={!pagination.hasPrevPage}
                       className={`p-2 rounded-lg border ${pagination.hasPrevPage
-                          ? '!text-gray-700 hover:bg-gray-100 border-gray-300'
-                          : '!text-gray-400 border-gray-200 cursor-not-allowed'
+                          ? 'text-gray-700! hover:bg-gray-100 border-gray-300'
+                          : 'text-gray-400! border-gray-200 cursor-not-allowed'
                         }`}
                     >
                       <ChevronLeft size={18} />
@@ -520,7 +520,7 @@ export default function BlogPage() {
                         key={page}
                         onClick={() => handlePageClick(page)}
                         className={`min-w-[40px] px-3 py-2 rounded-lg border text-sm font-medium ${page === pagination.currentPage
-                            ? 'bg-blue-600 !text-white border-blue-600'
+                            ? 'bg-blue-600 text-white! border-blue-600'
                             : 'text-gray-700 hover:bg-gray-100 border-gray-300'
                           }`}
                       >

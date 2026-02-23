@@ -64,7 +64,7 @@ export default function Header() {
 
           {/* User Profile */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-linear-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
               <User size={20} className="text-white" />
             </div>
             <div>

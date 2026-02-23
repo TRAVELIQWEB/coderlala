@@ -1,9 +1,10 @@
-import { ThemeProvider } from "@/app/components/theme-provider";
 import Footer from "@/app/components/footer";
 import GalaxyBackground from "@/app/components/galaxy-background";
 import NavbarClientWrapper from "@/app/components/navbar-client-wrapper";
 import Script from "next/script";
 import 'react-quill/dist/quill.snow.css';
+import "./globals.css";
+
 
 export const metadata = {
     metadataBase: new URL("https://coderlala.com"),
@@ -123,7 +124,7 @@ const localBusinessSchema = {
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
     return (
-        <ThemeProvider>
+        <>
             {/* Structured Data Scripts */}
             <Script
                 id="organization-schema"
@@ -147,7 +148,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             <NavbarClientWrapper />
             <main className="min-h-screen">{children}</main>
             <Footer />
-        </ThemeProvider>
+        </>
     );
 }
 

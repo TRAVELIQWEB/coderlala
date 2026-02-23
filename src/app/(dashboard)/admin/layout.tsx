@@ -1,36 +1,30 @@
+// app/components/admin/dashboard/DashboardLayout.tsx
+'use client';
+
+import { useState } from 'react';
 import Header from "@/app/components/admin/dashboard/Header";
 import Sidebar from "@/app/components/admin/dashboard/Sidebar";
-import api from '@/lib/axios';
-
-export const metadata = {
-    title: 'Dashboard - CoderLala',
-    description: 'Dashboard panel for CoderLala',
-};
+import styles from './DashboardLayout.module.css';
+import Header2 from '@/app/components/admin/dashboard/Header2';
 
 export default function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const [collapsed, setCollapsed] = useState(false);
 
     return (
-        <>
-            <div className="min-h-screen bg-gray-50">
-                <Sidebar />
-                <div className="ml-64">
-                    <Header />
-                    <main className="p-8">
-                        {/* Welcome Section with Logout Button */}
-                        <div className="mb-8">
-                            {children}
+        <div className={styles.container}>
+            <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
-                        </div>
-
-                    </main>
-                            
-                </div>
+            <div className={`${styles.mainContent} ${collapsed ? styles.collapsed : styles.expanded}`}>
+                {/* <Header collapsed={collapsed} setCollapsed={setCollapsed} /> */}
+                <Header2 collapsed={collapsed} setCollapsed={setCollapsed} />
+                <main className={styles.contentArea}>
+                    {children}
+                </main>
             </div>
-        </>
+        </div>
     );
 }
-

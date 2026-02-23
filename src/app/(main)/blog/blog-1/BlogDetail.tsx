@@ -5,8 +5,42 @@ import { motion } from 'framer-motion';
 import { Calendar, User, Clock, Tag, ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+import styles from './BlogDetail.module.css'; // Import the CSS module
+import RelatedPostsCarousel from './RelatedPostsCarousel';
 
 export default function BlogDetail() {
+    // const [showFullContent, setShowFullContent] = useState(false);
+    const [contentDisplay, setContentDisplay] = useState('few'); // 'few', 'medium', 'full'
+
+    // Function to get truncated content based on display mode
+    const getTruncatedContent = () => {
+        if (!blog.content) return '';
+
+        if (contentDisplay === 'few') {
+            // Show first 300 characters
+            const textContent = blog.content.replace(/<[^>]*>/g, '');
+            if (textContent.length <= 300) return blog.content;
+
+            // Find a good breaking point
+            const preview = blog.content.substring(0, 400);
+            const lastSpace = preview.lastIndexOf(' ');
+            return preview.substring(0, lastSpace) + '...';
+        }
+
+        if (contentDisplay === 'medium') {
+            // Show more content (first 1000 characters)
+            const textContent = blog.content.replace(/<[^>]*>/g, '');
+            if (textContent.length <= 1000) return blog.content;
+
+            const preview = blog.content.substring(0, 1200);
+            const lastSpace = preview.lastIndexOf(' ');
+            return preview.substring(0, lastSpace) + '...';
+        }
+
+        // Full content
+        return blog.content;
+    };
     const blog = {
         title: 'Building Scalable Microservices with NestJS and Kafka',
         coverImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop',
@@ -127,29 +161,32 @@ export class OrderService {
                 </p> */}
             </motion.div>
 
-            {/* Simple Navigation Bar */}
-            {/* <div className="border-b border-gray-100 bg-white/80 backdrop-blur-sm sticky top-0 z-10">
-                <div className="container mx-auto px-4 py-4 max-w-6xl">
-                    <Link href="/blogs" className="inline-flex items-center text-gray-600 hover:text-blue-600 transition-colors group">
-                        <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-                        <span className="ml-1 text-sm font-medium">Back to blogs</span>
-                    </Link>
-                </div>
-            </div> */}
-
             <div className="container mx-auto px-4 pb-8 max-w-6xl">
                 {/* Hero Section - Image Left, Title Right */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12 items-center">
                     {/* Left: Feature Image */}
-                    <div className="relative h-[280px] md:h-[350px] w-full rounded-2xl overflow-hidden shadow-xl">
-                        <Image
-                            src={blog.coverImage}
-                            alt={blog.title}
-                            fill
-                            className="object-cover hover:scale-105 transition-transform duration-700"
-                            priority
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-purple-600/10" />
+                    <div className="relative h-[280px] md:h-[350px] w-full rounded-2xl overflow-hidden shadow-xl group">
+                        {/* Liquid metal effect */}
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md" />
+
+                        {/* Chrome border */}
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-gray-200 via-gray-400 to-gray-600 p-[3px]">
+                            <div className="relative h-full w-full rounded-2xl overflow-hidden">
+                                <Image
+                                    src={blog.coverImage}
+                                    alt={blog.title}
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                    priority
+                                />
+
+                                {/* Reflective overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-black/30 mix-blend-overlay" />
+
+                                {/* Inner metallic rim */}
+                                <div className="absolute inset-1 rounded-xl border border-white/40" />
+                            </div>
+                        </div>
                     </div>
 
                     {/* Right: Title and Description */}
@@ -161,7 +198,7 @@ export class OrderService {
 
                             {/* <div className="flex items-center gap-2 text-sm text-gray-500">
                                 <div className="flex items-center gap-1.5 bg-gray-100 px-3 py-1.5 rounded-full">
-                                    <div className="w-5 h-5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                    <div className="w-5 h-5 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                                         <span className="text-[10px] text-white font-medium">AC</span>
                                     </div>
                                     <span className="font-medium text-gray-700">Alex Chen</span>
@@ -200,83 +237,70 @@ export class OrderService {
 
 
                 {/* Variant 10: Elegant Premium */}
-                <div className="glass-card rounded-[2rem]! shadow-2xl relative overflow-hidden">
+                <div className="glass-card rounded-4xl! shadow-2xl relative overflow-hidden">
                     {/* Gold accent */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-[#e38138] rounded-b-full" />
 
                     {/* Corner decorations */}
-                    <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#e38138] rounded-tl-[2rem]" />
-                    <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#e38138] rounded-tr-[2rem]" />
-                    <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#e38138] rounded-bl-[2rem]" />
-                    <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#e38138] rounded-br-[2rem]" />
+                    <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#e38138] rounded-tl-4xl" />
+                    <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#e38138] rounded-tr-4xl" />
+                    <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#e38138] rounded-bl-4xl" />
+                    <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#e38138] rounded-br-4xl" />
 
                     <div className="relative p-10">
-
-
                         <div className="relative">
+                            {/* Content Display */}
                             <div className="prose prose-lg max-w-none prose-h2:text-2xl prose-h2:font-light prose-h2:tracking-wide prose-h2:text-gray-800 prose-h2:border-b prose-h2:border-amber-200 prose-h2:pb-3 prose-headings:text-gray-900 prose-headings:font-light prose-headings:tracking-wide prose-p:text-gray-600 prose-p:leading-8 prose-p:font-light prose-strong:text-amber-800 prose-strong:font-medium prose-code:text-amber-700 prose-code:bg-amber-50/80 prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:border prose-code:border-amber-200/50 prose-pre:bg-gray-900/95 prose-pre:text-amber-50 prose-pre:rounded-xl prose-pre:border prose-pre:border-amber-800/30 prose-pre:shadow-xl prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-600 prose-li:marker:text-amber-500 prose-blockquote:border-l-2 prose-blockquote:border-amber-400 prose-blockquote:text-gray-600 prose-blockquote:bg-amber-50/30 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-lg prose-blockquote:font-light prose-blockquote:italic">
-                                <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+                                <div dangerouslySetInnerHTML={{ __html: getTruncatedContent() }} />
                             </div>
 
-                            {/* Elegant footer */}
-                            {/* <div className="mt-12 pt-6 border-t border-amber-200/50 flex justify-end">
-                                <span className="text-xs text-gray-400 font-light tracking-widest uppercase">— Continued —</span>
-                            </div> */}
+                            {/* Content Controls - Using CSS Module classes */}
+                            <div className={styles.contentControls}>
+
+                                {contentDisplay !== 'medium' && contentDisplay === 'few' && (
+                                    <button
+                                        onClick={() => setContentDisplay('medium')}
+                                        className={`${styles.controlButton} ${styles.amberButton}`}
+                                    >
+                                        <span className={styles.amberBtnext}>Show More</span>
+                                        <svg className={styles.buttonIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                )}
+
+                                {contentDisplay !== 'full' && contentDisplay === 'medium' && (
+                                    <button
+                                        onClick={() => setContentDisplay('full')}
+                                        className={`${styles.controlButton} ${styles.amberButton}`}
+                                    >
+                                        <span className={styles.amberBtnext}>Continue Reading</span>
+                                        <svg className={styles.buttonIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                )}
+
+                                {contentDisplay === 'full' && (
+                                    <button
+                                        onClick={() => setContentDisplay('few')}
+                                        className={`${styles.controlButton} ${styles.grayButton}`}
+                                    >
+                                        <span className={styles.grayBtnText}>Show Less</span>
+                                        <svg className={styles.buttonIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                                        </svg>
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
                 {/* CoderLala Minimal - Brand Dots (#4948ab) */}
-                <div className="mt-16 pt-2">
-                    <div className="flex items-center gap-2 mb-8">
-                        <span className="ml-2 text-2xl font-bold">Related Posts</span>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                        {[1, 2, 3].map((index) => (
-                            <a
-                                key={index}
-                                href="#"
-                                className="group block p-6 glass-card hover:scale-105 border border-gray-200 rounded-xl transition-all duration-300 relative overflow-hidden"
-                            >
-                                <div className="absolute top-0 right-0 w-20 h-20 bg-[#4948ab]/80 rounded-bl-full" />
-
-                                <div className="flex items-center justify-between mb-3">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-1.5 h-1.5 bg-[#4948ab] rounded-full group-hover:scale-150 transition-transform" />
-                                        <div className="w-1.5 h-1.5 bg-[#e38138] rounded-full group-hover:scale-150 transition-transform delay-75" />
-                                        <span className="text-xs font-medium text-[#4948ab] bg-[#4948ab]/10 px-2 py-1 rounded-md ml-1">
-                                            NESTJS
-                                        </span>
-                                    </div>
-                                    <span className="text-xs text-white! z-10">8 min</span>
-                                </div>
-
-                                <h4 className="text-base font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-[#4948ab]">
-                                    NestJS Microservices with Kafka
-                                </h4>
-
-                                <p className="text-xs text-gray-600 mb-2 line-clamp-1">
-                                    Event-driven architecture • Scalable systems
-                                </p>
-
-                                <p className="text-xs text-gray-500 line-clamp-3 mb-4">
-                                    Build production-ready microservices using NestJS and Apache Kafka. Learn event-driven patterns, CQRS, and deployment strategies for enterprise applications.
-                                </p>
-
-                                <div className="flex items-center justify-between pt-2">
-                                    <span className="text-[10px] text-gray-400">CoderLala • Mar 10, 2026</span>
-                                    <span className="text-xs font-medium text-[#4948ab] group-hover:text-[#4948ab]/80 flex items-center gap-1">
-                                        Read more
-                                        <span className="group-hover:translate-x-1 transition-transform">→</span>
-                                    </span>
-                                </div>
-                            </a>
-                        ))}
-                    </div>
-
-                </div>
+                <RelatedPostsCarousel />
+                {/* <RelatedPostsCarousel /> */}
 
             </div>
-        </div>
+        </div >
     );
 }

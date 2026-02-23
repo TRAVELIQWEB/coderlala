@@ -141,9 +141,9 @@ export class KafkaService {
 
     return (
         <>
-            <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+            <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
                 {/* Hero Section with Cover Image */}
-                <div className="relative h-[60vh] min-h-[500px] w-full bg-gradient-to-r from-gray-900 to-gray-800 overflow-hidden">
+                <div className="relative h-[60vh] min-h-[500px] w-full bg-linear-to-r from-gray-900 to-gray-800 overflow-hidden">
                     {/* Background Image with Overlay */}
                     <div className="absolute inset-0">
                         <Image
@@ -153,8 +153,8 @@ export class KafkaService {
                             className="object-cover opacity-60"
                             priority
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20" />
+                        <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/80 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-r from-blue-600/20 to-purple-600/20" />
                     </div>
 
                     {/* Navigation */}
@@ -404,7 +404,7 @@ export class KafkaService {
 
                                 {/* Feedback Section */}
                                 <div className="mt-12 pt-8 border-t border-gray-100">
-                                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 text-center">
+                                    <div className="bg-linear-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 text-center">
                                         <h3 className="text-xl font-semibold text-gray-900 mb-2">
                                             Was this article helpful?
                                         </h3>
@@ -430,8 +430,8 @@ export class KafkaService {
                                     </h3>
                                     <div className="space-y-6">
                                         <div className="flex gap-4">
-                                            <div className="flex-shrink-0">
-                                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-semibold">
+                                            <div className="shrink-0">
+                                                <div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-semibold">
                                                     JD
                                                 </div>
                                             </div>
@@ -451,8 +451,8 @@ export class KafkaService {
                                             </div>
                                         </div>
                                         <div className="flex gap-4 pl-8">
-                                            <div className="flex-shrink-0">
-                                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-white text-sm font-semibold">
+                                            <div className="shrink-0">
+                                                <div className="w-8 h-8 rounded-full bg-linear-to-br from-green-500 to-teal-500 flex items-center justify-center text-white text-sm font-semibold">
                                                     AS
                                                 </div>
                                             </div>
@@ -473,8 +473,8 @@ export class KafkaService {
                                             </div>
                                         </div>
                                         <div className="flex gap-4 mt-6">
-                                            <div className="flex-shrink-0">
-                                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-semibold">
+                                            <div className="shrink-0">
+                                                <div className="w-10 h-10 rounded-full bg-linear-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-semibold">
                                                     Y
                                                 </div>
                                             </div>
@@ -500,7 +500,7 @@ export class KafkaService {
                         <div className="lg:col-span-3 order-3">
                             <div className="sticky top-24 space-y-6">
                                 {/* Newsletter */}
-                                <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
+                                <div className="bg-linear-to-br from-blue-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
                                     <h4 className="font-semibold text-lg mb-2">Never miss an article</h4>
                                     <p className="text-sm text-white/90 mb-4">
                                         Get the latest posts delivered straight to your inbox.
@@ -532,7 +532,7 @@ export class KafkaService {
                                                 className="group block"
                                             >
                                                 <div className="flex gap-3">
-                                                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                                                    <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0">
                                                         <Image
                                                             src={post.coverImage}
                                                             alt={post.title}

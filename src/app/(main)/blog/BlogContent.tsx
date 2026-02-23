@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react'
-// import { Post, posts } from './data/posts'
+import { posts } from './data/posts'
 import { motion } from "framer-motion";
 import {
     Globe,
@@ -31,30 +31,30 @@ import HeroTitle, { HeroTitle2 } from "@/app/components/HeroTitle";
 import api from '@/lib/axios';
 
 export interface Post {
-  id: number;
-  title: string;
-  description: string;
-  content: string;
+    id: number;
+    title: string;
+    description: string;
+    content: string;
 }
 
 
 
 const BlogContent = () => {
-const [allBlogs, setAllBlogs] = useState<any[]>([]);
+    const [allBlogs, setAllBlogs] = useState<any[]>([]);
 
     useEffect(() => {
-    const fetchData = async () => {
-        try {
-           
-            const res= await api.get('/blog')
-            setAllBlogs(res.data);
-        
-        } catch (error) {
-            console.error('Error fetching data:', error);
+        const fetchData = async () => {
+            try {
+
+                const res = await api.get('/blog')
+                setAllBlogs(res.data);
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         }
-    }
-    fetchData();
-} , []);
+        fetchData();
+    }, []);
     return (
         <>
             {/* Hero Section */}
@@ -80,11 +80,11 @@ const [allBlogs, setAllBlogs] = useState<any[]>([]);
             <div className="grid sm:grid-cols-1 lg:grid-cols-1 gap-4 sm:gap-6 px-4 sm:px-0">
 
                 {/* Glow */}
-                {/* <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl sm:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" /> */}
+                {/* <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500 to-indigo-600 rounded-2xl sm:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" /> */}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {/* Card */}
-                    {allBlogs.map((blog,index) => (
+                    {posts.map((blog, index) => (
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -120,26 +120,58 @@ const [allBlogs, setAllBlogs] = useState<any[]>([]);
                                     </p>
                                 </div>
 
-                                {/* Attractive Blog-style Footer */}
-                                <div className="mt-6 border-t border-white/10">
-                                    <Link href="/contact" className="flex gap-2 w-full justify-between pt-4 items-center gap-2 sm:gap-3 group cursor-pointer">
-                                        <div className="flex flex-col">
-                                            {/* <span className="text-xs sm:text-sm text-white/60 font-medium">Continue reading</span> */}
-                                            <span className="text-sm sm:text-base capitalize font-semibold text-white group-hover:text-blue-400 transition-colors">
-                                                Read full blog
+                                {/* Bottom row: Stunning Continue Reading button */}
+                                <Link
+                                    href="/contact"
+                                    className="group/btn relative block mt-8 cursor-pointer"
+                                >
+                                    {/* Animated background gradient */}
+                                    <div className="absolute -inset-1  rounded-xl blur opacity-0 group-hover/btn:opacity-100 transition duration-500" />
+
+                                    <div className="relative flex items-center justify-between border bg-[#4948ab] text-white! border-white/10 group-hover/btn:border-white/20 rounded-xl px-4 py-3 transition-all duration-300">
+                                        {/* Left side: Read more text with arrow */}
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-sm font-medium text-white/80! group-hover/btn:text-white transition-colors">
+                                                Continue reading
                                             </span>
-                                        </div>
-                                        <div className="relative">
-                                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white!" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <div className="relative">
+                                                <svg
+                                                    className="w-5 h-5 text-white/60 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all duration-300"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                </svg>
+                                                <svg
+                                                    className="absolute top-0 left-0 w-5 h-5 text-white/60 group-hover/btn:text-white translate-x-2 opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-3 transition-all duration-300"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                                 </svg>
                                             </div>
-                                            {/* Glow effect */}
-                                            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full blur opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
                                         </div>
-                                    </Link>
-                                </div>
+
+                                        {/* Right side: Date display */}
+                                        <div className="flex items-center gap-2">
+                                            <div className="h-4 w-px bg-white/20 group-hover/btn:bg-white/40 transition-colors" />
+                                            <div className="flex items-center gap-1.5">
+                                                <svg className="w-4 h-4 text-white/40! group-hover/btn:text-white/60 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                                <span className="text-xs text-white/50! group-hover/btn:text-white/70 transition-colors">
+                                                    {new Date('2026-02-11').toLocaleDateString('en-US', {
+                                                        month: 'short',
+                                                        day: 'numeric',
+                                                        year: 'numeric'
+                                                    })}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
                             </div>
                         </motion.div>
                     ))}

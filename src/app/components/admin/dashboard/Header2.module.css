@@ -1,0 +1,154 @@
+/* app/components/admin/dashboard/Header.module.css */
+.header {
+  height: 70px;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  width: 100%;
+}
+
+:global(.dark) .header {
+  background-color: #1f2937;
+  border-bottom-color: #374151;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.menuButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  color: #6b7280;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.menuButton:hover {
+  background-color: #f3f4f6;
+  color: #2563eb;
+}
+
+:global(.dark) .menuButton:hover {
+  background-color: #374151;
+  color: #60a5fa;
+}
+
+.iconButton {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  color: #6b7280;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.iconButton:hover {
+  background-color: #f3f4f6;
+  color: #2563eb;
+}
+
+:global(.dark) .iconButton:hover {
+  background-color: #374151;
+  color: #60a5fa;
+}
+
+.notificationBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+:global(.dark) .notificationBadge {
+  border-color: #1f2937;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+  border-radius: 2rem;
+  background: #cccdd0;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.profileButton:hover {
+  background-color: #f3f4f6;
+}
+
+:global(.dark) .profileButton:hover {
+  background-color: #374151;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+:global(.dark) .avatar {
+  background-color: #4b5563;
+  color: #d1d5db;
+}
+
+.profileName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  display: none;
+}
+
+:global(.dark) .profileName {
+  color: #f3f4f6;
+}
+
+@media (min-width: 768px) {
+  .profileName {
+    display: inline;
+  }
+}
