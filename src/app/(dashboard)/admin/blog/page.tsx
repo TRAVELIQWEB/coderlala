@@ -144,11 +144,11 @@ export default function BlogPage() {
           description: post.seo?.description?.trim() || post.desc,
           canonicalUrl: post.seo?.canonicalUrl?.trim() || ''
         },
-        description: post.desc.trim(),
+        description: post.desc.trim()|| '',
         status: post.status as BlogStatus || BlogStatus.DRAFT
       };
 
-      console.log("🚀 CREATE PAYLOAD:", payload);
+
 
       const res = await api.post('/admin/blogs/create', payload);
 
@@ -243,7 +243,7 @@ export default function BlogPage() {
         status: updatedPost.status as BlogStatus || BlogStatus.DRAFT
       };
 
-      console.log("🚀 UPDATE PAYLOAD:", payload);
+
 
       const res = await api.put(`/admin/blogs/${updatedPost._id}`, payload);
 
@@ -282,7 +282,7 @@ export default function BlogPage() {
       setEditingPost(null);
 
     } catch (error: any) {
-      console.error('❌ Error updating post:', error);
+
       const errorMsg = error.response?.data?.message;
       if (Array.isArray(errorMsg)) {
         setError(errorMsg.join(', '));

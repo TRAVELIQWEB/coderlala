@@ -134,13 +134,13 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
     }
 
     // Slug validation
-    if (!form.slug.trim()) {
-      newErrors.slug = 'Slug is required';
-      isValid = false;
-    } else {
-      newErrors.slug = '';
-    }
-
+   // Slug validation - optional field
+if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
+  newErrors.slug = 'Slug can only contain lowercase letters, numbers, and hyphens';
+  isValid = false;
+} else {
+  newErrors.slug = '';
+}
     // Description validation
     if (!form.description.trim()) {
       newErrors.description = 'Description is required';
@@ -472,7 +472,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
         {/* Error Alert - Shows validation and server errors */}
         {submitError && (
           <div className="mx-8 mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-700 font-medium">Error: {submitError}</p>
+            <p className="text-red-700 font-medium"> {submitError}</p>
           </div>
         )}
 
