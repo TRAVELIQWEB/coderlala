@@ -1,34 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { posts } from './data/posts'
 import { motion } from "framer-motion";
-import {
-    Globe,
-    Cloud,
-    Cpu,
-    Brain,
-    Database,
-    Smartphone,
-    ShoppingCart,
-    BarChart,
-    Shield,
-    Zap,
-    Eye,
-    ExternalLink,
-    Github,
-    Filter,
-    Award,
-    TrendingUp,
-    Users,
-    Lock,
-    ChevronLeft,
-    ChevronRight
-} from "lucide-react";
 // import { useState, useRef, useMemo } from "react";
 import Link from "next/link";
-import HeroTitle, { HeroTitle2 } from "@/app/components/HeroTitle";
+import { HeroTitle2 } from "@/app/components/HeroTitle";
 import api from '@/lib/axios';
+import { FilterBar } from './FilterBar';
+import { MOCK_POSTS } from './data/mockData';
+import { isWithinInterval, parseISO, startOfDay, endOfDay } from 'date-fns';
 
 export interface Post {
     id: number;
@@ -41,6 +22,50 @@ export interface Post {
 
 const BlogContent = () => {
     const [allBlogs, setAllBlogs] = useState<any[]>([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [dateFrom, setDateFrom] = useState('');
+    const [dateTo, setDateTo] = useState('');
+    const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+    const filteredPosts = useMemo(() => {
+        return MOCK_POSTS.filter(post => {
+            // Date Filter
+            if (dateFrom || dateTo) {
+                const postDate = parseISO(post.createdAt);
+                const from = dateFrom ? startOfDay(new Date(dateFrom)) : new Date(0);
+                const to = dateTo ? endOfDay(new Date(dateTo)) : new Date(8640000000000000); // Far future
+
+                if (!isWithinInterval(postDate, { start: from, end: to })) {
+                    return false;
+                }
+            }
+
+            // Tech Stack Filter (Multi-select: Match if post has ANY of the selected stacks)
+            if (selectedTechStacks.length > 0) {
+                const hasMatch = selectedTechStacks.some(stack => post.techStacks.includes(stack));
+                if (!hasMatch) return false;
+            }
+
+            // Tag Filter (Multi-select: Match if post has ANY of the selected tags)
+            if (selectedTags.length > 0) {
+                const hasMatch = selectedTags.some(tag => post.tags.includes(tag));
+                if (!hasMatch) return false;
+            }
+
+            // Search Query
+            if (searchQuery) {
+                const query = searchQuery.toLowerCase();
+                return (
+                    post.title.toLowerCase().includes(query) ||
+                    post.description.toLowerCase().includes(query) ||
+                    post.content.toLowerCase().includes(query)
+                );
+            }
+
+            return true;
+        });
+    }, [searchQuery, dateFrom, dateTo, selectedTechStacks, selectedTags]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,6 +99,22 @@ const BlogContent = () => {
                 <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-3xl mx-auto px-4 sm:px-0">
                     Discover our latest blogs covering web development, mobile app innovation, and SaaS solutions shaping digital transformation.
                 </p>
+            </motion.div>
+
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5 }}
+            >
+
+                <FilterBar
+                    dateFrom={dateFrom} setDateFrom={setDateFrom}
+                    dateTo={dateTo} setDateTo={setDateTo}
+                    selectedTechStacks={selectedTechStacks} setSelectedTechStacks={setSelectedTechStacks}
+                    selectedTags={selectedTags} setSelectedTags={setSelectedTags}
+                    searchQuery={searchQuery} setSearchQuery={setSearchQuery}
+                />
             </motion.div>
 
             {/* Single Project Card */}
