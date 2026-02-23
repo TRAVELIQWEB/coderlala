@@ -163,7 +163,7 @@ const BlogContent = () => {
 
                                 {/* Bottom row: Stunning Continue Reading button */}
                                 <Link
-                                    href="/contact"
+                                    href={`/blog/${blog.slug}`}
                                     className="group/btn relative block mt-8 cursor-pointer"
                                 >
                                     {/* Animated background gradient */}

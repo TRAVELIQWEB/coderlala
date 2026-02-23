@@ -5,17 +5,83 @@ import { motion } from 'framer-motion';
 import { Calendar, User, Clock, Tag, ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './BlogDetail.module.css'; // Import the CSS module
 import RelatedPostsCarousel from './RelatedPostsCarousel';
+import api from '@/lib/axios';
 
-export default function BlogDetail() {
+// Define the interfaces for your data structure
+interface Author {
+    name: string;
+    role: string;
+    _id: string;
+}
+
+interface SEO {
+    title: string;
+    description: string;
+    canonicalUrl: string;
+    _id: string;
+}
+
+interface Blog {
+    _id: string;
+    title: string;
+    content: string;
+    slug: string;
+    primaryTech: string;
+    techStacks: string[];
+    tags: string[];
+    level: string;
+    readingTime: number;
+    author: Author;
+    language: string;
+    seo: SEO;
+    description: string;
+    status: string;
+    userId: string;
+    coverImage?: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+}
+
+interface RelatedBlog extends Blog {}
+
+interface ApiResponse {
+    status: string;
+    data: {
+        blog: Blog;
+        relatedBlogs: RelatedBlog[];
+    };
+}
+
+export default function BlogDetail({ slug }: { slug: string }) {
     // const [showFullContent, setShowFullContent] = useState(false);
     const [contentDisplay, setContentDisplay] = useState('few'); // 'few', 'medium', 'full'
+    const [blog, setBlog] = useState<Blog | null>(null);
+    const [relatedBlogs, setRelatedBlogs] = useState<RelatedBlog[]>([]);
+
+    useEffect(() => {        
+        // console.log(slug);
+
+         const fetchBlogs = async () => {
+          try {
+            const res = await api.get<ApiResponse>(`/blog/${slug}`);
+            setBlog(res.data.data.blog);
+            setRelatedBlogs(res.data.data.relatedBlogs);
+            console.log(res.data.data.blog);
+          } catch (error) {
+            console.error('Error fetching blog:', error);
+          }
+         };
+        fetchBlogs();
+        
+    }, [slug]);
 
     // Function to get truncated content based on display mode
     const getTruncatedContent = () => {
-        if (!blog.content) return '';
+        if (!blog?.content) return '';
 
         if (contentDisplay === 'few') {
             // Show first 300 characters
@@ -41,104 +107,114 @@ export default function BlogDetail() {
         // Full content
         return blog.content;
     };
-    const blog = {
-        title: 'Building Scalable Microservices with NestJS and Kafka',
-        coverImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop',
-        description: 'Learn how to build production-ready microservices using NestJS and Apache Kafka for event-driven architecture. This comprehensive guide covers everything from setup to deployment.',
-        content: `
-      <h2>Introduction to Microservices</h2>
-      <p>Microservices architecture has become the go-to choice for building complex, scalable applications. Unlike monolithic architectures where all components are tightly coupled, microservices allow you to develop, deploy, and scale each service independently.</p>
+    
+//     const blog = {
+//         title: 'Building Scalable Microservices with NestJS and Kafka',
+//         coverImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop',
+//         description: 'Learn how to build production-ready microservices using NestJS and Apache Kafka for event-driven architecture. This comprehensive guide covers everything from setup to deployment.',
+//         content: `
+//       <h2>Introduction to Microservices</h2>
+//       <p>Microservices architecture has become the go-to choice for building complex, scalable applications. Unlike monolithic architectures where all components are tightly coupled, microservices allow you to develop, deploy, and scale each service independently.</p>
       
-      <p>In this tutorial, we'll build a complete order processing system using NestJS and Kafka. You'll learn how to set up event-driven communication between services, handle failures gracefully, and deploy your microservices to production.</p>
+//       <p>In this tutorial, we'll build a complete order processing system using NestJS and Kafka. You'll learn how to set up event-driven communication between services, handle failures gracefully, and deploy your microservices to production.</p>
       
-      <h2>Prerequisites</h2>
-      <ul>
-        <li>Node.js 18+ installed on your machine</li>
-        <li>Basic knowledge of TypeScript</li>
-        <li>Docker and Docker Compose for running Kafka</li>
-        <li>Familiarity with REST APIs</li>
-      </ul>
+//       <h2>Prerequisites</h2>
+//       <ul>
+//         <li>Node.js 18+ installed on your machine</li>
+//         <li>Basic knowledge of TypeScript</li>
+//         <li>Docker and Docker Compose for running Kafka</li>
+//         <li>Familiarity with REST APIs</li>
+//       </ul>
       
-      <h2>Setting Up the Project</h2>
-      <p>First, let's create a new NestJS project:</p>
+//       <h2>Setting Up the Project</h2>
+//       <p>First, let's create a new NestJS project:</p>
       
-      <pre><code>npm i -g @nestjs/cli
-nest new order-service
-cd order-service</code></pre>
+//       <pre><code>npm i -g @nestjs/cli
+// nest new order-service
+// cd order-service</code></pre>
 
-      <p>Next, install the Kafka client:</p>
+//       <p>Next, install the Kafka client:</p>
       
-      <pre><code>npm install @nestjs/microservices kafkajs</code></pre>
+//       <pre><code>npm install @nestjs/microservices kafkajs</code></pre>
 
-      <h2>Configuring Kafka Client</h2>
-      <p>Create a Kafka module to handle the client connection:</p>
+//       <h2>Configuring Kafka Client</h2>
+//       <p>Create a Kafka module to handle the client connection:</p>
 
-      <pre><code>// kafka.module.ts
-import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+//       <pre><code>// kafka.module.ts
+// import { Module } from '@nestjs/common';
+// import { ClientsModule, Transport } from '@nestjs/microservices';
 
-@Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: 'KAFKA_SERVICE',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            brokers: ['localhost:9092'],
-          },
-          consumer: {
-            groupId: 'order-consumer',
-          },
-        },
-      },
-    ]),
-  ],
-  exports: [ClientsModule],
-})
-export class KafkaModule {}</code></pre>
+// @Module({
+//   imports: [
+//     ClientsModule.register([
+//       {
+//         name: 'KAFKA_SERVICE',
+//         transport: Transport.KAFKA,
+//         options: {
+//           client: {
+//             brokers: ['localhost:9092'],
+//           },
+//           consumer: {
+//             groupId: 'order-consumer',
+//           },
+//         },
+//       },
+//     ]),
+//   ],
+//   exports: [ClientsModule],
+// })
+// export class KafkaModule {}</code></pre>
 
-      <h2>Creating the Order Service</h2>
-      <p>Now, let's create a service that will emit events to Kafka:</p>
+//       <h2>Creating the Order Service</h2>
+//       <p>Now, let's create a service that will emit events to Kafka:</p>
 
-      <pre><code>// order.service.ts
-import { Injectable, Inject } from '@nestjs/common';
-import { ClientKafka } from '@nestjs/microservices';
+//       <pre><code>// order.service.ts
+// import { Injectable, Inject } from '@nestjs/common';
+// import { ClientKafka } from '@nestjs/microservices';
 
-@Injectable()
-export class OrderService {
-  constructor(
-    @Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka,
-  ) {}
+// @Injectable()
+// export class OrderService {
+//   constructor(
+//     @Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka,
+//   ) {}
 
-  async createOrder(orderData: any) {
-    this.kafkaClient.emit('order.created', JSON.stringify({
-      id: Date.now(),
-      ...orderData,
-      createdAt: new Date(),
-    }));
+//   async createOrder(orderData: any) {
+//     this.kafkaClient.emit('order.created', JSON.stringify({
+//       id: Date.now(),
+//       ...orderData,
+//       createdAt: new Date(),
+//     }));
 
-    return {
-      success: true,
-      message: 'Order created successfully',
-      orderId: Date.now(),
-    };
-  }
+//     return {
+//       success: true,
+//       message: 'Order created successfully',
+//       orderId: Date.now(),
+//     };
+//   }
 
-  async getOrders() {
-    return this.kafkaClient.send('order.get_all', {});
-  }
-}</code></pre>
+//   async getOrders() {
+//     return this.kafkaClient.send('order.get_all', {});
+//   }
+// }</code></pre>
 
-      <h2>Testing the Implementation</h2>
-      <p>Start Kafka using Docker Compose, then run your NestJS application. You should see the events being emitted and consumed successfully.</p>
+//       <h2>Testing the Implementation</h2>
+//       <p>Start Kafka using Docker Compose, then run your NestJS application. You should see the events being emitted and consumed successfully.</p>
       
-      <h2>Conclusion</h2>
-      <p>You've successfully built a microservice with NestJS and Kafka! This architecture allows you to scale individual services independently and handle high throughput scenarios with ease.</p>
+//       <h2>Conclusion</h2>
+//       <p>You've successfully built a microservice with NestJS and Kafka! This architecture allows you to scale individual services independently and handle high throughput scenarios with ease.</p>
       
-      <p>In the next part of this series, we'll cover deployment strategies, monitoring, and implementing retry mechanisms for failed events.</p>
-    `,
-    };
+//       <p>In the next part of this series, we'll cover deployment strategies, monitoring, and implementing retry mechanisms for failed events.</p>
+//     `,
+//     };
+
+    // If blog is still loading or doesn't exist, show loading state
+    if (!blog) {
+        return (
+            <div className="container mx-auto px-4 py-8 max-w-6xl">
+                <div className="text-center">Loading...</div>
+            </div>
+        );
+    }
 
     return (
         <div className="">
@@ -173,7 +249,7 @@ export class OrderService {
                         <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-gray-200 via-gray-400 to-gray-600 p-[3px]">
                             <div className="relative h-full w-full rounded-2xl overflow-hidden">
                                 <Image
-                                    src={blog.coverImage}
+                                    src={blog.coverImage || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop'}
                                     alt={blog.title}
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -196,24 +272,7 @@ export class OrderService {
                                 {blog.title}
                             </h1>
 
-                            {/* <div className="flex items-center gap-2 text-sm text-gray-500">
-                                <div className="flex items-center gap-1.5 bg-gray-100 px-3 py-1.5 rounded-full">
-                                    <div className="w-5 h-5 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                        <span className="text-[10px] text-white font-medium">AC</span>
-                                    </div>
-                                    <span className="font-medium text-gray-700">Alex Chen</span>
-                                </div>
-                                <span className="text-gray-300">•</span>
-                                <span className="flex items-center gap-1">
-                                    <Calendar size={14} />
-                                    Feb 10, 2026
-                                </span>
-                                <span className="text-gray-300">•</span>
-                                <span className="flex items-center gap-1">
-                                    <Clock size={14} />
-                                    12 min
-                                </span>
-                            </div> */}
+                           
                         </div>
 
                         <div className="border-l-4 border-[#e38138] pl-4 bg-blue-50/30 py-2 rounded-r-lg">
@@ -223,7 +282,7 @@ export class OrderService {
                         </div>
 
                         <div className="flex flex-wrap gap-2 pt-2">
-                            {['NestJS', 'Kafka', 'Microservices'].map((tag) => (
+                            {blog.tags.map((tag) => (
                                 <span
                                     key={tag}
                                     className="px-4 py-1.5 bg-gray-500/20 hover:bg-gray-200 text-opacity-80 rounded-full text-xs font-medium transition-colors cursor-pointer"
@@ -297,7 +356,7 @@ export class OrderService {
                     </div>
                 </div>
                 {/* CoderLala Minimal - Brand Dots (#4948ab) */}
-                <RelatedPostsCarousel />
+                <RelatedPostsCarousel relatedBlogs={relatedBlogs} />
                 {/* <RelatedPostsCarousel /> */}
 
             </div>

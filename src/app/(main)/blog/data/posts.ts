@@ -56,7 +56,7 @@ export const posts: Post[] = [
     },
     "title": "NestJS Complete Guide",
     "content": "This is full blog content about NestJS...",
-    "slug": "nestjs-complete-guide",
+    "slug": "ravi",
     "primaryTech": "nestjs",
     "techStacks": [
       "nestjs",

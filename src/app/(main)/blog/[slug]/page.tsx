@@ -1,31 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  Calendar,
-  User,
-  Clock,
-  Tag,
-  BookOpen,
-  ArrowLeft,
-  Heart,
-  Share2,
-  Bookmark,
-  MessageCircle,
-  Eye,
-  ChevronRight,
-  Twitter,
-  Facebook,
-  Linkedin,
-  Link2,
-} from 'lucide-react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import BlogDetail from './BlogDetail';
-export default function BlogDetails() {
+import { log } from 'console';
+
+export default async function BlogDetails({ params }: { params: { slug: string } }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
+
+
+  const {slug}= await params;
+
 
   // Mock blog data
   const blog = {
@@ -141,7 +130,7 @@ export class KafkaService {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-20">
-      <BlogDetail />
+      <BlogDetail slug={slug}/>
     </div>
   );
 }
