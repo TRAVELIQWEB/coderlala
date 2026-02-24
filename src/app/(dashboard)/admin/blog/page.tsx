@@ -107,9 +107,9 @@ export default function BlogPage() {
     }
   }, []);
 
-  useEffect(() => {
-    fetchBlogs(1, '', 'all');
-  }, [fetchBlogs]);
+  // useEffect(() => {
+  //   fetchBlogs(1, '', 'all');
+  // }, [fetchBlogs]);
 
   // Debounced search
   useEffect(() => {
@@ -144,7 +144,7 @@ export default function BlogPage() {
           description: post.seo?.description?.trim() || post.desc,
           canonicalUrl: post.seo?.canonicalUrl?.trim() || ''
         },
-        description: post.desc.trim()|| '',
+        description: post.desc?.trim() || '',
         status: post.status as BlogStatus || BlogStatus.DRAFT
       };
 

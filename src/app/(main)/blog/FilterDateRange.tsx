@@ -3,24 +3,42 @@
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { addDays, format } from "date-fns"
+import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { type DateRange } from "react-day-picker"
 import { Label } from "@/components/ui/label"
 
-export function FilterDateRange() {
-  const today = new Date()
+interface FilterDateRangeProps {
+  dateFrom: string;
+  dateTo: string;
+  setDateFrom: (val: string) => void;
+  setDateTo: (val: string) => void;
+}
 
+export function FilterDateRange({ dateFrom, dateTo, setDateFrom, setDateTo }: FilterDateRangeProps) {
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: today,
-    to: today,
-  })
+    from: dateFrom ? new Date(dateFrom) : undefined,
+    to: dateTo ? new Date(dateTo) : undefined,
+  });
+
+  const handleDateSelect = (newDate: DateRange | undefined) => {
+    setDate(newDate);
+    if (newDate?.from) {
+      setDateFrom(format(newDate.from, "yyyy-MM-dd"));
+    } else {
+      setDateFrom('');
+    }
+    if (newDate?.to) {
+      setDateTo(format(newDate.to, "yyyy-MM-dd"));
+    } else {
+      setDateTo('');
+    }
+  };
 
   return (
     <div className="relative w-full sm:w-64">
@@ -59,10 +77,9 @@ export function FilterDateRange() {
 
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
-            // defaultMonth={date?.from}
             mode="range"
             selected={date}
-            onSelect={setDate}
+            onSelect={handleDateSelect}
             numberOfMonths={2}
             className="rounded-md"
             classNames={{
@@ -91,5 +108,5 @@ export function FilterDateRange() {
         </PopoverContent>
       </Popover>
     </div>
-  )
+  );
 }

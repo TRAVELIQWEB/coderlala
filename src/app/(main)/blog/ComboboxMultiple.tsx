@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Check, X, ChevronsUpDown, Layers, LucideIcon } from "lucide-react"
+import { Check, X, ChevronsUpDown, LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -21,7 +21,6 @@ import {
 
 interface ComboboxMultipleProps {
   icon?: LucideIcon
-
   label: string
   options: string[]
   value: string[]

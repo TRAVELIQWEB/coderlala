@@ -1,85 +1,112 @@
 "use client";
 
-import { useEffect, useMemo, useState } from 'react'
-import { posts } from './data/posts'
+import { useEffect, useState, useCallback } from 'react'
 import { motion } from "framer-motion";
-// import { useState, useRef, useMemo } from "react";
 import Link from "next/link";
 import { HeroTitle2 } from "@/app/components/HeroTitle";
 import api from '@/lib/axios';
 import { FilterBar } from './FilterBar';
-import { MOCK_POSTS } from './data/mockData';
-import { isWithinInterval, parseISO, startOfDay, endOfDay } from 'date-fns';
+import { BlogTag, BlogTechStack } from "@/types/blog";
+import DOMPurify from 'isomorphic-dompurify';
+import { format } from 'date-fns';
 
 export interface Post {
     id: number;
     title: string;
     description: string;
     content: string;
+    slug: string;
+    createdAt: string;
+    tags: string[];
+    techStacks: string[];
 }
-
-
 
 const BlogContent = () => {
     const [allBlogs, setAllBlogs] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
     const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-    const filteredPosts = useMemo(() => {
-        return MOCK_POSTS.filter(post => {
-            // Date Filter
-            if (dateFrom || dateTo) {
-                const postDate = parseISO(post.createdAt);
-                const from = dateFrom ? startOfDay(new Date(dateFrom)) : new Date(0);
-                const to = dateTo ? endOfDay(new Date(dateTo)) : new Date(8640000000000000); // Far future
-
-                if (!isWithinInterval(postDate, { start: from, end: to })) {
-                    return false;
-                }
+    // Function to fetch blogs from backend with filters
+    const fetchFilteredBlogs = useCallback(async () => {
+        try {
+            setLoading(true);
+            
+            // Build query params object
+            const params: any = {};
+            
+            // Send dates in ISO format
+            if (dateFrom) {
+                params.fromDate = new Date(dateFrom).toISOString();
             }
-
-            // Tech Stack Filter (Multi-select: Match if post has ANY of the selected stacks)
+            if (dateTo) {
+                // Set to end of day
+                const endDate = new Date(dateTo);
+                endDate.setHours(23, 59, 59, 999);
+                params.toDate = endDate.toISOString();
+            }
             if (selectedTechStacks.length > 0) {
-                const hasMatch = selectedTechStacks.some(stack => post.techStacks.includes(stack));
-                if (!hasMatch) return false;
+                params.techStacks = selectedTechStacks.join(','); // Send as comma-separated string
             }
-
-            // Tag Filter (Multi-select: Match if post has ANY of the selected tags)
             if (selectedTags.length > 0) {
-                const hasMatch = selectedTags.some(tag => post.tags.includes(tag));
-                if (!hasMatch) return false;
+                params.tags = selectedTags.join(','); // Send as comma-separated string
             }
-
-            // Search Query
             if (searchQuery) {
-                const query = searchQuery.toLowerCase();
-                return (
-                    post.title.toLowerCase().includes(query) ||
-                    post.description.toLowerCase().includes(query) ||
-                    post.content.toLowerCase().includes(query)
-                );
+                params.searchQuery = searchQuery;
             }
 
-            return true;
-        });
-    }, [searchQuery, dateFrom, dateTo, selectedTechStacks, selectedTags]);
+            console.log('Sending params to API:', params);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-
-                const res = await api.get('/blog')
-                setAllBlogs(res.data);
-
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
+            // Make API call with query params
+            const res = await api.get('/blog', { params });
+            console.log('API Response:', res.data);
+            setAllBlogs(res.data);
+        } catch (error) {
+            console.error('Error fetching filtered blogs:', error);
+        } finally {
+            setLoading(false);
         }
-        fetchData();
-    }, []);
+    }, [dateFrom, dateTo, selectedTechStacks, selectedTags, searchQuery]);
+
+    // Initial fetch on component mount - THIS IS WHAT YOU NEED
+    useEffect(() => {
+        fetchFilteredBlogs();
+    }, []); // Empty dependency array means this runs once on mount
+
+    // Handle search button click
+    const handleSearch = () => {
+        console.log('Search button clicked with filters:', {
+            dateFrom,
+            dateTo,
+            selectedTechStacks,
+            selectedTags,
+            searchQuery
+        });
+        fetchFilteredBlogs();
+    };
+
+    // Handle reset filters
+    const handleReset = () => {
+        setDateFrom('');
+        setDateTo('');
+        setSelectedTechStacks([]);
+        setSelectedTags([]);
+        setSearchQuery('');
+        // Fetch after reset
+        fetchFilteredBlogs();
+    };
+
+    // Sanitize HTML content
+    const sanitizeHTML = (html: string) => {
+        return DOMPurify.sanitize(html, {
+            ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'code', 'pre', 'ul', 'ol', 'li', 'a', 'img'],
+            ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'target']
+        });
+    };
+
     return (
         <>
             {/* Hero Section */}
@@ -90,7 +117,6 @@ const BlogContent = () => {
                 className="text-center mb-10"
             >
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 sm:mb-6">
-                    {/* <Award className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300" /> */}
                     <span className="text-xs sm:text-sm font-medium">🚀 CoderLala Blog</span>
                 </div>
 
@@ -107,25 +133,35 @@ const BlogContent = () => {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5 }}
             >
-
                 <FilterBar
-                    dateFrom={dateFrom} setDateFrom={setDateFrom}
-                    dateTo={dateTo} setDateTo={setDateTo}
-                    selectedTechStacks={selectedTechStacks} setSelectedTechStacks={setSelectedTechStacks}
-                    selectedTags={selectedTags} setSelectedTags={setSelectedTags}
-                    searchQuery={searchQuery} setSearchQuery={setSearchQuery}
+                    dateFrom={dateFrom} 
+                    setDateFrom={setDateFrom}
+                    dateTo={dateTo} 
+                    setDateTo={setDateTo}
+                    selectedTechStacks={selectedTechStacks} 
+                    setSelectedTechStacks={setSelectedTechStacks}
+                    selectedTags={selectedTags} 
+                    setSelectedTags={setSelectedTags}
+                    searchQuery={searchQuery} 
+                    setSearchQuery={setSearchQuery}
+                    onSearch={handleSearch}
+                    onReset={handleReset}
                 />
             </motion.div>
 
-            {/* Single Project Card */}
+            {/* Loading State */}
+            {loading && (
+                <div className="text-center py-8">
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-500 border-r-transparent"></div>
+                    <p className="mt-2 text-white/70">Loading blogs...</p>
+                </div>
+            )}
+
+            {/* Blog Grid */}
             <div className="grid sm:grid-cols-1 lg:grid-cols-1 gap-4 sm:gap-6 px-4 sm:px-0">
-
-                {/* Glow */}
-                {/* <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500 to-indigo-600 rounded-2xl sm:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" /> */}
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {/* Card */}
-                    {posts.map((blog, index) => (
+                    {/* Display blogs from API */}
+                    {!loading && allBlogs.length > 0 && allBlogs.map((blog, index) => (
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -133,12 +169,11 @@ const BlogContent = () => {
                             transition={{ duration: 0.4, delay: 0.1 }}
                             whileHover={{ y: -8 }}
                             className="relative group"
-                            key={index}
+                            key={blog.id || blog._id || index}
                         >
                             <div className="relative flex flex-col justify-between glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10 h-full">
                                 <div className="grid gap-4">
-                                    {/* Title with link - Show only 7 words */}
-                                    <Link href="/contact">
+                                    <Link href={`/blog/${blog.slug}`}>
                                         <h3 className="text-lg sm:text-xl md:text-2xl font-bold group-hover:text-white transition-colors overflow-hidden cursor-pointer hover:text-blue-400">
                                             {blog.title
                                                 .split(' ')
@@ -147,30 +182,33 @@ const BlogContent = () => {
                                         </h3>
                                     </Link>
 
-                                    {/* Short Description - Show only 5 words */}
-                                    <p className="text-white/70 w-[90%] text-sm font-bold sm:text-base">
-                                        {blog.description
-                                            .split(' ')
-                                            .slice(0, 5)
-                                            .join(' ')}
-                                    </p>
+                                    {/* Description with HTML support */}
+                                    <div 
+                                        className="text-white/70 w-[90%] text-sm font-bold sm:text-base prose prose-invert prose-sm"
+                                        dangerouslySetInnerHTML={{ 
+                                            __html: sanitizeHTML(
+                                                blog.description
+                                                    .split(' ')
+                                                    .slice(0, 5)
+                                                    .join(' ')
+                                            ) 
+                                        }}
+                                    />
 
-                                    {/* Content - 3 lines, no ellipsis */}
-                                    <p className="text-white/70 text-sm sm:text-base line-clamp-3 overflow-hidden">
-                                        {blog.content}
-                                    </p>
+                                    {/* Content with HTML support - 3 lines */}
+                                    <div 
+                                        className="text-white/70 text-sm sm:text-base line-clamp-3 overflow-hidden prose prose-invert prose-sm"
+                                        dangerouslySetInnerHTML={{ 
+                                            __html: sanitizeHTML(blog.content) 
+                                        }}
+                                    />
                                 </div>
 
-                                {/* Bottom row: Stunning Continue Reading button */}
                                 <Link
                                     href={`/blog/${blog.slug}`}
                                     className="group/btn relative block mt-8 cursor-pointer"
                                 >
-                                    {/* Animated background gradient */}
-                                    <div className="absolute -inset-1  rounded-xl blur opacity-0 group-hover/btn:opacity-100 transition duration-500" />
-
                                     <div className="relative flex items-center justify-between border bg-[#4948ab] text-white! border-white/10 group-hover/btn:border-white/20 rounded-xl px-4 py-3 transition-all duration-300">
-                                        {/* Left side: Read more text with arrow */}
                                         <div className="flex items-center gap-3">
                                             <span className="text-sm font-medium text-white/80! group-hover/btn:text-white transition-colors">
                                                 Continue reading
@@ -195,7 +233,6 @@ const BlogContent = () => {
                                             </div>
                                         </div>
 
-                                        {/* Right side: Date display */}
                                         <div className="flex items-center gap-2">
                                             <div className="h-4 w-px bg-white/20 group-hover/btn:bg-white/40 transition-colors" />
                                             <div className="flex items-center gap-1.5">
@@ -203,7 +240,7 @@ const BlogContent = () => {
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                 </svg>
                                                 <span className="text-xs text-white/50! group-hover/btn:text-white/70 transition-colors">
-                                                    {new Date('2026-02-11').toLocaleDateString('en-US', {
+                                                    {new Date(blog.createdAt).toLocaleDateString('en-US', {
                                                         month: 'short',
                                                         day: 'numeric',
                                                         year: 'numeric'
@@ -217,8 +254,14 @@ const BlogContent = () => {
                         </motion.div>
                     ))}
 
-                </div >
-            </div >
+                    {/* Show message if no blogs found */}
+                    {!loading && allBlogs.length === 0 && (
+                        <div className="col-span-full text-center py-12">
+                            <p className="text-white/70 text-lg">No blogs found matching your criteria.</p>
+                        </div>
+                    )}
+                </div>
+            </div>
         </>
     )
 }

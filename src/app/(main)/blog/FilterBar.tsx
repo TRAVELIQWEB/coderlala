@@ -1,14 +1,12 @@
 import React from "react";
-import { Search, Calendar, Tag, Layers, X, Tags } from "lucide-react";
+import { Search, Layers, X, Tags } from "lucide-react";
 import { BlogTag, BlogTechStack } from "@/types/blog";
 import { Option } from "@/components/ui/multi-select";
 import { Button } from "@/components/ui/button";
-import { DatePickerWithRange } from "@/components/RangePicker";
 import { ComboboxMultiple } from "./ComboboxMultiple";
 import { FilterDateRange } from "./FilterDateRange";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-// import { ComboboxMultiple } from "./MultiSelect2";
 
 interface FiltersProps {
   dateFrom: string;
@@ -21,6 +19,8 @@ interface FiltersProps {
   setSelectedTags: (val: string[]) => void;
   searchQuery: string;
   setSearchQuery: (val: string) => void;
+  onSearch: () => void;
+  onReset: () => void;
 }
 
 const TECH_OPTIONS: Option[] = Object.values(BlogTechStack).map((tech) => ({
@@ -44,15 +44,9 @@ export const FilterBar: React.FC<FiltersProps> = ({
   setSelectedTags,
   searchQuery,
   setSearchQuery,
+  onSearch,
+  onReset,
 }) => {
-  const handleReset = () => {
-    setDateFrom("");
-    setDateTo("");
-    setSelectedTechStacks([]);
-    setSelectedTags([]);
-    setSearchQuery("");
-  };
-
   return (
     <div className="w-full max-w-7xl mx-auto mb-12">
       <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 p-5 rounded-xl bg-card border border-border shadow-lg">
@@ -62,19 +56,27 @@ export const FilterBar: React.FC<FiltersProps> = ({
             Search
           </Label>
 
-          {/* Icon inside input */}
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
 
           <Input
             placeholder="Search titles, content..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                onSearch();
+              }
+            }}
             className="h-12 pl-9 border border-input focus-visible:ring-0 bg-background rounded-md min-h-12"
           />
         </div>
 
-
-        <FilterDateRange />
+        <FilterDateRange 
+          dateFrom={dateFrom}
+          dateTo={dateTo}
+          setDateFrom={setDateFrom}
+          setDateTo={setDateTo}
+        />
 
         {/* Tech Stack */}
         <ComboboxMultiple
@@ -83,36 +85,33 @@ export const FilterBar: React.FC<FiltersProps> = ({
           value={selectedTechStacks}
           onChange={setSelectedTechStacks}
           icon={Layers}
-
         />
+        
         <ComboboxMultiple
           label="Tags"
           options={TAG_OPTIONS.map((t) => t.label)}
           value={selectedTags}
           onChange={setSelectedTags}
           icon={Tags}
-
         />
-
 
         {/* Actions */}
         <div className="flex flex-row gap-2 w-full sm:w-auto sm:ml-auto">
           <Button
-            onClick={handleReset}
+            onClick={onSearch}
             size="lg"
             variant="default"
             className="w-full sm:w-auto h-12 px-6"
-            // className="flex-1 lg:flex-none gap-2 h-12 px-6 hover:opacity-90"
           >
-            <Search className="w-4 h-4" />
+            <Search className="w-4 h-4 mr-2" />
             Search
           </Button>
 
           <Button
-            onClick={handleReset}
+            onClick={onReset}
             size="icon"
             variant="destructive"
-            className="size-12 "
+            className="size-12"
           >
             <X className="w-4 h-4 text-white!" />
           </Button>

@@ -51,21 +51,15 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
             <div className="flex items-center space-x-3">
               {/* LOGO - RESPONSIVE SIZING */}
               <div className="relative h-10">
-                {theme === "light" ? (
+                
                   <img
                     src="/logo/CoderLalaLogoLight.svg"
                     alt="CoderLalaLogo Light"
                     className="w-full h-full object-contain"
                     key="dark-logo"
                   />
-                ) : (
-                  <img
-                    src="/logo/CoderLalaLogoDark.svg"
-                    alt="CoderLalaLogo Dark"
-                    className="w-full h-full object-contain"
-                    key="light-logo"
-                  />
-                )}
+                
+                
               </div>
             </div>
           ) : (
