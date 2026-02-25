@@ -85,6 +85,7 @@ export const FilterBar: React.FC<FiltersProps> = ({
           value={selectedTechStacks}
           onChange={setSelectedTechStacks}
           icon={Layers}
+          className="sm:w-52"
         />
         
         <ComboboxMultiple
@@ -93,6 +94,7 @@ export const FilterBar: React.FC<FiltersProps> = ({
           value={selectedTags}
           onChange={setSelectedTags}
           icon={Tags}
+          className="sm:w-52"
         />
 
         {/* Actions */}

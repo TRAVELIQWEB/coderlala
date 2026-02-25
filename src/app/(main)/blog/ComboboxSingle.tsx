@@ -18,10 +18,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { ComboboxMultipleProps } from "@/types/ComboboxProps"
+import { ComboboxSingleProps } from "@/types/ComboboxProps"
 
 
-export function ComboboxMultiple({
+export function ComboboxSingle({
   label,
   options,
   value,
@@ -30,24 +30,12 @@ export function ComboboxMultiple({
   className,
   error,
   errorMessage,
-}: ComboboxMultipleProps) {
+}: ComboboxSingleProps) {
   const [open, setOpen] = React.useState(false)
-
-  const toggleItem = (item: string) => {
-    onChange(
-      value.includes(item)
-        ? value.filter((i) => i !== item)
-        : [...value, item]
-    )
-  }
-
-  const removeItem = (item: string) => {
-    onChange(value.filter((i) => i !== item))
-  }
 
   return (
     <div className={cn("relative w-full", className)}>
-      <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground bg-card rounded-sm p-0.5">
+      <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground bg-background rounded-sm p-0.5">
         {label}
       </Label>
 
@@ -56,48 +44,28 @@ export function ComboboxMultiple({
           <Button
             variant="outline"
             role="combobox"
-            className={cn(
-              "w-full justify-between min-h-12 pt-3 transition-all",
-              error &&
-              "border-destructive focus-visible:ring-destructive focus-visible:ring-2"
-            )}
+            className="w-full justify-between min-h-12 pt-3"
           >
-            <div className="flex items-center gap-2 flex-1 overflow-hidden">
+            <div className="flex items-center gap-2 overflow-hidden">
 
               {Icon && (
                 <Icon className="h-4 w-4 text-muted-foreground shrink-0" />
               )}
 
-              <div className="flex gap-1 overflow-x-auto whitespace-nowrap scrollbar-hide">
-                {value.length === 0 && (
+              <span className="truncate">
+                {value ?? (
                   <span className="text-muted-foreground">
                     Select {label}...
                   </span>
                 )}
-
-                {value.map((item) => (
-                  <span
-                    key={item}
-                    className="flex shrink-0 items-center gap-1 rounded-md bg-primary/10 px-2 py-1 text-xs text-primary"
-                  >
-                    {item}
-                    <X
-                      className="h-3 w-3 cursor-pointer"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        removeItem(item)
-                      }}
-                    />
-                  </span>
-                ))}
-              </div>
+              </span>
             </div>
 
             <ChevronsUpDown className="h-4 w-4 opacity-50 shrink-0" />
           </Button>
         </PopoverTrigger>
 
+        {/* 👇 Dropdown width auto matches trigger */}
         <PopoverContent
           className="w-(--radix-popover-trigger-width) p-0 border-border"
         >
@@ -110,12 +78,15 @@ export function ComboboxMultiple({
                   <CommandItem
                     key={option}
                     value={option}
-                    onSelect={() => toggleItem(option)}
+                    onSelect={() => {
+                      onChange(option)
+                      setOpen(false)
+                    }}
                   >
                     <Check
                       className={cn(
                         "mr-2 h-4 w-4",
-                        value.includes(option)
+                        value === option
                           ? "opacity-100"
                           : "opacity-0"
                       )}
@@ -128,11 +99,6 @@ export function ComboboxMultiple({
           </Command>
         </PopoverContent>
       </Popover>
-      {error && errorMessage && (
-        <p className="mt-1 text-sm text-destructive">
-          {errorMessage}
-        </p>
-      )}
     </div>
   )
 }
