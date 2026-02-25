@@ -28,8 +28,6 @@ export function ComboboxMultiple({
   onChange,
   icon: Icon,
   className,
-  error,
-  errorMessage,
 }: ComboboxMultipleProps) {
   const [open, setOpen] = React.useState(false)
 
@@ -56,11 +54,7 @@ export function ComboboxMultiple({
           <Button
             variant="outline"
             role="combobox"
-            className={cn(
-              "w-full justify-between min-h-12 pt-3 transition-all",
-              error &&
-              "border-destructive focus-visible:ring-destructive focus-visible:ring-2"
-            )}
+            className="w-full justify-between min-h-12 pt-3"
           >
             <div className="flex items-center gap-2 flex-1 overflow-hidden">
 
@@ -128,11 +122,6 @@ export function ComboboxMultiple({
           </Command>
         </PopoverContent>
       </Popover>
-      {error && errorMessage && (
-        <p className="mt-1 text-sm text-destructive">
-          {errorMessage}
-        </p>
-      )}
     </div>
   )
 }

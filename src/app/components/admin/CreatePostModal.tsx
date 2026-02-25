@@ -10,12 +10,14 @@ import {
   Heading1,
   Heading2,
   Strikethrough,
+  Layers,
+  Tags,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import 'prosemirror-view/style/prosemirror.css';
-
+import { Option } from "@/components/ui/multi-select";
 // Import types from separate file
 import {
   BlogPrimaryTech,
@@ -29,12 +31,29 @@ import {
   ApiResponse,
   defaultFormData
 } from '@/types/blog';
+import { Label } from '@/components/ui/label';
+import { ComboboxMultiple } from '@/app/(main)/blog/ComboboxMultiple';
+import { ComboboxSingle } from '@/app/(main)/blog/ComboboxSingle';
+import { cn } from '@/lib/utils';
+import { FormInput } from '@/components/Form/FormInput';
+import { FormTextarea } from '@/components/Form/FormTextarea';
 
 interface Props {
   open: boolean;
   onClose: () => void;
   onCreate: (post: any) => void;
 }
+const TECH_OPTIONS: Option[] = Object.values(BlogTechStack).map((tech) => ({
+  label: tech.toUpperCase(),
+  value: tech,
+}));
+
+const TAG_OPTIONS: Option[] = Object.values(BlogTag).map((tag) => ({
+  label: tag.toUpperCase(),
+  value: tag,
+}));
+
+
 
 export default function CreatePostModal({ open, onClose, onCreate }: Props) {
   const [form, setForm] = useState<CreateBlogDto>(defaultFormData);
@@ -62,6 +81,9 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
   const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
 
   // Initialize editor - ONLY StarterKit
   const editor = useEditor({
@@ -134,13 +156,13 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
     }
 
     // Slug validation
-   // Slug validation - optional field
-if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
-  newErrors.slug = 'Slug can only contain lowercase letters, numbers, and hyphens';
-  isValid = false;
-} else {
-  newErrors.slug = '';
-}
+    // Slug validation - optional field
+    if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
+      newErrors.slug = 'Slug can only contain lowercase letters, numbers, and hyphens';
+      isValid = false;
+    } else {
+      newErrors.slug = '';
+    }
     // Description validation
     if (!form.description.trim()) {
       newErrors.description = 'Description is required';
@@ -306,7 +328,7 @@ if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
       setSubmitError('Editor not initialized');
       return;
     }
-    
+
     if (!htmlInput.trim()) {
       setSubmitError('Please enter HTML content to insert');
       return;
@@ -328,7 +350,7 @@ if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
 
       setHtmlInput('');
       setSubmitError(null);
-      
+
     } catch (error) {
       setSubmitError('Failed to insert HTML: Invalid format');
     }
@@ -420,16 +442,16 @@ if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
 
 
       const response = await api.post<ApiResponse>("/admin/blogs/create", payload);
-      
+
       console.log("✅ SUCCESS:", response.data);
-      
+
       onCreate(response.data);
       resetForm();
       onClose();
 
     } catch (err: any) {
       console.error("❌ ERROR:", err);
-      
+
       if (err.response) {
         const errorMessage = err.response.data?.message;
         if (Array.isArray(errorMessage)) {
@@ -478,474 +500,293 @@ if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
 
         {/* Scrollable Form Content */}
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
-          <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6">
-            
+          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-6">
+
             {/* SECTION 1: Basic Information */}
-            <div className="bg-blue-50/50 p-6 rounded-xl border border-blue-100 space-y-5">
+            <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100 space-y-4">
               <h3 className="text-lg font-semibold text-blue-900 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
-                Basic Information <span className="text-red-500 text-sm">(All fields required)</span>
+                Basic Information
               </h3>
 
               {/* Title - Slug */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Title <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="title"
-                    placeholder="e.g. Complete Guide to NestJS"
-                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.title ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                    value={form.title}
-                    onChange={handleTitleChange}
-                  />
-                  {errors.title && (
-                    <p className="mt-1 text-sm text-red-600">{errors.title}</p>
-                  )}
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Slug <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="slug"
-                    placeholder="nestjs-complete-guide"
-                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.slug ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                    value={form.slug}
-                    onChange={handleSlugChange}
-                  />
-                  {errors.slug && (
-                    <p className="mt-1 text-sm text-red-600">{errors.slug}</p>
-                  )}
-                </div>
+                <FormInput
+                  name="title"
+                  label="Title"
+                  required
+                  placeholder="e.g. Complete Guide to NestJS"
+                  value={form.title}
+                  onChange={handleTitleChange}
+                  error={!!errors.title}
+                  errorMessage={errors.title}
+                  className='md:col-span-5'
+                />
+
+                <FormInput
+                  name="slug"
+                  label="Slug"
+                  required
+                  placeholder="nestjs-complete-guide"
+                  value={form.slug}
+                  onChange={handleSlugChange}
+                  error={!!errors.slug}
+                  errorMessage={errors.slug}
+                  className='col-span-2'
+                />
+                <FormInput
+                  type="number"
+                  name="readingTime"
+                  label="Reading Time"
+                  required
+                  min={1}
+                  max={60}
+                  value={form.readingTime}
+                  onChange={(e) => {
+                    const value = Number(e.target.value)
+                    setForm({ ...form, readingTime: value })
+                  }}
+                  error={!!errors.readingTime}
+                  errorMessage={errors.readingTime}
+                />
               </div>
 
-              {/* Primary Tech - Level - Language */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Primary Tech <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="primaryTech"
-                    value={form.primaryTech}
-                    onChange={(e) => {
-                      setForm({ ...form, primaryTech: e.target.value as BlogPrimaryTech });
-                      setErrors(prev => ({ ...prev, primaryTech: '' }));
-                    }}
-                    className={`w-full capitalize border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.primaryTech ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                  >
-                    <option value="">Select Primary Tech</option>
-                    {Object.values(BlogPrimaryTech).map((tech) => (
-                      <option key={tech} value={tech}>
-                        {tech}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.primaryTech && (
-                    <p className="mt-1 text-sm text-red-600">{errors.primaryTech}</p>
-                  )}
-                </div>
+              {/* Primary Tech - Level - Language - Status - Reading Time */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                <ComboboxSingle
+                  label="Difficulty Level *"
+                  options={Object.values(BlogLevel)}
+                  value={form.level || undefined}
+                  onChange={(val) => {
+                    setForm({ ...form, level: val as BlogLevel })
+                    setErrors(prev => ({ ...prev, level: "" }))
+                  }}
+                  error={!!errors.level}
+                  errorMessage={errors.level}
+                  className="w-full"
+                />
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Difficulty Level <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="level"
-                    value={form.level}
-                    onChange={(e) => {
-                      setForm({ ...form, level: e.target.value as BlogLevel });
-                      setErrors(prev => ({ ...prev, level: '' }));
-                    }}
-                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.level ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                  >
-                    <option value="">Select Level</option>
-                    {Object.values(BlogLevel).map((level) => (
-                      <option key={level} value={level}>
-                        {level.charAt(0).toUpperCase() + level.slice(1)}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.level && (
-                    <p className="mt-1 text-sm text-red-600">{errors.level}</p>
-                  )}
-                </div>
+                <ComboboxSingle
+                  label="Language *"
+                  options={[
+                    { label: "English", value: BlogLanguage.EN },
+                    { label: "Hindi", value: BlogLanguage.HI }
+                  ].map(o => o.label)}
+                  value={
+                    form.language === BlogLanguage.EN
+                      ? "English"
+                      : form.language === BlogLanguage.HI
+                        ? "Hindi"
+                        : undefined
+                  }
+                  onChange={(val) => {
+                    const mapped =
+                      val === "English"
+                        ? BlogLanguage.EN
+                        : BlogLanguage.HI
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Language <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="language"
-                    value={form.language}
-                    onChange={(e) => {
-                      setForm({ ...form, language: e.target.value as BlogLanguage });
-                      setErrors(prev => ({ ...prev, language: '' }));
-                    }}
-                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.language ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                  >
-                    <option value="">Select Language</option>
-                    {Object.values(BlogLanguage).map((lang) => (
-                      <option key={lang} value={lang}>
-                        {lang === BlogLanguage.EN ? 'English' : 'Hindi'}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.language && (
-                    <p className="mt-1 text-sm text-red-600">{errors.language}</p>
-                  )}
-                </div>
-              </div>
+                    setForm({ ...form, language: mapped })
+                    setErrors(prev => ({ ...prev, language: "" }))
+                  }}
+                  error={!!errors.language}
+                  errorMessage={errors.language}
+                  className="w-full"
+                />
 
-              {/* Reading Time & Status */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Reading Time (minutes) <span className="text-red-500">*</span>
-                  </label>
-                  <div className="flex items-center gap-2">
-                    <input
-                      name="readingTime"
-                      type="number"
-                      min="1"
-                      max="60"
-                      placeholder="5"
-                      className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                        errors.readingTime ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                      }`}
-                      value={form.readingTime}
-                      onChange={(e) => {
-                        const value = Number(e.target.value);
-                        setForm({ ...form, readingTime: value });
-                        if (value < 1) {
-                          setErrors(prev => ({ ...prev, readingTime: 'Reading time must be at least 1 minute' }));
-                        } else if (value > 60) {
-                          setErrors(prev => ({ ...prev, readingTime: 'Reading time cannot exceed 60 minutes' }));
-                        } else {
-                          setErrors(prev => ({ ...prev, readingTime: '' }));
-                        }
-                      }}
-                    />
-                    <span className="text-sm text-gray-500">min</span>
-                  </div>
-                  {errors.readingTime && (
-                    <p className="mt-1 text-sm text-red-600">{errors.readingTime}</p>
-                  )}
-                </div>
+                <ComboboxSingle
+                  label="Status *"
+                  options={Object.values(BlogStatus)}
+                  value={form.status || undefined}
+                  onChange={(val) => {
+                    setForm({ ...form, status: val as BlogStatus })
+                    setErrors(prev => ({ ...prev, status: "" }))
+                  }}
+                  error={!!errors.status}
+                  errorMessage={errors.status}
+                  className="w-full"
+                />
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Status <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="status"
-                    value={form.status}
-                    onChange={(e) => {
-                      setForm({ ...form, status: e.target.value as BlogStatus });
-                      setErrors(prev => ({ ...prev, status: '' }));
-                    }}
-                    className={`w-full border rounded-lg px-4 py-2.5 border-gray-300 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.status ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                  >
-                    <option value="">Select Status</option>
-                    {Object.values(BlogStatus).map((status) => (
-                      <option key={status} value={status}>
-                        {status.charAt(0).toUpperCase() + status.slice(1)}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.status && (
-                    <p className="mt-1 text-sm text-red-600">{errors.status}</p>
-                  )}
-                </div>
               </div>
 
               {/* Tech Stacks - CHECKBOXES */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Tech Stacks <span className="text-red-500">*</span>
-                </label>
-                <div className={`border rounded-lg p-4 ${errors.techStacks ? 'border-red-500 bg-red-50' : 'border-gray-300'}`}>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 max-h-48 overflow-y-auto">
-                    {Object.values(BlogTechStack).map((tech) => (
-                      <label key={tech} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-gray-50 p-1.5 rounded">
-                        <input
-                          type="checkbox"
-                          checked={form.techStacks.includes(tech)}
-                          onChange={(e) => {
-                            const values = e.target.checked
-                              ? [...form.techStacks, tech]
-                              : form.techStacks.filter(t => t !== tech);
-                            setForm({ ...form, techStacks: values });
-                            if (values.length > 0) {
-                              setErrors(prev => ({ ...prev, techStacks: '' }));
-                            }
-                          }}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        />
-                        <span className="capitalize">{tech}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                {errors.techStacks && (
-                  <p className="mt-1 text-sm text-red-600">{errors.techStacks}</p>
-                )}
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                <div className="w-full">
+                  <ComboboxSingle
+                    label="Primary Tech *"
+                    options={Object.values(BlogPrimaryTech)}
+                    value={form.primaryTech || undefined}
+                    onChange={(val) => {
+                      setForm({ ...form, primaryTech: val as BlogPrimaryTech })
+                      setErrors((prev) => ({ ...prev, primaryTech: "" }))
+                    }}
+                    error={!!errors.primaryTech}
+                    errorMessage={errors.primaryTech}
+                    className="w-full"
+                  />
 
-              {/* Tags - CHECKBOXES */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Tags <span className="text-red-500">*</span>
-                </label>
-                <div className={`border rounded-lg p-4 ${errors.tags ? 'border-red-500 bg-red-50' : 'border-gray-300'}`}>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-48 overflow-y-auto">
-                    {Object.values(BlogTag).map((tag) => (
-                      <label key={tag} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-gray-50 p-1.5 rounded">
-                        <input
-                          type="checkbox"
-                          checked={form.tags.includes(tag)}
-                          onChange={(e) => {
-                            const values = e.target.checked
-                              ? [...form.tags, tag]
-                              : form.tags.filter(t => t !== tag);
-                            setForm({ ...form, tags: values });
-                            if (values.length > 0) {
-                              setErrors(prev => ({ ...prev, tags: '' }));
-                            }
-                          }}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        />
-                        <span className="capitalize">{tag}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                {errors.tags && (
-                  <p className="mt-1 text-sm text-red-600">{errors.tags}</p>
-                )}
-              </div>
-
-              {/* Description */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Description <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  name="description"
-                  placeholder="Brief summary of your blog post (max 200 characters)"
-                  rows={3}
-                  maxLength={200}
-                  className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                    errors.description ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                  }`}
-                  value={form.description}
-                  onChange={(e) => {
-                    setForm({ ...form, description: e.target.value });
-                    if (e.target.value.trim()) {
-                      setErrors(prev => ({ ...prev, description: '' }));
-                    }
-                  }}
-                />
-                <div className="flex justify-between mt-1">
-                  {errors.description ? (
-                    <p className="text-sm text-red-600">{errors.description}</p>
-                  ) : (
-                    <p className="text-sm text-gray-500">
-                      {form.description.length}/200 characters
+                  {errors.primaryTech && (
+                    <p className="mt-1 text-sm text-destructive">
+                      {errors.primaryTech}
                     </p>
                   )}
                 </div>
+
+                {/* Tech Stack */}
+                <ComboboxMultiple
+                  label="Tech Stack"
+                  options={TECH_OPTIONS.map((t) => t.label)}
+                  value={selectedTechStacks}
+                  onChange={setSelectedTechStacks}
+                  icon={Layers}
+                  className=""
+
+                />
+
+                <ComboboxMultiple
+                  label="Tags"
+                  options={TAG_OPTIONS.map((t) => t.label)}
+                  value={selectedTags}
+                  onChange={(val) => {
+                    setSelectedTags(val)
+                    setErrors((prev) => ({ ...prev, tags: "" }))
+                  }}
+                  icon={Tags}
+                  error={!!errors.tags}
+                  errorMessage={errors.tags}
+                  className="w-full"
+                />
+
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
+                {/* Description */}
+                <FormTextarea
+                  className='col-span-3'
+                  name="description"
+                  label="Description"
+                  required
+                  rows={7}
+                  maxLength={200}
+                  value={form.description}
+                  onChange={(e) =>
+                    setForm({ ...form, description: e.target.value })
+                  }
+                  error={!!errors.description}
+                  errorMessage={errors.description}
+                />
+                {/* SECTION 2: Author Information */}
+                <div className="bg-purple-50/50 p-4 rounded-xl border border-purple-100 space-y-2">
+                  <h3 className="text-lg font-semibold text-purple-900 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-purple-600 rounded-full"></span>
+                    Author Information
+                  </h3>
+
+                  <div className="grid gap-2 mt-5">
+                    <FormInput
+                      name="authorName"
+                      label="Author Name"
+                      required
+                      value={form.author.name}
+                      onChange={(e) => {
+                        setForm({
+                          ...form,
+                          author: { ...form.author, name: e.target.value }
+                        })
+                        setErrors(prev => ({ ...prev, authorName: "" }))
+                      }}
+                      error={!!errors.authorName}
+                      errorMessage={errors.authorName}
+                    />
+
+                    <ComboboxSingle
+                      label="Author Role *"
+                      options={Object.values(BlogAuthorRole)}
+                      value={form.author.role || undefined}
+                      onChange={(val) => {
+                        setForm({
+                          ...form,
+                          author: { ...form.author, role: val as BlogAuthorRole }
+                        })
+                        setErrors(prev => ({ ...prev, authorRole: "" }))
+                      }}
+                      error={!!errors.authorRole}
+                      errorMessage={errors.authorRole}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* SECTION 2: Author Information */}
-            <div className="bg-purple-50/50 p-6 rounded-xl border border-purple-100 space-y-4">
-              <h3 className="text-lg font-semibold text-purple-900 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-purple-600 rounded-full"></span>
-                Author Information <span className="text-red-500 text-sm">(All fields required)</span>
-              </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Author Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="authorName"
-                    placeholder="John Doe"
-                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-purple-400 hover:ring-2 hover:ring-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
-                      errors.authorName ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                    value={form.author.name}
-                    onChange={(e) => {
-                      setForm({ 
-                        ...form, 
-                        author: { ...form.author, name: e.target.value } 
-                      });
-                      if (e.target.value.trim()) {
-                        setErrors(prev => ({ ...prev, authorName: '' }));
-                      }
-                    }}
-                  />
-                  {errors.authorName && (
-                    <p className="mt-1 text-sm text-red-600">{errors.authorName}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Author Role <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="authorRole"
-                    value={form.author.role}
-                    onChange={(e) => {
-                      setForm({ 
-                        ...form, 
-                        author: { ...form.author, role: e.target.value as BlogAuthorRole } 
-                      });
-                      setErrors(prev => ({ ...prev, authorRole: '' }));
-                    }}
-                    className={`w-full capitalize border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-purple-400 hover:ring-2 hover:ring-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
-                      errors.authorRole ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                  >
-                    <option value="">Select Author Role</option>
-                    {Object.values(BlogAuthorRole).map((role) => (
-                      <option key={role} value={role}>
-                        {role}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.authorRole && (
-                    <p className="mt-1 text-sm text-red-600">{errors.authorRole}</p>
-                  )}
-                </div>
-              </div>
-            </div>
 
             {/* SECTION 3: SEO Settings - ALL FIELDS REQUIRED INCLUDING CANONICAL URL */}
-            <div className="bg-green-50/50 p-6 rounded-xl border border-green-100 space-y-4">
+            <div className="bg-green-50/50 p-4 rounded-xl border border-green-100 space-y-2">
               <h3 className="text-lg font-semibold text-green-900 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-green-600 rounded-full"></span>
-                SEO Settings <span className="text-red-500 text-sm">(All fields required)</span>
+                SEO Settings
               </h3>
 
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    SEO Title <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="seoTitle"
-                    placeholder="Optimized title for search engines"
-                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-green-400 hover:ring-2 hover:ring-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
-                      errors.seoTitle ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                    value={form.seo.title}
-                    onChange={(e) => {
-                      setForm({ 
-                        ...form, 
-                        seo: { ...form.seo, title: e.target.value } 
-                      });
-                      if (e.target.value.trim()) {
-                        setErrors(prev => ({ ...prev, seoTitle: '' }));
-                      }
-                    }}
-                  />
-                  {errors.seoTitle && (
-                    <p className="mt-1 text-sm text-red-600">{errors.seoTitle}</p>
-                  )}
-                </div>
+              <div className="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
+                <FormInput
+                  name="seoTitle"
+                  label="SEO Title"
+                  required
+                  value={form.seo.title}
+                  onChange={(e) => {
+                    setForm({
+                      ...form,
+                      seo: { ...form.seo, title: e.target.value }
+                    })
+                  }}
+                  error={!!errors.seoTitle}
+                  errorMessage={errors.seoTitle}
+                />
+                <FormInput
+                  name="canonicalUrl"
+                  label="Canonical URL"
+                  required
+                  value={form.seo.canonicalUrl}
+                  onChange={(e) => {
+                    setForm({
+                      ...form,
+                      seo: { ...form.seo, canonicalUrl: e.target.value }
+                    })
+                  }}
+                  error={!!errors.canonicalUrl}
+                  errorMessage={errors.canonicalUrl}
+                />
+                <FormTextarea
+                  className='col-span-2'
+                  name="seoDescription"
+                  label="SEO Description"
+                  required
+                  rows={2}
+                  value={form.seo.description}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      seo: { ...form.seo, description: e.target.value }
+                    })
+                  }
+                  error={!!errors.seoDescription}
+                  errorMessage={errors.seoDescription}
+                />
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    SEO Description <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    name="seoDescription"
-                    placeholder="Meta description for search results"
-                    rows={2}
-                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-green-400 hover:ring-2 hover:ring-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
-                      errors.seoDescription ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                    value={form.seo.description}
-                    onChange={(e) => {
-                      setForm({ 
-                        ...form, 
-                        seo: { ...form.seo, description: e.target.value } 
-                      });
-                      if (e.target.value.trim()) {
-                        setErrors(prev => ({ ...prev, seoDescription: '' }));
-                      }
-                    }}
-                  />
-                  {errors.seoDescription && (
-                    <p className="mt-1 text-sm text-red-600">{errors.seoDescription}</p>
-                  )}
-                </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Canonical URL <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="canonicalUrl"
-                    placeholder="https://example.com/original-post"
-                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-green-400 hover:ring-2 hover:ring-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
-                      errors.canonicalUrl ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
-                    value={form.seo.canonicalUrl}
-                    onChange={(e) => {
-                      setForm({ 
-                        ...form, 
-                        seo: { ...form.seo, canonicalUrl: e.target.value } 
-                      });
-                      if (e.target.value.trim()) {
-                        // Basic URL validation on change
-                        const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
-                        if (!urlPattern.test(e.target.value.trim())) {
-                          setErrors(prev => ({ ...prev, canonicalUrl: 'Please enter a valid URL' }));
-                        } else {
-                          setErrors(prev => ({ ...prev, canonicalUrl: '' }));
-                        }
-                      } else {
-                        setErrors(prev => ({ ...prev, canonicalUrl: 'Canonical URL is required' }));
-                      }
-                    }}
-                  />
-                  {errors.canonicalUrl && (
-                    <p className="mt-1 text-sm text-red-600">{errors.canonicalUrl}</p>
-                  )}
-                </div>
               </div>
             </div>
 
             {/* SECTION 4: Content */}
-            <div className="bg-amber-50/50 p-6 rounded-xl border border-amber-100 space-y-4">
+            <div className="bg-amber-50/50 p-4 rounded-xl border border-amber-100 space-y-2">
               <h3 className="text-lg font-semibold text-amber-900 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-amber-600 rounded-full"></span>
                 Content <span className="text-red-500 text-sm">(Required - Min 10 characters)</span>
               </h3>
 
               {/* HTML Insert Toggle */}
-              <div className="flex items-center gap-4">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+              <div className="flex items-center gap-2">
+                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointermb-1">
                   <input
                     type="checkbox"
                     checked={enableHtmlInsert}
@@ -959,7 +800,7 @@ if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
               {/* Custom HTML Section */}
               {enableHtmlInsert && (
                 <div className="bg-white p-4 rounded-lg border border-amber-200">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2mb-1">
                     Custom HTML
                   </label>
                   <textarea
@@ -972,7 +813,7 @@ if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
                   <button
                     type="button"
                     onClick={insertHtmlIntoEditor}
-                    className="mt-3 bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                    className="mt-1 bg-amber-600 text-white px-3 py-2 rounded-lg hover:bg-amber-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                   >
                     Insert HTML at Cursor
                   </button>
@@ -981,7 +822,7 @@ if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
 
               {/* Content Editor */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2mb-1">
                   Content <span className="text-red-500">*</span>
                 </label>
 
@@ -990,95 +831,87 @@ if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
                   <button
                     type="button"
                     onClick={toggleBold}
-                    className={`p-2 rounded transition-all duration-200 ${
-                      editor?.isActive('bold')
-                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    }`}
+                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('bold')
+                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      }`}
                     title="Bold"
                   >
-                    <Bold size={18} />
+                    <Bold size={15} />
                   </button>
                   <button
                     type="button"
                     onClick={toggleItalic}
-                    className={`p-2 rounded transition-all duration-200 ${
-                      editor?.isActive('italic')
-                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    }`}
+                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('italic')
+                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      }`}
                     title="Italic"
                   >
-                    <Italic size={18} />
+                    <Italic size={15} />
                   </button>
                   <button
                     type="button"
                     onClick={toggleStrike}
-                    className={`p-2 rounded transition-all duration-200 ${
-                      editor?.isActive('strike')
-                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    }`}
+                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('strike')
+                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      }`}
                     title="Strikethrough"
                   >
-                    <Strikethrough size={18} />
+                    <Strikethrough size={15} />
                   </button>
                   <div className="w-px h-6 bg-gray-300 mx-1" />
                   <button
                     type="button"
                     onClick={toggleHeading1}
-                    className={`p-2 rounded transition-all duration-200 ${
-                      editor?.isActive('heading', { level: 1 })
-                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    }`}
+                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('heading', { level: 1 })
+                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      }`}
                     title="Heading 1"
                   >
-                    <Heading1 size={18} />
+                    <Heading1 size={15} />
                   </button>
                   <button
                     type="button"
                     onClick={toggleHeading2}
-                    className={`p-2 rounded transition-all duration-200 ${
-                      editor?.isActive('heading', { level: 2 })
-                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    }`}
+                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('heading', { level: 2 })
+                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      }`}
                     title="Heading 2"
                   >
-                    <Heading2 size={18} />
+                    <Heading2 size={15} />
                   </button>
                   <div className="w-px h-6 bg-gray-300 mx-1" />
                   <button
                     type="button"
                     onClick={toggleBulletList}
-                    className={`p-2 rounded transition-all duration-200 ${
-                      editor?.isActive('bulletList')
-                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    }`}
+                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('bulletList')
+                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      }`}
                     title="Bullet List"
                   >
-                    <List size={18} />
+                    <List size={15} />
                   </button>
                   <button
                     type="button"
                     onClick={toggleOrderedList}
-                    className={`p-2 rounded transition-all duration-200 ${
-                      editor?.isActive('orderedList')
-                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    }`}
+                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('orderedList')
+                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      }`}
                     title="Ordered List"
                   >
-                    <ListOrdered size={18} />
+                    <ListOrdered size={15} />
                   </button>
                 </div>
 
                 {/* Editor */}
-                <div className={`border border-t-0 rounded-b-lg bg-white p-4 transition-all duration-200 ${
-                  errors.content ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400'
-                }`}>
+                <div className={`border border-t-0 rounded-b-lg bg-white p-4 transition-all duration-200 ${errors.content ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400'
+                  }`}>
                   <EditorContent editor={editor} />
                 </div>
                 {errors.content && (
@@ -1092,7 +925,7 @@ if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
           </div>
 
           {/* Sticky Footer */}
-          <div className="shrink-0 border-t border-gray-200 bg-white px-8 py-4 flex justify-end gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+          <div className="shrink-0 border-t border-gray-200 bg-white px-6 py-3 flex justify-end gap-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
             <button
               type="button"
               onClick={() => {
@@ -1106,9 +939,8 @@ if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
             </button>
             <button
               type="submit"
-              className={`px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
+              className={`px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               disabled={isSubmitting}
             >
               {isSubmitting ? (
