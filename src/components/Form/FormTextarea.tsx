@@ -38,7 +38,7 @@ export function FormTextarea({
         />
       </div>
 
-      <div className="min-h-4">
+      <div className="">
         {error && errorMessage && (
           <p className="text-xs text-destructive">
             {errorMessage}

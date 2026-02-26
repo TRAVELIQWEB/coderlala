@@ -18,6 +18,12 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import 'prosemirror-view/style/prosemirror.css';
 import { Option } from "@/components/ui/multi-select";
+// Add these imports at the top
+import { Separator } from "@/components/ui/separator";
+import { Toggle } from "@/components/ui/toggle";
+import { Button } from '@/components/ui/button';
+import { Checkbox } from "@/components/ui/checkbox";
+
 // Import types from separate file
 import {
   BlogPrimaryTech,
@@ -121,6 +127,16 @@ export default function UpdatePostModal({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+
+  // Add this helper function at the top of the component (after useState declarations)
+  const getToggleClass = (active: boolean) =>
+    cn(
+      "border transition-colors duration-200",
+      active
+        ? "bg-[var(--toolbar-active-bg)] border-[var(--toolbar-active-border)] text-[var(--toolbar-active-border)]"
+        : "border-border"
+    );
 
   // ✅ TipTap editor
   const editor = useEditor({
@@ -651,17 +667,20 @@ export default function UpdatePostModal({
   if (!open || !editingPost || !mounted) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 backdrop-blur-sm">
-      <div className="bg-white text-gray-800 w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden border border-gray-200 flex flex-col h-[90vh]">
+    <div className="create-post-modal fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 backdrop-blur-sm">
+      <div className="w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden border flex flex-col h-[90vh] bg-(--modal-bg) text-(--modal-text) border-(--modal-border)">
 
         {/* Fixed Header - EXACT same as CreatePostModal */}
-        <div className="flex justify-between items-center px-8 py-6 border-b border-gray-100 bg-linear-to-r from-blue-50 to-indigo-50 shrink-0">
-          <h2 className="font-bold text-2xl text-gray-900">
+        <div className="flex justify-between items-center px-4 py-4 border-b shrink-0 bg-(--modal-header-bg) border-(--modal-border)">
+          <h2 className="font-bold text-2xl text-(--modal-text)">
             Edit Post
           </h2>
           <button
-            onClick={handleClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            onClick={() => {
+              resetForm();
+              onClose();
+            }}
+            className="p-2 rounded-full transition-all focus:outline-none hover:rotate-180 cursor-pointer duration-300 text-(--modal-text) hover:text-red-500"
           >
             <X size={20} />
           </button>
@@ -676,12 +695,11 @@ export default function UpdatePostModal({
 
         {/* Scrollable Form Content - EXACT same design as CreatePostModal */}
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
-          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-6">
+          <div className="flex-1 overflow-y-auto p-4 space-y-2">
 
             {/* SECTION 1: Basic Information */}
             <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100 space-y-4">
               <h3 className="text-lg font-semibold text-blue-900 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
                 Basic Information
               </h3>
 
@@ -952,133 +970,158 @@ export default function UpdatePostModal({
               </h3>
 
               {/* HTML Insert Toggle */}
-              <div className="flex items-center gap-2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointermb-1">
-                  <input
-                    type="checkbox"
-                    checked={enableHtmlInsert}
-                    onChange={(e) => setEnableHtmlInsert(e.target.checked)}
-                    className="rounded border-gray-300 text-amber-600 focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-200"
-                  />
-                  <span>Insert HTML (Advanced)</span>
-                </label>
+              <div className="flex items-center space-x-2 my-3">
+                <Checkbox
+                  id="enable-html"
+                  checked={enableHtmlInsert}
+                  onCheckedChange={(checked) => setEnableHtmlInsert(!!checked)}
+                  className="data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600 data-[state=checked]:text-white transition-all"
+                />
+                <Label
+                  htmlFor="enable-html"
+                  className="text-sm font-medium cursor-pointer"
+                >
+                  Insert HTML (Advanced)
+                </Label>
               </div>
 
               {/* Custom HTML Section */}
               {enableHtmlInsert && (
-                <div className="bg-white p-4 rounded-lg border border-amber-200">
+                <div className="bg-background p-4 rounded-lg border border-border">
                   <label className="block text-sm font-medium text-gray-700 mb-2mb-1">
                     Custom HTML
                   </label>
                   <textarea
+                    id="custom-html"
                     placeholder="Paste HTML code here... (e.g., <div class='highlight'>Your content</div>)"
                     rows={4}
-                    className="w-full border rounded-lg p-3 font-mono text-sm border-gray-300 transition-all duration-200 hover:border-amber-400 hover:ring-2 hover:ring-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    className="w-full border-border mt-2 border rounded-lg p-3 font-mono text-sm transition-all duration-200 hover:border-amber-400 hover:ring-1 hover:ring-amber-200 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-transparent"
                     value={htmlInput}
                     onChange={(e) => setHtmlInput(e.target.value)}
                   />
-                  <button
+                  <Button
                     type="button"
+                    size={'sm'}
                     onClick={insertHtmlIntoEditor}
-                    className="mt-1 bg-amber-600 text-white px-3 py-2 rounded-lg hover:bg-amber-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                    className="mt-1 bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                   >
                     Insert HTML at Cursor
-                  </button>
+                  </Button>
                 </div>
               )}
 
               {/* Content Editor */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2mb-1">
-                  Content <span className="text-red-500">*</span>
-                </label>
+                <Label
+                  htmlFor="blog-content"
+                  className="text-sm font-medium cursor-pointer inline-block mb-2"
+                >
+                  Content <span className="text-destructive">*</span>
+                </Label>
 
-                {/* Toolbar */}
-                <div className="flex flex-wrap gap-1 border border-gray-300 rounded-t-lg p-2 bg-gray-50">
-                  <button
-                    type="button"
-                    onClick={toggleBold}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('bold')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Bold"
+                {/* // Replace the entire toolbar div with: */}
+                <div
+                  className={cn(
+                    "flex flex-wrap items-center gap-2 rounded-t-lg border p-2 bg-muted",
+                    errors.content ? "border-destructive" : "border-border"
+                  )}
+                >
+                  {/* Bold */}
+                  <Toggle
+                    size="sm"
+                    pressed={editor?.isActive("bold") || false}
+                    onPressedChange={() => editor?.chain().focus().toggleBold().run()}
+                    aria-label="Bold"
+                    className={getToggleClass(editor?.isActive("bold") || false)}
                   >
-                    <Bold size={15} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={toggleItalic}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('italic')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Italic"
+                    <Bold className="h-4 w-4" />
+                  </Toggle>
+
+                  {/* Italic */}
+                  <Toggle
+                    size="sm"
+                    pressed={editor?.isActive("italic") || false}
+                    onPressedChange={() => editor?.chain().focus().toggleItalic().run()}
+                    aria-label="Italic"
+                    className={getToggleClass(editor?.isActive("italic") || false)}
                   >
-                    <Italic size={15} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={toggleStrike}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('strike')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Strikethrough"
+                    <Italic className="h-4 w-4" />
+                  </Toggle>
+
+                  {/* Strike */}
+                  <Toggle
+                    size="sm"
+                    pressed={editor?.isActive("strike") || false}
+                    onPressedChange={() => editor?.chain().focus().toggleStrike().run()}
+                    aria-label="Strikethrough"
+                    className={getToggleClass(editor?.isActive("strike") || false)}
                   >
-                    <Strikethrough size={15} />
-                  </button>
-                  <div className="w-px h-6 bg-gray-300 mx-1" />
-                  <button
-                    type="button"
-                    onClick={toggleHeading1}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('heading', { level: 1 })
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Heading 1"
+                    <Strikethrough className="h-4 w-4" />
+                  </Toggle>
+
+                  <Separator orientation="vertical" className="h-5" />
+
+                  {/* Heading 1 */}
+                  <Toggle
+                    size="sm"
+                    pressed={editor?.isActive("heading", { level: 1 }) || false}
+                    onPressedChange={() =>
+                      editor?.chain().focus().toggleHeading({ level: 1 }).run()
+                    }
+                    aria-label="Heading 1"
+                    className={getToggleClass(
+                      editor?.isActive("heading", { level: 1 }) || false
+                    )}
                   >
-                    <Heading1 size={15} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={toggleHeading2}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('heading', { level: 2 })
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Heading 2"
+                    <Heading1 className="h-4 w-4" />
+                  </Toggle>
+
+                  {/* Heading 2 */}
+                  <Toggle
+                    size="sm"
+                    pressed={editor?.isActive("heading", { level: 2 }) || false}
+                    onPressedChange={() =>
+                      editor?.chain().focus().toggleHeading({ level: 2 }).run()
+                    }
+                    aria-label="Heading 2"
+                    className={getToggleClass(
+                      editor?.isActive("heading", { level: 2 }) || false
+                    )}
                   >
-                    <Heading2 size={15} />
-                  </button>
-                  <div className="w-px h-6 bg-gray-300 mx-1" />
-                  <button
-                    type="button"
-                    onClick={toggleBulletList}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('bulletList')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Bullet List"
+                    <Heading2 className="h-4 w-4" />
+                  </Toggle>
+
+                  <Separator orientation="vertical" className="h-5" />
+
+                  {/* Bullet List */}
+                  <Toggle
+                    size="sm"
+                    pressed={editor?.isActive("bulletList") || false}
+                    onPressedChange={() =>
+                      editor?.chain().focus().toggleBulletList().run()
+                    }
+                    aria-label="Bullet List"
+                    className={getToggleClass(editor?.isActive("bulletList") || false)}
                   >
-                    <List size={15} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={toggleOrderedList}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('orderedList')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Ordered List"
+                    <List className="h-4 w-4" />
+                  </Toggle>
+
+                  {/* Ordered List */}
+                  <Toggle
+                    size="sm"
+                    pressed={editor?.isActive("orderedList") || false}
+                    onPressedChange={() =>
+                      editor?.chain().focus().toggleOrderedList().run()
+                    }
+                    aria-label="Ordered List"
+                    className={getToggleClass(editor?.isActive("orderedList") || false)}
                   >
-                    <ListOrdered size={15} />
-                  </button>
+                    <ListOrdered className="h-4 w-4" />
+                  </Toggle>
                 </div>
 
                 {/* Editor */}
-                <div className={`border border-t-0 rounded-b-lg bg-white p-4 transition-all duration-200 ${errors.content ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400'
-                  }`}>
+                <div className={`border border-t-0 rounded-b-lg bg-background p-4 transition-all duration-200 ${errors.content ? 'border-destructive' : 'border-border'}`}>
                   <EditorContent editor={editor} />
                 </div>
                 {errors.content && (
@@ -1092,18 +1135,24 @@ export default function UpdatePostModal({
           </div>
 
           {/* Sticky Footer */}
-          <div className="shrink-0 border-t border-gray-200 bg-white px-6 py-3 flex justify-end gap-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-            <button
+          <div className="shrink-0 border-t px-6 py-3 flex justify-end gap-2 bg-(--modal-footer-bg) border-(--modal-border) shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <Button
               type="button"
-              onClick={handleClose}
-              className="px-6 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-200 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              onClick={() => {
+                resetForm();
+                onClose();
+              }}
+              variant={'destructive'}
+              size={'lg'}
+              className="text-white"
               disabled={isSubmitting}
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type="submit"
-              className={`px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+              size={'lg'}
+              className={`bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
               disabled={isSubmitting}
             >
@@ -1115,7 +1164,7 @@ export default function UpdatePostModal({
               ) : (
                 'Update Post'
               )}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

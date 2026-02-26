@@ -68,7 +68,7 @@ export function ComboboxMultiple({
                 <Icon className="h-4 w-4 text-muted-foreground shrink-0" />
               )}
 
-              <div className="flex gap-1 overflow-x-auto whitespace-nowrap scrollbar-hide">
+              <div className="flex gap-1 overflow-x-auto whitespace-nowrap scrollbar-hide uppercase">
                 {value.length === 0 && (
                   <span className="text-muted-foreground">
                     Select {label}...
@@ -111,6 +111,7 @@ export function ComboboxMultiple({
                     key={option}
                     value={option}
                     onSelect={() => toggleItem(option)}
+                    className="uppercase"
                   >
                     <Check
                       className={cn(
@@ -129,7 +130,7 @@ export function ComboboxMultiple({
         </PopoverContent>
       </Popover>
       {error && errorMessage && (
-        <p className="mt-1 text-sm text-destructive">
+        <p className="mt-1 text-xs text-destructive">
           {errorMessage}
         </p>
       )}

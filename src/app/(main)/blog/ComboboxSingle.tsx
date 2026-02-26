@@ -52,7 +52,7 @@ export function ComboboxSingle({
                 <Icon className="h-4 w-4 text-muted-foreground shrink-0" />
               )}
 
-              <span className="truncate">
+              <span className="truncate uppercase">
                 {value ?? (
                   <span className="text-muted-foreground">
                     Select {label}...
@@ -76,6 +76,7 @@ export function ComboboxSingle({
               <CommandGroup>
                 {options.map((option) => (
                   <CommandItem
+                    className="uppercase"
                     key={option}
                     value={option}
                     onSelect={() => {

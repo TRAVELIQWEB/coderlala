@@ -20,10 +20,10 @@ export function FormInput({
   ...props
 }: FormInputProps) {
   return (
-    <div className={cn("w-full space-y-1", className)}>
+    <div className={cn("w-full space-y-1 ", className)}>
       {/* Floating Label */}
       <div className="relative">
-        <Label className="absolute -top-2 left-3 bg-background px-1 text-xs text-muted-foreground z-10">
+        <Label className="absolute -top-2 left-3 bg-background px-1 text-xs text-muted-foreground rounded-sm z-10">
           {label}
         </Label>
 
@@ -38,7 +38,7 @@ export function FormInput({
       </div>
 
       {/* Fixed error space (prevents layout shift) */}
-      <div className="min-h-4">
+      <div className="">
         {error && errorMessage && (
           <p className="text-xs text-destructive">
             {errorMessage}
