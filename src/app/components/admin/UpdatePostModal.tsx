@@ -1,40 +1,121 @@
 'use client';
 
 import api from '@/lib/axios';
-import {
-  X,
-  Bold,
-  Italic,
-  List,
-  ListOrdered,
-  Heading1,
-  Heading2,
-  Strikethrough,
-  Layers,
-  Tags,
-} from 'lucide-react';
+import { X, Bold, Italic, List, ListOrdered, Heading1, Heading2, Strikethrough } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import 'prosemirror-view/style/prosemirror.css';
-import { Option } from "@/components/ui/multi-select";
-// Import types from separate file
-import {
-  BlogPrimaryTech,
-  BlogTechStack,
-  BlogTag,
-  BlogLevel,
-  BlogAuthorRole,
-  BlogLanguage,
-  BlogStatus,
-  BasePost,
-} from '@/types/blog';
-import { Label } from '@/components/ui/label';
-import { ComboboxMultiple } from '@/app/(main)/blog/ComboboxMultiple';
-import { ComboboxSingle } from '@/app/(main)/blog/ComboboxSingle';
-import { cn } from '@/lib/utils';
-import { FormInput } from '@/components/Form/FormInput';
-import { FormTextarea } from '@/components/Form/FormTextarea';
+
+// ============= ENUMS - EXACTLY AS BACKEND =============
+export enum BlogPrimaryTech {
+  NESTJS = 'nestjs',
+  NEXTJS = 'nextjs',
+  NODEJS = 'nodejs',
+  REACT = 'react',
+  JAVASCRIPT = 'javascript',
+  DEVOPS = 'devops',
+  SYSTEM_DESIGN = 'system-design',
+  DATABASE = 'database',
+}
+
+export enum BlogTechStack {
+  NESTJS = 'nestjs',
+  NEXTJS = 'nextjs',
+  NODEJS = 'nodejs',
+  EXPRESS = 'express',
+  REACT = 'react',
+  REDIS = 'redis',
+  MONGODB = 'mongodb',
+  POSTGRES = 'postgres',
+  MYSQL = 'mysql',
+  BULLMQ = 'bullmq',
+  DOCKER = 'docker',
+  KUBERNETES = 'kubernetes',
+  NGINX = 'nginx',
+  AWS = 'aws',
+  GCP = 'gcp',
+}
+
+export enum BlogTag {
+  AUTH = 'auth',
+  PERFORMANCE = 'performance',
+  SECURITY = 'security',
+  SCALABILITY = 'scalability',
+  MICROSERVICES = 'microservices',
+  CACHING = 'caching',
+  QUEUE = 'queue',
+  DATABASE = 'database',
+  API = 'api',
+  SEO = 'seo',
+}
+
+export enum BlogLevel {
+  BEGINNER = 'beginner',
+  INTERMEDIATE = 'intermediate',
+  ADVANCED = 'advanced',
+}
+
+export enum BlogAuthorRole {
+  BACKEND = 'backend-engineer',
+  FRONTEND = 'frontend-engineer',
+  FULLSTACK = 'fullstack-engineer',
+  DEVOPS = 'devops-engineer',
+  ARCHITECT = 'software-architect',
+}
+
+export enum BlogLanguage {
+  EN = 'en',
+  HI = 'hi',
+}
+
+export enum BlogStatus {
+  DRAFT = 'draft',
+  ACTIVE = 'active',
+  ARCHIVED = 'archived',
+}
+
+// ============= SEO INTERFACE - EXACT BACKEND MATCH =============
+interface SeoType {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  _id?: string;
+}
+
+// ============= AUTHOR INTERFACE - EXACT BACKEND MATCH =============
+interface AuthorType {
+  name: string;
+  role: BlogAuthorRole;
+  _id?: string;
+}
+
+// ============= BASE POST TYPE - For Create/Update operations =============
+export type BasePost = {
+  _id: string;
+  title: string;
+  desc: string;
+  content: string;
+  slug: string;
+  primaryTech: BlogPrimaryTech | string;
+  techStacks: BlogTechStack[] | string[];
+  tags: BlogTag[] | string[];
+  level: BlogLevel | string;
+  readingTime: number;
+  author: AuthorType;
+  language: BlogLanguage | string;
+  status: BlogStatus | string;
+  seo: SeoType;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+// ============= FULL POST TYPE - For display =============
+export type Post = BasePost & {
+  description: string;
+  userId?: string;
+  __v?: number;
+};
 
 interface Props {
   open: boolean;
@@ -43,26 +124,15 @@ interface Props {
   editingPost: BasePost | null;
 }
 
-// Create mapping between display labels and actual values
-const TECH_OPTIONS: { label: string; value: BlogTechStack }[] = Object.values(BlogTechStack).map((tech) => ({
-  label: tech.toUpperCase(),
-  value: tech,
-}));
-
-const TAG_OPTIONS: { label: string; value: BlogTag }[] = Object.values(BlogTag).map((tag) => ({
-  label: tag.toUpperCase(),
-  value: tag,
-}));
-
 // Default SEO values
-const defaultSeo = {
+const defaultSeo: SeoType = {
   title: '',
   description: '',
   canonicalUrl: ''
 };
 
 // Default Author values
-const defaultAuthor = {
+const defaultAuthor: AuthorType = {
   name: '',
   role: BlogAuthorRole.FULLSTACK,
   _id: ''
@@ -83,14 +153,14 @@ const defaultFormState = {
   author: defaultAuthor,
   language: BlogLanguage.EN,
   status: BlogStatus.DRAFT,
-  techStacks: [] as BlogTechStack[],
-  tags: [] as BlogTag[],
+  techStacks: [] as string[],
+  tags: [] as string[],
   seo: defaultSeo
 };
 
-export default function UpdatePostModal({
-  open,
-  onClose,
+export default function UpdatePostModal({ 
+  open, 
+  onClose, 
   onUpdate,
   editingPost
 }: Props) {
@@ -119,8 +189,6 @@ export default function UpdatePostModal({
   const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   // ✅ TipTap editor
   const editor = useEditor({
@@ -158,34 +226,11 @@ export default function UpdatePostModal({
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    return () => {
-      if (editor) {
-        editor.destroy();
-      }
-    };
-  }, [editor]);
-
-  // 🔥 Load editing post data and convert to display labels
+  // 🔥 Load editing post data
   useEffect(() => {
     if (editingPost && editor && open) {
-      // Convert techStacks values to display labels
-      const techStackLabels = (editingPost.techStacks || []).map(value => {
-        const option = TECH_OPTIONS.find(opt => opt.value === value);
-        return option?.label || String(value).toUpperCase();
-      });
-
-      // Convert tags values to display labels
-      const tagLabels = (editingPost.tags || []).map(value => {
-        const option = TAG_OPTIONS.find(opt => opt.value === value);
-        return option?.label || String(value).toUpperCase();
-      });
-
-      setSelectedTechStacks(techStackLabels);
-      setSelectedTags(tagLabels);
-
       setForm({
-        _id: editingPost._id || '',
+        _id: editingPost._id,
         title: editingPost.title || '',
         desc: editingPost.desc || '',
         description: editingPost.desc || '',
@@ -202,17 +247,18 @@ export default function UpdatePostModal({
         },
         language: (editingPost.language as BlogLanguage) || BlogLanguage.EN,
         status: (editingPost.status as BlogStatus) || BlogStatus.DRAFT,
-        techStacks: editingPost.techStacks as BlogTechStack[] || [],
-        tags: editingPost.tags as BlogTag[] || [],
+        techStacks: editingPost.techStacks || [],
+        tags: editingPost.tags || [],
         seo: {
           title: editingPost.seo?.title || editingPost.title || '',
           description: editingPost.seo?.description || editingPost.desc || '',
           canonicalUrl: editingPost.seo?.canonicalUrl || '',
+          _id: editingPost.seo?._id
         }
       });
-
+      
       editor.commands.setContent(editingPost.content || '');
-
+      
       setErrors({
         title: '',
         slug: '',
@@ -233,26 +279,6 @@ export default function UpdatePostModal({
       });
     }
   }, [editingPost, editor, open]);
-
-  // Sync selected values with form state
-  useEffect(() => {
-    // Convert display labels to actual enum values
-    const techStackValues = selectedTechStacks.map(label => {
-      const option = TECH_OPTIONS.find(opt => opt.label === label);
-      return option?.value || label.toLowerCase() as BlogTechStack;
-    });
-
-    const tagValues = selectedTags.map(label => {
-      const option = TAG_OPTIONS.find(opt => opt.label === label);
-      return option?.value || label.toLowerCase() as BlogTag;
-    });
-
-    setForm(prev => ({
-      ...prev,
-      techStacks: techStackValues,
-      tags: tagValues
-    }));
-  }, [selectedTechStacks, selectedTags]);
 
   // Helper function to generate slug from title
   const generateSlug = (text: string) => {
@@ -316,16 +342,16 @@ export default function UpdatePostModal({
       newErrors.primaryTech = '';
     }
 
-    // Tech stacks validation - use selectedTechStacks
-    if (selectedTechStacks.length === 0) {
+    // Tech stacks validation
+    if (form.techStacks.length === 0) {
       newErrors.techStacks = 'Select at least one tech stack';
       isValid = false;
     } else {
       newErrors.techStacks = '';
     }
 
-    // Tags validation - use selectedTags
-    if (selectedTags.length === 0) {
+    // Tags validation
+    if (form.tags.length === 0) {
       newErrors.tags = 'Select at least one tag';
       isValid = false;
     } else {
@@ -464,7 +490,7 @@ export default function UpdatePostModal({
       setSubmitError('Editor not initialized');
       return;
     }
-
+    
     if (!htmlInput.trim()) {
       setSubmitError('Please enter HTML content to insert');
       return;
@@ -484,7 +510,7 @@ export default function UpdatePostModal({
 
       setHtmlInput('');
       setSubmitError(null);
-
+      
     } catch (error) {
       setSubmitError('Failed to insert HTML: Invalid format');
     }
@@ -502,8 +528,6 @@ export default function UpdatePostModal({
   // ============= RESET FORM =============
   const resetForm = () => {
     setForm(defaultFormState);
-    setSelectedTechStacks([]);
-    setSelectedTags([]);
     setErrors({
       title: '',
       slug: '',
@@ -551,24 +575,13 @@ export default function UpdatePostModal({
     setIsSubmitting(true);
 
     try {
-      // Convert display labels to actual values for API
-      const techStackValues = selectedTechStacks.map(label => {
-        const option = TECH_OPTIONS.find(opt => opt.label === label);
-        return option?.value || label.toLowerCase();
-      });
-
-      const tagValues = selectedTags.map(label => {
-        const option = TAG_OPTIONS.find(opt => opt.label === label);
-        return option?.value || label.toLowerCase();
-      });
-
       const payload = {
         title: form.title.trim(),
         content: editor.getHTML(),
         slug: form.slug.trim(),
         primaryTech: form.primaryTech,
-        techStacks: techStackValues,
-        tags: tagValues,
+        techStacks: form.techStacks,
+        tags: form.tags,
         level: form.level,
         readingTime: Number(form.readingTime),
         author: {
@@ -588,10 +601,9 @@ export default function UpdatePostModal({
       console.log("🚀 UPDATE PAYLOAD:", payload);
 
       const res = await api.put(`/admin/blogs/${form._id}`, payload);
-
+      
       console.log("✅ UPDATE RESPONSE:", res.data);
 
-      // Create updated post that matches BasePost type exactly
       const updatedPost: BasePost = {
         _id: form._id,
         title: form.title,
@@ -599,8 +611,8 @@ export default function UpdatePostModal({
         content: editor.getHTML(),
         slug: form.slug,
         primaryTech: form.primaryTech,
-        techStacks: techStackValues,
-        tags: tagValues,
+        techStacks: form.techStacks,
+        tags: form.tags,
         level: form.level,
         readingTime: form.readingTime,
         author: {
@@ -614,18 +626,18 @@ export default function UpdatePostModal({
           title: form.seo.title || form.title,
           description: form.seo.description || form.desc,
           canonicalUrl: form.seo.canonicalUrl || ''
-        }
-        // Note: createdAt and updatedAt are intentionally omitted
-        // because they don't exist in BasePost type
+        },
+        createdAt: editingPost?.createdAt,
+        updatedAt: new Date().toISOString()
       };
-
+      
       onUpdate(updatedPost);
       resetForm();
       onClose();
-
+      
     } catch (err: any) {
       console.error('❌ Error updating post:', err);
-
+      
       if (err.response) {
         const errorMessage = err.response.data?.message;
         if (Array.isArray(errorMessage)) {
@@ -676,284 +688,468 @@ export default function UpdatePostModal({
 
         {/* Scrollable Form Content - EXACT same design as CreatePostModal */}
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
-          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-6">
-
+          <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+            
             {/* SECTION 1: Basic Information */}
-            <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100 space-y-4">
+            <div className="bg-blue-50/50 p-6 rounded-xl border border-blue-100 space-y-5">
               <h3 className="text-lg font-semibold text-blue-900 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
-                Basic Information
+                Basic Information <span className="text-red-500 text-sm">(All fields required)</span>
               </h3>
 
               {/* Title - Slug */}
-              <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
-
-                <FormInput
-                  name="title"
-                  label="Title"
-                  required
-                  placeholder="e.g. Complete Guide to NestJS"
-                  value={form.title}
-                  onChange={handleTitleChange}
-                  error={!!errors.title}
-                  errorMessage={errors.title}
-                  className='md:col-span-5'
-                />
-
-                <FormInput
-                  name="slug"
-                  label="Slug"
-                  required
-                  placeholder="nestjs-complete-guide"
-                  value={form.slug}
-                  onChange={handleSlugChange}
-                  error={!!errors.slug}
-                  errorMessage={errors.slug}
-                  className='col-span-2'
-                />
-                <FormInput
-                  type="number"
-                  name="readingTime"
-                  label="Reading Time"
-                  required
-                  min={1}
-                  max={60}
-                  value={form.readingTime}
-                  onChange={(e) => {
-                    const value = Number(e.target.value)
-                    setForm({ ...form, readingTime: value })
-                  }}
-                  error={!!errors.readingTime}
-                  errorMessage={errors.readingTime}
-                />
-              </div>
-
-              {/* Primary Tech - Level - Language - Status */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                <ComboboxSingle
-                  label="Difficulty Level *"
-                  options={Object.values(BlogLevel)}
-                  value={form.level || undefined}
-                  onChange={(val) => {
-                    setForm({ ...form, level: val as BlogLevel })
-                    setErrors(prev => ({ ...prev, level: "" }))
-                  }}
-                  error={!!errors.level}
-                  errorMessage={errors.level}
-                  className="w-full"
-                />
-
-                <ComboboxSingle
-                  label="Language *"
-                  options={[
-                    { label: "English", value: BlogLanguage.EN },
-                    { label: "Hindi", value: BlogLanguage.HI }
-                  ].map(o => o.label)}
-                  value={
-                    form.language === BlogLanguage.EN
-                      ? "English"
-                      : form.language === BlogLanguage.HI
-                        ? "Hindi"
-                        : undefined
-                  }
-                  onChange={(val) => {
-                    const mapped =
-                      val === "English"
-                        ? BlogLanguage.EN
-                        : BlogLanguage.HI
-
-                    setForm({ ...form, language: mapped })
-                    setErrors(prev => ({ ...prev, language: "" }))
-                  }}
-                  error={!!errors.language}
-                  errorMessage={errors.language}
-                  className="w-full"
-                />
-
-                <ComboboxSingle
-                  label="Status *"
-                  options={Object.values(BlogStatus)}
-                  value={form.status || undefined}
-                  onChange={(val) => {
-                    setForm({ ...form, status: val as BlogStatus })
-                    setErrors(prev => ({ ...prev, status: "" }))
-                  }}
-                  error={!!errors.status}
-                  errorMessage={errors.status}
-                  className="w-full"
-                />
-              </div>
-
-              {/* Tech Stacks - Primary Tech and Multi-selects */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                <div className="w-full">
-                  <ComboboxSingle
-                    label="Primary Tech *"
-                    options={Object.values(BlogPrimaryTech)}
-                    value={form.primaryTech || undefined}
-                    onChange={(val) => {
-                      setForm({ ...form, primaryTech: val as BlogPrimaryTech })
-                      setErrors((prev) => ({ ...prev, primaryTech: "" }))
-                    }}
-                    error={!!errors.primaryTech}
-                    errorMessage={errors.primaryTech}
-                    className="w-full"
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Title <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    name="title"
+                    placeholder="e.g. Complete Guide to NestJS"
+                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      errors.title ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                    value={form.title}
+                    onChange={handleTitleChange}
                   />
+                  {errors.title && (
+                    <p className="mt-1 text-sm text-red-600">{errors.title}</p>
+                  )}
                 </div>
 
-                {/* Tech Stack */}
-                <ComboboxMultiple
-                  label="Tech Stack"
-                  options={TECH_OPTIONS.map((t) => t.label)}
-                  value={selectedTechStacks}
-                  onChange={(val: string[]) => {
-                    setSelectedTechStacks(val);
-                    setErrors((prev) => ({ ...prev, techStacks: "" }));
-                  }}
-                  icon={Layers}
-                  error={!!errors.techStacks}
-                  errorMessage={errors.techStacks}
-                  className="w-full"
-                />
-
-                <ComboboxMultiple
-                  label="Tags"
-                  options={TAG_OPTIONS.map((t) => t.label)}
-                  value={selectedTags}
-                  onChange={(val: string[]) => {
-                    setSelectedTags(val);
-                    setErrors((prev) => ({ ...prev, tags: "" }));
-                  }}
-                  icon={Tags}
-                  error={!!errors.tags}
-                  errorMessage={errors.tags}
-                  className="w-full"
-                />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Slug <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    name="slug"
+                    placeholder="nestjs-complete-guide"
+                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      errors.slug ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                    value={form.slug}
+                    onChange={handleSlugChange}
+                  />
+                  {errors.slug && (
+                    <p className="mt-1 text-sm text-red-600">{errors.slug}</p>
+                  )}
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
-                {/* Description */}
-                <FormTextarea
-                  className='col-span-3'
+              {/* Primary Tech - Level - Language */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Primary Tech <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    name="primaryTech"
+                    value={form.primaryTech}
+                    onChange={(e) => {
+                      setForm({ ...form, primaryTech: e.target.value as BlogPrimaryTech });
+                      setErrors(prev => ({ ...prev, primaryTech: '' }));
+                    }}
+                    className={`w-full capitalize border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      errors.primaryTech ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                  >
+                    <option value="">Select Primary Tech</option>
+                    {Object.values(BlogPrimaryTech).map((tech) => (
+                      <option key={tech} value={tech}>
+                        {tech}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.primaryTech && (
+                    <p className="mt-1 text-sm text-red-600">{errors.primaryTech}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Difficulty Level <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    name="level"
+                    value={form.level}
+                    onChange={(e) => {
+                      setForm({ ...form, level: e.target.value as BlogLevel });
+                      setErrors(prev => ({ ...prev, level: '' }));
+                    }}
+                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      errors.level ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                  >
+                    <option value="">Select Level</option>
+                    {Object.values(BlogLevel).map((level) => (
+                      <option key={level} value={level}>
+                        {level.charAt(0).toUpperCase() + level.slice(1)}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.level && (
+                    <p className="mt-1 text-sm text-red-600">{errors.level}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Language <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    name="language"
+                    value={form.language}
+                    onChange={(e) => {
+                      setForm({ ...form, language: e.target.value as BlogLanguage });
+                      setErrors(prev => ({ ...prev, language: '' }));
+                    }}
+                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      errors.language ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                  >
+                    <option value="">Select Language</option>
+                    {Object.values(BlogLanguage).map((lang) => (
+                      <option key={lang} value={lang}>
+                        {lang === BlogLanguage.EN ? 'English' : 'Hindi'}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.language && (
+                    <p className="mt-1 text-sm text-red-600">{errors.language}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Reading Time & Status */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Reading Time (minutes) <span className="text-red-500">*</span>
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      name="readingTime"
+                      type="number"
+                      min="1"
+                      max="60"
+                      placeholder="5"
+                      className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        errors.readingTime ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      }`}
+                      value={form.readingTime}
+                      onChange={(e) => {
+                        const value = Number(e.target.value);
+                        setForm({ ...form, readingTime: value });
+                        if (value < 1) {
+                          setErrors(prev => ({ ...prev, readingTime: 'Reading time must be at least 1 minute' }));
+                        } else if (value > 60) {
+                          setErrors(prev => ({ ...prev, readingTime: 'Reading time cannot exceed 60 minutes' }));
+                        } else {
+                          setErrors(prev => ({ ...prev, readingTime: '' }));
+                        }
+                      }}
+                    />
+                    <span className="text-sm text-gray-500">min</span>
+                  </div>
+                  {errors.readingTime && (
+                    <p className="mt-1 text-sm text-red-600">{errors.readingTime}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Status <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    name="status"
+                    value={form.status}
+                    onChange={(e) => {
+                      setForm({ ...form, status: e.target.value as BlogStatus });
+                      setErrors(prev => ({ ...prev, status: '' }));
+                    }}
+                    className={`w-full border rounded-lg px-4 py-2.5 border-gray-300 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      errors.status ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                  >
+                    <option value="">Select Status</option>
+                    {Object.values(BlogStatus).map((status) => (
+                      <option key={status} value={status}>
+                        {status.charAt(0).toUpperCase() + status.slice(1)}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.status && (
+                    <p className="mt-1 text-sm text-red-600">{errors.status}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Tech Stacks - CHECKBOXES */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Tech Stacks <span className="text-red-500">*</span>
+                </label>
+                <div className={`border rounded-lg p-4 ${errors.techStacks ? 'border-red-500 bg-red-50' : 'border-gray-300'}`}>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 max-h-48 overflow-y-auto">
+                    {Object.values(BlogTechStack).map((tech) => (
+                      <label key={tech} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-gray-50 p-1.5 rounded">
+                        <input
+                          type="checkbox"
+                          checked={form.techStacks.includes(tech)}
+                          onChange={(e) => {
+                            const values = e.target.checked
+                              ? [...form.techStacks, tech]
+                              : form.techStacks.filter(t => t !== tech);
+                            setForm({ ...form, techStacks: values });
+                            if (values.length > 0) {
+                              setErrors(prev => ({ ...prev, techStacks: '' }));
+                            }
+                          }}
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="capitalize">{tech}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                {errors.techStacks && (
+                  <p className="mt-1 text-sm text-red-600">{errors.techStacks}</p>
+                )}
+              </div>
+
+              {/* Tags - CHECKBOXES */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Tags <span className="text-red-500">*</span>
+                </label>
+                <div className={`border rounded-lg p-4 ${errors.tags ? 'border-red-500 bg-red-50' : 'border-gray-300'}`}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+                    {Object.values(BlogTag).map((tag) => (
+                      <label key={tag} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-gray-50 p-1.5 rounded">
+                        <input
+                          type="checkbox"
+                          checked={form.tags.includes(tag)}
+                          onChange={(e) => {
+                            const values = e.target.checked
+                              ? [...form.tags, tag]
+                              : form.tags.filter(t => t !== tag);
+                            setForm({ ...form, tags: values });
+                            if (values.length > 0) {
+                              setErrors(prev => ({ ...prev, tags: '' }));
+                            }
+                          }}
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="capitalize">{tag}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                {errors.tags && (
+                  <p className="mt-1 text-sm text-red-600">{errors.tags}</p>
+                )}
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Description <span className="text-red-500">*</span>
+                </label>
+                <textarea
                   name="description"
-                  label="Description"
-                  required
-                  rows={7}
+                  placeholder="Brief summary of your blog post (max 200 characters)"
+                  rows={3}
                   maxLength={200}
+                  className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-blue-400 hover:ring-2 hover:ring-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                    errors.description ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                  }`}
                   value={form.desc}
                   onChange={handleDescChange}
-                  error={!!errors.description}
-                  errorMessage={errors.description}
                 />
-                {/* SECTION 2: Author Information */}
-                <div className="bg-purple-50/50 p-4 rounded-xl border border-purple-100 space-y-2">
-                  <h3 className="text-lg font-semibold text-purple-900 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-purple-600 rounded-full"></span>
-                    Author Information
-                  </h3>
-
-                  <div className="grid gap-2 mt-5">
-                    <FormInput
-                      name="authorName"
-                      label="Author Name"
-                      required
-                      value={form.author.name}
-                      onChange={(e) => {
-                        setForm({
-                          ...form,
-                          author: { ...form.author, name: e.target.value }
-                        })
-                        setErrors(prev => ({ ...prev, authorName: "" }))
-                      }}
-                      error={!!errors.authorName}
-                      errorMessage={errors.authorName}
-                    />
-
-                    <ComboboxSingle
-                      label="Author Role *"
-                      options={Object.values(BlogAuthorRole)}
-                      value={form.author.role || undefined}
-                      onChange={(val) => {
-                        setForm({
-                          ...form,
-                          author: { ...form.author, role: val as BlogAuthorRole }
-                        })
-                        setErrors(prev => ({ ...prev, authorRole: "" }))
-                      }}
-                      error={!!errors.authorRole}
-                      errorMessage={errors.authorRole}
-                      className="w-full"
-                    />
-                  </div>
+                <div className="flex justify-between mt-1">
+                  {errors.description ? (
+                    <p className="text-sm text-red-600">{errors.description}</p>
+                  ) : (
+                    <p className="text-sm text-gray-500">
+                      {form.desc.length}/200 characters
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
 
-            {/* SECTION 3: SEO Settings */}
-            <div className="bg-green-50/50 p-4 rounded-xl border border-green-100 space-y-2">
-              <h3 className="text-lg font-semibold text-green-900 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-green-600 rounded-full"></span>
-                SEO Settings
+            {/* SECTION 2: Author Information */}
+            <div className="bg-purple-50/50 p-6 rounded-xl border border-purple-100 space-y-4">
+              <h3 className="text-lg font-semibold text-purple-900 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-purple-600 rounded-full"></span>
+                Author Information <span className="text-red-500 text-sm">(All fields required)</span>
               </h3>
 
-              <div className="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
-                <FormInput
-                  name="seoTitle"
-                  label="SEO Title"
-                  required
-                  value={form.seo.title}
-                  onChange={(e) => {
-                    setForm({
-                      ...form,
-                      seo: { ...form.seo, title: e.target.value }
-                    })
-                  }}
-                  error={!!errors.seoTitle}
-                  errorMessage={errors.seoTitle}
-                />
-                <FormInput
-                  name="canonicalUrl"
-                  label="Canonical URL"
-                  required
-                  value={form.seo.canonicalUrl}
-                  onChange={(e) => {
-                    setForm({
-                      ...form,
-                      seo: { ...form.seo, canonicalUrl: e.target.value }
-                    })
-                  }}
-                  error={!!errors.canonicalUrl}
-                  errorMessage={errors.canonicalUrl}
-                />
-                <FormTextarea
-                  className='col-span-2'
-                  name="seoDescription"
-                  label="SEO Description"
-                  required
-                  rows={2}
-                  value={form.seo.description}
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      seo: { ...form.seo, description: e.target.value }
-                    })
-                  }
-                  error={!!errors.seoDescription}
-                  errorMessage={errors.seoDescription}
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Author Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    name="authorName"
+                    placeholder="John Doe"
+                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-purple-400 hover:ring-2 hover:ring-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+                      errors.authorName ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                    value={form.author.name}
+                    onChange={(e) => {
+                      setForm({ 
+                        ...form, 
+                        author: { ...form.author, name: e.target.value } 
+                      });
+                      if (e.target.value.trim()) {
+                        setErrors(prev => ({ ...prev, authorName: '' }));
+                      }
+                    }}
+                  />
+                  {errors.authorName && (
+                    <p className="mt-1 text-sm text-red-600">{errors.authorName}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Author Role <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    name="authorRole"
+                    value={form.author.role}
+                    onChange={(e) => {
+                      setForm({ 
+                        ...form, 
+                        author: { ...form.author, role: e.target.value as BlogAuthorRole } 
+                      });
+                      setErrors(prev => ({ ...prev, authorRole: '' }));
+                    }}
+                    className={`w-full capitalize border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-purple-400 hover:ring-2 hover:ring-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent ${
+                      errors.authorRole ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                  >
+                    <option value="">Select Author Role</option>
+                    {Object.values(BlogAuthorRole).map((role) => (
+                      <option key={role} value={role}>
+                        {role}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.authorRole && (
+                    <p className="mt-1 text-sm text-red-600">{errors.authorRole}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* SECTION 3: SEO Settings - ALL FIELDS REQUIRED */}
+            <div className="bg-green-50/50 p-6 rounded-xl border border-green-100 space-y-4">
+              <h3 className="text-lg font-semibold text-green-900 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-green-600 rounded-full"></span>
+                SEO Settings <span className="text-red-500 text-sm">(All fields required)</span>
+              </h3>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    SEO Title <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    name="seoTitle"
+                    placeholder="Optimized title for search engines"
+                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-green-400 hover:ring-2 hover:ring-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
+                      errors.seoTitle ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                    value={form.seo.title}
+                    onChange={(e) => {
+                      setForm({ 
+                        ...form, 
+                        seo: { ...form.seo, title: e.target.value } 
+                      });
+                      if (e.target.value.trim()) {
+                        setErrors(prev => ({ ...prev, seoTitle: '' }));
+                      }
+                    }}
+                  />
+                  {errors.seoTitle && (
+                    <p className="mt-1 text-sm text-red-600">{errors.seoTitle}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    SEO Description <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    name="seoDescription"
+                    placeholder="Meta description for search results"
+                    rows={2}
+                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-green-400 hover:ring-2 hover:ring-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
+                      errors.seoDescription ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                    value={form.seo.description}
+                    onChange={(e) => {
+                      setForm({ 
+                        ...form, 
+                        seo: { ...form.seo, description: e.target.value } 
+                      });
+                      if (e.target.value.trim()) {
+                        setErrors(prev => ({ ...prev, seoDescription: '' }));
+                      }
+                    }}
+                  />
+                  {errors.seoDescription && (
+                    <p className="mt-1 text-sm text-red-600">{errors.seoDescription}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Canonical URL <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    name="canonicalUrl"
+                    placeholder="https://example.com/original-post"
+                    className={`w-full border rounded-lg px-4 py-2.5 transition-all duration-200 hover:border-green-400 hover:ring-2 hover:ring-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${
+                      errors.canonicalUrl ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
+                    value={form.seo.canonicalUrl}
+                    onChange={(e) => {
+                      setForm({ 
+                        ...form, 
+                        seo: { ...form.seo, canonicalUrl: e.target.value } 
+                      });
+                      if (e.target.value.trim()) {
+                        const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+                        if (!urlPattern.test(e.target.value.trim())) {
+                          setErrors(prev => ({ ...prev, canonicalUrl: 'Please enter a valid URL' }));
+                        } else {
+                          setErrors(prev => ({ ...prev, canonicalUrl: '' }));
+                        }
+                      } else {
+                        setErrors(prev => ({ ...prev, canonicalUrl: 'Canonical URL is required' }));
+                      }
+                    }}
+                  />
+                  {errors.canonicalUrl && (
+                    <p className="mt-1 text-sm text-red-600">{errors.canonicalUrl}</p>
+                  )}
+                </div>
               </div>
             </div>
 
             {/* SECTION 4: Content */}
-            <div className="bg-amber-50/50 p-4 rounded-xl border border-amber-100 space-y-2">
+            <div className="bg-amber-50/50 p-6 rounded-xl border border-amber-100 space-y-4">
               <h3 className="text-lg font-semibold text-amber-900 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-amber-600 rounded-full"></span>
                 Content <span className="text-red-500 text-sm">(Required - Min 10 characters)</span>
               </h3>
 
               {/* HTML Insert Toggle */}
-              <div className="flex items-center gap-2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointermb-1">
+              <div className="flex items-center gap-4">
+                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={enableHtmlInsert}
@@ -967,7 +1163,7 @@ export default function UpdatePostModal({
               {/* Custom HTML Section */}
               {enableHtmlInsert && (
                 <div className="bg-white p-4 rounded-lg border border-amber-200">
-                  <label className="block text-sm font-medium text-gray-700 mb-2mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Custom HTML
                   </label>
                   <textarea
@@ -980,7 +1176,7 @@ export default function UpdatePostModal({
                   <button
                     type="button"
                     onClick={insertHtmlIntoEditor}
-                    className="mt-1 bg-amber-600 text-white px-3 py-2 rounded-lg hover:bg-amber-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                    className="mt-3 bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                   >
                     Insert HTML at Cursor
                   </button>
@@ -989,7 +1185,7 @@ export default function UpdatePostModal({
 
               {/* Content Editor */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Content <span className="text-red-500">*</span>
                 </label>
 
@@ -998,87 +1194,95 @@ export default function UpdatePostModal({
                   <button
                     type="button"
                     onClick={toggleBold}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('bold')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
+                    className={`p-2 rounded transition-all duration-200 ${
+                      editor?.isActive('bold')
+                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    }`}
                     title="Bold"
                   >
-                    <Bold size={15} />
+                    <Bold size={18} />
                   </button>
                   <button
                     type="button"
                     onClick={toggleItalic}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('italic')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
+                    className={`p-2 rounded transition-all duration-200 ${
+                      editor?.isActive('italic')
+                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    }`}
                     title="Italic"
                   >
-                    <Italic size={15} />
+                    <Italic size={18} />
                   </button>
                   <button
                     type="button"
                     onClick={toggleStrike}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('strike')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
+                    className={`p-2 rounded transition-all duration-200 ${
+                      editor?.isActive('strike')
+                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    }`}
                     title="Strikethrough"
                   >
-                    <Strikethrough size={15} />
+                    <Strikethrough size={18} />
                   </button>
                   <div className="w-px h-6 bg-gray-300 mx-1" />
                   <button
                     type="button"
                     onClick={toggleHeading1}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('heading', { level: 1 })
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
+                    className={`p-2 rounded transition-all duration-200 ${
+                      editor?.isActive('heading', { level: 1 })
+                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    }`}
                     title="Heading 1"
                   >
-                    <Heading1 size={15} />
+                    <Heading1 size={18} />
                   </button>
                   <button
                     type="button"
                     onClick={toggleHeading2}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('heading', { level: 2 })
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
+                    className={`p-2 rounded transition-all duration-200 ${
+                      editor?.isActive('heading', { level: 2 })
+                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    }`}
                     title="Heading 2"
                   >
-                    <Heading2 size={15} />
+                    <Heading2 size={18} />
                   </button>
                   <div className="w-px h-6 bg-gray-300 mx-1" />
                   <button
                     type="button"
                     onClick={toggleBulletList}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('bulletList')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
+                    className={`p-2 rounded transition-all duration-200 ${
+                      editor?.isActive('bulletList')
+                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    }`}
                     title="Bullet List"
                   >
-                    <List size={15} />
+                    <List size={18} />
                   </button>
                   <button
                     type="button"
                     onClick={toggleOrderedList}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('orderedList')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
+                    className={`p-2 rounded transition-all duration-200 ${
+                      editor?.isActive('orderedList')
+                        ? 'bg-blue-500 text-white ring-2 ring-blue-300'
+                        : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    }`}
                     title="Ordered List"
                   >
-                    <ListOrdered size={15} />
+                    <ListOrdered size={18} />
                   </button>
                 </div>
 
                 {/* Editor */}
-                <div className={`border border-t-0 rounded-b-lg bg-white p-4 transition-all duration-200 ${errors.content ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400'
-                  }`}>
+                <div className={`border border-t-0 rounded-b-lg bg-white p-4 transition-all duration-200 ${
+                  errors.content ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-blue-400'
+                }`}>
                   <EditorContent editor={editor} />
                 </div>
                 {errors.content && (
@@ -1092,7 +1296,7 @@ export default function UpdatePostModal({
           </div>
 
           {/* Sticky Footer */}
-          <div className="shrink-0 border-t border-gray-200 bg-white px-6 py-3 flex justify-end gap-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+          <div className="shrink-0 border-t border-gray-200 bg-white px-8 py-4 flex justify-end gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
             <button
               type="button"
               onClick={handleClose}
@@ -1103,8 +1307,9 @@ export default function UpdatePostModal({
             </button>
             <button
               type="submit"
-              className={`px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
+              className={`px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
               disabled={isSubmitting}
             >
               {isSubmitting ? (

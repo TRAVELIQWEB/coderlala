@@ -43,17 +43,17 @@ interface Props {
   onClose: () => void;
   onCreate: (post: any) => void;
 }
-
-// Create mapping between display labels and actual values
-const TECH_OPTIONS: { label: string; value: BlogTechStack }[] = Object.values(BlogTechStack).map((tech) => ({
+const TECH_OPTIONS: Option[] = Object.values(BlogTechStack).map((tech) => ({
   label: tech.toUpperCase(),
   value: tech,
 }));
 
-const TAG_OPTIONS: { label: string; value: BlogTag }[] = Object.values(BlogTag).map((tag) => ({
+const TAG_OPTIONS: Option[] = Object.values(BlogTag).map((tag) => ({
   label: tag.toUpperCase(),
   value: tag,
 }));
+
+
 
 export default function CreatePostModal({ open, onClose, onCreate }: Props) {
   const [form, setForm] = useState<CreateBlogDto>(defaultFormData);
@@ -84,25 +84,6 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
   const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  // Sync selected values with form state (convert display labels to actual values)
-  useEffect(() => {
-    // Convert display labels to actual enum values
-    const techStackValues = selectedTechStacks.map(label => {
-      const option = TECH_OPTIONS.find(opt => opt.label === label);
-      return option?.value || label.toLowerCase();
-    }) as BlogTechStack[];
-
-    const tagValues = selectedTags.map(label => {
-      const option = TAG_OPTIONS.find(opt => opt.label === label);
-      return option?.value || label.toLowerCase();
-    }) as BlogTag[];
-
-    setForm(prev => ({
-      ...prev,
-      techStacks: techStackValues,
-      tags: tagValues
-    }));
-  }, [selectedTechStacks, selectedTags]);
 
   // Initialize editor - ONLY StarterKit
   const editor = useEditor({
@@ -174,6 +155,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
       newErrors.title = '';
     }
 
+    // Slug validation
     // Slug validation - optional field
     if (form.slug.trim() && !/^[a-z0-9-]+$/.test(form.slug)) {
       newErrors.slug = 'Slug can only contain lowercase letters, numbers, and hyphens';
@@ -181,7 +163,6 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
     } else {
       newErrors.slug = '';
     }
-
     // Description validation
     if (!form.description.trim()) {
       newErrors.description = 'Description is required';
@@ -210,16 +191,16 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
       newErrors.primaryTech = '';
     }
 
-    // Tech stacks validation - use selectedTechStacks
-    if (selectedTechStacks.length === 0) {
+    // Tech stacks validation
+    if (form.techStacks.length === 0) {
       newErrors.techStacks = 'Select at least one tech stack';
       isValid = false;
     } else {
       newErrors.techStacks = '';
     }
 
-    // Tags validation - use selectedTags
-    if (selectedTags.length === 0) {
+    // Tags validation
+    if (form.tags.length === 0) {
       newErrors.tags = 'Select at least one tag';
       isValid = false;
     } else {
@@ -309,7 +290,6 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
     }
 
     setErrors(newErrors);
-    console.log('Validation result:', isValid, newErrors);
     return isValid;
   };
 
@@ -388,8 +368,6 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
   // ============= RESET FORM =============
   const resetForm = () => {
     setForm({ ...defaultFormData });
-    setSelectedTechStacks([]);
-    setSelectedTags([]);
     setErrors({
       title: '',
       slug: '',
@@ -438,24 +416,13 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
     setIsSubmitting(true);
 
     try {
-      // Convert display labels to actual values for API
-      const techStackValues = selectedTechStacks.map(label => {
-        const option = TECH_OPTIONS.find(opt => opt.label === label);
-        return option?.value || label.toLowerCase();
-      });
-
-      const tagValues = selectedTags.map(label => {
-        const option = TAG_OPTIONS.find(opt => opt.label === label);
-        return option?.value || label.toLowerCase();
-      });
-
       const payload = {
         title: form.title.trim(),
         content: editor.getHTML(),
         slug: form.slug.trim(),
         primaryTech: form.primaryTech,
-        techStacks: techStackValues, // Send lowercase values
-        tags: tagValues, // Send lowercase values
+        techStacks: form.techStacks,
+        tags: form.tags,
         level: form.level,
         readingTime: Number(form.readingTime),
         author: {
@@ -466,13 +433,13 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
         seo: {
           title: form.seo.title.trim(),
           description: form.seo.description.trim(),
-          canonicalUrl: form.seo.canonicalUrl?.trim(),
+          canonicalUrl: form.seo.canonicalUrl?.trim(), // Now required
         },
         description: form.description.trim(),
         status: form.status,
       };
 
-      console.log("📤 SENDING PAYLOAD:", payload);
+
 
       const response = await api.post<ApiResponse>("/admin/blogs/create", payload);
 
@@ -670,23 +637,19 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
                   label="Tech Stack"
                   options={TECH_OPTIONS.map((t) => t.label)}
                   value={selectedTechStacks}
-                  onChange={(val: string[]) => {
-                    setSelectedTechStacks(val);
-                    setErrors((prev) => ({ ...prev, techStacks: "" }));
-                  }}
+                  onChange={setSelectedTechStacks}
                   icon={Layers}
-                  error={!!errors.techStacks}
-                  errorMessage={errors.techStacks}
-                  className="w-full"
+                  className=""
+
                 />
 
                 <ComboboxMultiple
                   label="Tags"
                   options={TAG_OPTIONS.map((t) => t.label)}
                   value={selectedTags}
-                  onChange={(val: string[]) => {
-                    setSelectedTags(val);
-                    setErrors((prev) => ({ ...prev, tags: "" }));
+                  onChange={(val) => {
+                    setSelectedTags(val)
+                    setErrors((prev) => ({ ...prev, tags: "" }))
                   }}
                   icon={Tags}
                   error={!!errors.tags}
@@ -755,6 +718,8 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
               </div>
             </div>
 
+
+
             {/* SECTION 3: SEO Settings - ALL FIELDS REQUIRED INCLUDING CANONICAL URL */}
             <div className="bg-green-50/50 p-4 rounded-xl border border-green-100 space-y-2">
               <h3 className="text-lg font-semibold text-green-900 flex items-center gap-2">
@@ -807,6 +772,8 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
                   error={!!errors.seoDescription}
                   errorMessage={errors.seoDescription}
                 />
+
+
               </div>
             </div>
 
