@@ -69,7 +69,8 @@ export default function BlogPage() {
       const mappedPosts: Post[] = blogsData.map((post: any): Post => ({
         _id: post._id,
         title: post.title || '',
-        desc: post.description || '',
+        desc: post.description || post.desc || '',
+        description: post.description || post.desc || '',
         content: post.content || '',
         slug: post.slug || '',
         primaryTech: post.primaryTech || BlogPrimaryTech.NESTJS,
@@ -81,11 +82,10 @@ export default function BlogPage() {
         language: post.language || BlogLanguage.EN,
         seo: post.seo || {
           title: post.title || '',
-          description: post.description || '',
+          description: post.description || post.desc || '',
           canonicalUrl: ''
         },
         status: post.status || BlogStatus.DRAFT,
-        description: post.description || '',
         createdAt: post.createdAt || new Date().toISOString(),
         updatedAt: post.updatedAt || new Date().toISOString()
       }));
@@ -107,10 +107,6 @@ export default function BlogPage() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   fetchBlogs(1, '', 'all');
-  // }, [fetchBlogs]);
-
   // Debounced search
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -120,78 +116,60 @@ export default function BlogPage() {
     return () => clearTimeout(timeoutId);
   }, [searchQuery, statusFilter, fetchBlogs]);
 
-  // 🔥 FIXED: Create post - IMMEDIATE UI UPDATE
+  // 🔥 FIXED: Create post - Handle both desc and description fields with proper type checking
   const createPost = async (post: BasePost) => {
     try {
       setError(null);
 
-      const payload = {
-        title: post.title.trim(),
-        content: post.content,
-        slug: post.slug || generateSlug(post.title),
-        primaryTech: post.primaryTech as BlogPrimaryTech || BlogPrimaryTech.NESTJS,
-        techStacks: post.techStacks as BlogTechStack[] || [],
-        tags: post.tags as BlogTag[] || [],
-        level: post.level as BlogLevel || BlogLevel.BEGINNER,
-        readingTime: Number(post.readingTime) || 5,
-        author: {
-          name: post.author?.name?.trim() || 'Admin',
-          role: post.author?.role as BlogAuthorRole || BlogAuthorRole.FULLSTACK
-        },
-        language: post.language as BlogLanguage || BlogLanguage.EN,
-        seo: {
-          title: post.seo?.title?.trim() || post.title,
-          description: post.seo?.description?.trim() || post.desc,
-          canonicalUrl: post.seo?.canonicalUrl?.trim() || ''
-        },
-        description: post.desc?.trim() || '',
-        status: post.status as BlogStatus || BlogStatus.DRAFT
-      };
+      console.log("✅ DATA FROM MODAL:", post);
 
-
-
-      const res = await api.post('/admin/blogs/create', payload);
-
-      console.log("✅ CREATE RESPONSE:", res.data);
-
-      // 🔥 CRITICAL FIX: Get the newly created post from response
-      const newPost = res.data?.data || res.data;
-
-      // 🔥 IMMEDIATE UI UPDATE: Add the new post to the list
-      if (newPost) {
-        const mappedNewPost: Post = {
-          _id: newPost._id,
-          title: newPost.title || payload.title,
-          desc: newPost.description || payload.description,
-          content: newPost.content || payload.content,
-          slug: newPost.slug || payload.slug,
-          primaryTech: newPost.primaryTech || payload.primaryTech,
-          techStacks: newPost.techStacks || payload.techStacks,
-          tags: newPost.tags || payload.tags,
-          level: newPost.level || payload.level,
-          readingTime: newPost.readingTime || payload.readingTime,
-          author: newPost.author || payload.author,
-          language: newPost.language || payload.language,
-          seo: newPost.seo || payload.seo,
-          status: newPost.status || payload.status,
-          description: newPost.description || payload.description,
-          createdAt: newPost.createdAt || new Date().toISOString(),
-          updatedAt: newPost.updatedAt || new Date().toISOString(),
-        };
-
-        // Add to beginning of list and refresh pagination count
-        setPosts(prev => [mappedNewPost, ...prev]);
-        setPagination(prev => ({
-          ...prev,
-          totalItems: prev.totalItems + 1,
-          totalPages: Math.ceil((prev.totalItems + 1) / 20)
-        }));
+      // 🔥 Check if _id exists (should come from API via modal)
+      if (!post._id) {
+        console.error("❌ No _id received from modal");
+        // Refresh the list instead of trying to add manually
+        fetchBlogs(pagination.currentPage, searchQuery, statusFilter);
+        setCreateModalOpen(false);
+        return;
       }
 
-      // 🔥 BACKGROUND REFRESH: Still fetch to ensure consistency
-      setTimeout(() => {
-        fetchBlogs(1, searchQuery, statusFilter);
-      }, 100);
+      // 🔥 Get description from either desc or description field
+      const description = post.desc || post.description || '';
+      
+      // 🔥 Create the mapped post with all required fields
+      const mappedNewPost: Post = {
+        _id: post._id,
+        title: post.title || '',
+        desc: description,
+        description: description,
+        content: post.content || '',
+        slug: post.slug || '',
+        primaryTech: post.primaryTech || BlogPrimaryTech.NESTJS,
+        techStacks: post.techStacks || [],
+        tags: post.tags || [],
+        level: post.level || BlogLevel.BEGINNER,
+        readingTime: post.readingTime || 5,
+        author: post.author || { name: '', role: BlogAuthorRole.BACKEND, _id: '' },
+        language: post.language || BlogLanguage.EN,
+        seo: post.seo || {
+          title: post.title || '',
+          description: description,
+          canonicalUrl: ''
+        },
+        status: post.status || BlogStatus.DRAFT,
+        // Use current date since BasePost doesn't have these fields
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      console.log("📝 MAPPED POST:", mappedNewPost);
+
+      // Add to beginning of list and refresh pagination count
+      setPosts(prev => [mappedNewPost, ...prev]);
+      setPagination(prev => ({
+        ...prev,
+        totalItems: prev.totalItems + 1,
+        totalPages: Math.ceil((prev.totalItems + 1) / 20)
+      }));
 
       // Close modal
       setCreateModalOpen(false);
@@ -210,7 +188,7 @@ export default function BlogPage() {
     }
   };
 
-  // 🔥 FIXED: Update post - IMMEDIATE UI UPDATE
+  // 🔥 FIXED: Update post - REMOVED background refresh
   const updatePost = async (updatedPost: BasePost) => {
     try {
       if (!updatedPost._id) {
@@ -243,46 +221,43 @@ export default function BlogPage() {
         status: updatedPost.status as BlogStatus || BlogStatus.DRAFT
       };
 
-
-
       const res = await api.put(`/admin/blogs/${updatedPost._id}`, payload);
 
       console.log("✅ UPDATE RESPONSE:", res.data);
+
+      // Get description from response or payload
+      const updatedDescription = res.data?.data?.description || res.data?.description || payload.description;
 
       // 🔥 IMMEDIATE UI UPDATE: Update the post in the list
       setPosts(prev => prev.map(post =>
         post._id === updatedPost._id
           ? {
-            ...post,
-            title: payload.title,
-            content: payload.content,
-            slug: payload.slug,
-            primaryTech: payload.primaryTech as string,
-            techStacks: payload.techStacks as string[],
-            tags: payload.tags as string[],
-            level: payload.level as string,
-            readingTime: payload.readingTime,
-            author: payload.author,
-            language: payload.language as string,
-            seo: payload.seo,
-            status: payload.status as string,
-            description: payload.description,
-            updatedAt: new Date().toISOString()
-          }
+              ...post,
+              title: payload.title,
+              content: payload.content,
+              slug: payload.slug,
+              primaryTech: payload.primaryTech as string,
+              techStacks: payload.techStacks as string[],
+              tags: payload.tags as string[],
+              level: payload.level as string,
+              readingTime: payload.readingTime,
+              author: payload.author,
+              language: payload.language as string,
+              seo: payload.seo,
+              status: payload.status as string,
+              desc: updatedDescription,
+              description: updatedDescription,
+              updatedAt: new Date().toISOString()
+            }
           : post
       ));
-
-      // 🔥 BACKGROUND REFRESH: Ensure consistency
-      setTimeout(() => {
-        fetchBlogs(pagination.currentPage, searchQuery, statusFilter);
-      }, 100);
 
       // Close modal
       setUpdateModalOpen(false);
       setEditingPost(null);
 
     } catch (error: any) {
-
+      console.error('❌ Error updating post:', error);
       const errorMsg = error.response?.data?.message;
       if (Array.isArray(errorMsg)) {
         setError(errorMsg.join(', '));
@@ -449,7 +424,9 @@ export default function BlogPage() {
                           <div className="truncate text-gray-500" title={post.slug}>{post.slug || '-'}</div>
                         </td>
                         <td className="px-6 py-4 max-w-xs">
-                          <div className="truncate text-gray-500" title={post.description}>{post.description || post.desc || '-'}</div>
+                          <div className="truncate text-gray-500" title={post.description}>
+                            {post.description || post.desc || '-'}
+                          </div>
                         </td>
                         <td className="px-6 py-4">{post.primaryTech || '-'}</td>
                         <td className="px-6 py-4">
@@ -465,10 +442,11 @@ export default function BlogPage() {
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${post.status === 'active' ? 'bg-green-100 text-green-700' :
-                              post.status === 'draft' ? 'bg-gray-100 text-gray-700' :
-                                'bg-red-100 text-red-700'
-                            }`}>
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                            post.status === 'active' ? 'bg-green-100 text-green-700' :
+                            post.status === 'draft' ? 'bg-gray-100 text-gray-700' :
+                            'bg-red-100 text-red-700'
+                          }`}>
                             {post.status}
                           </span>
                         </td>
@@ -507,10 +485,11 @@ export default function BlogPage() {
                     <button
                       onClick={handlePrevPage}
                       disabled={!pagination.hasPrevPage}
-                      className={`p-2 rounded-lg border ${pagination.hasPrevPage
+                      className={`p-2 rounded-lg border ${
+                        pagination.hasPrevPage
                           ? 'text-gray-700! hover:bg-gray-100 border-gray-300'
                           : 'text-gray-400! border-gray-200 cursor-not-allowed'
-                        }`}
+                      }`}
                     >
                       <ChevronLeft size={18} />
                     </button>
@@ -519,10 +498,11 @@ export default function BlogPage() {
                       <button
                         key={page}
                         onClick={() => handlePageClick(page)}
-                        className={`min-w-[40px] px-3 py-2 rounded-lg border text-sm font-medium ${page === pagination.currentPage
+                        className={`min-w-[40px] px-3 py-2 rounded-lg border text-sm font-medium ${
+                          page === pagination.currentPage
                             ? 'bg-blue-600 text-white! border-blue-600'
                             : 'text-gray-700 hover:bg-gray-100 border-gray-300'
-                          }`}
+                        }`}
                       >
                         {page}
                       </button>
@@ -531,10 +511,11 @@ export default function BlogPage() {
                     <button
                       onClick={handleNextPage}
                       disabled={!pagination.hasNextPage}
-                      className={`p-2 rounded-lg border ${pagination.hasNextPage
+                      className={`p-2 rounded-lg border ${
+                        pagination.hasNextPage
                           ? 'text-gray-700 hover:bg-gray-100 border-gray-300'
                           : 'text-gray-400 border-gray-200 cursor-not-allowed'
-                        }`}
+                      }`}
                     >
                       <ChevronRight size={18} />
                     </button>
@@ -545,7 +526,6 @@ export default function BlogPage() {
           </>
         )}
       </div>
-
 
       {/* Create Modal */}
       <CreatePostModal
