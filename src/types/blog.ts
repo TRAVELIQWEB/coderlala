@@ -126,12 +126,13 @@ export interface BasePost {
 export interface Post {
   _id: string;
   title: string;
-  description: string;   // API returns 'description' (blog summary)
-  content: string;       // Blog body/content
+  desc: string; // Add this field
+  description: string; // Keep this field
+  content: string;
   slug: string;
   primaryTech: BlogPrimaryTech | string;
-  techStacks: (BlogTechStack | string)[];
-  tags: (BlogTag | string)[];
+  techStacks: BlogTechStack[] | string[];
+  tags: BlogTag[] | string[];
   level: BlogLevel | string;
   readingTime: number;
   author: {
@@ -142,7 +143,7 @@ export interface Post {
   language: BlogLanguage | string;
   seo: {
     title: string;
-    description: string; // SEO description
+    description: string;
     canonicalUrl: string;
   };
   status: BlogStatus | string;
