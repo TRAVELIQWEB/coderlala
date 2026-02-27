@@ -236,7 +236,7 @@ export default function MemberProfilePage() {
                     <div className="flex justify-center">
 
                         <Link
-                            href="/contact"
+                            href="/careers"
                             className={`group relative px-6 py-3 sm:px-8 sm:py-4 rounded-lg md:rounded-xl font-semibold 
                 bg-linear-to-r from-blue-500 to-indigo-600 
                 hover:from-blue-600 hover:to-indigo-700

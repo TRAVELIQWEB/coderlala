@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { submitContact } from "@/services/contact.service";
 import HeroTitle from "@/app/components/HeroTitle";
+import { contactInfo as contactInfo2 } from "@/data/ContactInfo";
 
 export default function ContactContent() {
   const [form, setForm] = useState({
@@ -250,10 +251,12 @@ export default function ContactContent() {
     value2?: React.ReactNode; // Changed to support HTML
     desc: string;
   };
+  
+  
   const contactInfo: ContactInfo[] = [
-    { icon: Mail, title: "Email", value: <a href="mailto:info@coderlala.com">info@coderlala.com</a>, desc: "For general inquiries" },
-    { icon: Phone, title: "Phone", value: <a href="tel:+917830836770">+91 7830836770</a>, value2: <a href="tel:+918949541483">+91 8949541483</a>, desc: "Mon-Fri, 9AM-6PM IST" },
-    { icon: MapPin, title: "Location", value: <a target="_blank" href="https://maps.app.goo.gl/W3xgFfxU4H8JXJeq7">Unit No.712, 7th Floor, JMD Megapolis, sector-48 Gurgaon, Haryana 122018</a>, desc: "Serving clients globally" },
+    { icon: Mail, title: "Email", value: <a href={`mailto:${contactInfo2.email}`}>{contactInfo2.email}</a>, desc: "For general inquiries" },
+    { icon: Phone, title: "Phone", value: <a href={`tel:${contactInfo2.salmanNizamPhone}`}>+91 {contactInfo2.salmanNizamPhone}</a>, value2: <a href={`tel:${contactInfo2.achalSinghPhone}`}>+91 {contactInfo2.achalSinghPhone}</a>, desc: "Mon-Fri, 9AM-6PM IST" },
+    { icon: MapPin, title: "Location", value: <a target="_blank" href={contactInfo2.mapLocationLink}>{contactInfo2.websiteAddress}</a>, desc: "Serving clients globally" },
     { icon: Clock, title: "Response Time", value: "24x7 Hours", desc: "For all business inquiries" },
   ];
 

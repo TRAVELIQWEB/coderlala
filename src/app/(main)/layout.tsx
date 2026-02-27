@@ -5,6 +5,8 @@ import Script from "next/script";
 import 'react-quill/dist/quill.snow.css';
 import "./globals.css";
 import "@/app/globals.css";
+import { contactInfo } from "@/data/ContactInfo";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 
 export const metadata = {
@@ -147,7 +149,15 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                 <GalaxyBackground />
             </div>
             <NavbarClientWrapper />
-            <main className="min-h-screen">{children}</main>
+            <main className="min-h-screen">{children}
+                <WhatsAppButton
+                    phoneNumber={`${contactInfo.salmanNizamPhone}`} // Replace with your actual phone number
+                    message="Hi, I'm interested in your services!" // Optional custom message
+                    position="bottom-right" // or "bottom-left"
+                    showPopup={true}
+                    popupMessage="Need help? Chat with us!" // Optional custom popup message
+                />
+            </main>
             <Footer />
         </>
     );
