@@ -100,7 +100,7 @@ export interface ApiResponse {
 export interface BasePost {
   _id?: string;
   title: string;
-  desc: string;          // Maps to blog description (summary)
+  description: string;          // Maps to blog description (summary)
   content: string;       // Blog body/content
   slug: string;
   primaryTech: BlogPrimaryTech | string;
