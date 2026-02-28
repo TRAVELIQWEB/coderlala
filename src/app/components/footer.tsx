@@ -4,7 +4,10 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaLinkedin, FaGithub, FaTwitter, FaInstagram, FaEnvelope, FaFacebook, FaYoutube, FaMapMarked, FaPhone } from "react-icons/fa";
 import { SiHashnode } from "react-icons/si";
-import { services } from "../services/data/services/service";
+import { services } from "../(main)/services/data/services/service";
+import { contactInfo } from "@/data/ContactInfo";
+import WhatsAppButton from "@/components/WhatsAppButton";
+// import { services } from "../services/data/services/service";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -68,10 +71,10 @@ export default function Footer() {
                 <h4 className="font-semibold mb-3 md:mb-4 text-white/90 text-base md:text-lg">Follow Us</h4>
                 <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">
                   {[
-                    { icon: FaLinkedin, href: "https://in.linkedin.com/company/coderlala", label: "LinkedIn", color: "hover:text-blue-400" },
+                    { icon: FaLinkedin, href: contactInfo.linkedIn, label: "LinkedIn", color: "hover:text-blue-400" },
                     // { icon: FaGithub, href: "https://in.linkedin.com/company/coderlala", label: "GitHub", color: "hover:text-gray-300" },
                     // { icon: FaTwitter, href: "https://in.linkedin.com/company/coderlala", label: "Twitter", color: "hover:text-blue-300" },
-                    { icon: FaInstagram, href: "https://www.instagram.com/coderlalatech", label: "Instagram", color: "hover:text-pink-400" },
+                    { icon: FaInstagram, href: contactInfo.instagram, label: "Instagram", color: "hover:text-pink-400" },
                     // { icon: FaFacebook, href: "https://in.linkedin.com/company/coderlala", label: "Hashnode", color: "hover:text-blue-500" },
                   ].map((social, index) => (
                     <a
@@ -143,12 +146,12 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="font-medium text-sm md:text-base">Phone</p>
-                    <a href="tel:+91 7830836770" className="block text-xs md:text-sm opacity-70 break-all sm:break-normal">+91 7830836770</a>
-                    <a href="tel:+91 7830836770" className="block text-xs md:text-sm opacity-70 break-all sm:break-normal">+91 8949541483</a>
+                    <a href={`tel:${contactInfo.salmanNizamPhone}`} className="block text-xs md:text-sm opacity-70 break-all sm:break-normal">{contactInfo.salmanNizamPhone}</a>
+                    <a href={`tel:${contactInfo.achalSinghPhone}`} className="block text-xs md:text-sm opacity-70 break-all sm:break-normal">{contactInfo.achalSinghPhone}</a>
                   </div>
                 </div>
                 <a
-                  href="mailto:info@coderlala.com"
+                  href={`mailto:${contactInfo.email}`}
                   className="flex items-start sm:items-center gap-3 text-white/70 hover:text-white transition-colors group"
                 >
                   <div className="shrink-0 flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10 transition-all">
@@ -156,17 +159,17 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="font-medium text-sm md:text-base">Email us</p>
-                    <p className="text-xs md:text-sm opacity-70 break-all sm:break-normal">info@coderlala.com</p>
+                    <p className="text-xs md:text-sm opacity-70 break-all sm:break-normal">{contactInfo.email}</p>
                   </div>
                 </a>
                 <a
-                  href="https://maps.app.goo.gl/W3xgFfxU4H8JXJeq7" target="_blank"
+                  href={contactInfo.mapLocationLink} target="_blank"
                   className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group"
                 >
 
                   <div>
                     <p className="font-medium text-sm md:text-base">Address</p>
-                    <p className="text-xs md:text-sm opacity-70 break-all sm:break-normal">Unit No.712, 7th Floor, JMD Megapolis, sector-48 Gurgaon, Haryana 122018</p>
+                    <p className="text-xs md:text-sm opacity-70 break-all sm:break-normal">{contactInfo.websiteAddress}</p>
                   </div>
                 </a>
 
@@ -185,7 +188,7 @@ export default function Footer() {
           {/* Copyright & Legal */}
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 my-2 py-2 md:gap-6">
             <p className="text-xs md:text-sm  text-center sm:text-left order-2 sm:order-1 font-semibold">
-              © {currentYear} CoderLala Technologies Private Limited — All rights reserved.
+              © {currentYear} {contactInfo.company} — All rights reserved.
             </p>
 
             <div className="flex flex-wrap justify-center gap-3 md:gap-4 text-xs md:text-sm text-white/70 order-1 sm:order-2">

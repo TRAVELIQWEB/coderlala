@@ -1,0 +1,268 @@
+/* app/components/admin/dashboard/Sidebar.module.css */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: white;
+  border-right: 1px solid #e5e7eb;
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Light theme */
+:global(.light) .sidebar {
+  background-color: white;
+  border-right-color: #e5e7eb;
+}
+
+/* Dark theme */
+:global(.dark) .sidebar {
+  background-color: #1f2937;
+  border-right-color: #374151;
+}
+
+.collapsed {
+  width: 80px;
+}
+
+.expanded {
+  width: 256px;
+}
+
+.logoArea {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+:global(.dark) .logoArea {
+  border-bottom-color: #374151;
+}
+
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2563eb;
+  white-space: nowrap;
+}
+
+.logoIcon {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2563eb;
+  width: 100%;
+  text-align: center;
+}
+
+.toggleButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  color: #6b7280;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.toggleButton:hover {
+  background-color: #f3f4f6;
+  color: #2563eb;
+}
+
+:global(.dark) .toggleButton:hover {
+  background-color: #374151;
+  color: #60a5fa;
+}
+
+.nav {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.50rem;
+}
+/* Base style - simple, no borders, no glass */
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: .75rem;
+  border-radius: 0.5rem;
+  color: #6b7280;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+  border: none;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.navItem:hover {
+  background-color: #f3f4f6;
+  color: #3b82f6;
+}
+
+:global(.dark) .navItem:hover {
+  background-color: #374151;
+  color: #60a5fa;
+}
+
+/* Active state - holographic glass with #3b82f6 */
+.navItem.active {
+  backdrop-filter: blur(12px);
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.2) 0%, 
+    rgba(59, 130, 246, 0.1) 50%,
+    rgba(96, 165, 250, 0.15) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  box-shadow: 0 20px 35px -12px rgba(59, 130, 246, 0.5);
+  color: #3b82f6;
+  position: relative;
+  overflow: hidden;
+}
+
+.navItem.active::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(59, 130, 246, 0.25) 45deg,
+    rgba(96, 165, 250, 0.25) 90deg,
+    rgba(59, 130, 246, 0.2) 135deg,
+    transparent 180deg,
+    rgba(59, 130, 246, 0.25) 225deg,
+    rgba(37, 99, 235, 0.2) 270deg,
+    rgba(96, 165, 250, 0.25) 315deg,
+    transparent 360deg
+  );
+  animation: holographicSpin 8s linear infinite;
+  filter: blur(5px);
+  z-index: 0;
+}
+
+.navItem.active > * {
+  position: relative;
+  z-index: 1;
+}
+
+:global(.dark) .navItem.active {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.35) 0%, 
+    rgba(59, 130, 246, 0.2) 50%,
+    rgba(96, 165, 250, 0.25) 100%);
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 20px 35px -12px rgba(59, 130, 246, 0.7);
+  color: #60a5fa;
+}
+
+@keyframes holographicSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+.navIcon {
+  flex-shrink: 0;
+}
+
+.navLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer {
+  padding: 1rem 0.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+:global(.dark) .footer {
+  border-top-color: #374151;
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 0.75rem;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.logoutButton:hover {
+  background-color: #dc2626;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Dark theme adjustments if needed */
+:global(.dark) .logoutButton {
+  /* Optional: Adjust dark mode colors if needed */
+}
+
+.logoutButton svg {
+  flex-shrink: 0;
+}
+
+/* Mobile overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.overlayVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile responsive */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    z-index: 50;
+  }
+  
+  .expanded {
+    transform: translateX(0);
+  }
+  
+  .collapsed {
+    transform: translateX(-100%);
+    width: 256px;
+  }
+}

@@ -13,6 +13,7 @@ const navItems = [
   { name: "Services", path: "/services" },
   { name: "Portfolio", path: "/portfolio" },
   { name: "Our Team", path: "/our-team" },
+  { name: "Blog", path: "/blog" },
   { name: "Careers", path: "/careers" },
   { name: "Contact", path: "/contact" },
 
@@ -108,7 +109,7 @@ export default function EnhancedNavbar() {
           </Link>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center gap-5">
             {navItems.map((item) => {
               const isActive = pathname === item.path;
 
@@ -117,7 +118,7 @@ export default function EnhancedNavbar() {
                   key={item.name}
                   href={item.path}
                   className={`
-                    relative text-sm font-medium transition-colors group 
+                    relative text-sm font-medium transition-colors text-nowrap group mr-0 
                     ${isActive
                       ? "text-blue-600 dark:text-blue-400"
                       : isDarkMode
@@ -165,7 +166,7 @@ export default function EnhancedNavbar() {
             <button
               onClick={() => setIsOpen(true)}
               className="
-                p-2 rounded-lg 
+                p-3 rounded-lg 
                 bg-blue-700! 
                 hover:bg-gray-300 dark:hover:bg-gray-700
                 transition-colors

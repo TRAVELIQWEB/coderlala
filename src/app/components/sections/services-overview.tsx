@@ -147,7 +147,7 @@ const services = [
 
 // Tech stack data with icons and colors - FIXED
 const techStack = [
-  { name: "Next.js", icon: SiNextdotjs, color: "!text-black dark:text-white" },
+  { name: "Next.js", icon: SiNextdotjs, color: "text-black! dark:text-white" },
   { name: "React", icon: SiReact, color: "text-blue-500" },
   { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
   { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
@@ -178,10 +178,10 @@ const techStack = [
 
   { name: "CSS3", icon: SiCss3, color: "text-blue-500" },
   { name: "Git", icon: SiGit, color: "text-red-500" },
-  { name: "GitHub", icon: SiGithub, color: "!text-black dark:text-white" },
+  { name: "GitHub", icon: SiGithub, color: "text-black! dark:text-white" },
 
   { name: "Redis", icon: SiRedis, color: "text-red-600" },
-  { name: "Express", icon: SiExpress, color: "!text-black dark:text-white" },
+  { name: "Express", icon: SiExpress, color: "text-black! dark:text-white" },
   { name: "MySQL", icon: SiMysql, color: "text-blue-600" },
 
   { name: "Angular", icon: SiAngular, color: "text-red-600" },
