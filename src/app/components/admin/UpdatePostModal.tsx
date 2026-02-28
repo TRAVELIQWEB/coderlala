@@ -203,8 +203,8 @@ export default function UpdatePostModal({
       setForm({
         _id: editingPost._id || '',
         title: editingPost.title || '',
-        desc: editingPost.desc || '',
-        description: editingPost.desc || '',
+        desc: editingPost.description || '',
+        description: editingPost.description || '',
         content: editingPost.content || '',
         rawContent: editingPost.content?.replace(/<[^>]*>/g, '') || '',
         slug: editingPost.slug || '',
@@ -222,7 +222,7 @@ export default function UpdatePostModal({
         tags: editingPost.tags as BlogTag[] || [],
         seo: {
           title: editingPost.seo?.title || editingPost.title || '',
-          description: editingPost.seo?.description || editingPost.desc || '',
+          description: editingPost.seo?.description || editingPost.description || '',
           canonicalUrl: editingPost.seo?.canonicalUrl || '',
         }
       });
@@ -611,7 +611,7 @@ export default function UpdatePostModal({
       const updatedPost: BasePost = {
         _id: form._id,
         title: form.title,
-        desc: form.desc,
+        description: form.description,
         content: editor.getHTML(),
         slug: form.slug,
         primaryTech: form.primaryTech,

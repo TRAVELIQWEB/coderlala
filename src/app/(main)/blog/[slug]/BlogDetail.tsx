@@ -144,12 +144,12 @@ export default function BlogDetail({ slug }: { slug: string }) {
                 {/* Hero Section - Image Left, Title Right */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12 items-center">
                     {/* Left: Feature Image */}
-                    <div className="relative h-[280px] md:h-[350px] w-full rounded-2xl overflow-hidden shadow-xl group">
+                    <div className="relative h-70 md:h-87.5 w-full rounded-2xl overflow-hidden shadow-xl group">
                         {/* Liquid metal effect */}
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md" />
+                        <div className="absolute -inset-0.5 bg-linear-to-r from-gray-300 via-gray-100 to-gray-300 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md" />
 
                         {/* Chrome border */}
-                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-gray-200 via-gray-400 to-gray-600 p-[3px]">
+                        <div className="absolute inset-0 rounded-2xl bg-linear-to-b from-gray-200 via-gray-400 to-gray-600 p-0.75">
                             <div className="relative h-full w-full rounded-2xl overflow-hidden">
                                 <Image
                                     src={blog.coverImage || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop'}
@@ -160,7 +160,7 @@ export default function BlogDetail({ slug }: { slug: string }) {
                                 />
 
                                 {/* Reflective overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-black/30 mix-blend-overlay" />
+                                <div className="absolute inset-0 bg-linear-to-br from-white/30 via-transparent to-black/30 mix-blend-overlay" />
 
                                 {/* Inner metallic rim */}
                                 <div className="absolute inset-1 rounded-xl border border-white/40" />
@@ -179,7 +179,7 @@ export default function BlogDetail({ slug }: { slug: string }) {
                         </div>
 
                         <div className="border-l-4 border-[#e38138] pl-4 bg-blue-50/30 py-2 rounded-r-lg">
-                            <p className="text-base text-sm italic">
+                            <p className="text-base italic">
                                 {blog.description}
                             </p>
                         </div>

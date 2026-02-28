@@ -134,7 +134,7 @@ export default function BlogPage() {
       }
 
       // 🔥 Get description from either desc or description field
-      const description = post.desc || post.description || '';
+      const description = post.description || '';
       
       // 🔥 Create the mapped post with all required fields
       const mappedNewPost: Post = {
@@ -215,10 +215,10 @@ export default function BlogPage() {
         language: updatedPost.language as BlogLanguage || BlogLanguage.EN,
         seo: {
           title: updatedPost.seo?.title?.trim() || updatedPost.title,
-          description: updatedPost.seo?.description?.trim() || updatedPost.desc,
+          description: updatedPost.seo?.description?.trim() || updatedPost.description,
           canonicalUrl: updatedPost.seo?.canonicalUrl?.trim() || ''
         },
-        description: updatedPost.desc.trim(),
+        description: updatedPost.description.trim(),
         status: updatedPost.status as BlogStatus || BlogStatus.DRAFT
       };
 
@@ -499,7 +499,7 @@ export default function BlogPage() {
                       <button
                         key={page}
                         onClick={() => handlePageClick(page)}
-                        className={`min-w-[40px] px-3 py-2 rounded-lg border text-sm font-medium ${
+                        className={`min-w-10 px-3 py-2 rounded-lg border text-sm font-medium ${
                           page === pagination.currentPage
                             ? 'bg-blue-600 text-white! border-blue-600'
                             : 'text-gray-700 hover:bg-gray-100 border-gray-300'
