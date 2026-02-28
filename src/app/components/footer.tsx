@@ -43,7 +43,7 @@ export default function Footer() {
             <div className="sm:col-span-2 lg:col-span-1 space-y-4 md:space-y-5">
               <div>
                 <Link href="/" className="inline-block">
-                  <div className="relative w-38 h-18 sm:w-46 sm:h-10 md:w-[150px] md:h-[45px] lg:w-[200px] lg:h-[60px]">
+                  <div className="relative w-38 h-18 sm:w-46 sm:h-10 md:w-37.5 md:h-11.25 lg:w-50 lg:h-15">
                     {!isDarkMode ? (
                       <img
                         src="/logo/CoderLalaLogoLight.svg"
