@@ -61,6 +61,7 @@ export default function BlogPage() {
       });
 
       const res = await api.get(`/admin/blogs?${params.toString()}`);
+      
 
       console.log("📊 FETCHED BLOGS:", res.data);
 
