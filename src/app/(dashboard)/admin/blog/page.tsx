@@ -17,8 +17,12 @@ import {
   BlogStatus,
   BasePost,
   Post,
-  PaginationInfo
+  PaginationInfo,
+  USE_DUMMY_DATA
 } from '@/types/blog';
+import { dummyPosts } from '@/app/(main)/blog/data/posts';
+import { Button } from '@/components/ui/button';
+// import { dummyPosts } from '@/app/(main)/blog/data/posts';
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -48,11 +52,93 @@ export default function BlogPage() {
   };
 
   // Fetch blogs
-  const fetchBlogs = useCallback(async (page: number = 1, search: string = '', status: string = 'all') => {
+  const fetchBlogs = useCallback(async (
+    page: number = 1,
+    search: string = '',
+    status: string = 'all'
+  ) => {
     try {
       setLoading(true);
       setError(null);
 
+      // 🔥 USE DUMMY DATA
+      if (USE_DUMMY_DATA) {
+        const ITEMS_PER_PAGE = 10; // Show 10 items per page for pagination demonstration
+
+        // 🔥 Generate 120 dummy records
+        const basePost = dummyPosts[0];
+
+        const generatedPosts: Post[] = Array.from({ length: 120 }, (_, index) => ({
+          ...basePost,
+          _id: `${index + 1}`,
+          title: `${basePost.title} ${index + 1}`,
+          slug: `${basePost.slug}-${index + 1}`,
+          desc: `${basePost.description} (${index + 1})`,
+          description: `${basePost.description} (${index + 1})`,
+          status: index % 3 === 0 ? 'active' : index % 3 === 1 ? 'draft' : 'archived',
+          createdAt: new Date(Date.now() - index * 86400000).toISOString(),
+          updatedAt: new Date().toISOString(),
+        }));
+
+        let filtered = [...generatedPosts];
+
+        // 🔍 Search filter
+        if (search) {
+          filtered = filtered.filter(post =>
+            post.title.toLowerCase().includes(search.toLowerCase())
+          );
+        }
+
+        // 📦 Status filter
+        if (status !== 'all') {
+          filtered = filtered.filter(post => post.status === status);
+        }
+
+        const totalItems = filtered.length;
+        const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+        const startIndex = (page - 1) * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+
+        const paginatedPosts = filtered.slice(startIndex, endIndex);
+
+        setPosts(paginatedPosts);
+
+        setPagination({
+          currentPage: page,
+          totalPages,
+          totalItems,
+          hasNextPage: page < totalPages,
+          hasPrevPage: page > 1,
+        });
+
+        return;
+      }
+
+      //   if (search) {
+      //     filtered = filtered.filter(post =>
+      //       post.title.toLowerCase().includes(search.toLowerCase())
+      //     );
+      //   }
+
+      //   if (status !== 'all') {
+      //     filtered = filtered.filter(post => post.status === status);
+      //   }
+
+      //   setPosts(filtered);
+
+      //   setPagination({
+      //     currentPage: 1,
+      //     totalPages: 1,
+      //     totalItems: filtered.length,
+      //     hasNextPage: false,
+      //     hasPrevPage: false,
+      //   });
+
+      //   return;
+      // }
+
+      // 🔥 REAL API CALL
       const params = new URLSearchParams({
         page: page.toString(),
         limit: '20',
@@ -61,46 +147,26 @@ export default function BlogPage() {
       });
 
       const res = await api.get(`/admin/blogs?${params.toString()}`);
-      
-
-      console.log("📊 FETCHED BLOGS:", res.data);
 
       const blogsData = res.data?.data?.blogs || res.data?.data || [];
 
-      const mappedPosts: Post[] = blogsData.map((post: any): Post => ({
-        _id: post._id,
-        title: post.title || '',
+      const mappedPosts: Post[] = blogsData.map((post: any) => ({
+        ...post,
         desc: post.description || post.desc || '',
         description: post.description || post.desc || '',
-        content: post.content || '',
-        slug: post.slug || '',
-        primaryTech: post.primaryTech || BlogPrimaryTech.NESTJS,
-        techStacks: post.techStacks || [],
-        tags: post.tags || [],
-        level: post.level || BlogLevel.BEGINNER,
-        readingTime: post.readingTime || 5,
-        author: post.author || { name: '', role: BlogAuthorRole.BACKEND, _id: '' },
-        language: post.language || BlogLanguage.EN,
-        seo: post.seo || {
-          title: post.title || '',
-          description: post.description || post.desc || '',
-          canonicalUrl: ''
-        },
-        status: post.status || BlogStatus.DRAFT,
-        createdAt: post.createdAt || new Date().toISOString(),
-        updatedAt: post.updatedAt || new Date().toISOString()
       }));
 
       setPosts(mappedPosts);
+
       setPagination({
         currentPage: res.data?.data?.currentPage || page,
         totalItems: res.data?.data?.total || 0,
-        totalPages: res.data?.data?.totalPages || res.data?.data?.totalpage || 1,
-        hasNextPage: res.data?.data?.hasNextPage || page < (res.data?.data?.totalPages || 1),
-        hasPrevPage: res.data?.data?.hasPrevPage || page > 1,
+        totalPages: res.data?.data?.totalPages || 1,
+        hasNextPage: res.data?.data?.hasNextPage || false,
+        hasPrevPage: res.data?.data?.hasPrevPage || false,
       });
+
     } catch (error: any) {
-      console.error('❌ Failed to fetch blogs', error);
       setError(error.response?.data?.message || 'Failed to fetch blogs');
       setPosts([]);
     } finally {
@@ -135,7 +201,7 @@ export default function BlogPage() {
 
       // 🔥 Get description from either desc or description field
       const description = post.description || '';
-      
+
       // 🔥 Create the mapped post with all required fields
       const mappedNewPost: Post = {
         _id: post._id,
@@ -233,23 +299,23 @@ export default function BlogPage() {
       setPosts(prev => prev.map(post =>
         post._id === updatedPost._id
           ? {
-              ...post,
-              title: payload.title,
-              content: payload.content,
-              slug: payload.slug,
-              primaryTech: payload.primaryTech as string,
-              techStacks: payload.techStacks as string[],
-              tags: payload.tags as string[],
-              level: payload.level as string,
-              readingTime: payload.readingTime,
-              author: payload.author,
-              language: payload.language as string,
-              seo: payload.seo,
-              status: payload.status as string,
-              desc: updatedDescription,
-              description: updatedDescription,
-              updatedAt: new Date().toISOString()
-            }
+            ...post,
+            title: payload.title,
+            content: payload.content,
+            slug: payload.slug,
+            primaryTech: payload.primaryTech as string,
+            techStacks: payload.techStacks as string[],
+            tags: payload.tags as string[],
+            level: payload.level as string,
+            readingTime: payload.readingTime,
+            author: payload.author,
+            language: payload.language as string,
+            seo: payload.seo,
+            status: payload.status as string,
+            desc: updatedDescription,
+            description: updatedDescription,
+            updatedAt: new Date().toISOString()
+          }
           : post
       ));
 
@@ -315,8 +381,8 @@ export default function BlogPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">Blog</h1>
-          <p className="text-gray-600 mt-1">Manage blog posts</p>
+          <h1 className="text-3xl font-bold">Blog</h1>
+          <p className=" mt-2">Manage blog posts</p>
         </div>
       </div>
 
@@ -328,28 +394,33 @@ export default function BlogPage() {
       )}
 
       {/* Filter Header */}
-      <div className="bg-white rounded-xl shadow border border-gray-300 p-4">
-        <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-3 items-end">
-          <div className="flex-1">
-            <label className="text-sm font-medium mb-1 block">Search</label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by title..."
-                className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm outline-none border-gray-300 focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+      <div className="bg-secondary border-border rounded-xl w-full shadow border grid gap-2 p-4">
+        <form
+          onSubmit={handleSearch}
+          className="flex flex-col md:flex-row gap-3 md:items-end"
+        >
+          {/* <div className="flex-1"> */}
+          {/* <label className="text-sm font-medium mb-1 block">Search</label> */}
+          <div className="relative max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by title..."
+              className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm outline-none border-border "
+            />
           </div>
+          {/* </div> */}
 
           <div className="w-full md:w-auto">
-            <label className="text-sm font-medium text-gray-600 mb-1 block">Status</label>
+            {/* <label className="text-sm font-medium text-muted-foreground mb-1 block">
+              Status
+            </label> */}
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full md:w-48 rounded-lg px-3 py-2 text-sm font-medium border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="w-full md:w-48 rounded-lg px-3 py-2 text-sm font-medium border border-input bg-background text-foreground "
             >
               <option value="all">All Status</option>
               <option value="active">🟢 Active</option>
@@ -379,154 +450,161 @@ export default function BlogPage() {
             </button>
           </div>
         </form>
-      </div>
-
-      {/* Table Container - Only table scrolls, pagination stays fixed */}
-      <div className="bg-white rounded-xl shadow border border-gray-300 flex flex-col h-full">
-        {loading ? (
-          <div className="flex justify-center items-center p-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          </div>
-        ) : (
-          <>
-            {/* Scrollable Table Container */}
-            <div className="overflow-x-auto overflow-y-auto flex-1">
-              <table className="w-full text-sm">
-                <thead className="bg-gray-200 text-gray-600 sticky top-0 z-10">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-nowrap">S. No</th>
-                    <th className="px-6 py-3 text-left text-nowrap">Title</th>
-                    <th className="px-6 py-3 text-left text-nowrap">Slug</th>
-                    <th className="px-6 py-3 text-left text-nowrap">Description</th>
-                    <th className="px-6 py-3 text-left text-nowrap">Primary Tech</th>
-                    <th className="px-6 py-3 text-left text-nowrap">Level</th>
-                    <th className="px-6 py-3 text-left text-nowrap">Reading Time</th>
-                    <th className="px-6 py-3 text-left text-nowrap">Author</th>
-                    <th className="px-6 py-3 text-left text-nowrap">Language</th>
-                    <th className="px-6 py-3 text-left text-nowrap">Status</th>
-                    <th className="px-6 py-3 text-left text-nowrap">Created At</th>
-                    <th className="px-6 py-3 text-center">Actions</th>
-                  </tr>
-                </thead>
-
-                <tbody className="divide-y divide-gray-300">
-                  {posts.length === 0 ? (
-                    <tr>
-                      <td colSpan={13} className="px-6 py-8 text-center text-gray-500">
-                        No posts found
-                      </td>
-                    </tr>
-                  ) : (
-                    posts.map((post, index) => (
-                      <tr key={post._id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4">{(pagination.currentPage - 1) * 20 + index + 1}</td>
-                        <td className="px-6 py-4 font-medium">{post.title}</td>
-                        <td className="px-6 py-4 max-w-xs">
-                          <div className="truncate text-gray-500" title={post.slug}>{post.slug || '-'}</div>
-                        </td>
-                        <td className="px-6 py-4 max-w-xs">
-                          <div className="truncate text-gray-500" title={post.description}>
-                            {post.description || post.desc || '-'}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">{post.primaryTech || '-'}</td>
-                        <td className="px-6 py-4">
-                          <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-                            {post.level || '-'}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">{post.readingTime ? `${post.readingTime} min` : '-'}</td>
-                        <td className="px-6 py-4">{post.author?.name || '-'}</td>
-                        <td className="px-6 py-4">
-                          <span className="px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
-                            {post.language?.toUpperCase() || '-'}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            post.status === 'active' ? 'bg-green-100 text-green-700' :
-                            post.status === 'draft' ? 'bg-gray-100 text-gray-700' :
-                            'bg-red-100 text-red-700'
-                          }`}>
-                            {post.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-500">
-                          {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : '-'}
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex justify-center gap-2">
-                            <button
-                              onClick={() => handleEditClick(post)}
-                              className="p-1.5 text-blue-600! hover:text-blue-800 !hover:bg-blue-50 rounded transition"
-                              title="Edit"
-                            >
-                              <Pencil size={16} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+        {/* Table Container - Only table scrolls, pagination stays fixed */}
+        <div className="flex flex-col h-full">
+          {loading ? (
+            <div className="flex justify-center items-center p-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
             </div>
+          ) : (
+            <>
+              {/* Scrollable Table Container */}
+              <div>
+                <div className="w-full overflow-x-auto styled-table">
+                  <table className="w-full text-sm min-w-300">
+                    <thead className="bg-card text-muted-foreground sticky top-0 z-10">
+                      <tr className=''>
+                        <th className="text-left text-nowrap font-medium">S. No</th>
+                        <th className="text-left text-nowrap font-medium">Title</th>
+                        <th className="text-left text-nowrap font-medium">Slug</th>
+                        <th className="text-left text-nowrap font-medium">Description</th>
+                        <th className="text-left text-nowrap font-medium">Primary Tech</th>
+                        <th className="text-left text-nowrap font-medium">Level</th>
+                        <th className="text-left text-nowrap font-medium">Reading Time</th>
+                        <th className="text-left text-nowrap font-medium">Author</th>
+                        <th className="text-left text-nowrap font-medium">Language</th>
+                        <th className="text-left text-nowrap font-medium">Status</th>
+                        <th className="text-left text-nowrap font-medium">Created At</th>
+                        <th className="text-center font-medium">Actions</th>
+                      </tr>
+                    </thead>
 
-            {/* Pagination - Fixed outside scroll, always visible */}
-            {posts.length > 0 && pagination.totalPages > 1 && (
-              <div className="border-t border-gray-300 px-6 py-4 bg-white shrink-0">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                  <div className="text-sm text-gray-600">
-                    Showing {((pagination.currentPage - 1) * 20) + 1} to{' '}
-                    {Math.min(pagination.currentPage * 20, pagination.totalItems)} of{' '}
-                    {pagination.totalItems} posts
-                  </div>
-
-                  <div className="flex items-center gap-1">
-                    <button
-                      onClick={handlePrevPage}
-                      disabled={!pagination.hasPrevPage}
-                      className={`p-2 rounded-lg border ${
-                        pagination.hasPrevPage
-                          ? 'text-gray-700! hover:bg-gray-100 border-gray-300'
-                          : 'text-gray-400! border-gray-200 cursor-not-allowed'
-                      }`}
-                    >
-                      <ChevronLeft size={18} />
-                    </button>
-
-                    {getPageNumbers().map((page) => (
-                      <button
-                        key={page}
-                        onClick={() => handlePageClick(page)}
-                        className={`min-w-10 px-3 py-2 rounded-lg border text-sm font-medium ${
-                          page === pagination.currentPage
-                            ? 'bg-blue-600 text-white! border-blue-600'
-                            : 'text-gray-700 hover:bg-gray-100 border-gray-300'
-                        }`}
-                      >
-                        {page}
-                      </button>
-                    ))}
-
-                    <button
-                      onClick={handleNextPage}
-                      disabled={!pagination.hasNextPage}
-                      className={`p-2 rounded-lg border ${
-                        pagination.hasNextPage
-                          ? 'text-gray-700 hover:bg-gray-100 border-gray-300'
-                          : 'text-gray-400 border-gray-200 cursor-not-allowed'
-                      }`}
-                    >
-                      <ChevronRight size={18} />
-                    </button>
-                  </div>
+                    <tbody className="divide-y divide-gray-300 dark:divide-gray-700">
+                      {posts.length === 0 ? (
+                        <tr>
+                          <td colSpan={13} className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                            No posts found
+                          </td>
+                        </tr>
+                      ) : (
+                        posts.map((post, index) => (
+                          <tr key={post._id} className="hover:bg-muted transition-colors">
+                            <td className="px-6 py-4">{(pagination.currentPage - 1) * 20 + index + 1}</td>
+                            <td className="px-6 py-4 font-medium">{post.title}</td>
+                            <td className="px-6 py-4 max-w-xs">
+                              <div className="truncate text-gray-500 dark:text-gray-400" title={post.slug}>{post.slug || '-'}</div>
+                            </td>
+                            <td className="px-6 py-4 max-w-xs">
+                              <div className="truncate text-gray-500 dark:text-gray-400" title={post.description}>
+                                {post.description || post.desc || '-'}
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 text-gray-900 dark:text-gray-100">{post.primaryTech || '-'}</td>
+                            <td className="px-3 md:px-6 py-3">
+                              <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                                {post.level || '-'}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 text-gray-900 dark:text-gray-100">{post.readingTime ? `${post.readingTime} min` : '-'}</td>
+                            <td className="px-6 py-4 text-gray-900 dark:text-gray-100">{post.author?.name || '-'}</td>
+                            <td className="px-3 md:px-6 py-3">
+                              <span className="px-2 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
+                                {post.language?.toUpperCase() || '-'}
+                              </span>
+                            </td>
+                            <td className="px-3 md:px-6 py-3">
+                              <span className={`px-3 py-1 rounded-full text-xs font-medium ${post.status === 'active'
+                                ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
+                                : post.status === 'draft'
+                                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                                  : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300'
+                                }`}>
+                                {post.status}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                              {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : '-'}
+                            </td>
+                            <td className="px-3 md:px-6 py-3">
+                              <div className="flex justify-center gap-2">
+                                <button
+                                  onClick={() => handleEditClick(post)}
+                                  className="p-1.5 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded transition-colors"
+                                  title="Edit"
+                                >
+                                  <Pencil size={16} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            )}
-          </>
-        )}
+
+              {/* Pagination - Fixed outside scroll, always visible */}
+              {posts.length > 0 && pagination.totalPages > 1 && (
+                <div className="border-t border-border px-4 md:px-6 py-4 bg-background shrink-0">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="text-sm text-gray-600">
+                      Showing {((pagination.currentPage - 1) * 20) + 1} to{' '}
+                      {Math.min(pagination.currentPage * 20, pagination.totalItems)} of{' '}
+                      {pagination.totalItems} posts
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                      <Button
+                      // variant={'icon'}
+                        onClick={handlePrevPage}
+                        disabled={!pagination.hasPrevPage}
+                        className={`p-2 rounded-lg border transition
+                          ${pagination.hasPrevPage
+                            ? 'bg-card text-foreground border-border hover:bg-secondary'
+                            : 'bg-muted text-muted-foreground border-border cursor-not-allowed'
+                          }`}
+                      >
+                        <ChevronLeft size={18} />
+                      </Button>
+
+                      {getPageNumbers().map((page) => (
+                        <Button
+                        // variant={'icon'}
+                          key={page}
+                          onClick={() => handlePageClick(page)}
+                          className={`p-2 rounded-lg border transition
+                            ${pagination.hasPrevPage
+                              ? 'bg-card text-foreground border-border hover:bg-secondary'
+                              : 'bg-muted text-muted-foreground border-border cursor-not-allowed'
+                            }`}
+                        >
+                          {page}
+                        </Button>
+                      ))}
+
+                      <Button
+                      // variant={'icon'}
+                        onClick={handleNextPage}
+                        disabled={!pagination.hasNextPage}
+                        className={`p-2 rounded-lg border transition
+                          ${pagination.hasNextPage
+                            ? 'bg-card text-foreground border-border hover:bg-secondary'
+                            : 'bg-muted text-muted-foreground border-border cursor-not-allowed'
+                          }`}
+                      >
+                        <ChevronRight size={18} />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
+
+
 
       {/* Create Modal */}
       <CreatePostModal

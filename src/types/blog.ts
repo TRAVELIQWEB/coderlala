@@ -1,4 +1,5 @@
 // ============= ENUMS - EXACT VALUES AS PER BACKEND =============
+export const USE_DUMMY_DATA = true; // 🔥 switch here (true = dummy, false = API)
 
 export enum BlogPrimaryTech {
   NESTJS = 'nestjs',
