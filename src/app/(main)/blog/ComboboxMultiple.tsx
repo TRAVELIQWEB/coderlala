@@ -63,7 +63,6 @@ export function ComboboxMultiple({
             )}
             style={{
               background: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(0,0,0,0.1)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
               boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
@@ -114,12 +113,11 @@ export function ComboboxMultiple({
         </PopoverTrigger>
 
         <PopoverContent
-          className="w-(--radix-popover-trigger-width) p-0 border-0"
+          className="w-(--radix-popover-trigger-width) p-0"
           style={{
             background: "rgba(255,255,255,0.08)",
             backdropFilter: "blur(20px)",
             WebkitBackdropFilter: "blur(20px)",
-            border: "1px solid rgba(255,255,255,0.18)",
             boxShadow: "0 20px 40px rgba(0,0,0,0.25)"
           }}
         >

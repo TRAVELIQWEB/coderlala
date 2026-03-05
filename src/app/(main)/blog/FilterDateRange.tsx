@@ -41,7 +41,7 @@ export function FilterDateRange({ dateFrom, dateTo, setDateFrom, setDateTo }: Fi
   };
 
   return (
-   <div className="relative w-full sm:w-64">
+   <div className="relative w-full md:w-64">
   <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground z-10 rounded-sm">
     Select Date Range
   </Label>
@@ -51,10 +51,9 @@ export function FilterDateRange({ dateFrom, dateTo, setDateFrom, setDateTo }: Fi
       <Button
         variant="outline"
         role="combobox"
-        className="w-full justify-between min-h-12 pt-3 font-normal"
+        className="w-full justify-between min-h-12 pt-3 font-normal transition-all"
         style={{
           background: "rgba(255,255,255,0.08)",
-          border: "1px solid rgba(0,0,0,0.1)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
           boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
@@ -94,12 +93,12 @@ export function FilterDateRange({ dateFrom, dateTo, setDateFrom, setDateTo }: Fi
 
     <PopoverContent
       align="start"
-      className="w-auto p-0 border-0"
+      className="w-auto p-0"
       style={{
         background: "rgba(255,255,255,0.08)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
-        border: "1px solid rgba(255,255,255,0.18)",
+        // border: "1px solid rgba(255,255,255,0.18)",
         boxShadow: "0 20px 40px rgba(0,0,0,0.25)"
       }}
     >
