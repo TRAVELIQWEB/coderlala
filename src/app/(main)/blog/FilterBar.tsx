@@ -47,31 +47,63 @@ export const FilterBar: React.FC<FiltersProps> = ({
   onSearch,
   onReset,
 }) => {
+  // Check if any filter has a value
+  const hasActiveFilters =
+    searchQuery.trim() !== "" ||
+    selectedTechStacks.length > 0 ||
+    selectedTags.length > 0 ||
+    dateFrom !== "" ||
+    dateTo !== "";
+
+  const handleReset = () => {
+    // Reset all local states first
+    setSearchQuery("");
+    setDateFrom("");
+    setDateTo("");
+    setSelectedTechStacks([]);
+    setSelectedTags([]);
+
+    // Then call the parent's onReset which should fetch all data
+    // Make sure your parent's onReset doesn't trigger a useEffect that also fetches
+    onReset();
+  };
+
   return (
-    <div className="w-full max-w-7xl mx-auto mb-12">
-      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 p-5 rounded-xl bg-card border border-border shadow-lg">
+    <div className="w-full max-w-7xl mx-auto mb-12 ">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 p-5 rounded-xl  border-1 border-gray-400/30 shadow-lg">
         {/* Search Input */}
         <div className="relative w-full sm:w-64">
-          <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground bg-card rounded-sm p-0.5">
+          <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground z-10  rounded-sm p-0.5">
             Search
           </Label>
 
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground  glass-cardpointer-events-none" />
 
           <Input
             placeholder="Search titles, content..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                onSearch();
-              }
+            onMouseEnter={(e) =>
+            (e.currentTarget.style.boxShadow =
+              "0 20px 35px rgba(0,0,0,0.25)")
+            }
+            onMouseLeave={(e) =>
+            (e.currentTarget.style.boxShadow =
+              "0 10px 25px rgba(0,0,0,0.15)")
+            }
+            className="h-12 pl-9 min-h-12 rounded-md"
+            style={{
+              background: "#ffffff0d",
+              border: "1px solid rgba(0,0,0,0.1)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+              transition: "all 0.3s ease"
             }}
-            className="h-12 pl-9 border border-input focus-visible:ring-0 bg-background rounded-md min-h-12"
           />
         </div>
 
-        <FilterDateRange 
+        <FilterDateRange
           dateFrom={dateFrom}
           dateTo={dateTo}
           setDateFrom={setDateFrom}
@@ -87,7 +119,7 @@ export const FilterBar: React.FC<FiltersProps> = ({
           icon={Layers}
           className="sm:w-52"
         />
-        
+
         <ComboboxMultiple
           label="Tags"
           options={TAG_OPTIONS.map((t) => t.label)}
@@ -98,27 +130,32 @@ export const FilterBar: React.FC<FiltersProps> = ({
         />
 
         {/* Actions */}
-        <div className="flex flex-row gap-2 w-full sm:w-auto sm:ml-auto">
+        <div className="flex flex-row gap-2 flex-1">
           <Button
             onClick={onSearch}
             size="lg"
-            variant="default"
-            className="w-full sm:w-auto h-12 px-6"
+            className="w-full h-12 px-6
+             bg-blue-700 hover:bg-blue-800
+             dark:bg-blue-600 dark:hover:bg-blue-700
+             !text-white shadow-md transition-all"
           >
             <Search className="w-4 h-4 mr-2" />
             Search
-          </Button>
-
-          <Button
-            onClick={onReset}
-            size="icon"
-            variant="destructive"
-            className="size-12"
-          >
-            <X className="w-4 h-4 text-white!" />
           </Button>
         </div>
       </div>
     </div>
   );
 };
+
+///
+{/* {hasActiveFilters && (
+            <Button
+              onClick={handleReset}
+              size="icon"
+              variant="destructive"
+              className="size-12"
+            >
+              <X className="w-4 h-4 text-white!" />
+            </Button>
+          )} */}
