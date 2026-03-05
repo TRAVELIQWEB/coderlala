@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function proxy(req: NextRequest) {
+export function middleware(req: NextRequest) {
   console.log("🔵 PROXY IS WORKING!", req.nextUrl.pathname);
   console.log("🔵 Time:", new Date().toISOString());
   return NextResponse.next();

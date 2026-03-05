@@ -42,31 +42,46 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
           {!collapsed ? (
             <div className="flex items-center space-x-3">
               {/* LOGO - RESPONSIVE SIZING */}
-              <div className="relative h-10">
+              {theme === "light" ? (
+                <img
+                  src="/logo/CoderLalaLogoLight.svg"
+                  alt="CoderLalaLogo Light"
+                  className="w-full h-full object-contain"
+                  key="light-logo"
+                />
+              ) : (
+                <img
+                  src="/logo/CoderLalaLogoDark.svg"
+                  alt="CoderLalaLogo Dark"
+                  className="w-full h-full object-contain"
+                  key="dark-logo"
+                />
+              )}
+              {/* <div className="relative h-10">
 
                 <img
                   src="/logo/CoderLalaLogoLight.svg"
                   alt="CoderLalaLogo Light"
                   className="w-full h-full object-contain"
-                  key="dark-logo"
+                  key="light-logo"
                 />
 
 
-              </div>
+              </div> */}
             </div>
           ) : (
             <div className="size-12 rounded-lg flex items-center justify-center mx-auto">
               {theme === "light" ? (
                 <img
                   src="/favicon.svg"
-                  alt="CoderLalaLogo Dark"
+                  alt="CoderLalaLogoIcon Dark"
                   className="w-full h-full object-contain"
                   key="light-logo"
                 />
               ) : (
                 <img
                   src="/favicon.svg"
-                  alt="CoderLalaLogo Dark"
+                  alt="CoderLalaLogoIcon Dark"
                   className="w-full h-full object-contain"
                   key="light-logo"
                 />

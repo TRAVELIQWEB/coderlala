@@ -556,46 +556,85 @@ export default function BlogPage() {
 
                     <div className="flex items-center gap-1">
                       <Button
-                      // variant={'icon'}
+                        variant="outline"
+                        size="icon"
                         onClick={handlePrevPage}
                         disabled={!pagination.hasPrevPage}
-                        className={`p-2 rounded-lg border transition
-                          ${pagination.hasPrevPage
-                            ? 'bg-card text-foreground border-border hover:bg-secondary'
-                            : 'bg-muted text-muted-foreground border-border cursor-not-allowed'
-                          }`}
+                      >
+                        <ChevronLeft size={18} />
+                      </Button>
+
+                      {getPageNumbers().map((page) => {
+                        const isActive = page === pagination.currentPage;
+
+                        return (
+                          <Button
+                            key={page}
+                            size="icon"
+                            variant={isActive ? "destructive" : "outline"}
+                            onClick={() => handlePageClick(page)}
+                            // disabled={isActive}
+                          >
+                            {page}
+                          </Button>
+                        );
+                      })}
+
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={handleNextPage}
+                        disabled={!pagination.hasNextPage}
+                      >
+                        <ChevronRight size={18} />
+                      </Button>
+                    </div>
+                    {/* <div className="flex items-center gap-1">
+                      <Button
+                        variant={`outline`}
+                        size="icon"
+                        onClick={handlePrevPage}
+                        disabled={!pagination.hasPrevPage}
+                      // className={`p-2 rounded-lg border transition
+                      //   ${pagination.hasPrevPage
+                      //     ? 'bg-card text-foreground border-border hover:bg-secondary'
+                      //     : 'bg-muted text-muted-foreground border-border cursor-not-allowed'
+                      //   }`}
                       >
                         <ChevronLeft size={18} />
                       </Button>
 
                       {getPageNumbers().map((page) => (
                         <Button
-                        // variant={'icon'}
+                          variant={`outline`}
+                          size="icon"
                           key={page}
                           onClick={() => handlePageClick(page)}
-                          className={`p-2 rounded-lg border transition
-                            ${pagination.hasPrevPage
-                              ? 'bg-card text-foreground border-border hover:bg-secondary'
-                              : 'bg-muted text-muted-foreground border-border cursor-not-allowed'
-                            }`}
+                          disabled={page === pagination.currentPage}
+                        // className={`p-2 rounded-lg border transition
+                        //   ${pagination.hasPrevPage
+                        //     ? 'bg-card text-foreground border-border hover:bg-secondary'
+                        //     : 'bg-muted text-muted-foreground border-border cursor-not-allowed'
+                        //   }`}
                         >
                           {page}
                         </Button>
                       ))}
 
                       <Button
-                      // variant={'icon'}
+                        variant={`outline`}
+                        size="icon"
                         onClick={handleNextPage}
                         disabled={!pagination.hasNextPage}
-                        className={`p-2 rounded-lg border transition
-                          ${pagination.hasNextPage
-                            ? 'bg-card text-foreground border-border hover:bg-secondary'
-                            : 'bg-muted text-muted-foreground border-border cursor-not-allowed'
-                          }`}
+                      // className={`p-2 rounded-lg border transition
+                      //   ${pagination.hasNextPage
+                      //     ? 'bg-card text-foreground border-border hover:bg-secondary'
+                      //     : 'bg-muted text-muted-foreground border-border cursor-not-allowed'
+                      //   }`}
                       >
                         <ChevronRight size={18} />
                       </Button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               )}

@@ -338,3 +338,7 @@
   color: var(--secondary-foreground);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+button {
+  @apply cursor-pointer;
+}
