@@ -12,7 +12,7 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
 
     return (
         <div className={styles.container}>
