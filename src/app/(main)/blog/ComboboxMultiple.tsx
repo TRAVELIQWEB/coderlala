@@ -47,7 +47,7 @@ export function ComboboxMultiple({
 
   return (
     <div className={cn("relative w-full", className)}>
-      <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground z-10 rounded-sm p-0.5">
+      <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground bg-card rounded-sm p-0.5">
         {label}
       </Label>
 
@@ -61,23 +61,9 @@ export function ComboboxMultiple({
               error &&
               "border-destructive focus-visible:ring-destructive focus-visible:ring-2"
             )}
-            style={{
-              background: "rgba(255,255,255,0.08)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
-              transition: "all 0.3s ease"
-            }}
-            onMouseEnter={(e) =>
-            (e.currentTarget.style.boxShadow =
-              "0 20px 35px rgba(0,0,0,0.25)")
-            }
-            onMouseLeave={(e) =>
-            (e.currentTarget.style.boxShadow =
-              "0 10px 25px rgba(0,0,0,0.15)")
-            }
           >
             <div className="flex items-center gap-2 flex-1 overflow-hidden">
+
               {Icon && (
                 <Icon className="h-4 w-4 text-muted-foreground shrink-0" />
               )}
@@ -98,9 +84,9 @@ export function ComboboxMultiple({
                     <X
                       className="h-3 w-3 cursor-pointer"
                       onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        removeItem(item);
+                        e.preventDefault()
+                        e.stopPropagation()
+                        removeItem(item)
                       }}
                     />
                   </span>
@@ -113,13 +99,7 @@ export function ComboboxMultiple({
         </PopoverTrigger>
 
         <PopoverContent
-          className="w-(--radix-popover-trigger-width) p-0"
-          style={{
-            background: "rgba(255,255,255,0.08)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            boxShadow: "0 20px 40px rgba(0,0,0,0.25)"
-          }}
+          className="w-(--radix-popover-trigger-width) p-0 border-border"
         >
           <Command>
             <CommandInput placeholder={`Search ${label}...`} />

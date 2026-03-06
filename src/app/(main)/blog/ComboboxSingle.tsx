@@ -35,7 +35,7 @@ export function ComboboxSingle({
 
   return (
     <div className={cn("relative w-full", className)}>
-      <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground z-10 rounded-sm p-0.5">
+      <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground bg-background rounded-sm p-0.5">
         {label}
       </Label>
 
@@ -44,26 +44,7 @@ export function ComboboxSingle({
           <Button
             variant="outline"
             role="combobox"
-            className={cn(
-              "w-full justify-between min-h-12 pt-3 transition-all",
-              error &&
-              "border-destructive focus-visible:ring-destructive focus-visible:ring-2"
-            )}
-            style={{
-              background: "rgba(255,255,255,0.08)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
-              transition: "all 0.3s ease"
-            }}
-            onMouseEnter={(e) =>
-            (e.currentTarget.style.boxShadow =
-              "0 20px 35px rgba(0,0,0,0.25)")
-            }
-            onMouseLeave={(e) =>
-            (e.currentTarget.style.boxShadow =
-              "0 10px 25px rgba(0,0,0,0.15)")
-            }
+            className="w-full justify-between min-h-12 pt-3"
           >
             <div className="flex items-center gap-2 overflow-hidden">
 
@@ -72,7 +53,7 @@ export function ComboboxSingle({
               )}
 
               <span className="truncate uppercase">
-                {value ? value : (
+                {value ?? (
                   <span className="text-muted-foreground">
                     Select {label}...
                   </span>
@@ -84,14 +65,9 @@ export function ComboboxSingle({
           </Button>
         </PopoverTrigger>
 
+        {/* 👇 Dropdown width auto matches trigger */}
         <PopoverContent
-          className="w-(--radix-popover-trigger-width) p-0"
-          style={{
-            background: "rgba(255,255,255,0.08)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            boxShadow: "0 20px 40px rgba(0,0,0,0.25)"
-          }}
+          className="w-(--radix-popover-trigger-width) p-0 border-border"
         >
           <Command>
             <CommandInput placeholder={`Search ${label}...`} />
@@ -124,11 +100,6 @@ export function ComboboxSingle({
           </Command>
         </PopoverContent>
       </Popover>
-      {error && errorMessage && (
-        <p className="mt-1 text-xs text-destructive">
-          {errorMessage}
-        </p>
-      )}
     </div>
   )
 }

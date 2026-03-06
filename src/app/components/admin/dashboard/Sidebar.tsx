@@ -16,7 +16,6 @@ import {
 } from 'lucide-react';
 import styles from './Sidebar.module.css';
 import { useTheme } from 'next-themes';
-import { AdminMenuItems } from '@/data/DashboardMenu';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -26,6 +25,15 @@ interface SidebarProps {
 export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
   const pathname = usePathname();
   const { theme } = useTheme();
+
+  const menuItems = [
+    { href: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+    { href: '/admin/blog', icon: FileText, label: 'Blog' },
+    { href: '#', icon: FolderKanban, label: 'Projects' },
+    { href: '#', icon: Users, label: 'Users' },
+    { href: '#', icon: BarChart3, label: 'Analytics' },
+    { href: '#', icon: Settings, label: 'Settings' },
+  ];
 
   return (
     <>
@@ -42,46 +50,31 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
           {!collapsed ? (
             <div className="flex items-center space-x-3">
               {/* LOGO - RESPONSIVE SIZING */}
-              {theme === "light" ? (
-                <img
-                  src="/logo/CoderLalaLogoLight.svg"
-                  alt="CoderLalaLogo Light"
-                  className="w-full h-full object-contain"
-                  key="light-logo"
-                />
-              ) : (
-                <img
-                  src="/logo/CoderLalaLogoDark.svg"
-                  alt="CoderLalaLogo Dark"
-                  className="w-full h-full object-contain"
-                  key="dark-logo"
-                />
-              )}
-              {/* <div className="relative h-10">
-
-                <img
-                  src="/logo/CoderLalaLogoLight.svg"
-                  alt="CoderLalaLogo Light"
-                  className="w-full h-full object-contain"
-                  key="light-logo"
-                />
-
-
-              </div> */}
+              <div className="relative h-10">
+                
+                  <img
+                    src="/logo/CoderLalaLogoLight.svg"
+                    alt="CoderLalaLogo Light"
+                    className="w-full h-full object-contain"
+                    key="dark-logo"
+                  />
+                
+                
+              </div>
             </div>
           ) : (
             <div className="size-12 rounded-lg flex items-center justify-center mx-auto">
               {theme === "light" ? (
                 <img
                   src="/favicon.svg"
-                  alt="CoderLalaLogoIcon Dark"
+                  alt="CoderLalaLogo Dark"
                   className="w-full h-full object-contain"
                   key="light-logo"
                 />
               ) : (
                 <img
                   src="/favicon.svg"
-                  alt="CoderLalaLogoIcon Dark"
+                  alt="CoderLalaLogo Dark"
                   className="w-full h-full object-contain"
                   key="light-logo"
                 />
@@ -97,7 +90,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
 
         {/* Navigation */}
         <nav className={styles.nav}>
-          {AdminMenuItems.map((item, key) => {
+          {menuItems.map((item, key) => {
             const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
               <Link
@@ -114,12 +107,12 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         </nav>
 
         {/* Footer */}
-        {/* <div className={`${styles.footer} p-4`}>
+        <div className={`${styles.footer} p-4`}>
           <button className={styles.logoutButton}>
             <LogOut size={20} />
             {!collapsed && <span>Logout</span>}
           </button>
-        </div> */}
+        </div>
       </aside>
     </>
   );
