@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @plugin "tailwindcss-animate";
 
@@ -79,7 +79,6 @@
   --sidebar-ring: oklch(0.708 0 0);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
-  --table-header-bg: #2c3e50;
 
   /* Modal specific colors (LIGHT) */
   --modal-bg: oklch(1 0 0);
@@ -100,7 +99,7 @@
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: rgb(42, 42, 56);
+  --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
@@ -285,8 +284,7 @@
 
 /* Optional: Add a subtle pulse animation for the button */
 @keyframes gentlePulse {
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
   }
   50% {
@@ -296,51 +294,4 @@
 
 .animate-gentle-pulse {
   animation: gentlePulse 2s ease-in-out infinite;
-}
-
-/* Main Table Styles */
-.styled-table {
-  border-collapse: collapse;
-  width: 100%;
-  background-color: var(--card);
-  color: var(--card-foreground);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-}
-
-.styled-table th {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background-color: var(--table-header-bg);
-  color: white;
-}
-
-/* Header Styles */
-.styled-table thead tr {
-  /* background-color: var(--card); */
-  color: var(--foreground);
-  border-bottom: 1px solid var(--border);
-}
-/* Cell Padding */
-.styled-table th,
-.styled-table td {
-  padding: 12px 15px;
-  border-bottom: 1px solid var(--border);
-}
-
-/* Zebra Striping */
-.styled-table tbody tr:nth-of-type(even) {
-  background-color: oklch(from var(--muted) l c h / 40%);
-}
-
-/* Hover Effect */
-.styled-table tbody tr:hover {
-  background-color: var(--secondary);
-  color: var(--secondary-foreground);
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-button {
-  @apply cursor-pointer;
 }

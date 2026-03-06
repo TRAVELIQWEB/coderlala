@@ -18,6 +18,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import 'prosemirror-view/style/prosemirror.css';
 import { Option } from "@/components/ui/multi-select";
+// Add these imports at the top
 import { Separator } from "@/components/ui/separator";
 import { Toggle } from "@/components/ui/toggle";
 import { Button } from '@/components/ui/button';
@@ -126,6 +127,7 @@ export default function UpdatePostModal({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
 
   // Add this helper function at the top of the component (after useState declarations)
   const getToggleClass = (active: boolean) =>
@@ -666,9 +668,9 @@ export default function UpdatePostModal({
 
   return (
     <div className="create-post-modal fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 backdrop-blur-sm">
-      <div className="w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden border flex flex-col h-[95vh] bg-(--modal-bg) text-(--modal-text) border-(--modal-border)">
+      <div className="w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden border flex flex-col h-[90vh] bg-(--modal-bg) text-(--modal-text) border-(--modal-border)">
 
-        {/* Fixed Header */}
+        {/* Fixed Header - EXACT same as CreatePostModal */}
         <div className="flex justify-between items-center px-4 py-4 border-b shrink-0 bg-(--modal-header-bg) border-(--modal-border)">
           <h2 className="font-bold text-2xl text-(--modal-text)">
             Edit Post
@@ -687,16 +689,16 @@ export default function UpdatePostModal({
         {/* Error Alert */}
         {submitError && (
           <div className="mx-8 mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-700 font-medium"> {submitError}</p>
+            <p className="text-red-700 font-medium">Error: {submitError}</p>
           </div>
         )}
 
-        {/* Scrollable Form Content */}
+        {/* Scrollable Form Content - EXACT same design as CreatePostModal */}
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
           <div className="flex-1 overflow-y-auto p-4 space-y-2">
 
             {/* SECTION 1: Basic Information */}
-            <div className="bg-blue-50/50 p-4 rounded-xl border border-border space-y-4">
+            <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100 space-y-4">
               <h3 className="text-lg font-semibold text-blue-900 flex items-center gap-2">
                 Basic Information
               </h3>
@@ -707,7 +709,7 @@ export default function UpdatePostModal({
                 <FormInput
                   name="title"
                   label="Title"
-                  // required
+                  required
                   placeholder="e.g. Complete Guide to NestJS"
                   value={form.title}
                   onChange={handleTitleChange}
@@ -719,7 +721,7 @@ export default function UpdatePostModal({
                 <FormInput
                   name="slug"
                   label="Slug"
-                  // required
+                  required
                   placeholder="nestjs-complete-guide"
                   value={form.slug}
                   onChange={handleSlugChange}
@@ -731,7 +733,7 @@ export default function UpdatePostModal({
                   type="number"
                   name="readingTime"
                   label="Reading Time"
-                  // required
+                  required
                   min={1}
                   max={60}
                   value={form.readingTime}
@@ -744,8 +746,8 @@ export default function UpdatePostModal({
                 />
               </div>
 
-              {/* Primary Tech - Level - Language - Status - Reading Time */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Primary Tech - Level - Language - Status */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 <ComboboxSingle
                   label="Difficulty Level *"
                   options={Object.values(BlogLevel)}
@@ -798,11 +800,10 @@ export default function UpdatePostModal({
                   errorMessage={errors.status}
                   className="w-full"
                 />
-
               </div>
 
-              {/* Tech Stacks - CHECKBOXES */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Tech Stacks - Primary Tech and Multi-selects */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 <div className="w-full">
                   <ComboboxSingle
                     label="Primary Tech *"
@@ -816,12 +817,6 @@ export default function UpdatePostModal({
                     errorMessage={errors.primaryTech}
                     className="w-full"
                   />
-
-                  {errors.primaryTech && (
-                    <p className="mt-1 text-sm text-destructive">
-                      {errors.primaryTech}
-                    </p>
-                  )}
                 </div>
 
                 {/* Tech Stack */}
@@ -852,16 +847,16 @@ export default function UpdatePostModal({
                   errorMessage={errors.tags}
                   className="w-full"
                 />
-
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
                 {/* Description */}
                 <FormTextarea
                   className='col-span-3'
                   name="description"
                   label="Description"
-                  // required
-                  rows={6}
+                  required
+                  rows={7}
                   maxLength={200}
                   value={form.desc}
                   onChange={handleDescChange}
@@ -869,16 +864,17 @@ export default function UpdatePostModal({
                   errorMessage={errors.description}
                 />
                 {/* SECTION 2: Author Information */}
-                <div className="space-y-2">
+                <div className="bg-purple-50/50 p-4 rounded-xl border border-purple-100 space-y-2">
                   <h3 className="text-lg font-semibold text-purple-900 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-purple-600 rounded-full"></span>
                     Author Information
                   </h3>
 
-                  <div className="grid gap-4 mt-3">
+                  <div className="grid gap-2 mt-5">
                     <FormInput
                       name="authorName"
                       label="Author Name"
-                      // required
+                      required
                       value={form.author.name}
                       onChange={(e) => {
                         setForm({
@@ -912,16 +908,17 @@ export default function UpdatePostModal({
             </div>
 
             {/* SECTION 3: SEO Settings */}
-            <div className="bg-green-50/50 p-4 rounded-xl border border-border space-y-1">
+            <div className="bg-green-50/50 p-4 rounded-xl border border-green-100 space-y-2">
               <h3 className="text-lg font-semibold text-green-900 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-green-600 rounded-full"></span>
                 SEO Settings
               </h3>
 
-              <div className="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 mt-4">
+              <div className="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
                 <FormInput
                   name="seoTitle"
                   label="SEO Title"
-                  // required
+                  required
                   value={form.seo.title}
                   onChange={(e) => {
                     setForm({
@@ -935,7 +932,7 @@ export default function UpdatePostModal({
                 <FormInput
                   name="canonicalUrl"
                   label="Canonical URL"
-                  // required
+                  required
                   value={form.seo.canonicalUrl}
                   onChange={(e) => {
                     setForm({
@@ -950,7 +947,7 @@ export default function UpdatePostModal({
                   className='col-span-2'
                   name="seoDescription"
                   label="SEO Description"
-                  // required
+                  required
                   rows={2}
                   value={form.seo.description}
                   onChange={(e) =>
@@ -966,9 +963,10 @@ export default function UpdatePostModal({
             </div>
 
             {/* SECTION 4: Content */}
-            <div className="bg-amber-50/50 p-4 rounded-xl border border-border space-y-1">
+            <div className="bg-amber-50/50 p-4 rounded-xl border border-amber-100 space-y-2">
               <h3 className="text-lg font-semibold text-amber-900 flex items-center gap-2">
-                Content <span className="text-destructive text-sm">(Required - Min 10 characters)</span>
+                <span className="w-1.5 h-1.5 bg-amber-600 rounded-full"></span>
+                Content <span className="text-red-500 text-sm">(Required - Min 10 characters)</span>
               </h3>
 
               {/* HTML Insert Toggle */}
@@ -990,43 +988,22 @@ export default function UpdatePostModal({
               {/* Custom HTML Section */}
               {enableHtmlInsert && (
                 <div className="bg-background p-4 rounded-lg border border-border">
-                  <div className="relative">
-                    <textarea
-                      id="custom-html"
-                      placeholder="Paste HTML code here... (e.g., <div class='highlight'>Your content</div>)"
-                      rows={4}
-                      className={cn(
-                        "w-full min-h-12 pt-6 border-input rounded-md border px-3 py-3 text-sm font-mono transition-all",
-                        "placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                      )}
-                      style={{
-                        background: "rgba(255,255,255,0.08)",
-                        backdropFilter: "blur(20px)",
-                        WebkitBackdropFilter: "blur(20px)",
-                        boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
-                        transition: "all 0.3s ease"
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow = "0 20px 35px rgba(0,0,0,0.25)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.15)";
-                      }}
-                      onFocus={(e) => {
-                        e.currentTarget.style.boxShadow = "0 20px 35px rgba(0,0,0,0.25)";
-                      }}
-                      onBlur={(e) => {
-                        e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.15)";
-                      }}
-                      value={htmlInput}
-                      onChange={(e) => setHtmlInput(e.target.value)}
-                    />
-                  </div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2mb-1">
+                    Custom HTML
+                  </label>
+                  <textarea
+                    id="custom-html"
+                    placeholder="Paste HTML code here... (e.g., <div class='highlight'>Your content</div>)"
+                    rows={4}
+                    className="w-full border-border mt-2 border rounded-lg p-3 font-mono text-sm transition-all duration-200 hover:border-amber-400 hover:ring-1 hover:ring-amber-200 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-transparent"
+                    value={htmlInput}
+                    onChange={(e) => setHtmlInput(e.target.value)}
+                  />
                   <Button
                     type="button"
                     size={'sm'}
                     onClick={insertHtmlIntoEditor}
-                    className="mt-3 bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                    className="mt-1 bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                   >
                     Insert HTML at Cursor
                   </Button>
@@ -1042,16 +1019,12 @@ export default function UpdatePostModal({
                   Content <span className="text-destructive">*</span>
                 </Label>
 
-                {/* Toolbar */}
+                {/* // Replace the entire toolbar div with: */}
                 <div
                   className={cn(
-                    "flex flex-wrap bg-background items-center gap-2 rounded-t-lg border p-2",
+                    "flex flex-wrap items-center gap-2 rounded-t-lg border p-2 bg-muted",
                     errors.content ? "border-destructive" : "border-border"
                   )}
-                  style={{
-                    backdropFilter: "blur(20px)",
-                    WebkitBackdropFilter: "blur(20px)",
-                  }}
                 >
                   {/* Bold */}
                   <Toggle
@@ -1148,23 +1121,11 @@ export default function UpdatePostModal({
                 </div>
 
                 {/* Editor */}
-                <div
-                  className={cn(
-                    "border border-t-0 rounded-b-lg p-4 transition-all duration-200",
-                    errors.content ? "border-destructive" : "border-border"
-                  )}
-                  style={{
-                    background: "rgba(255,255,255,0.08)",
-                    backdropFilter: "blur(20px)",
-                    WebkitBackdropFilter: "blur(20px)",
-                    boxShadow: "0 10px 25px rgba(0,0,0,0.15)"
-                  }}
-                >
+                <div className={`border border-t-0 rounded-b-lg bg-background p-4 transition-all duration-200 ${errors.content ? 'border-destructive' : 'border-border'}`}>
                   <EditorContent editor={editor} />
                 </div>
-
                 {errors.content && (
-                  <p className="mt-1 text-xs text-destructive">{errors.content}</p>
+                  <p className="mt-1 text-sm text-red-600">{errors.content}</p>
                 )}
                 <p className="mt-1 text-xs text-gray-500">
                   Characters: {editor?.getText().length || 0} (Minimum 10 required)

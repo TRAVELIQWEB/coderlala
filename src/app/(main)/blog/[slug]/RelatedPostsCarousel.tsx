@@ -106,138 +106,43 @@ const RelatedPostsCarousel: React.FC<RelatedPostsCarouselProps> = ({ relatedBlog
                     }}
                     loop={relatedBlogs.length > 3}
                     speed={800}
-                    style={{ overflow: "visible" }}
+                    className={styles.swiper}
                 >
                     {relatedBlogs.map((blog) => (
-                        <SwiperSlide key={blog._id}  >
-                            <Link
-                                href={`/blog/${blog.slug}`}
-                                style={{
-                                    display: "block",
-                                    padding: "20px",
-                                    borderRadius: "16px",
+                        <SwiperSlide key={blog._id} className={styles.swiperSlide}>
+                            <Link href={`/blog/${blog.slug}`} className={styles.card}>
+                                <div className={styles.cornerDecoration} />
 
-                                    // 🌞 Light Mode
-                                    background: document.documentElement.classList.contains("dark")
-                                        ? "rgba(255,255,255,0.08)"
-                                        : "rgba(255,255,255,0.6)",
-
-                                    backdropFilter: "blur(20px)",
-                                    WebkitBackdropFilter: "blur(20px)",
-
-                                    border: document.documentElement.classList.contains("dark")
-                                        ? "1px solid rgba(255,255,255,0.18)"
-                                        : "1px solid rgba(0,0,0,0.08)",
-
-                                    boxShadow: document.documentElement.classList.contains("dark")
-                                        ? "0 10px 30px rgba(0,0,0,0.4)"
-                                        : "0 10px 30px rgba(0,0,0,0.08)",
-
-                                    transition: "all 0.3s ease",
-                                    textDecoration: "none",
-                                    color: "inherit",
-                                    height: "100%",
-                                    transform: "scale(1)"
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = "scale(1.04)";
-                                    e.currentTarget.style.boxShadow =
-                                        document.documentElement.classList.contains("dark")
-                                            ? "0 20px 40px rgba(0,0,0,0.5)"
-                                            : "0 20px 40px rgba(0,0,0,0.12)";
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = "scale(1)";
-                                    e.currentTarget.style.boxShadow =
-                                        document.documentElement.classList.contains("dark")
-                                            ? "0 10px 30px rgba(0,0,0,0.4)"
-                                            : "0 10px 30px rgba(0,0,0,0.08)";
-                                }}
-                            >
-                                {/* Top Meta Row */}
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        marginBottom: "14px",
-                                        fontSize: "13px",
-                                        opacity: 0.85
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            background: "rgba(59,130,246,0.15)",
-                                            color: "#3b82f6",
-                                            padding: "4px 10px",
-                                            borderRadius: "999px",
-                                            fontWeight: 500
-                                        }}
-                                    >
-                                        {getCategory(blog)}
-                                    </span>
-
-                                    <span style={{ fontSize: "12px" }}>
-                                        {getReadingTime(blog)}
-                                    </span>
+                                <div className={styles.cardHeader}>
+                                    <div className={styles.cardMeta}>
+                                        <div className={styles.brandDotPurple} />
+                                        <div className={`${styles.brandDotOrange} ${styles.delay75}`} />
+                                        <span className={styles.categoryBadge}>
+                                            {getCategory(blog)}
+                                        </span>
+                                    </div>
+                                    <span className={styles.readTime}>{getReadingTime(blog)}</span>
                                 </div>
 
-                                {/* Title */}
-                                <h4
-                                    style={{
-                                        fontSize: "18px",
-                                        fontWeight: 600,
-                                        marginBottom: "8px",
-                                        lineHeight: "1.4"
-                                    }}
-                                >
+                                <h4 className={styles.cardTitle}>
                                     {blog.title}
                                 </h4>
 
-                                {/* Subtitle */}
-                                <p
-                                    style={{
-                                        fontSize: "14px",
-                                        opacity: 0.8,
-                                        marginBottom: "6px"
-                                    }}
-                                >
+                                <p className={styles.cardSubtitle}>
                                     {getSubtitle(blog)}
                                 </p>
 
-                                {/* Description */}
-                                <p
-                                    style={{
-                                        fontSize: "13px",
-                                        opacity: 0.7,
-                                        marginBottom: "16px",
-                                        lineHeight: "1.5"
-                                    }}
-                                >
+                                <p className={styles.cardDescription}>
                                     {getDescription(blog.description)}
                                 </p>
 
-                                {/* Bottom Row */}
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        fontSize: "12px",
-                                        opacity: 0.75
-                                    }}
-                                >
-                                    <span>
+                                <div className={styles.cardFooter}>
+                                    <span className={styles.authorDate}>
                                         {blog.author.name} • {formatDate(blog.createdAt)}
                                     </span>
-
-                                    <span
-                                        style={{
-                                            color: "#3b82f6",
-                                            fontWeight: 500
-                                        }}
-                                    >
-                                        Read more →
+                                    <span className={styles.readMore}>
+                                        Read more
+                                        <span className={styles.readMoreArrow}>→</span>
                                     </span>
                                 </div>
                             </Link>

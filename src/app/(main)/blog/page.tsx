@@ -1,4 +1,5 @@
 import { JSX } from "react";
+import { posts, Post } from "./data/posts";
 import BlogContent from "./BlogContent";
 
 export default function BlogPage(): JSX.Element {
