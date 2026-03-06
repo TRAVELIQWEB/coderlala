@@ -312,11 +312,13 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  background-color: var(--table-header-bg);
+  color: white;
 }
 
 /* Header Styles */
 .styled-table thead tr {
-  background-color: var(--card);
+  /* background-color: var(--card); */
   color: var(--foreground);
   border-bottom: 1px solid var(--border);
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { Plus, Pencil, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { Plus, Pencil, ChevronLeft, ChevronRight, Search, ArrowUpIcon } from 'lucide-react';
 import CreatePostModal from '@/app/components/admin/CreatePostModal';
 import UpdatePostModal from '@/app/components/admin/UpdatePostModal';
 import api from '@/lib/axios';
@@ -22,6 +22,7 @@ import {
 } from '@/types/blog';
 import { dummyPosts } from '@/app/(main)/blog/data/posts';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 // import { dummyPosts } from '@/app/(main)/blog/data/posts';
 
 export default function BlogPage() {
@@ -377,12 +378,12 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="space-y-4 p-6">
+    <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Blog</h1>
-          <p className=" mt-2">Manage blog posts</p>
+          <p className="">Manage blog posts</p>
         </div>
       </div>
 
@@ -394,33 +395,32 @@ export default function BlogPage() {
       )}
 
       {/* Filter Header */}
-      <div className="bg-secondary border-border rounded-xl w-full shadow border grid gap-2 p-4">
+      <div className="bg-secondary border-border rounded-xl w-full shadow border flex flex-col gap-2 p-4">
         <form
           onSubmit={handleSearch}
-          className="flex flex-col md:flex-row gap-3 md:items-end"
+          className="w-full flex flex-col sm:flex-row flex-wrap gap-1 sm:items-end"
         >
-          {/* <div className="flex-1"> */}
-          {/* <label className="text-sm font-medium mb-1 block">Search</label> */}
-          <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          {/* Search Field */}
+          <div className="relative w-full sm:flex-1">
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+              size={18}
+            />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by title..."
-              className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm outline-none border-border "
+              className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm outline-none border-border"
             />
           </div>
-          {/* </div> */}
 
-          <div className="w-full md:w-auto">
-            {/* <label className="text-sm font-medium text-muted-foreground mb-1 block">
-              Status
-            </label> */}
+          {/* Status Filter */}
+          <div className="w-full sm:w-auto">
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full md:w-48 rounded-lg px-3 py-2 text-sm font-medium border border-input bg-background text-foreground "
+              className="w-full sm:w-44 rounded-lg px-3 py-2 text-sm font-medium border border-input bg-background text-foreground"
             >
               <option value="all">All Status</option>
               <option value="active">🟢 Active</option>
@@ -429,21 +429,21 @@ export default function BlogPage() {
             </select>
           </div>
 
-          <div className="w-full md:w-auto">
+          {/* Search Button */}
+          <div className="flex gap-2 sm:w-auto w-full">
             <button
               type="submit"
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white! px-4 py-2 rounded-lg text-sm font-medium transition w-full md:w-auto justify-center"
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full sm:w-auto justify-center"
             >
               <Search size={16} />
               Search
             </button>
-          </div>
 
-          <div className="w-full md:w-auto">
+            {/* Create Button */}
             <button
               type="button"
               onClick={() => setCreateModalOpen(true)}
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white! px-4 py-2 rounded-lg text-sm font-medium transition w-full md:w-auto justify-center"
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full sm:w-auto justify-center"
             >
               <Plus size={16} />
               Create Post
@@ -479,61 +479,62 @@ export default function BlogPage() {
                       </tr>
                     </thead>
 
-                    <tbody className="divide-y divide-gray-300 dark:divide-gray-700">
+                    <tbody className="divide-y">
                       {posts.length === 0 ? (
                         <tr>
-                          <td colSpan={13} className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                          <td colSpan={13} className="px-6 py-8 text-center text-destructive">
                             No posts found
                           </td>
                         </tr>
                       ) : (
                         posts.map((post, index) => (
-                          <tr key={post._id} className="hover:bg-muted transition-colors">
-                            <td className="px-6 py-4">{(pagination.currentPage - 1) * 20 + index + 1}</td>
-                            <td className="px-6 py-4 font-medium">{post.title}</td>
-                            <td className="px-6 py-4 max-w-xs">
-                              <div className="truncate text-gray-500 dark:text-gray-400" title={post.slug}>{post.slug || '-'}</div>
+                          <tr key={post._id} className="hover:bg-muted transition-colors text-color-muted">
+                            <td className="">{(pagination.currentPage - 1) * 20 + index + 1}</td>
+                            <td className="font-medium">{post.title}</td>
+                            <td className="max-w-xs">
+                              <div className="truncate" title={post.slug}>{post.slug || '-'}</div>
                             </td>
-                            <td className="px-6 py-4 max-w-xs">
-                              <div className="truncate text-gray-500 dark:text-gray-400" title={post.description}>
+                            <td className="max-w-xs">
+                              <div className="truncate" title={post.description}>
                                 {post.description || post.desc || '-'}
                               </div>
                             </td>
-                            <td className="px-6 py-4 text-gray-900 dark:text-gray-100">{post.primaryTech || '-'}</td>
-                            <td className="px-3 md:px-6 py-3">
-                              <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                            <td className="">{post.primaryTech || '-'}</td>
+                            <td className="">
+                              <Badge variant={`${post.level === 'beginner' ? 'active' : post.level === 'intermediate' ? 'secondary' : post.level === 'advanced' ? 'destructive' : 'secondary'}`}>
+                                {post.level?.toUpperCase() || '-'}
+                              </Badge>
+                              {/* <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
                                 {post.level || '-'}
-                              </span>
+                              </span> */}
                             </td>
-                            <td className="px-6 py-4 text-gray-900 dark:text-gray-100">{post.readingTime ? `${post.readingTime} min` : '-'}</td>
-                            <td className="px-6 py-4 text-gray-900 dark:text-gray-100">{post.author?.name || '-'}</td>
-                            <td className="px-3 md:px-6 py-3">
-                              <span className="px-2 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
+                            <td className="">{post.readingTime ? `${post.readingTime} min` : '-'}</td>
+                            <td className="">{post.author?.name || '-'}</td>
+                            <td className="">
+                              <Badge variant={`draft`}>
                                 {post.language?.toUpperCase() || '-'}
-                              </span>
+                              </Badge>
+                              {/* <span className="px-2 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
+                                {post.language?.toUpperCase() || '-'}
+                              </span> */}
                             </td>
-                            <td className="px-3 md:px-6 py-3">
-                              <span className={`px-3 py-1 rounded-full text-xs font-medium ${post.status === 'active'
-                                ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
-                                : post.status === 'draft'
-                                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
-                                  : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300'
-                                }`}>
-                                {post.status}
-                              </span>
+                            <td className="">
+                              <Badge variant={`${post.status === 'active' ? 'active' : post.status === 'draft' ? 'draft' : 'archived'}`}>
+                                {post.status?.toUpperCase() || '-'}
+                              </Badge>
+
                             </td>
-                            <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                            <td className="text-sm">
                               {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : '-'}
                             </td>
-                            <td className="px-3 md:px-6 py-3">
+                            <td className="">
                               <div className="flex justify-center gap-2">
-                                <button
+                                <Button variant="outline" size="icon" className="rounded-full"
                                   onClick={() => handleEditClick(post)}
-                                  className="p-1.5 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded transition-colors"
                                   title="Edit"
                                 >
-                                  <Pencil size={16} />
-                                </button>
+                                  <Pencil />
+                                </Button>
                               </div>
                             </td>
                           </tr>
@@ -546,7 +547,7 @@ export default function BlogPage() {
 
               {/* Pagination - Fixed outside scroll, always visible */}
               {posts.length > 0 && pagination.totalPages > 1 && (
-                <div className="border-t border-border px-4 md:px-6 py-4 bg-background shrink-0">
+                <div className="border border-border p-2 rounded-md bg-background mt-1 shrink-0">
                   <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div className="text-sm text-gray-600">
                       Showing {((pagination.currentPage - 1) * 20) + 1} to{' '}
@@ -574,6 +575,7 @@ export default function BlogPage() {
                             variant={isActive ? "destructive" : "outline"}
                             onClick={() => handlePageClick(page)}
                             // disabled={isActive}
+                            className={`${isActive ? "text-white pointer-events-none" : ""}`}
                           >
                             {page}
                           </Button>
