@@ -75,11 +75,11 @@ export const FilterBar: React.FC<FiltersProps> = ({
       <div className="flex flex-col md:flex-row sm:flex-wrap gap-4 p-5 rounded-xl  border border-gray-400/30 shadow-lg">
         {/* Search Input */}
         <div className="relative w-full md:w-64">
-          <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground z-10  rounded-sm p-0.5">
+          <Label className="absolute -top-3 left-3 px-1 text-xs text-muted-foreground z-10  rounded-sm p-0.5">
             Search
           </Label>
 
-          <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground  glass-cardpointer-events-none" />
+          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-20 glass-cardpointer-events-none" />
 
           <Input
             placeholder="Search titles, content..."
@@ -93,7 +93,7 @@ export const FilterBar: React.FC<FiltersProps> = ({
             // (e.currentTarget.style.boxShadow =
             //   "0 10px 25px rgba(0,0,0,0.15)")
             // }
-            className="h-12 pl-9 min-h-12 rounded-md border-input"
+            className="h-12 pl-10 min-h-12 rounded-md border-input"
             style={{
               background: "#ffffff0d",
               // border: "1px solid rgba(0,0,0,0.1)",
@@ -184,7 +184,7 @@ export const FilterBar: React.FC<FiltersProps> = ({
              dark:bg-blue-600 dark:hover:bg-blue-700
              text-white! shadow-md transition-all"
         >
-          <Search className="w-4 h-4 mr-2" />
+          <Search />
           Search
         </Button>
         {/* </div> */}
