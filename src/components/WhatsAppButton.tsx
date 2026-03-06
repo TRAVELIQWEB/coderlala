@@ -79,10 +79,10 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
       {/* WhatsApp Button */}
       <button
         onClick={handleWhatsAppClick}
-        className="group relative bg-green-500 hover:bg-green-600 text-white! rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        className="group relative bg-green-500 hover:bg-green-600 text-white! rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         aria-label="Chat on WhatsApp"
       >
-        <FaWhatsapp className="w-7 h-7" />
+        <FaWhatsapp className="w-5 h-5" />
         
         {/* Ripple effect */}
         <span className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-20 group-hover:opacity-30"></span>

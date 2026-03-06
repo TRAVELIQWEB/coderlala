@@ -110,7 +110,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
       tags: tagValues
     }));
   }, [selectedTechStacks, selectedTags]);
-  
+
   // Add this helper function at the top of the component (after useState declarations)
   const getToggleClass = (active: boolean) =>
     cn(
@@ -521,7 +521,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
 
   return (
     <div className="create-post-modal fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 backdrop-blur-sm">
-      <div className="w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden border flex flex-col h-[90vh] bg-(--modal-bg) text-(--modal-text) border-(--modal-border)">
+      <div className="w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden border flex flex-col h-[95vh] bg-(--modal-bg) text-(--modal-text) border-(--modal-border)">
 
         {/* Fixed Header */}
         <div className="flex justify-between items-center px-4 py-4 border-b shrink-0 bg-(--modal-header-bg) border-(--modal-border)">
@@ -716,7 +716,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
                   name="description"
                   label="Description"
                   // required
-                  rows={7}
+                  rows={6}
                   maxLength={200}
                   value={form.description}
                   onChange={(e) =>
@@ -731,7 +731,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
                     Author Information
                   </h3>
 
-                  <div className="grid gap-4 mt-5">
+                  <div className="grid gap-4 mt-3">
                     <FormInput
                       name="authorName"
                       label="Author Name"
@@ -829,7 +829,6 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
               </h3>
 
               {/* HTML Insert Toggle */}
-
               <div className="flex items-center space-x-2 my-3">
                 <Checkbox
                   id="enable-html"
@@ -848,25 +847,71 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
               {/* Custom HTML Section */}
               {enableHtmlInsert && (
                 <div className="bg-background p-4 rounded-lg border border-border">
-                  <Label
-                    htmlFor="custom-html"
-                    className="text-sm font-medium cursor-pointer"
-                  >
-                    Custom HTML
-                  </Label>
-                  <textarea
-                    id="custom-html"
-                    placeholder="Paste HTML code here... (e.g., <div class='highlight'>Your content</div>)"
-                    rows={4}
-                    className="w-full border-border mt-2 border rounded-lg p-3 font-mono text-sm transition-all duration-200 hover:border-amber-400 hover:ring-1 hover:ring-amber-200 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-transparent"
-                    value={htmlInput}
-                    onChange={(e) => setHtmlInput(e.target.value)}
-                  />
+                  <div className="relative">
+                    {/* <Label
+                      htmlFor="custom-html"
+                      className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground z-10 rounded-sm p-0.5 bg-transparent"
+                    >
+                      Custom HTML
+                    </Label> */}
+                    <textarea
+                      id="custom-html"
+                      placeholder="Paste HTML code here... (e.g., <div class='highlight'>Your content</div>)"
+                      rows={4}
+                      className={cn(
+                        "w-full min-h-12 pt-6 border-input rounded-md border px-3 py-3 text-sm font-mono transition-all",
+                        "placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                        // error ? "border-destructive focus-visible:ring-destructive" : "border-input"
+                      )}
+                      style={{
+                        background: "rgba(255,255,255,0.08)",
+                        backdropFilter: "blur(20px)",
+                        WebkitBackdropFilter: "blur(20px)",
+                        boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+                        transition: "all 0.3s ease"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = "0 20px 35px rgba(0,0,0,0.25)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.15)";
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.boxShadow = "0 20px 35px rgba(0,0,0,0.25)";
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.15)";
+                      }}
+                      value={htmlInput}
+                      onChange={(e) => setHtmlInput(e.target.value)}
+                    />
+                    {/* <textarea
+                      id="custom-html"
+                      placeholder="Paste HTML code here... (e.g., <div class='highlight'>Your content</div>)"
+                      rows={4}
+                      className="w-full min-h-12 pt-6 rounded-md border px-3 py-3 text-sm font-mono transition-all"
+                      style={{
+                        background: "rgba(255,255,255,0.08)",
+                        backdropFilter: "blur(20px)",
+                        WebkitBackdropFilter: "blur(20px)",
+                        boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+                        transition: "all 0.3s ease"
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = "0 20px 35px rgba(0,0,0,0.25)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.15)";
+                      }}
+                      value={htmlInput}
+                      onChange={(e) => setHtmlInput(e.target.value)}
+                    /> */}
+                  </div>
                   <Button
                     type="button"
                     size={'sm'}
                     onClick={insertHtmlIntoEditor}
-                    className="mt-1 bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                    className="mt-3 bg-amber-600 text-white px-3 py-2 rounded hover:bg-amber-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                   >
                     Insert HTML at Cursor
                   </Button>
@@ -882,16 +927,17 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
                   Content <span className="text-destructive">*</span>
                 </Label>
 
-
                 {/* Toolbar */}
-
-
-
                 <div
                   className={cn(
-                    "flex flex-wrap items-center gap-2 rounded-t-lg border p-2 bg-muted",
+                    "flex flex-wrap bg-background items-center gap-2 rounded-t-lg border p-2",
                     errors.content ? "border-destructive" : "border-border"
                   )}
+                  style={{
+                    // background: "rgba(255,255,255,0.08)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                  }}
                 >
                   {/* Bold */}
                   <Toggle
@@ -987,92 +1033,22 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
                   </Toggle>
                 </div>
 
-                {/* <div className={`flex flex-wrap gap-3 border border-border rounded-t-lg p-2 bg-gray-50 ${errors.content ? 'border-destructive' : 'border-border'}`}>
-                  <button
-                    type="button"
-                    onClick={toggleBold}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('bold')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Bold"
-                  >
-                    <Bold size={15} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={toggleItalic}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('italic')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Italic"
-                  >
-                    <Italic size={15} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={toggleStrike}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('strike')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Strikethrough"
-                  >
-                    <Strikethrough size={15} />
-                  </button>
-                  <div className="w-px h-6 bg-gray-300 mx-1" />
-                  <button
-                    type="button"
-                    onClick={toggleHeading1}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('heading', { level: 1 })
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Heading 1"
-                  >
-                    <Heading1 size={15} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={toggleHeading2}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('heading', { level: 2 })
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Heading 2"
-                  >
-                    <Heading2 size={15} />
-                  </button>
-                  <div className="w-px h-6 bg-gray-300 mx-1" />
-                  <button
-                    type="button"
-                    onClick={toggleBulletList}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('bulletList')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Bullet List"
-                  >
-                    <List size={15} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={toggleOrderedList}
-                    className={`p-1 rounded transition-all duration-200 ${editor?.isActive('orderedList')
-                      ? 'bg-blue-500 text-white ring-2 ring-blue-300'
-                      : 'hover:bg-gray-200 text-gray-700 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                      }`}
-                    title="Ordered List"
-                  >
-                    <ListOrdered size={15} />
-                  </button>
-                </div> */}
-
                 {/* Editor */}
-                <div className={`border border-t-0 rounded-b-lg bg-background p-4 transition-all duration-200 ${errors.content ? 'border-destructive' : 'border-border'}`}>
+                <div
+                  className={cn(
+                    "border border-t-0 rounded-b-lg p-4 transition-all duration-200",
+                    errors.content ? "border-destructive" : "border-border"
+                  )}
+                  style={{
+                    background: "rgba(255,255,255,0.08)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    boxShadow: "0 10px 25px rgba(0,0,0,0.15)"
+                  }}
+                >
                   <EditorContent editor={editor} />
                 </div>
+
                 {errors.content && (
                   <p className="mt-1 text-xs text-destructive">{errors.content}</p>
                 )}

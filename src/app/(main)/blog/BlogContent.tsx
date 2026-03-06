@@ -34,10 +34,10 @@ const BlogContent = () => {
     const fetchFilteredBlogs = useCallback(async () => {
         try {
             setLoading(true);
-            
+
             // Build query params object
             const params: any = {};
-            
+
             // Send dates in ISO format
             if (dateFrom) {
                 params.fromDate = new Date(dateFrom).toISOString();
@@ -134,15 +134,15 @@ const BlogContent = () => {
                 transition={{ duration: 0.5 }}
             >
                 <FilterBar
-                    dateFrom={dateFrom} 
+                    dateFrom={dateFrom}
                     setDateFrom={setDateFrom}
-                    dateTo={dateTo} 
+                    dateTo={dateTo}
                     setDateTo={setDateTo}
-                    selectedTechStacks={selectedTechStacks} 
+                    selectedTechStacks={selectedTechStacks}
                     setSelectedTechStacks={setSelectedTechStacks}
-                    selectedTags={selectedTags} 
+                    selectedTags={selectedTags}
                     setSelectedTags={setSelectedTags}
-                    searchQuery={searchQuery} 
+                    searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                     onSearch={handleSearch}
                     onReset={handleReset}
@@ -171,44 +171,46 @@ const BlogContent = () => {
                             className="relative group"
                             key={blog.id || blog._id || index}
                         >
-                            <div className="relative flex flex-col justify-between glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10 h-full">
+                            <Link
+                                href={`/blog/${blog.slug}`}
+                                className="relative flex flex-col justify-between glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10 h-full">
                                 <div className="grid gap-4">
-                                    <Link href={`/blog/${blog.slug}`}>
-                                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold group-hover:text-white transition-colors overflow-hidden cursor-pointer hover:text-blue-400">
-                                            {blog.title
-                                                .split(' ')
-                                                .slice(0, 7)
-                                                .join(' ')}
-                                        </h3>
-                                    </Link>
+                                    {/* <Link href={`/blog/${blog.slug}`}> */}
+                                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold group-hover:text-white transition-colors overflow-hidden cursor-pointer hover:text-blue-400">
+                                        {blog.title
+                                            .split(' ')
+                                            .slice(0, 7)
+                                            .join(' ')}
+                                    </h3>
+                                    {/* </Link> */}
 
                                     {/* Description with HTML support */}
-                                    <div 
+                                    <div
                                         className="text-white/70 w-[90%] text-sm font-bold sm:text-base prose prose-invert prose-sm"
-                                        dangerouslySetInnerHTML={{ 
+                                        dangerouslySetInnerHTML={{
                                             __html: sanitizeHTML(
                                                 blog.description
                                                     .split(' ')
                                                     .slice(0, 5)
                                                     .join(' ')
-                                            ) 
+                                            )
                                         }}
                                     />
 
                                     {/* Content with HTML support - 3 lines */}
-                                    <div 
+                                    <div
                                         className="text-white/70 text-sm sm:text-base line-clamp-3 overflow-hidden prose prose-invert prose-sm"
-                                        dangerouslySetInnerHTML={{ 
-                                            __html: sanitizeHTML(blog.content) 
+                                        dangerouslySetInnerHTML={{
+                                            __html: sanitizeHTML(blog.content)
                                         }}
                                     />
                                 </div>
 
-                                <Link
-                                    href={`/blog/${blog.slug}`}
+                                <div
+                                    // href={`/blog/${blog.slug}`}
                                     className="group/btn relative block mt-8 cursor-pointer"
                                 >
-                                    <div className="relative flex items-center justify-between border bg-[#4948ab] text-white! border-white/10 group-hover/btn:border-white/20 rounded-xl px-4 py-3 transition-all duration-300">
+                                    <div className="relative flex items-center justify-between border bg-blue-600 text-white! border-white/10 group-hover/btn:border-white/20 rounded-xl px-4 py-3 transition-all duration-300">
                                         <div className="flex items-center gap-3">
                                             <span className="text-sm font-medium text-white/80! group-hover/btn:text-white transition-colors">
                                                 Continue reading
@@ -249,8 +251,8 @@ const BlogContent = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </Link>
-                            </div>
+                                </div>
+                            </Link>
                         </motion.div>
                     ))}
 
