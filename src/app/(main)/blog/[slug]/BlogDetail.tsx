@@ -140,7 +140,7 @@ export default function BlogDetail({ slug }: { slug: string }) {
                 </p> */}
             </motion.div>
 
-            <div className="container mx-auto px-4 pb-8 max-w-6xl">
+            <div className="container pb-8">
                 {/* Hero Section - Image Left, Title Right */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12 items-center">
                     {/* Left: Feature Image */}
