@@ -11,10 +11,21 @@ import {
   Code2,
   ChevronRight,
   Zap,
-  Shield,
+  Search,
+  Layout,
+  Smartphone as MobileIcon,
+  Bell,
+  CreditCard,
+  BarChart3,
+  Database,
   Workflow,
   ArrowRight,
-  Check
+  Check,
+  Plane,
+  Train,
+  Bus,
+  Globe2,
+  Users
 } from "lucide-react";
 import Link from "next/link";
 
@@ -73,12 +84,28 @@ import {
 
 const services = [
   {
+    slug: "travel-portal-development",
+    title: "Travel Portal Solutions",
+    description: "Comprehensive booking engines for Air, Rail, and Bus travel with real-time availability and seamless integrations.",
+    icon: Globe,
+    icons: [{ icon: Plane, color: "bg-orange-400" }, { icon: Train, color: "bg-blue-400" }, { icon: Bus, color: "bg-red-400" }],
+    color: "from-indigo-500 to-blue-500",
+    features: [
+      { text: "IRCTC Software or API Integration", icon: Workflow },
+      { text: "B2B & B2C Booking Software", icon: Users },
+      { text: "Railway Booking Software", icon: Train },
+      { text: "Flight Booking Software", icon: Plane },
+      { text: "Bus & Hotel Booking Software", icon: Bus },
+      { text: "Payment Gateway Integration", icon: CreditCard },
+    ],
+  },
+  {
     slug: "web-development",
     title: "Web Development",
     description: "Build modern, responsive websites optimized for speed, SEO, and user experience.",
     icon: Globe,
     color: "from-blue-500 to-cyan-500",
-    features: ["Next.js / React Development", "SEO Optimization for Higher Visibility", "Progressive Web App (PWA) Support", "High-Performance Web Solutions"]
+    features: [{ text: "Next.js / React Development", icon: Code2 }, { text: "SEO Optimization", icon: Search }, { text: "PWA Support", icon: Smartphone }, { text: "High Performance", icon: Zap }]
   },
   {
     slug: "mobile-app-development",
@@ -86,7 +113,7 @@ const services = [
     description: "Cross-platform mobile solutions for iOS and Android with seamless performance and security.",
     icon: Smartphone,
     color: "from-purple-500 to-pink-500",
-    features: ["React Native Development", "iOS & Android Compatible", "App Store Ready Applications", "Push Notifications & Engagement"]
+    features: [{ text: "React Native Development", icon: Code2 }, { text: "iOS & Android Compatible", icon: MobileIcon }, { text: "App Store Ready", icon: Layout }, { text: "Push Notifications", icon: Bell }]
   },
   {
     slug: "saas-platform-development",
@@ -94,7 +121,7 @@ const services = [
     description: "End-to-end SaaS solutions with subscription management and scalable architecture.",
     icon: Cloud,
     color: "from-orange-500 to-red-500",
-    features: ["Subscription Billing Systems", "Multi-Tenancy Architecture", "Analytics & Reporting", "API Integration"]
+    features: [{ text: "Subscription Billing", icon: CreditCard }, { text: "Multi-Tenancy", icon: Workflow }, { text: "Analytics & Reporting", icon: BarChart3 }, { text: "API Integration", icon: Server }]
   },
   {
     slug: "backend-api-development",
@@ -102,7 +129,7 @@ const services = [
     description: "Robust backend systems for enterprise-grade performance and scalability.",
     icon: Server,
     color: "from-green-500 to-emerald-500",
-    features: ["Node.js / Python / Go Development", "Microservices Architecture", "REST / GraphQL APIs", "Database Design & Management"]
+    features: [{ text: "Node.js / Python / Go", icon: Code2 }, { text: "Microservices", icon: Workflow }, { text: "REST / GraphQL APIs", icon: Globe }, { text: "Database Design", icon: Database }]
   },
   {
     slug: "ui-ux-design",
@@ -110,7 +137,7 @@ const services = [
     description: "User-centered design with wireframing, prototyping, and design systems",
     icon: Palette,
     color: "from-yellow-500 to-amber-500",
-    features: ["Figma / Adobe XD Design", "Comprehensive Design Systems", "User Research & Testing", "Rapid Prototyping"]
+    features: [{ text: "Figma / Adobe XD", icon: Palette }, { text: "Design Systems", icon: Layout }, { text: "User Research", icon: Search }, { text: "Rapid Prototyping", icon: Zap }]
   },
   {
     slug: "cloud-devops",
@@ -118,7 +145,7 @@ const services = [
     description: "Deploy and manage applications on cloud platforms efficiently and securely.",
     icon: Cpu,
     color: "from-indigo-500 to-blue-500",
-    features: ["AWS / Azure / Google Cloud Deployment", "Containerization with Docker & Kubernetes", "CI/CD Pipelines & Automation", "Serverless Architecture"]
+    features: [{ text: "Cloud Deployment", icon: Cloud }, { text: "Docker & Kubernetes", icon: Cpu }, { text: "CI/CD Pipelines", icon: Workflow }, { text: "Serverless", icon: Zap }]
   },
   {
     slug: "ai-ml-solutions",
@@ -126,23 +153,16 @@ const services = [
     description: "Intelligent systems leveraging machine learning, NLP, and predictive analytics..",
     icon: Zap,
     color: "from-cyan-500 to-blue-500",
-    features: ["Machine Learning Models", "Natural Language Processing (NLP)", "Computer Vision Applications", "Predictive Analytics Solutions"]
+    features: [{ text: "ML Models", icon: Cpu }, { text: "NLP Systems", icon: Code2 }, { text: "Computer Vision", icon: Search }, { text: "Predictive Analytics", icon: BarChart3 }]
   },
-  // {
-  //   title: "DevOps & Security",
-  //   description: "Secure, automated development lifecycle for reliable software delivery.",
-  //   icon: Shield,
-  //   color: "from-red-500 to-orange-500",
-  //   features: ["Security Audits & Compliance", "Automated Testing & CI/CD", "Monitoring & Incident Management", "Governance & Risk Management"]
-  // },
   {
     slug: "enterprise-software",
     title: "Enterprise Software",
     description: "Custom enterprise solutions with ERP, CRM integration.",
     icon: Workflow,
     color: "from-violet-500 to-purple-500",
-    features: ["ERP / CRM Integration", "Legacy System Migration", "Custom Enterprise Solutions", "Dedicated Enterprise Support"]
-  }
+    features: [{ text: "ERP / CRM Integration", icon: Database }, { text: "Legacy Migration", icon: Workflow }, { text: "Custom Solutions", icon: Code2 }, { text: "Enterprise Support", icon: Zap }]
+  },
 ];
 
 // Tech stack data with icons and colors - FIXED
@@ -223,8 +243,7 @@ export default function ServicesOverview() {
           </p>
         </motion.div>
 
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch">
           {services.map((service, i) => (
             <motion.div
               key={service.title}
@@ -236,22 +255,35 @@ export default function ServicesOverview() {
                 y: -8,
                 transition: { duration: 0.2 }
               }}
-              className="group relative"
+              className="group relative h-full"
             >
 
               <div className={`absolute -inset-0.5 bg-linear-to-r ${service.color} rounded-2xl sm:rounded-3xl blur opacity-0 group-hover:opacity-20 dark:group-hover:opacity-10 transition duration-500`} />
 
 
-              <div className="glass-card p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10 relative overflow-hidden">
+              <div className="glass-card h-full flex flex-col p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-border relative overflow-hidden">
 
 
                 <div className={`absolute inset-0 bg-linear-to-br ${service.color} opacity-0 group-hover:opacity-5 dark:group-hover:opacity-10 transition-opacity duration-500`} />
 
 
                 <div className="relative mb-4 sm:mb-6 z-10">
-                  <div className={`relative inline-flex items-center justify-center p-3 sm:p-4 rounded-xl bg-linear-to-br ${service.color} shadow-lg dark:shadow-black/30`}>
-                    <service.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white!" />
-                  </div>
+                  {service.slug === "travel-portal-development" ? (
+                    <div className="flex items-center gap-2">
+                      {service.icons?.map((item, idx) => (
+                        <div
+                          key={idx}
+                          className={`relative inline-flex items-center justify-center p-3 sm:p-4 rounded-xl bg-linear-to-br ${item.color} shadow-lg dark:shadow-black/30`}
+                        >
+                          <item.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white!" />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={`relative inline-flex items-center justify-center p-3 sm:p-4 rounded-xl bg-linear-to-br ${service.color} shadow-lg dark:shadow-black/30`}>
+                      <service.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white!" />
+                    </div>
+                  )}
                 </div>
 
 
@@ -265,22 +297,31 @@ export default function ServicesOverview() {
                 </p>
 
 
-                <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-8 relative z-10">
-                  {service.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-2 sm:gap-3">
-                      <div className={`shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-linear-to-br ${service.color} flex items-center justify-center shadow-sm mt-0.5`}>
-                        <Check className="w-2 h-2 sm:w-3 sm:h-3 text-white!" />
+                <div className="space-y-1.5 mb-6 relative">
+                  {service.features.map((feature, idx) => {
+                    const isString = typeof feature === 'string';
+                    const featureText = isString ? feature : feature.text;
+                    const FeatureIcon = isString ? Check : feature.icon;
+
+                    return (
+                      <div key={idx} className="flex items-center gap-2 sm:gap-3">
+                        <div
+                          className={`shrink-0 size-5 sm:size-8 rounded-full flex items-center justify-center shadow-sm mt-0.5 bg-linear-to-br ${service.color}`}
+                        >
+                          <FeatureIcon className="size-3 sm:size-4 text-white!" />
+                        </div>
+
+                        <span className="text-xs sm:text-sm font-medium text-white/90 dark:text-gray-300">
+                          {featureText}
+                        </span>
                       </div>
-                      <span className="text-xs sm:text-sm font-medium text-white/90 dark:text-gray-300">
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
 
-                <Link href={`/services/${service.slug}`} className="flex items-center justify-between pt-4 sm:pt-6 border-t border-white/50 dark:border-gray-700/50 relative z-10">
-                  <span className="text-xs sm:text-sm font-semibold text-white/90 dark:text-gray-400">
+                <Link href={`/services/${service.slug}`} className="flex items-center justify-between pt-4 sm:pt-6 border-t border-border relative z-10 mt-auto">
+                  <span className="text-lg font-bold text-white/90 dark:text-gray-400">
                     Learn more
                   </span>
                   <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-linear-to-br ${service.color} flex items-center justify-center cursor-pointer shadow-md hover:shadow-lg transition-shadow`}>
@@ -321,7 +362,7 @@ export default function ServicesOverview() {
                   whileHover={{ scale: 1.05, y: -2 }}
                   className="group relative "
                 >
-                  <div className="px-4 py-3 sm:px-5 sm:py-4 rounded-xl glass-card backdrop-blur-sm hover:bg-white hover:border-white/30 transition-all duration-300 flex flex-col items-center justify-center min-w-[100px] sm:min-w-[120px] gap-2">
+                  <div className="px-4 py-3 sm:px-5 sm:py-4 rounded-xl glass-card backdrop-blur-sm hover:bg-white hover:border-white/30 transition-all duration-300 flex flex-col items-center justify-center min-w-25 sm:min-w-30 gap-2">
                     <Icon className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 ${tech.color} group-hover:scale-110 transition-transform`} />
                     <span className="text-xs sm:text-sm font-medium  text-center">{tech.name}</span>
                   </div>
