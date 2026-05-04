@@ -77,12 +77,7 @@ export const FinalCTA = () => {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/contact"
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold 
-                         bg-linear-to-r from-blue-500 to-indigo-600
-                         hover:from-blue-600 hover:to-indigo-700
-                         transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
-                         shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)]
-                         flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
+              className={"group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold bg-linear-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)] flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"}
             >
               <span className="relative text-white!">Start Your Project</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform shrink-0" />
@@ -90,12 +85,7 @@ export const FinalCTA = () => {
 
             <Link
               href="/contact"
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold 
-                         bg-linear-to-r from-orange-500 to-orange-600
-                         hover:from-orange-600 hover:to-orange-700
-                         transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
-                         shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)]
-                         flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
+              className={"group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold bg-linear-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)] flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"}
             >
               <span className="relative text-white!">Free Consultation</span>
               <Clock className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform shrink-0" />

@@ -18,8 +18,8 @@ export function FAQAccordion({ faqs }: { faqs: { q: string; a: string }[] }) {
             aria-controls={`faq-panel-${idx}`}
             type="button"
           >
-            <span>{faq.q}</span>
-            <span className={`transition-transform ${openIdx === idx ? "rotate-180" : ""}`}>
+            <span className="text-left">{faq.q}</span>
+            <span className={`ms-auto transition-transform ${openIdx === idx ? "rotate-180" : ""}`}>
               <svg className="h-5 w-5 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
             </span>
           </button>

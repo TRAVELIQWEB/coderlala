@@ -3,28 +3,23 @@ import { notFound } from 'next/navigation';
 import { services } from '../data/services/service';
 import {
   CheckCircle,
-  Clock,
   ArrowRight,
   Calendar,
   Users,
   TrendingUp,
   Shield,
   Zap,
-  Target,
   BarChart3,
-  Lightbulb,
   Code2,
-  Layers,
-  Workflow,
-  Award,
-  MessageCircle,
-  IndianRupee, Star,
-  CalendarDays
+  Award
 } from 'lucide-react';
 import Link from 'next/link';
+import * as LucideIcons from "lucide-react";
 import { FAQAccordion } from '../component/ServiceFAQAccordion';
 import { FinalCTA } from '@/app/components/sections/cta';
 import { ProjectDetails } from '../component/ProjectDetails';
+import TravelPortalSolutionAdvantage from './_components/TravelPortalSolutionAdvantage';
+import ServiceProcessSection from './_components/ServiceProcessSection';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -66,16 +61,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const iconMap = {
-    Code: '💻',
-    Smartphone: '📱',
-    Cloud: '☁️',
-    Palette: '🎨',
-    Rocket: '🚀',
-    Brain: '🧠',
-    Building: '🏢',
-    Server: '⚡',
-  };
+  const IconComponent = (LucideIcons as any)[service.icon];
 
   return (
     <div className="min-h-screen">
@@ -98,11 +84,17 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               </div>
 
               <div className="flex items-center mb-2">
-                <div className={`w-20 h-20 glass-card rounded-2xl flex items-center justify-center shadow-lg text-white`}>
-                  <span className="text-4xl">{iconMap[service.icon as keyof typeof iconMap]}</span>
+                <div className={`w-20 h-20 glass-card rounded-2xl flex items-center justify-center shadow-lg`}>
+                  {service.icon === 'Globe' ? (
+                    <img src="/images/transportation.png" alt="Travel Icon" className="w-14 h-14 object-contain" />
+                  ) : IconComponent ? (
+                    <IconComponent className="w-10 h-10 text-blue-500" strokeWidth={1.5} />
+                  ) : (
+                    <span className="text-4xl">✨</span>
+                  )}
                 </div>
-                <span className="inline-block px-4 py-2 bg-linear-to-r from-orange-500 to-orange-600 text-white! rounded-r-full text-sm font-semibold">
-                  Expert Solution
+                <span className={`inline-block px-4 py-2 bg-${service.color}-500 text-white! rounded-r-full text-sm font-semibold`}>
+                  {service.headerHeading || 'Expert Solution'}
                 </span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4">
@@ -133,7 +125,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white! group-hover:translate-x-1 transition-transform shrink-0" />
                 </Link>
                 <Link
-                  href="/services"
+                  href="/portfolio"
                   className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white font-semibold 
                                bg-linear-to-r from-orange-500 to-orange-600
                                hover:from-orange-600 hover:to-orange-700
@@ -141,7 +133,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                                shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)]
                                flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
                 >
-                  <span className="relative text-white!">View Examples</span>
+                  <span className="relative text-white!">View Portfolio</span>
                   <Award className="w-4 h-4 sm:w-5 sm:h-5 text-white! group-hover:translate-x-1 transition-transform shrink-0" />
                 </Link>
               </div>
@@ -172,40 +164,17 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       <section className="py-20 glass-card rounded-none! border-x-0!">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold text-orange! uppercase tracking-wider">Why Our Approach Works</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-6">
+            <span className="text-sm font-semibold text-orange-500 uppercase tracking-wider">Why Our Approach Works</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mt-4 mb-6">
               The {service.title} Advantage
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               We don't just deliver services—we partner with you to ensure measurable results that directly impact your bottom line. Our proven methodology combines industry expertise with cutting-edge technology to solve your most pressing business challenges.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-8 glass-card rounded-xl border border-gray-200 hover:border-blue-500 transition-colors">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <Lightbulb className="w-6 h-6 text-blue-600" strokeWidth={2} />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Expert Strategy</h3>
-              <p className="text-gray-600">We begin with comprehensive discovery and strategic planning to ensure every decision aligns with your business goals and market realities.</p>
-            </div>
+          <TravelPortalSolutionAdvantage />
 
-            <div className="p-8 glass-card rounded-xl border border-gray-200 hover:border-purple-500 transition-colors">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                <Workflow className="w-6 h-6 text-purple-600" strokeWidth={2} />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Agile Execution</h3>
-              <p className="text-gray-600">Using agile methodologies, we deliver results iteratively, ensuring flexibility, transparency, and rapid response to changing market demands.</p>
-            </div>
-
-            <div className="p-8 glass-card rounded-xl border border-gray-200 hover:border-green-500 transition-colors">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <Award className="w-6 h-6 text-green-600" strokeWidth={2} />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Proven Excellence</h3>
-              <p className="text-gray-600">Backed by 10+ years of industry experience and a portfolio of 500+ successful projects, we deliver consistently outstanding results.</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -291,20 +260,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-6 md:gap-4">
-            {service.process.map((step, idx) => (
-              <div key={idx} className="relative glass-card">
-                <div className="rounded-xl p-8 h-full">
-                  <div className="text-4xl font-bold mb-4 opacity-70">{step.num}</div>
-                  <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                  <p className="text-sm">{step.desc}</p>
-                </div>
-                {idx < 3 && (
-                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-0.5 bg-linear-to-r from-blue-400 to-transparent" />
-                )}
-              </div>
-            ))}
-          </div>
+          <ServiceProcessSection serviceId={service.id} />
         </div>
       </section>
 
@@ -328,7 +284,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
-                <p className="text-white text-lg font-medium">
+                <p className="text-white! text-lg font-medium">
                   Utilizing industry-leading frameworks and tools to build high-performance solutions.
                 </p>
               </div>
@@ -367,8 +323,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <div className="space-y-6 glass-card p-4">
                 <div className="flex items-start gap-4">
                   <div className="shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                      <BarChart3 className="h-6 w-6" strokeWidth={2} />
+                    <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                      <BarChart3 className="h-6 w-6 text-white!" strokeWidth={2} />
                     </div>
                   </div>
                   <div>
@@ -379,8 +335,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
                 <div className="flex items-start gap-4">
                   <div className="shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
-                      <TrendingUp className="h-6 w-6" strokeWidth={2} />
+                    <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-linear-to-br from-green-500 to-emerald-600 text-white shadow-lg shadow-green-500/20">
+                      <TrendingUp className="h-6 w-6 text-white!" strokeWidth={2} />
                     </div>
                   </div>
                   <div>
@@ -391,8 +347,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
                 <div className="flex items-start gap-4">
                   <div className="shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
-                      <Award className="h-6 w-6" strokeWidth={2} />
+                    <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-linear-to-br from-purple-500 to-pink-600 text-white shadow-lg shadow-purple-500/20">
+                      <Award className="h-6 w-6 text-white!" strokeWidth={2} />
                     </div>
                   </div>
                   <div>
@@ -405,7 +361,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
             <div className="relative group">
               {/* <div className="absolute -inset-1 bg-linear-to-r from-blue-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div> */}
-              <div className="relative glass-card rounded-2xl overflow-hidden aspect-video sm:aspect-square lg:aspect-auto lg:h-[500px]">
+              <div className="relative glass-card rounded-2xl overflow-hidden aspect-video sm:aspect-square lg:aspect-auto lg:h-125">
                 <img
                   src="/images/modern-tech-office-collaborative-workspace.webp"
                   alt="Digital Transformation Results"
@@ -532,38 +488,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           </div>
         </div>
       </section>
-
-      {/* Success Metrics Section
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Our Track Record</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-6">
-              By the Numbers
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { stat: "500+", label: "Projects Delivered", icon: Layers },
-              { stat: "250+", label: "Happy Clients", icon: Users },
-              { stat: "10+", label: "Years in Industry", icon: Award },
-              { stat: "98%", label: "Satisfaction Rate", icon: Star }
-            ].map((metric, idx) => {
-              const MetricIcon = metric.icon || Layers;
-              return (
-                <div key={idx} className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <MetricIcon className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <p className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{metric.stat}</p>
-                  <p className="text-gray-600 font-medium">{metric.label}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section> */}
 
       <FinalCTA />
     </div>
