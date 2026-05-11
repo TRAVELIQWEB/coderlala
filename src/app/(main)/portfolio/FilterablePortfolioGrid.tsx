@@ -1,34 +1,16 @@
-"use client";
-
 import { motion, AnimatePresence } from "framer-motion";
-import { Filter, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { Filter, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useRef, useMemo } from "react";
 import PortfolioCard from "./PortfolioCard";
-
-// ─── Types ─────────────────────────────────────────────────────────────────
-interface Project2 {
-  title: string;
-  category: string;        // <-- plain string, no union constraint here
-  desc: string;
-  tech: string[];
-  icon: React.ElementType;
-  color: string;
-  stats: string;
-  liveUrl?: string;
-}
-
-interface Category {
-  id: string;
-  label: string;
-  icon: React.ElementType;
-}
+import { Category, Project } from "@/types/portfolios/types";
 
 interface FilterablePortfolioGridProps {
-  projects: Project2[];
+  projects: Project[];
   categories: Category[];
   title?: string;
   subtitle?: string;
   showViewAllButton?: boolean;
+  onSelectProject: (project: Project) => void;
 }
 
 export default function FilterablePortfolioGrid({
@@ -37,11 +19,11 @@ export default function FilterablePortfolioGrid({
   title = "Filter Technology Solutions Portfolio",
   subtitle,
   showViewAllButton = false,
+  onSelectProject,
 }: FilterablePortfolioGridProps) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const categoryScrollRef = useRef<HTMLDivElement | null>(null);
 
-  // ── Dynamic counts (works for any category string) ──────────────────────
   const categoryCounts = useMemo<Record<string, number>>(() => {
     const counts: Record<string, number> = { all: projects.length };
     for (const project of projects) {
@@ -50,7 +32,6 @@ export default function FilterablePortfolioGrid({
     return counts;
   }, [projects]);
 
-  // ── Filtered projects ────────────────────────────────────────────────────
   const filteredProjects = useMemo(() => {
     if (activeCategory === "all") return projects;
     return projects.filter((p) => p.category === activeCategory);
@@ -72,13 +53,40 @@ export default function FilterablePortfolioGrid({
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8">
         <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-0">
-          <Filter className="w-4 h-4 sm:w-5 sm:h-5 text-blue-300" />
+          <Filter className="size-5 text-white" />
           <h3 className="text-xl sm:text-2xl font-bold text-white">{title}</h3>
         </div>
         <div className="text-sm text-white/70">
           {filteredProjects.length} project{filteredProjects.length !== 1 ? "s" : ""} found
         </div>
       </div>
+
+      {/* ── Desktop: Pill Buttons ─────────────────────────────────────────── */}
+      {/* <div className="hidden lg:flex flex-wrap gap-3 mb-2">
+        {categories.map((category) => {
+          const Icon = category.icon;
+          const isActive = activeCategory === category.id;
+          return (
+            <button
+              key={category.id}
+              onClick={() => setActiveCategory(category.id)}
+              className={`group flex items-center gap-3 px-6 py-3 rounded-lg border transition-all ${isActive
+                  ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg border-transparent"
+                  : "glass-card border-white/10 hover:bg-white/10 text-white/80"
+                }`}
+            >
+              <Icon className="w-4 h-4" />
+              <span className="font-medium">{category.label}</span>
+              <span
+                className={`text-xs px-2 py-0.5 rounded-full ${isActive ? "bg-white/20" : "bg-white/5"
+                  }`}
+              >
+                {categoryCounts[category.id] ?? 0}
+              </span>
+            </button>
+          );
+        })}
+      </div> */}
 
       {/* ── Mobile: Horizontal Scroll ────────────────────────────────────── */}
       <div className="lg:hidden mb-6">
@@ -87,7 +95,7 @@ export default function FilterablePortfolioGrid({
           <div className="flex gap-2">
             <button
               onClick={scrollLeft}
-              className="p-2 rounded-lg bg-white/10 text-white! hover:bg-white/20 transition-colors"
+              className="p-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -104,8 +112,7 @@ export default function FilterablePortfolioGrid({
 
         <div
           ref={categoryScrollRef}
-          className="flex gap-3 pb-4 overflow-x-auto"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="flex gap-3 pb-4 overflow-x-auto hide-scrollbar"
         >
           {categories.map((category) => {
             const Icon = category.icon;
@@ -115,8 +122,8 @@ export default function FilterablePortfolioGrid({
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 className={`shrink-0 w-44 p-4 rounded-xl border transition-all ${isActive
-                    ? "bg-linear-to-r text-white! from-blue-600 to-indigo-600 border-white/30 shadow-lg"
-                    : "bg-white/5 border-white/10 hover:bg-white/10"
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-white/30 shadow-lg"
+                    : "bg-white/5 border-white/10 hover:bg-white/10 text-white/80"
                   }`}
               >
                 <div className="flex items-start gap-3">
@@ -148,8 +155,8 @@ export default function FilterablePortfolioGrid({
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
               className={`group flex  items-center gap-3 px-6 py-3 rounded-lg! border-none transition-all ${isActive
-                  ? "bg-linear-to-r! from-blue-500! to-indigo-600! text-white! shadow-lg"
-                  : "glass-card"
+                ? "bg-linear-to-r! from-blue-500! to-indigo-600! text-white! shadow-lg"
+                : "glass-card"
                 }`}
             >
               <Icon className="w-4 h-4" />
@@ -166,16 +173,13 @@ export default function FilterablePortfolioGrid({
       </div>
 
       {subtitle && (
-        <p className="mt-4 mb-2 text-base text-white/70 text-center max-w-2xl mx-auto">
+        <p className="mt-2 mb-4 text-base text-white/70 text-center max-w-2xl mx-auto">
           {subtitle}
         </p>
       )}
 
-      {/* ── Projects Grid with AnimatePresence ───────────────────────────── */}
-      <motion.div
-        layout
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-6"
-      >
+      {/* ── Projects Grid ───────────────────────────────────────────────── */}
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, index) => (
             <motion.div
@@ -185,9 +189,8 @@ export default function FilterablePortfolioGrid({
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.25, delay: index * 0.04 }}
-              className="cursor-pointer"
             >
-              <PortfolioCard project={project} />
+              <PortfolioCard project={project} onSelect={onSelectProject} />
             </motion.div>
           ))}
         </AnimatePresence>

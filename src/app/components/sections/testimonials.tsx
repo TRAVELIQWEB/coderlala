@@ -172,7 +172,7 @@ export default function Testimonials() {
         <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-blue-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`}>
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

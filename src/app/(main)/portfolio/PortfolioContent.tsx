@@ -2,18 +2,10 @@
 
 import { motion } from "framer-motion";
 import {
-  Globe,
-  Cloud,
-  Cpu,
-  Brain,
-  Database,
-  Smartphone,
   ShoppingCart,
-  BarChart,
   Shield,
   Zap,
   Eye,
-  ExternalLink,
   Award,
   TrendingUp,
   Users,
@@ -22,141 +14,16 @@ import {
   Activity,
   Palette,
 } from "lucide-react";
-import { useState, useRef, useMemo } from "react";
 import Link from "next/link";
 import HeroTitle from "@/app/components/HeroTitle";
-import PortfolioCard from "./PortfolioCard";
 import FilterablePortfolioGrid from "./FilterablePortfolioGrid";
-
-// ─── Category IDs must match project.category values exactly ───────────────
-type CategoryId =
-  | "all"
-  | "wellness"
-  | "healthcare"
-  | "creative"
-  | "beauty"
-  | "ecommerce";
-
-interface Project2 {
-  title: string;
-  category: Exclude<CategoryId, "all">;
-  desc: string;
-  tech: string[];
-  icon: React.ElementType;
-  color: string;
-  stats: string;
-  liveUrl?: string;
-}
-
-interface Category {
-  id: CategoryId;
-  label: string;
-  icon: React.ElementType;
-}
-
-// ─── Projects (categories match CategoryId) ────────────────────────────────
-const projects2: Project2[] = [
-  {
-    title: "SkyYogaShala",
-    category: "wellness",
-    desc: "Online platform for yoga enthusiasts offering virtual classes, meditation guides, and wellness resources.",
-    tech: ["React", "Node.js", "MongoDB", "WebRTC", "Tailwind"],
-    icon: Heart,
-    color: "from-emerald-500 to-teal-500",
-    stats: "Virtual Yoga Studio",
-    liveUrl: "https://skyyogashala.com",
-  },
-  {
-    title: "Kreative Dentistry",
-    category: "healthcare",
-    desc: "Modern dental practice platform featuring appointment booking, patient education, and service showcase.",
-    tech: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
-    icon: Shield,
-    color: "from-sky-500 to-blue-500",
-    stats: "Smart Booking System",
-    liveUrl: "https://kreativedentistry.com",
-  },
-  {
-    title: "Kreative – GCAD",
-    category: "creative",
-    desc: "Professional creative agency portfolio showcasing design work, brand identities, and digital solutions.",
-    tech: ["React", "GSAP", "Tailwind", "Figma"],
-    icon: Palette,
-    color: "from-purple-500 to-indigo-500",
-    stats: "Award Winning Design",
-    liveUrl: "https://gcad.co.in",
-  },
-  {
-    title: "Kreative Aesthetics",
-    category: "beauty",
-    desc: "Luxury aesthetics and skincare clinic website with service catalog, gallery, and consultation booking.",
-    tech: ["React", "CSS Modules", "EmailJS", "Google Maps"],
-    icon: Sparkles,
-    color: "from-pink-500 to-rose-500",
-    stats: "Premium Aesthetics",
-    liveUrl: "https://kreativeaesthetics.com",
-  },
-  {
-    title: "Polaris Hospitals",
-    category: "healthcare",
-    desc: "Comprehensive hospital management portal with department info, doctor profiles, and patient support.",
-    tech: ["Next.js", "PostgreSQL", "Prisma", "Tailwind"],
-    icon: Users,
-    color: "from-blue-600 to-cyan-500",
-    stats: "24/7 Patient Support",
-    liveUrl: "https://polarishospitals.com",
-  },
-  {
-    title: "RangRogan Wala",
-    category: "ecommerce",
-    desc: "Vibrant e-commerce platform for traditional colors, paints, and artistic supplies.",
-    tech: ["Next.js", "Stripe", "Algolia", "Tailwind"],
-    icon: ShoppingCart,
-    color: "from-orange-500 to-red-500",
-    stats: "Fast Nationwide Delivery",
-    liveUrl: "https://rangroganwala.com",
-  },
-  {
-    title: "RiPRAP Health",
-    category: "healthcare",
-    desc: "Innovative health tech platform focused on rehabilitation and recovery tracking solutions.",
-    tech: ["React Native", "Node.js", "MongoDB", "Firebase"],
-    icon: Activity,
-    color: "from-teal-500 to-emerald-500",
-    stats: "Smart Recovery Tracking",
-    liveUrl: "https://ripraphealth.com",
-  },
-  {
-    title: "Webshlok",
-    category: "creative",
-    desc: "A modern digital agency platform delivering high-end web solutions and creative digital experiences.",
-    tech: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
-    icon: Globe,
-    color: "from-indigo-500 to-purple-500",
-    stats: "Digital Agency Solutions",
-    liveUrl: "https://webshlok.in",
-  },
-];
-
-// ─── Categories aligned with project data ─────────────────────────────────
-const categories: Category[] = [
-  { id: "all", label: "All Projects", icon: Zap },
-  { id: "healthcare", label: "Healthcare", icon: Shield },
-  { id: "wellness", label: "Wellness", icon: Heart },
-  { id: "creative", label: "Creative", icon: Palette },
-  { id: "beauty", label: "Beauty", icon: Sparkles },
-  { id: "ecommerce", label: "E-Commerce", icon: ShoppingCart },
-];
-
-// ─── Stats ─────────────────────────────────────────────────────────────────
-const stats = [
-  { value: "25+", label: "Projects Completed", icon: Award, color: "text-blue-400" },
-  { value: "99%", label: "Client Satisfaction", icon: TrendingUp, color: "text-orange-400" },
-  { value: "5M+", label: "Users Impacted", icon: Users, color: "text-purple-400" },
-  { value: "100%", label: "On-Time Delivery", icon: Shield, color: "text-green-400" },
-];
+import { useState } from "react";
+import PortfolioDetail from "./PortfolioDetail";
+import { projects, categories, portfolioStats as stats } from "./portfolioData";
+import type { Project } from "@/types/portfolios/types";
 
 export default function PortfolioContent() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
@@ -205,11 +72,11 @@ export default function PortfolioContent() {
 
       {/* ── Filterable Portfolio Grid ─────────────────────────────────────── */}
       <FilterablePortfolioGrid
-        projects={projects2}
+        projects={projects}
         categories={categories}
         title="Filter Technology Solutions Portfolio"
-        // subtitle="Browse through our diverse portfolio of web and mobile applications"
         showViewAllButton={false}
+        onSelectProject={setSelectedProject}
       />
 
       {/* ── Development Process ───────────────────────────────────────────── */}
@@ -277,12 +144,7 @@ export default function PortfolioContent() {
             {/* ✅ Primary CTA — hard navigate to /contact */}
             <Link
               href="/contact"
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold 
-                bg-linear-to-r from-blue-500 to-indigo-600
-                hover:from-blue-600 hover:to-blue-700
-                transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
-                shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)]
-                flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
+              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold bg-linear-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-blue-700 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)] flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
             >
               <span className="relative text-white!">Start Your Custom Software Project</span>
               <Zap className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
@@ -291,12 +153,7 @@ export default function PortfolioContent() {
             {/* Secondary CTA */}
             <Link
               href="/services"
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold 
-                bg-linear-to-r from-orange-500 to-orange-600
-                hover:from-orange-600 hover:to-orange-700
-                transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
-                shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)]
-                flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
+              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white! font-semibold bg-linear-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)] flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
             >
               <span className="relative text-white!">Explore Technology Solutions</span>
               <Eye className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
@@ -304,6 +161,13 @@ export default function PortfolioContent() {
           </div>
         </div>
       </motion.div>
+
+      {/* ── Portfolio Detail Modal ────────────────────────────────────────── */}
+      <PortfolioDetail
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
+
     </>
   );
 }
