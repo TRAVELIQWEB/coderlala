@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -89,27 +90,17 @@ export default function EnhancedNavbar() {
 
           {/* LOGO - RESPONSIVE SIZING */}
           <Link href="/" className="flex items-center group btn">
-            <div className="relative w-38 h-18 sm:w-46 sm:h-10 md:w-[150px] md:h-[45px] lg:w-[200px] lg:h-[60px]">
-              {!isDarkMode ? (
-                <img
-                  src="/logo/CoderLalaLogoLight.svg"
-                  alt="CoderLalaLogo Light"
-                  className="w-full h-full object-contain"
-                  key="dark-logo"
-                />
-              ) : (
-                <img
-                  src="/logo/CoderLalaLogoDark.svg"
-                  alt="CoderLalaLogo Dark"
-                  className="w-full h-full object-contain"
-                  key="light-logo"
-                />
-              )}
+            <div className="relative w-38 h-18 sm:w-46 sm:h-10 md:w-37.5 md:h-11.25 lg:w-50 lg:h-15">
+              <img
+                src={isDarkMode ? "/logo/CoderLalaLogoDark.svg" : "/logo/CoderLalaLogoLight.svg"}
+                alt="CoderLala Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
           </Link>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden md:flex items-center gap-5">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-6 xl:gap-8">
             {navItems.map((item) => {
               const isActive = pathname === item.path;
 
@@ -145,11 +136,11 @@ export default function EnhancedNavbar() {
             <Link
               href="/contact"
               className="
-                ml-4 px-6 py-3 rounded-lg text-white! font-semibold 
+                hidden xl:flex ml-2 px-5 py-2.5 rounded-lg text-white! font-semibold 
                 bg-linear-to-r from-blue-600 to-purple-600
                 hover:from-blue-700 hover:to-purple-700
                 transition-all shadow-lg hover:shadow-xl hover:shadow-blue-500/25 
-                flex items-center gap-2
+                items-center gap-2
               "
             >
               <Sparkles className="w-4 h-4 " />
@@ -165,14 +156,8 @@ export default function EnhancedNavbar() {
 
             <button
               onClick={() => setIsOpen(true)}
-              className="
-                p-3 rounded-lg 
-                bg-blue-700! 
-                hover:bg-gray-300 dark:hover:bg-gray-700
-                transition-colors
-              "
-            >
-              <Menu className="w-6 h-6 text-gray-800 dark:text-gray-300" />
+              className="size-11 rounded-lg! grid place-items-center bg-blue-600 hover:bg-blue-700 transition-colors dark:hover:bg-gray-700">
+              <Menu className="w-5 h-5 text-white!" />
             </button>
           </div>
         </div>
@@ -198,7 +183,7 @@ export default function EnhancedNavbar() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 h-full w-full max-w-sm z-50 md:hidden"
+              className="fixed top-0 left-0 h-full w-4/5 max-w-xs z-50 flex flex-col md:hidden"
               style={{
                 backgroundColor: isDarkMode ? '#111827' : '#ffffff',
                 boxShadow: '2px 0 20px rgba(0,0,0,0.3)'
@@ -212,7 +197,7 @@ export default function EnhancedNavbar() {
               >
                 <div className="flex items-center justify-between">
                   {/* Mobile Menu Logo - Smaller */}
-                  <div className="relative w-38  sm:w-46  md:w-[150px]  lg:w-[200px] ">
+                  <div className="relative w-38  sm:w-46  md:w-37.5  lg:w-50 ">
                     {!isDarkMode ? (
                       <img
                         src="/logo/CoderLalaLogoLight.svg"
@@ -227,19 +212,14 @@ export default function EnhancedNavbar() {
                       />
                     )}
                   </div>
-                  <button
+                  <Button
                     onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                    style={{
-                      backgroundColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
-                    }}
+                    size="icon"
+                    variant="destructive"
+                    className="size-11 rounded-lg"
                   >
-                    <X className="w-5 h-5"
-                      style={{
-                        color: isDarkMode ? '#d1d5db' : '#374151'
-                      }}
-                    />
-                  </button>
+                    <X className="w-5 h-5 text-white!" />
+                  </Button>
                 </div>
               </div>
 
@@ -283,19 +263,26 @@ export default function EnhancedNavbar() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <Link
-                    href="/contact"
-                    onClick={() => setIsOpen(false)}
-                    className="
-                      block mt-6 py-3 px-4 rounded-lg text-center
-                      bg-linear-to-r from-blue-600 to-purple-600 
-                      text-white! font-semibold
-                      hover:from-blue-700 hover:to-purple-700
-                      transition-all
-                    "
+                  <div
+                    className="p-3 border-t"
+                    style={{ borderColor: isDarkMode ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)" }}
                   >
-                    Start Your Project
-                  </Link>
+                    <Link
+                      href="/contact"
+                      onClick={() => setIsOpen(false)}
+                      className="
+      flex items-center justify-center gap-2 w-full
+      py-3 px-4 rounded-lg
+      bg-linear-to-r from-blue-600 to-purple-600
+      hover:from-blue-700 hover:to-purple-700
+      text-white! font-semibold text-sm
+      transition-all
+    "
+                    >
+                      <Sparkles className="w-4 h-4" />
+                      Start Your Project
+                    </Link>
+                  </div>
                 </motion.div>
 
 

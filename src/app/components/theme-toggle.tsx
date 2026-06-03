@@ -17,7 +17,7 @@ export default function ThemeToggle() {
     <>
       <button
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-        className="glass-card grid place-items-center size-12 rounded-lg! hover:scale-105 transition-transform"
+        className="glass-card grid place-items-center size-11 rounded-lg! hover:scale-105 transition-transform"
       >
         {theme === "light" ? "🌙" : "☀️"}
       </button>

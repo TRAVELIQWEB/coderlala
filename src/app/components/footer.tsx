@@ -44,21 +44,11 @@ export default function Footer() {
               <div>
                 <Link href="/" className="inline-block">
                   <div className="relative w-38 h-18 sm:w-46 sm:h-10 md:w-37.5 md:h-11.25 lg:w-50 lg:h-15">
-                    {!isDarkMode ? (
-                      <img
-                        src="/logo/CoderLalaLogoLight.svg"
-                        alt="CoderLalaLogo Light"
-                        className="w-full h-full object-contain"
-                        key="dark-logo"
-                      />
-                    ) : (
-                      <img
-                        src="/logo/CoderLalaLogoDark.svg"
-                        alt="CoderLalaLogo Dark"
-                        className="w-full h-full object-contain"
-                        key="light-logo"
-                      />
-                    )}
+                    <img
+                      src={isDarkMode ? "/logo/CoderLalaLogoDark.svg" : "/logo/CoderLalaLogoLight.svg"}
+                      alt="CoderLala Logo"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 </Link>
                 <p className="mt-3 md:mt-4 text-white/70 text-sm md:text-base leading-relaxed max-w-md">

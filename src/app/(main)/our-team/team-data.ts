@@ -9,8 +9,8 @@ export interface TeamMember {
     experience: number;
     location: string;
     email: string;
-    linkedin: string;
-    github: string;
+    linkedin: string | null;
+    github: string | null;
     color: string;
 }
 
@@ -26,7 +26,7 @@ export const teamMembers: TeamMember[] = [
         experience: 2019,
         location: "Gurugram, India",
         email: "info@coderlala.com",
-        linkedin: "https://linkedin.com/in/salmannizam",
+        linkedin: "https://www.linkedin.com/in/salman-nizam-041537201",
         github: "https://github.com/salmannizam",
         color: "bg-blue-500"
     },
@@ -41,8 +41,8 @@ export const teamMembers: TeamMember[] = [
         experience: 2020,
         location: "Gurugram, India",
         email: "achal.singh@coderlala.com",
-        linkedin: "https://linkedin.com/in/achalsingh",
-        github: "https://github.com/achalsingh",
+        linkedin: "https://www.linkedin.com/in/achal-singh-74a226268",
+        github: "https://github.com/assisodiya",
         color: "bg-orange-500"
     },
     {
@@ -56,8 +56,8 @@ export const teamMembers: TeamMember[] = [
         experience: 2020,
         location: "Gurugram, India",
         email: "ravi.k@coderlala.com",
-        linkedin: "https://linkedin.com/in/ravikaliya",
-        github: "https://github.com/ravikaliya",
+        linkedin: "https://www.linkedin.com/in/ravi-kaliya-b6657b3a9",
+        github: "https://github.com/ravi-kaliya",
         color: "bg-green-500"
     },
     {
@@ -71,8 +71,8 @@ export const teamMembers: TeamMember[] = [
         experience: 2022,
         location: "Gurugram, India",
         email: "aman.singh@coderlala.com",
-        linkedin: "https://linkedin.com/in/amansingh",
-        github: "https://github.com/amansingh",
+        linkedin: "https://www.linkedin.com/in/aman-singh-929006217",
+        github: "https://github.com/aman708149",
         color: "bg-purple-500"
     },
     {
@@ -86,8 +86,8 @@ export const teamMembers: TeamMember[] = [
         experience: 2023,
         location: "Gurugram, India",
         email: "raghib.n@coderlala.com",
-        linkedin: "https://linkedin.com/in/raghibnizam",
-        github: "https://github.com/raghibnizam",
+        linkedin: "https://www.linkedin.com/in/raghib-nizam-543a25271",
+        github: null,
         color: "bg-red-500"
     },
     {
@@ -101,8 +101,8 @@ export const teamMembers: TeamMember[] = [
         experience: 2025,
         location: "Gurugram, India",
         email: "ansh.garg@coderlala.com",
-        linkedin: "https://linkedin.com/in/anshgarg",
-        github: "https://github.com/anshgarg",
+        linkedin: null,
+        github: null,
         color: "bg-teal-500"
     }
 ];
