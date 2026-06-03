@@ -87,7 +87,7 @@ export const teamMembers: TeamMember[] = [
         location: "Gurugram, India",
         email: "raghib.n@coderlala.com",
         linkedin: "https://www.linkedin.com/in/raghib-nizam-543a25271",
-        github: '',
+        github: 'https://github.com/Ragibnizam',
         color: "bg-red-500"
     },
     {
