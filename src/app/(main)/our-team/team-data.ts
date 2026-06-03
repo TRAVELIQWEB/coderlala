@@ -9,8 +9,8 @@ export interface TeamMember {
     experience: number;
     location: string;
     email: string;
-    linkedin: string | null;
-    github: string | null;
+    linkedin: string;
+    github: string;
     color: string;
 }
 
@@ -87,7 +87,7 @@ export const teamMembers: TeamMember[] = [
         location: "Gurugram, India",
         email: "raghib.n@coderlala.com",
         linkedin: "https://www.linkedin.com/in/raghib-nizam-543a25271",
-        github: null,
+        github: '',
         color: "bg-red-500"
     },
     {
@@ -101,8 +101,8 @@ export const teamMembers: TeamMember[] = [
         experience: 2025,
         location: "Gurugram, India",
         email: "ansh.garg@coderlala.com",
-        linkedin: null,
-        github: null,
+        linkedin: '',
+        github: '',
         color: "bg-teal-500"
     }
 ];
