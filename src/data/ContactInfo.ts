@@ -12,5 +12,5 @@ export const contactInfo = {
   instagram: "https://www.instagram.com/coderlalatech",
   linkedIn: "https://in.linkedin.com/company/coderlala",
   // linkedIn: "https://linkedin.com/in/johndoe",
-  // twitter: "@johndoe"
+  // twitter: "@rk"
 };
