@@ -512,7 +512,7 @@ export default function WebDevelopmentClient() {
               </p>
 
               {/* Tags/Badges */}
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex hidden md:block flex-wrap gap-2.5">
                 {["Agile Development", "High-Performance Apps", "Digital Transformation", "Expert IT Consulting"].map((c) => (
                   <span key={c} className="text-xs font-medium px-3 py-1.5 rounded-full bg-secondary border border-border text-muted-foreground">
                     {c}
@@ -568,10 +568,11 @@ export default function WebDevelopmentClient() {
                 <div className="p-6">
                   <div className="mb-5">
                     <h3 className="text-2xl font-bold tracking-tight text-primary">
-                      Web Development <span className="text-coder-grad">Quote</span>
+                      🚀 Submit Your Query — Gurgaon's #1 Web Development Agency
                     </h3>
                     <p className="text-muted-foreground text-sm mt-4">
-                      Connect with our local team and receive a personalized project roadmap in just <span className="font-semibold text-primary">4 hours</span>.
+                      Submit your website idea and get a free, personalized roadmap from
+                      Gurgaon's web development experts. No hidden costs.
                     </p>
                     <div className="mt-5 h-px w-full border-border border-t"></div>
                   </div>
@@ -597,7 +598,7 @@ export default function WebDevelopmentClient() {
 
           <HeadingTitle2 title1="Companies That" title2="Trust Our Solutions" />
 
-          <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
+          <p className="text-muted-foreground text-md mb-10 max-w-4xl px-4 mx-auto">
             As a trusted <strong>Web Development Company in Gurgaon</strong>, we help startups, SMEs, and enterprises build modern websites, custom web applications, and scalable digital solutions.<br /><br />
             Our experienced team combines creativity, technology, and innovation to deliver high-quality websites that provide exceptional user experiences and support long-term business success.
           </p>
@@ -876,7 +877,7 @@ export default function WebDevelopmentClient() {
           <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="Our Development Approach" />
           <HeadingTitle2 title1="Powering Innovation with" title2="Modern Technologies" />
 
-          <p className="text-muted-foreground text-md max-w-4xl mx-auto mb-10">
+          <p className="text-muted-foreground text-md px-4 max-w-4xl mx-auto mb-10">
             Our technology stack combines modern frontend frameworks, powerful backend technologies, scalable databases, cloud platforms, and industry-leading development tools to deliver secure, high-performance digital solutions.
             <br /><br />
             Explore the technologies below that our <strong>Web Development Company in Gurgaon</strong> uses to build fast, scalable, and future-ready websites and web applications.
