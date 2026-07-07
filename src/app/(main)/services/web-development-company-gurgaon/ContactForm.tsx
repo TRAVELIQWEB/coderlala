@@ -2,7 +2,7 @@
 
 import { useState, useEffect, forwardRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import {
   Send,
   CheckCircle,
@@ -20,6 +20,7 @@ export interface ContactFormData {
   phone: string;
   budget: string;
   message: string;
+  pageUrl?: string;
 }
 
 interface ContactFormProps {
@@ -82,9 +83,9 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
       company: "",
       phone: "",
       budget: "",
-      message: ""
+      message: "",
+      pageUrl: ""
     });
-
     // Validation state
     const [errors, setErrors] = useState<FormErrors>({
       name: "",
@@ -110,6 +111,8 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     const router = useRouter();
 
@@ -124,7 +127,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
         label: 'text-xs sm:text-sm',
         gap: 'gap-1 sm:gap-2',
         radioPadding: 'px-2 py-1.5 text-xs',
-        radioGap: 'gap-1 sm:gap-2',
+        radioGap: 'gap-1',
         modalPadding: 'p-4 sm:p-6',
         modalTitle: 'text-xl sm:text-2xl',
         modalText: 'text-sm sm:text-base',
@@ -137,8 +140,8 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
         iconSize: 'w-4 h-4 sm:w-5 sm:h-5',
         label: 'text-sm sm:text-base',
         gap: 'gap-2 sm:gap-3',
-        radioPadding: 'px-3 py-2 text-xs sm:text-sm',
-        radioGap: 'gap-2 sm:gap-3',
+        radioPadding: 'p-2 text-xs sm:text-sm',
+        radioGap: 'gap-1',
         modalPadding: 'p-6 sm:p-8',
         modalTitle: 'text-2xl sm:text-3xl',
         modalText: 'text-sm sm:text-base',
@@ -151,8 +154,8 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
         iconSize: 'w-5 h-5 sm:w-6 sm:h-6',
         label: 'text-base sm:text-lg',
         gap: 'gap-3 sm:gap-4',
-        radioPadding: 'px-4 py-3 text-sm sm:text-base',
-        radioGap: 'gap-3 sm:gap-4',
+        radioPadding: 'p-2 text-sm sm:text-base',
+        radioGap: 'gap-1',
         modalPadding: 'p-8 sm:p-10',
         modalTitle: 'text-3xl sm:text-4xl',
         modalText: 'text-base sm:text-lg',
@@ -193,13 +196,22 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
           break;
 
         case "message":
-          if (!value.trim()) error = "Project details are required";
-          else if (value.trim().length < 10) error = "Please provide more details (at least 10 characters)";
+          if (value.trim() && value.trim().length < 10) {
+            error = "Please provide more details (at least 10 characters)";
+          }
           break;
       }
 
       return error;
     };
+
+
+    useEffect(() => {
+      const query = searchParams.toString();
+      const fullPath = query ? `${pathname}?${query}` : pathname;
+      const origin = typeof window !== "undefined" ? window.location.origin : "";
+      setForm(prev => ({ ...prev, pageUrl: `${origin}${fullPath}` }));
+    }, [pathname, searchParams]);
 
     // Validate all fields
     const validateForm = (): boolean => {
@@ -245,7 +257,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
       setTouched(prev => ({ ...prev, [name]: true }));
 
       // Validate the field
-      const error = validateField(name as keyof FormErrors, form[name as keyof ContactFormData]);
+      const error = validateField(name as keyof FormErrors, (form[name as keyof ContactFormData] ?? "") as string);
       setErrors(prev => ({ ...prev, [name]: error }));
     };
 
@@ -314,6 +326,9 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
       if (fieldName === 'company') {
         return touched[fieldName] && form.company.trim().length > 0;
       }
+      if (fieldName === 'message') {
+        return touched[fieldName] && form.message.trim().length > 0 && !errors[fieldName];
+      }
       if (fieldName === 'email') {
         return touched[fieldName] && form.email.trim().length > 0 && !errors[fieldName];
       }
@@ -331,7 +346,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
     };
 
     const isRequired = (fieldName: keyof FormTouched): boolean => {
-      return ['name', 'phone', 'message'].includes(fieldName);
+      return ['name', 'phone'].includes(fieldName);
     };
 
     // Render input field
@@ -346,7 +361,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
       const isTextarea = type === 'textarea';
       const isCompany = name === 'company';
       const required = isRequired(name);
-      const showValidation = touched[name] && (isCompany ? form.company.trim().length > 0 : name !== 'budget');
+      const showValidation = touched[name] && ((isCompany || name === 'message') ? form[name].trim().length > 0 : name !== 'budget');
       const showError = hasError(name);
       const showCheck = isFieldValid(name);
 
@@ -366,7 +381,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
                 onBlur={handleBlur}
                 placeholder={placeholder}
                 rows={4}
-                className={`w-full ${styles.padding} rounded
+                className={`w-full ${styles.padding} rounded-md
                 bg-white/5 border transition-colors ${styles.text} pr-10 resize-none
                 ${showError ? 'border-red-500! focus:border-red-500!' :
                     showCheck ? 'border-green-500! focus:border-green-500!' :
@@ -387,7 +402,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
                 maxLength={maxLength}
                 // ✅ Pass ref to the first input (name field)
                 ref={name === 'name' ? ref : undefined}
-                className={`w-full ${styles.padding} rounded
+                className={`w-full ${styles.padding} rounded-md
                 ${isPhone ? 'pl-10!' : ''}
                 bg-white/5 border transition-colors ${styles.text} pr-10
                 ${showError ? 'border-red-500! focus:border-red-500!' :
@@ -449,7 +464,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
 
           {!showError && name === 'message' && form.message && (
             <p className={`text-xs mt-1 ${form.message.length < 10 ? 'text-orange-400' : 'text-green-400'}`}>
-              {form.message.length} characters (minimum 10 required)
+              {form.message.length} characters (minimum 10 if provided)
             </p>
           )}
         </div>
@@ -460,7 +475,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
       <>
         {/* Full-screen loader while submitting or redirecting */}
         {(isSubmitting || isRedirecting) && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background backdrop-blur-sm">
             <div className="text-center">
               <div className="inline-flex p-4 rounded-full bg-linear-to-br from-orange-500/20 to-orange-600/20 mb-4">
                 <div className="w-12 h-12 border-4 border-orange-500/30 border-t-orange-500 rounded-full animate-spin" />
@@ -530,6 +545,8 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
         {/* Form — hidden while processing/redirecting */}
         {!isSubmitting && !isRedirecting && (
           <form onSubmit={handleSubmit} className={`space-y-3 ${className}`}>
+            <input type="hidden" name="pageUrl" value={form.pageUrl ?? ""} readOnly />
+
             <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6`}>
               {renderInput('name', 'Full Name', 'text', 'John Doe')}
               {renderInput('phone', 'Phone Number', 'tel', '9876543210', 10)}
@@ -557,7 +574,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
                         className="hidden"
                       />
                       <div
-                        className={`w-full ${styles.radioPadding} rounded text-center transition-all opacity-80 flex items-center justify-between gap-2
+                        className={`w-full ${styles.radioPadding} rounded-md text-center transition-all opacity-80 flex items-center justify-between gap-2
                       ${form.budget === option
                             ? 'bg-blue-500/20 border border-blue-500'
                             : 'bg-white/5 border border-border!'
@@ -565,7 +582,9 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
                       >
                         {option}
                         {form.budget === option && (
-                          <Check className="w-3 h-3 sm:w-4 sm:h-4 text-green-500" />
+                          <div className="flex items-center justify-center w-4 h-4 rounded-full bg-green-500 border border-green-500">
+                            <Check className="w-3 h-3 text-white" />
+                          </div>
                         )}
                       </div>
                     </label>

@@ -512,7 +512,7 @@ export default function WebDevelopmentClient() {
               </p>
 
               {/* Tags/Badges */}
-              <div className="flex hidden md:block flex-wrap gap-2.5">
+              <div className="hidden md:block flex-wrap gap-2.5">
                 {["Agile Development", "High-Performance Apps", "Digital Transformation", "Expert IT Consulting"].map((c) => (
                   <span key={c} className="text-xs font-medium px-3 py-1.5 rounded-full bg-secondary border border-border text-muted-foreground">
                     {c}
@@ -884,13 +884,13 @@ export default function WebDevelopmentClient() {
           </p>
 
           {/* Tech Stack Grid */}
-          <div className="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-4 sm:gap-5 md:gap-6 lg:gap-8 px-2">
+          <div className="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-2 px-2">
             {techStack.map((tech, i) => {
               const Icon = tech.icon;
               return (
                 <div
                   key={i}
-                  className="group relative px-4 py-3 sm:px-5 sm:py-4 rounded-xl glass-card backdrop-blur-sm hover:bg-white hover:border-white/30 transition-all duration-300 flex flex-col items-center justify-center min-w-25 sm:min-w-30 gap-2"
+                  className="group relative px-4 py-3 sm:px-5 sm:py-4 rounded-xl! glass-card backdrop-blur-sm hover:bg-white hover:border-white/30 transition-all duration-300 flex flex-col items-center justify-center min-w-25 sm:min-w-30 gap-2"
                 >
                   <Icon className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 ${tech.color} group-hover:scale-110 transition-transform`} />
                   <span className="text-xs sm:text-sm font-medium text-center">{tech.name}</span>
@@ -908,7 +908,7 @@ export default function WebDevelopmentClient() {
         {/* ============================================================
         SECTION 10.11: TESTIMONIALS SECTION (H2)
         ============================================================ */}
-        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" suppressHydrationWarning>
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 bg-linear-to-b from-card/60 to-background/40 overflow-hidden" suppressHydrationWarning>
           <div className="absolute inset-0 -z-10 pointer-events-none" suppressHydrationWarning>
             <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-purple-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
             <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-blue-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
@@ -1006,7 +1006,7 @@ export default function WebDevelopmentClient() {
         {/* ============================================================
         SECTION 10.12: FAQ SECTION (H2)
         ============================================================ */}
-        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 overflow-hidden">
+        <section className="pt-20 overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionBadge
@@ -1025,7 +1025,7 @@ export default function WebDevelopmentClient() {
         {/* ============================================================
         SECTION 10.13: FINAL CTA SECTION (H2)
         ============================================================ */}
-        <section className="max-w-4xl px-4 sm:px-6 lg:px-8 p-6 mt-10 mb-5 sm:p-8 rounded-3xl">
+        <section className="max-w-4xl px-4 sm:px-6 lg:px-8 p-6 mt-10 mb-5 sm:p-8 mx-auto rounded-3xl">
           <div className="glass-card max-w-4xl p-4 sm:p-6 lg:p-8 flex flex-col items-center gap-8 text-center">
             <div>
               <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-blue-500 to-indigo-600 mx-auto mb-4">
