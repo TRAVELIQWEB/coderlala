@@ -37,16 +37,7 @@ export const metadata = {
             "CoderLala Technologies Private Limited | Next-Gen Digital Solutions",
         template: "%s | CoderLala Technologies Private Limited"
     },
-    description:
-        "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions.",
-    keywords: [
-        "web development",
-        "app development",
-        "SaaS",
-        "cloud solutions",
-        "AI systems",
-        "digital transformation",
-    ],
+    description:"Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions.",
     authors: [{ name: "CoderLala Technologies" }],
     creator: "CoderLala Technologies",
     publisher: "CoderLala Technologies",
