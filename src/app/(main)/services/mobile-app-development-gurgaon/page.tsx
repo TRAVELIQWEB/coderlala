@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading mobile app development company in Gurgaon offering custom iOS, Android, and cross-platform app development. Trusted by 500+ businesses.",
   keywords: "mobile app development company Gurgaon, mobile app development Gurgaon, custom app development, iOS app development Gurgaon, Android app development Gurgaon, cross platform app development, react native development, flutter development, app developer Gurgaon, software development Gurgaon, IT services Gurgaon, digital agency Gurgaon",
   alternates: {
-    canonical: "https://coderlala.com/mobile-app-development-gurgaon",
+    canonical: "/services/mobile-app-development-gurgaon",
   },
   openGraph: {
     title: "Best Mobile App Development Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading mobile app development company in Gurgaon offering custom iOS, Android, and cross-platform app development. Trusted by 500+ businesses.",
-    url: "https://coderlala.com/mobile-app-development-gurgaon",
+    url: "/services/mobile-app-development-gurgaon",
     siteName: "CoderLala",
     images: [
       {

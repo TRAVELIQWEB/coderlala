@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading UI/UX design company in Gurgaon offering user-centered design, wireframing, prototyping, and design systems. Trusted by 500+ businesses.",
   keywords: "UI/UX design company Gurgaon, UI design Gurgaon, UX design Gurgaon, product design, user experience design, interface design, design systems, Figma design, prototyping, wireframing, IT services Gurgaon",
   alternates: {
-    canonical: "https://coderlala.com/ui-ux-design-gurgaon",
+    canonical: "/services/ui-ux-design-gurgaon",
   },
   openGraph: {
     title: "Best UI/UX Design Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading UI/UX design company in Gurgaon offering user-centered design, wireframing, prototyping, and design systems.",
-    url: "https://coderlala.com/ui-ux-design-gurgaon",
+    url: "/services/ui-ux-design-gurgaon",
     siteName: "CoderLala",
     images: [
       {

@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading AI and ML solutions company in Gurgaon offering custom machine learning models, NLP, computer vision, and predictive analytics. Trusted by 500+ businesses.",
   keywords: "AI ML solutions company Gurgaon, artificial intelligence Gurgaon, machine learning Gurgaon, NLP solutions, computer vision, predictive analytics, custom ML models, AI development, data science, IT services Gurgaon",
   alternates: {
-    canonical: "https://coderlala.com/ai-ml-solutions-gurgaon",
+    canonical: "/services/ai-ml-solutions-gurgaon",
   },
   openGraph: {
     title: "Best AI & ML Solutions Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading AI and ML solutions company in Gurgaon offering custom machine learning models, NLP, computer vision, and predictive analytics.",
-    url: "https://coderlala.com/ai-ml-solutions-gurgaon",
+    url: "/services/ai-ml-solutions-gurgaon",
     siteName: "CoderLala",
     images: [
       {

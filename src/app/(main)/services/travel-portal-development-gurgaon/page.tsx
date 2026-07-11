@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading travel portal development company in Gurgaon offering flight, rail, bus, and hotel booking software with IRCTC API integration. Trusted by 500+ businesses.",
   keywords: "travel portal development company Gurgaon, travel portal development Gurgaon, IRCTC integration, flight booking software, railway booking system, bus booking software, hotel booking system, B2B travel portal, B2C travel portal, travel agency software, travel technology solutions, IT services Gurgaon",
   alternates: {
-    canonical: "https://coderlala.com/travel-portal-development-gurgaon",
+    canonical: "/services/travel-portal-development-gurgaon",
   },
   openGraph: {
     title: "Best Travel Portal Development Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading travel portal development company in Gurgaon offering flight, rail, bus, and hotel booking software with IRCTC API integration.",
-    url: "https://coderlala.com/travel-portal-development-gurgaon",
+    url: "/services/travel-portal-development-gurgaon",
     siteName: "CoderLala",
     images: [
       {

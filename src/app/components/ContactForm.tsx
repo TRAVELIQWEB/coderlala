@@ -2,10 +2,9 @@
 
 import { useState, useEffect, forwardRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Send,
-  CheckCircle,
   AlertCircle,
   Check,
   X
@@ -111,9 +110,6 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-
     const router = useRouter();
 
     // Size configurations
@@ -207,11 +203,11 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
 
 
     useEffect(() => {
-      const query = searchParams.toString();
-      const fullPath = query ? `${pathname}?${query}` : pathname;
-      const origin = typeof window !== "undefined" ? window.location.origin : "";
-      setForm(prev => ({ ...prev, pageUrl: `${origin}${fullPath}` }));
-    }, [pathname, searchParams]);
+      setForm(prev => ({
+        ...prev,
+        pageUrl: window.location.href,
+      }));
+    }, []);
 
     // Validate all fields
     const validateForm = (): boolean => {
@@ -292,21 +288,20 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
         } else {
           await submitContact(form);
         }
-
-        const submittedName = form.name;
-        const submittedEmail = form.email;
+        sessionStorage.setItem(
+          "contact-success",
+          JSON.stringify({
+            name: form.name,
+            email: form.email,
+          })
+        );
 
         setIsSubmitting(false);
         setIsRedirecting(true); // 👈 keep loader showing during redirect
 
-        if (onSuccess) onSuccess();
+        onSuccess?.();
 
-        const query = new URLSearchParams({
-          name: submittedName,
-          email: submittedEmail,
-        }).toString();
-
-        router.push(`/thank-you-for-contacting-us?${query}`);
+        router.push(`/thank-you-for-contacting-us`);
 
       } catch (error: any) {
         setIsSubmitting(false);
@@ -516,7 +511,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
                     onClick={closeErrorModal}
                     className="absolute top-3 right-3 p-1 rounded-full hover:bg-white/10 transition-colors"
                   >
-                    <X className="w-5 h-5 text-white/70" />
+                    <X className="w-5 h-5 text-white/70!" />
                   </button>
 
                   <div className="text-center">
@@ -529,7 +524,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
 
                     <button
                       onClick={closeErrorModal}
-                      className="w-full py-3 rounded-xl bg-linear-to-r from-red-500 to-orange-600 
+                      className="w-full text-white! py-3 rounded-xl bg-linear-to-r from-red-500 to-orange-600 
                     hover:from-red-600 hover:to-orange-700 
                     transition-all duration-300 font-semibold"
                     >

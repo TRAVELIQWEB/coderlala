@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading SaaS platform development company in Gurgaon offering custom SaaS solutions, cloud-based applications, and enterprise software development. Trusted by 500+ businesses.",
   keywords: "SaaS platform development company Gurgaon, SaaS development Gurgaon, custom SaaS solutions, cloud application development, enterprise software development, B2B SaaS development, software as a service development, SaaS product development, cloud platform development, IT services Gurgaon, digital agency Gurgaon",
   alternates: {
-    canonical: "https://coderlala.com/saas-platform-development-gurgaon",
+    canonical: "/services/saas-platform-development-gurgaon",
   },
   openGraph: {
     title: "Best SaaS Platform Development Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading SaaS platform development company in Gurgaon offering custom SaaS solutions, cloud-based applications, and enterprise software development. Trusted by 500+ businesses.",
-    url: "https://coderlala.com/saas-platform-development-gurgaon",
+    url: "/services/saas-platform-development-gurgaon",
     siteName: "CoderLala",
     images: [
       {

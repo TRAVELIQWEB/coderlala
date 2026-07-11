@@ -34,7 +34,7 @@ export default function ServiceCard({
         className={`relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden flex items-center justify-center mx-auto shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 ${iconBg}`}
       >
         <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-        <div className="relative text-white drop-shadow-md">
+        <div className="relative text-white! drop-shadow-md">
           {icon}
         </div>
       </div>

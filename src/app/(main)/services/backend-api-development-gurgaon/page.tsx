@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading backend and API development company in Gurgaon offering Node.js, Python, Go, microservices, and GraphQL solutions. Trusted by 500+ businesses.",
   keywords: "backend development company Gurgaon, API development Gurgaon, Node.js development, Python backend, microservices architecture, GraphQL API, REST API, scalable backend, database design, IT services Gurgaon",
   alternates: {
-    canonical: "https://coderlala.com/backend-api-development-gurgaon",
+    canonical: "/services/backend-api-development-gurgaon",
   },
   openGraph: {
     title: "Best Backend & API Development Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading backend and API development company in Gurgaon offering Node.js, Python, Go, microservices, and GraphQL solutions.",
-    url: "https://coderlala.com/backend-api-development-gurgaon",
+    url: "/services/backend-api-development-gurgaon",
     siteName: "CoderLala",
     images: [
       {

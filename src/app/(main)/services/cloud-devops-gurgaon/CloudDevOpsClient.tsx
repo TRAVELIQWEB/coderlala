@@ -20,6 +20,7 @@ import {
   BarChart3,
   Send,
 } from "lucide-react";
+import { FAQAccordion } from "../component/ServiceFAQAccordion";
 import { HeadingTitle2, HeroTitleLocation } from "@/app/components/HeroTitle";
 import ServiceProcessSection from "./ServiceProcessSection";
 import { FaAws } from "react-icons/fa";
@@ -911,6 +912,24 @@ SERVICES SECTION
 
         {/* ============================================================
         FAQ SECTION
+        ============================================================ */}
+        <section className="pt-20 overflow-hidden">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <SectionBadge
+                icon={<Sparkles className="w-3 h-3 md:w-4 md:h-4 text-yellow-400" />} text="Frequently Asked Questions" />
+              <HeadingTitle2 title1="Need More Information?" title2="Get Answers from CoderLala" />
+              <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
+                Find answers to the most common questions about our <strong>cloud and DevOps services in Gurgaon</strong>, including technology choices, architecture patterns, performance optimization, and ongoing support. <br /> <br />Learn how CoderLala delivers scalable, secure, and high-performance cloud systems tailored to your business needs.
+              </p>
+            </div>
+
+            <FAQAccordion faqs={faqs} />
+          </div>
+        </section>
+
+        {/* ============================================================
+        FINAL CTA SECTION
         ============================================================ */}
         <FinalCTA scrollToForm={scrollToForm} />
       </div>

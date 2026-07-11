@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading cloud and DevOps company in Gurgaon offering AWS, Azure, GCP deployment, CI/CD pipelines, and Kubernetes orchestration. Trusted by 500+ businesses.",
   keywords: "cloud and devops company Gurgaon, cloud services Gurgaon, devops services Gurgaon, AWS deployment, Azure deployment, GCP deployment, CI/CD pipelines, Kubernetes, Docker, infrastructure as code, Terraform, IT services Gurgaon",
   alternates: {
-    canonical: "https://coderlala.com/cloud-devops-gurgaon",
+    canonical: "/services/cloud-devops-gurgaon",
   },
   openGraph: {
     title: "Best Cloud & DevOps Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading cloud and DevOps company in Gurgaon offering AWS, Azure, GCP deployment, CI/CD pipelines, and Kubernetes orchestration.",
-    url: "https://coderlala.com/cloud-devops-gurgaon",
+    url: "/services/cloud-devops-gurgaon",
     siteName: "CoderLala",
     images: [
       {

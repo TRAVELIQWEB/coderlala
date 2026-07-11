@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading enterprise software development company in Gurgaon offering ERP/CRM integration, legacy modernization, and workflow automation. Trusted by 500+ businesses.",
   keywords: "enterprise software development company Gurgaon, enterprise software Gurgaon, ERP integration, CRM integration, legacy modernization, workflow automation, custom enterprise solutions, business software, IT services Gurgaon",
   alternates: {
-    canonical: "https://coderlala.com/enterprise-software-gurgaon",
+    canonical: "/services/enterprise-software-gurgaon",
   },
   openGraph: {
     title: "Best Enterprise Software Development Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading enterprise software development company in Gurgaon offering ERP/CRM integration, legacy modernization, and workflow automation.",
-    url: "https://coderlala.com/enterprise-software-gurgaon",
+    url: "/services/enterprise-software-gurgaon",
     siteName: "CoderLala",
     images: [
       {
