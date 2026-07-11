@@ -50,7 +50,7 @@ export const teamMembers: TeamMember[] = [
         slug: "ravi-kaliya",
         name: "Ravi Kaliya",
         role: "Senior Frontend Developer",
-        image: "/images/team/ravi.webp",
+        image: "/images/team/ravi-kaliya-sr-frontend-developer.webp",
         description: "Frontend expert with a keen eye for design and user experience. Creates beautiful, responsive interfaces with modern CSS and JavaScript.",
         skills: ["HTML", "CSS", "Tailwind", "Bootstrap", "Javascript", "Typescript", "PHP", "MySQL", "WordPress", "Nodejs", "Reactjs", "Nextjs", "Git", "Github", "Redux"],
         experience: 2020,

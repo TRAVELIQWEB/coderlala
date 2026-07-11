@@ -1,4 +1,4 @@
-// app/web-development-company-gurgaon/WebDevelopmentClient.tsx
+// app/saas-platform-development-gurgaon/SaaSPlatformDevelopmentClient.tsx
 'use client';
 
 // ============================================================
@@ -11,95 +11,103 @@ import {
   Phone,
   Star,
   Sparkles,
-  Code2,
-  Rocket,
   ShoppingCart,
-  Building2,
-  Heart,
-  Briefcase,
   Quote,
-  ChevronRight,
-  ChevronLeft,
-  Smartphone,
-  Server,
+  Cloud,
   Palette,
+  Server,
+  Shield,
   Send,
+  Layout,
 } from "lucide-react";
 import { HeadingTitle2, HeroTitleLocation } from "@/app/components/HeroTitle";
-// import ContactForm from "./ContactForm";
 import { FAQAccordion } from "../component/ServiceFAQAccordion";
-import ServiceProcessSection from "./ServiceProcessSection";
+// import ServiceProcessSection from "./ServiceProcessSection";
 import { FaAws } from "react-icons/fa";
-import { SiNextdotjs, SiReact, SiTypescript, SiNodedotjs, SiPython, SiDocker, SiMongodb, SiPostgresql, SiTailwindcss, SiPhp, SiBootstrap, SiWordpress, SiNestjs, SiJavascript, SiCss, SiGit, SiGithub, SiRedis, SiExpress, SiMysql, SiAngular, SiLaravel } from "react-icons/si";
+import {
+  SiReact,
+  SiTypescript,
+  SiNodedotjs,
+  SiPython,
+  SiDocker,
+  SiMongodb,
+  SiPostgresql,
+  SiNestjs,
+  SiRedis,
+  SiMysql,
+  SiGraphql,
+  SiKubernetes,
+  SiTerraform,
+  SiJenkins,
+  SiPrometheus,
+  SiGrafana,
+  SiElasticsearch,
+} from "react-icons/si";
 import { motion } from "framer-motion";
-// import Breadcrumbs from "./Breadcrumbs";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
-import { generateFAQs, generateFAQSchema } from "./faqs";
-import { services } from "@/app/(main)/services/data/services/service";
-// import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
 import { contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
+import { services } from "../data/services/service";
+import { generateFAQs, generateFAQSchema } from "./faqs";
 import Breadcrumbs from "../component/location/Breadcrumbs";
-import { Button, QuoteCTA, ServicesButton } from "../component/location/Button";
-import ContactForm from "@/app/components/ContactForm";
+import { Button, QuoteCTA } from "../component/location/Button";
+// import ContactForm from "../component/location/ContactForm";
 // import { QuoteCTA } from "../component/location/QuoteCTA";
 import { SectionBadge } from "../component/location/SectionBadge";
+import ServiceProcessSection from "./ServiceProcessSection";
+import ContactForm from "@/app/components/ContactForm";
 import { FinalCTA } from "../component/location/FinalCTA";
 import { SliderBadge } from "../component/location/SliderBadge";
 import ClientLogoSlider from "../component/location/ClientLogoSlider";
 import ServiceCard from "../component/location/FeatureCard";
-// import { SectionBadge } from "./SectionBadge";
-// import { QuoteCTA } from "./QuoteCTA";
-// import { Button } from "./Button";
-
 
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
 const CITY = "Gurgaon";
 const CITY_SLUG = "gurgaon";
-const HERO_TAGS = ["Agile Development", "High-Performance Apps", "Digital Transformation", "Expert IT Consulting"];
+const HERO_TAGS = ["Multi-Tenant Architecture", "Cloud-Native", "Microservices", "Enterprise-Grade"];
 const Related_Services = [
   {
-    icon: <Code2 className="w-6 h-6" />,
-    title: "Custom Web Development",
-    desc: "Tailored web solutions using Next.js, React, and modern frameworks for optimal performance and user experience.",
+    icon: <Cloud className="w-6 h-6" />,
+    title: "Custom SaaS Development",
+    desc: "Scalable, multi-tenant SaaS platforms with subscription management and seamless user experiences.",
     iconBg: "bg-blue-500"
   },
   {
-    icon: <ShoppingCart className="w-6 h-6" />,
-    title: "E-Commerce Development",
-    desc: "Feature-rich online stores with secure payment gateways, inventory management, and seamless checkout experiences.",
-    iconBg: "bg-orange-500"
-  },
-  {
-    icon: <Smartphone className="w-6 h-6" />,
-    title: "Progressive Web Apps",
-    desc: "Mobile-first web applications with offline capabilities, push notifications, and native-like performance.",
+    icon: <Users className="w-6 h-6" />,
+    title: "B2B SaaS Solutions",
+    desc: "Enterprise-grade B2B platforms with team collaboration, role-based access, and advanced analytics.",
     iconBg: "bg-indigo-500"
   },
   {
+    icon: <Layout className="w-6 h-6" />,
+    title: "B2C SaaS Products",
+    desc: "Consumer-focused SaaS applications with intuitive interfaces and engaging user experiences.",
+    iconBg: "bg-purple-500"
+  },
+  {
+    icon: <ShoppingCart className="w-6 h-6" />,
+    title: "SaaS E-Commerce",
+    desc: "Feature-rich SaaS e-commerce solutions with multi-vendor support and subscription billing.",
+    iconBg: "bg-orange-500"
+  },
+  {
     icon: <Server className="w-6 h-6" />,
-    title: "Backend & API Development",
-    desc: "Robust APIs and backend systems with Node.js, Python, and PostgreSQL for scalable, secure data management.",
+    title: "API-First Architecture",
+    desc: "Scalable API-first SaaS architectures with microservices and real-time data synchronization.",
     iconBg: "bg-teal-500"
   },
   {
     icon: <Palette className="w-6 h-6" />,
-    title: "UI/UX Design",
-    desc: "User-centered design with intuitive interfaces, engaging experiences, and conversion-optimized workflows.",
+    title: "SaaS UI/UX Design",
+    desc: "User-centric SaaS design focused on intuitive workflows and delightful user experiences.",
     iconBg: "bg-violet-500"
-  },
-  {
-    icon: <Rocket className="w-6 h-6" />,
-    title: "Cloud & DevOps",
-    desc: "Scalable cloud infrastructure with CI/CD pipelines, containerization, and 99.9% uptime guarantee.",
-    iconBg: "bg-cyan-500"
   }
 ];
 // ============================================================
-// SECTION 4: OFFICE & CONTACT INFORMATION
+// SECTION 3: OFFICE & CONTACT INFORMATION
 // ============================================================
 const OFFICE = {
   address: contactInfo.websiteAddress,
@@ -109,26 +117,18 @@ const OFFICE = {
 };
 
 // ============================================================
-// SECTION 5: INDUSTRIES DATA
+// SECTION 4: INDUSTRIES DATA
 // ============================================================
-const INDUSTRIES = [
-  { name: "Startups", icon: Rocket },
-  { name: "Healthcare", icon: Heart },
-  { name: "Education", icon: GraduationCap },
-  { name: "Real Estate", icon: Building2 },
-  { name: "FinTech", icon: Briefcase },
-  { name: "E-Commerce", icon: ShoppingCart },
-];
 
 // ============================================================
-// SECTION 6: TESTIMONIALS DATA
+// SECTION 5: TESTIMONIALS DATA
 // ============================================================
 const testimonials = [
   {
     name: "Ravinder",
     role: "Founder",
     company: "SkyYogaShala",
-    text: "Working with CoderLala was a seamless experience. They built a clean, fast and fully mobile-optimized yoga platform that made it easier for our students to explore classes and schedules.",
+    text: "CoderLala built a powerful SaaS platform for our yoga business. The platform handles bookings, payments, and member management seamlessly. It's transformed how we operate.",
     rating: 5,
     image: "RV",
     color: "from-blue-500 to-teal-500",
@@ -137,7 +137,7 @@ const testimonials = [
     name: "Dr. (Maj) Chander Prakash",
     role: "Founder & Chief Dentist",
     company: "Kreative Dentistry",
-    text: "CoderLala created a modern and professional website for our clinic. The layout, appointment system, and overall structure are intuitive, making it very easy for patients to find information.",
+    text: "The SaaS solution CoderLala developed for our clinic has streamlined patient management, appointment scheduling, and billing. It's been a game-changer for our practice.",
     rating: 3,
     image: "CP",
     color: "from-purple-500 to-pink-500",
@@ -146,7 +146,7 @@ const testimonials = [
     name: "Dr. Sringari",
     role: "Medical Director",
     company: "Polaris Hospitals",
-    text: "We partnered with CoderLala to revamp the Polaris Hospitals website. The new version is clean, well-structured, and makes it easy for patients to explore departments and doctors.",
+    text: "Our hospital management SaaS platform has revolutionized how we handle patient records and operations. The team at CoderLala understood our complex requirements perfectly.",
     rating: 5,
     image: "DS",
     color: "from-green-500 to-emerald-500",
@@ -155,7 +155,7 @@ const testimonials = [
     name: "Zahid Malik",
     role: "Founder",
     company: "RangRoganWala",
-    text: "CoderLala designed a vibrant and high-performance website for our painting services. It showcases our work beautifully and provides visitors with a smooth browsing experience.",
+    text: "The SaaS platform for our painting services allows us to manage projects, track inventory, and handle customer interactions efficiently. It's scaled our business significantly.",
     rating: 3,
     image: "ZM",
     color: "from-orange-500 to-amber-500",
@@ -164,7 +164,7 @@ const testimonials = [
     name: "Poonam Agrawal",
     role: "Co-Founder",
     company: "RiPRAP Health",
-    text: "Our health & wellness platform required a clean, trustworthy and user-friendly interface. CoderLala delivered a well-structured website with excellent clarity and fast loading performance.",
+    text: "Our health & wellness SaaS platform needed to be secure, scalable, and user-friendly. CoderLala delivered an exceptional product that our users love.",
     rating: 4,
     image: "PA",
     color: "from-red-500 to-orange-500",
@@ -173,7 +173,7 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "CTO",
     company: "TechFlow Solutions",
-    text: "CoderLala's expertise in SaaS development transformed our platform. Their attention to detail and commitment to quality resulted in a product that exceeded our expectations.",
+    text: "CoderLala's SaaS development expertise is outstanding. They delivered a high-performance platform that has significantly improved our customer engagement and operational efficiency.",
     rating: 4,
     image: "SJ",
     color: "from-cyan-500 to-blue-500",
@@ -181,63 +181,43 @@ const testimonials = [
 ];
 
 // ============================================================
-// SECTION 7: TECH STACK DATA
+// SECTION 6: TECH STACK DATA
 // ============================================================
 const techStack = [
-  { name: "Next.js", icon: SiNextdotjs, color: "text-black! dark:text-white" },
-  { name: "React", icon: SiReact, color: "text-blue-500" },
-  { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
+  { name: "React", icon: SiReact, color: "text-cyan-500" },
+  { name: "Next.js", icon: SiReact, color: "text-black! dark:text-white" },
   { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
+  { name: "NestJS", icon: SiNestjs, color: "text-red-600" },
+  { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
   { name: "Python", icon: SiPython, color: "text-yellow-500" },
   { name: "AWS", icon: FaAws, color: "text-orange-500" },
   { name: "Docker", icon: SiDocker, color: "text-blue-400" },
+  { name: "Kubernetes", icon: SiKubernetes, color: "text-blue-500" },
+  { name: "Terraform", icon: SiTerraform, color: "text-purple-500" },
+  { name: "Jenkins", icon: SiJenkins, color: "text-red-600" },
+  { name: "GraphQL", icon: SiGraphql, color: "text-pink-500" },
   { name: "MongoDB", icon: SiMongodb, color: "text-green-500" },
   { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-700" },
-  { name: "React Native", icon: SiReact, color: "text-cyan-500" },
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-cyan-400" },
-  { name: "PHP", icon: SiPhp, color: "text-indigo-500" },
-  { name: "Bootstrap", icon: SiBootstrap, color: "text-purple-600" },
-  { name: "WordPress", icon: SiWordpress, color: "text-blue-700" },
-  { name: "NestJS", icon: SiNestjs, color: "text-red-600" },
-  { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
-  { name: "CSS3", icon: SiCss, color: "text-blue-500" },
-  { name: "Git", icon: SiGit, color: "text-red-500" },
-  { name: "GitHub", icon: SiGithub, color: "text-black! dark:text-white" },
   { name: "Redis", icon: SiRedis, color: "text-red-600" },
-  { name: "Express", icon: SiExpress, color: "text-black! dark:text-white" },
   { name: "MySQL", icon: SiMysql, color: "text-blue-600" },
-  { name: "Angular", icon: SiAngular, color: "text-red-600" },
-  { name: "Laravel", icon: SiLaravel, color: "text-red-500" },
+  { name: "Elasticsearch", icon: SiElasticsearch, color: "text-yellow-500" },
+  { name: "Prometheus", icon: SiPrometheus, color: "text-red-600" },
+  { name: "Grafana", icon: SiGrafana, color: "text-orange-500" },
 ];
 
 // ============================================================
-// SECTION 8: HELPER COMPONENT - GraduationCap Icon
-// ============================================================
-function GraduationCap(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-      <path d="M6 12v5c3 3 9 3 12 0v-5" />
-    </svg>
-  );
-}
-
-// ============================================================
-// SECTION 9: MAIN COMPONENT - WebDevelopmentClient
+// SECTION 7: HELPER COMPONENT - GraduationCap Icon
 // ============================================================
 
-export default function WebDevelopmentClient() {
+// ============================================================
+// SECTION 8: SAAS DEVELOPMENT SERVICES DATA
+// ============================================================
+
+// ============================================================
+// SECTION 9: MAIN COMPONENT - SaaSPlatformDevelopmentClient
+// ============================================================
+
+export default function SaaSPlatformDevelopmentClient() {
   // ============================================================
   // SECTION 9.1: REFS & STATE MANAGEMENT
   // ============================================================
@@ -256,10 +236,10 @@ export default function WebDevelopmentClient() {
   const faqSchema = generateFAQSchema(faqs);
 
   // ============================================================
-  // SECTION 9.5: EFFECTS - Mobile Detection & Auto-Slides
+  // SECTION 9.4: EFFECTS - Mobile Detection & Auto-Slides
   // ============================================================
 
-  // 9.5.1: Check if mobile
+  // 9.4.1: Check if mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -269,7 +249,7 @@ export default function WebDevelopmentClient() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // 9.5.2: Auto-slide testimonials
+  // 9.4.2: Auto-slide testimonials
   useEffect(() => {
     const timer = setInterval(() => {
       const totalItems = testimonials.length;
@@ -296,14 +276,14 @@ export default function WebDevelopmentClient() {
   const currentPage = Math.floor(activeIndex / (isMobile ? 2 : 3));
 
   // ============================================================
-  // SECTION 9.7: SCHEMA MARKUP - Organization & ProfessionalService
+  // SECTION 9.6: SCHEMA MARKUP - Organization & ProfessionalService
   // ============================================================
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: `CoderLala - Best Web Development Company in ${CITY}`,
+    name: `CoderLala - Best SaaS Platform Development Company in ${CITY}`,
     image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/web-development-company-${CITY_SLUG}`,
+    url: `https://coderlala.com/saas-platform-development-${CITY_SLUG}`,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -322,11 +302,11 @@ export default function WebDevelopmentClient() {
       closes: "19:30",
     },
     areaServed: { "@type": "AdministrativeArea", name: CITY },
-    description: `CoderLala is a leading web development company in ${CITY} offering custom web development, Next.js, React, and e-commerce solutions.`,
-    priceRange: "₹200000 - ₹5000000",
+    description: `CoderLala is a leading SaaS platform development company in ${CITY} offering custom SaaS solutions, cloud-based applications, and enterprise software development.`,
+    priceRange: "₹500000 - ₹10000000",
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Web Development Services",
+      name: "SaaS Development Services",
       itemListElement: services.map((service, index) => ({
         "@type": "Offer",
         itemOffered: {
@@ -384,8 +364,8 @@ export default function WebDevelopmentClient() {
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Web Development Company in Gurgaon",
-                "item": `https://coderlala.com/web-development-company-${CITY_SLUG}`,
+                "name": "SaaS Platform Development Company in Gurgaon",
+                "item": `https://coderlala.com/saas-platform-development-${CITY_SLUG}`,
               },
             ],
           }),
@@ -421,33 +401,33 @@ export default function WebDevelopmentClient() {
               {/* Breadcrumbs */}
               <Breadcrumbs
                 items={[
-                  // { label: "Services", href: "/services" },
-                  { label: "Web Development in Gurgaon", active: true },
+                  { label: "SaaS Platform in Gurgaon", active: true },
                 ]}
               />
 
               {/* H1 Title */}
               <HeroTitleLocation
-                title1="Best Web Development"
+                title1="Best SaaS Platform Development"
                 title2={`Company in ${CITY}`}
               />
 
               {/* Hero Description */}
               <p className="text-muted-foreground text-md lg:pr-10">
-                <strong className="text-brand">CoderLala</strong> is the premier <strong className="text-brand">web development company in {CITY}</strong>,
+                <strong className="text-brand">CoderLala</strong> is the premier <strong className="text-brand">SaaS platform development company in {CITY}</strong>,
                 headquartered at <strong className="text-brand">JMD Megapolis, Sector 48, Gurugram</strong>,
-                serving businesses across Gurgaon, Noida, Delhi NCR and many more areas.
+                serving businesses across Gurgaon, Noida, Delhi NCR and beyond.
 
                 <br /><br />
 
-                As a trusted <strong>web development agency in Gurgaon</strong>, we leverage cutting-edge technologies
-                like <strong className="text-brand">Next.js</strong>, <strong className="text-brand">React</strong>,
-                and modern <strong className="text-success">MongoDB</strong> backends to build high-performance websites.
+                As a trusted <strong>SaaS development agency in Gurgaon</strong>, we leverage cutting-edge technologies
+                like <strong className="text-brand">React</strong>, <strong className="text-brand">Node.js, </strong>
+                <strong className="text-brand">AWS</strong> and <strong className="text-brand">Kubernetes </strong>
+                to build scalable, secure, and high-performance SaaS platforms.
 
                 <br /><br />
 
                 Whether you're a startup in Cyber City, an enterprise in Udyog Vihar, or a business near MG Road,
-                our local team is ready to help you succeed online with custom web solutions tailored to your needs.
+                our local team is ready to help you build the next generation of SaaS products tailored to your needs.
               </p>
 
               {/* Tags/Badges */}
@@ -476,10 +456,10 @@ export default function WebDevelopmentClient() {
               {/* Stats Section */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
                 {[
-                  { k: "25+", v: "Projects Delivered" },
-                  { k: "20+", v: "Happy Clients" },
-                  { k: "99%", v: "Retention Rate" },
-                  { k: "4.9 ★", v: "Client Rating" },
+                  { k: "10+", v: "SaaS Platforms" },
+                  { k: "15+", v: "Enterprise Clients" },
+                  { k: "99%", v: "Uptime SLA" },
+                  { k: "4.8 ★", v: "Client Rating" },
                 ].map((s) => (
                   <div key={s.v} className="group grid place-items-center p-3 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1">
                     <h3 className="text-2xl font-extrabold text-coder-grad group-hover:scale-105 transition-transform">{s.k}</h3>
@@ -501,11 +481,11 @@ export default function WebDevelopmentClient() {
                 <div className="p-6">
                   <div className="mb-5">
                     <h3 className="text-2xl font-bold tracking-tight text-primary">
-                      🚀 Submit Your Query — Gurgaon's #1 Web Development Agency
+                      🚀 Submit Your SaaS Idea — Gurgaon's #1 SaaS Development Agency
                     </h3>
                     <p className="text-muted-foreground text-sm mt-4">
-                      Submit your website idea and get a free, personalized roadmap from
-                      Gurgaon's web development experts. No hidden costs.
+                      Share your SaaS vision and get a free, personalized roadmap from
+                      Gurgaon's SaaS development experts. No hidden costs.
                     </p>
                     <div className="mt-5 h-px w-full border-border border-t"></div>
                   </div>
@@ -514,12 +494,12 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
           </div>
-        </header >
+        </header>
 
         {/* ============================================================
         SECTION 10.4: CLIENT LOGOS SECTION (H2)
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
               <Users className="w-4 h-4 text-blue-500 dark:text-blue-300" />
@@ -529,28 +509,25 @@ export default function WebDevelopmentClient() {
             </div>
           </div>
 
-          <HeadingTitle2 title1="Companies That" title2="Trust Our Solutions" />
+          <HeadingTitle2 title1="Companies That" title2="Trust Our SaaS Solutions" />
 
           <p className="text-muted-foreground text-md mb-10 max-w-4xl px-4 mx-auto">
-            As a trusted <strong>Web Development Company in Gurgaon</strong>, we help startups, SMEs, and enterprises build modern websites, custom web applications, and scalable digital solutions.<br /><br />
-            Our experienced team combines creativity, technology, and innovation to deliver high-quality websites that provide exceptional user experiences and support long-term business success.
+            As a trusted <strong>SaaS Platform Development Company in Gurgaon</strong>, we help startups, SMEs, and enterprises build scalable, secure, and innovative SaaS platforms that drive business growth, streamline operations, and create new revenue streams.<br /><br />
+            Our experienced team combines deep technical expertise, cloud-native architecture, and industry best practices to deliver high-quality SaaS solutions that provide exceptional user experiences and support long-term business success.
           </p>
 
           <ClientLogoSlider />
 
-          <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
-
-            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
-              <QuoteCTA scrollToForm={scrollToForm} />
-            </div>
+          <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
+            <QuoteCTA scrollToForm={scrollToForm} />
           </div>
 
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.5: ABOUT CODERLALA SECTION (H2)
         ============================================================ */}
-        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" >
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
           <div className="relative z-10 max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Column - About Content */}
@@ -563,34 +540,34 @@ export default function WebDevelopmentClient() {
                     About CoderLala
                   </span>
                   <span className="block! text-[#ff6900]! bg-clip-text! bg-orange-500!">
-                    Building Project That Matter
+                    SaaS Development Experts
                   </span>
                 </h2>
 
                 <p className="text-muted-foreground text-md mb-4 max-w-3xl mx-auto">
-                  CoderLala is a leading <strong>web development company in Gurgaon </strong>
-                  helping startups, SMEs, and enterprises build fast, secure, and scalable
-                  websites.
-                  <br /><br />From business websites and custom web applications to eCommerce
-                  platforms and SaaS products, we create digital solutions designed to
-                  increase traffic, generate leads, and accelerate business growth.
+                  CoderLala is a leading <strong>SaaS platform development company in Gurgaon </strong>
+                  helping startups, SMEs, and enterprises build scalable, secure, and innovative
+                  SaaS solutions that drive business growth and operational efficiency.
+                  <br /><br />From B2B and B2C SaaS platforms to enterprise-grade applications,
+                  we create software solutions designed to deliver value, streamline operations,
+                  and accelerate digital transformation.
                 </p>
 
                 <p className="text-muted-foreground text-md mb-10 max-w-3xl mx-auto">
-                  Our experienced developers specialize in modern technologies including
-                  React, Next.js, Node.js, Laravel, WordPress, Shopify, and custom CMS
-                  development. Every website is optimized for performance, mobile
-                  responsiveness, and user experience to help your business rank higher on
-                  Google.
+                  Our experienced developers specialize in modern SaaS technologies including
+                  React, Node.js, AWS, Docker, Kubernetes, and microservices architecture.
+                  Every platform is optimized for performance, security, and scalability
+                  to help your business succeed in the competitive SaaS landscape.
                 </p>
 
                 {/* Feature List */}
                 <div className="grid sm:grid-cols-2 gap-3 mb-8">
-                  <div className="flex items-center gap-2">✅ Custom Website Development</div>
-                  <div className="flex items-center gap-2">✅ eCommerce Development</div>
-                  <div className="flex items-center gap-2">✅ Web Applications & SaaS</div>
-                  <div className="flex items-center gap-2">✅ API Integration</div>
-                  <div className="flex items-center gap-2">✅ 85+ PageSpeed Performance</div>
+                  <div className="flex items-center gap-2">✅ Multi-Tenant Architecture</div>
+                  <div className="flex items-center gap-2">✅ Subscription Management</div>
+                  <div className="flex items-center gap-2">✅ Cloud-Native Development</div>
+                  <div className="flex items-center gap-2">✅ Microservices & APIs</div>
+                  <div className="flex items-center gap-2">✅ Enterprise Security</div>
+                  <div className="flex items-center gap-2">✅ Scalable Infrastructure</div>
                 </div>
 
                 {/* CTA Buttons */}
@@ -617,8 +594,8 @@ export default function WebDevelopmentClient() {
               {/* Right Column - Office Image */}
               <div className="relative">
                 <Image
-                  src="/images/premium-web-development-company-gurgaon-office-team.webp"
-                  alt="Professional web development team at CoderLala office in Gurgaon working on client projects"
+                  src="/images/premium-sass-platform-development-company-gurgaon-office-team.webp"
+                  alt="Professional SaaS development team at CoderLala office in Gurgaon working on enterprise projects"
                   width={800}
                   height={600}
                   className="rounded-2xl shadow-2xl object-cover w-full h-full"
@@ -631,10 +608,10 @@ export default function WebDevelopmentClient() {
                 {/* Stats Overlay */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mt-5">
                   {[
-                    { k: "25+", v: "Projects Done" },
-                    { k: "50+", v: "Industries Served" },
-                    { k: "95%", v: "Client Retention" },
-                    { k: "85+", v: "PageSpeed" },
+                    { k: "10+", v: "SaaS Platforms" },
+                    { k: "15+", v: "Industries Served" },
+                    { k: "99%", v: "Uptime SLA" },
+                    { k: "4.8★", v: "Rating" },
                   ].map((s) => (
                     <div key={s.v} className="group grid place-items-center p-3 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1">
                       <h3 className="text-2xl font-extrabold text-coder-grad group-hover:scale-105 transition-transform">{s.k}</h3>
@@ -645,35 +622,34 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.6: WHY CHOOSE US SECTION (H2)
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <SectionBadge icon={<Star className="w-4 h-4 text-yellow-400" />} text="Why Choose Us?" />
           <div className="max-w-7xl mx-auto px-6">
             <HeadingTitle2
               title1="Why Choose CoderLala"
-              title2="as Your Web Development Partner?"
+              title2="as Your SaaS Development Partner?"
             />
 
             <p className="text-muted-foreground text-center max-w-4xl mx-auto mb-12">
-              At CoderLala, we combine technical excellence with local expertise to deliver world-class web solutions tailored to businesses in Gurgaon and Delhi NCR. Our team of skilled developers leverages cutting-edge technologies including Next.js, React, Node.js, and MongoDB to build fast, secure, and scalable websites. <br /><br />We understand the local business landscape and create digital solutions that drive real results—increased traffic, higher conversions, and sustainable growth. With 25+ successful projects and 99% client satisfaction, we're the trusted web development partner for businesses of all sizes.
+              At CoderLala, we combine deep technical expertise with local presence to deliver world-class SaaS platforms tailored to businesses in Gurgaon and Delhi NCR. Our team of skilled developers leverages cutting-edge technologies including React, Node.js, AWS, Kubernetes, and microservices architecture to build scalable, secure, and high-performance SaaS solutions. <br /><br />We understand the local business landscape and create digital solutions that drive real results—increased efficiency, new revenue streams, and sustainable growth. With 10+ successful SaaS platforms and 99% client satisfaction, we're the trusted SaaS development partner for businesses of all sizes.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {/* Reason 1: Cutting-Edge Technology */}
-
               <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
                 <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-blue-500 to-indigo-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
                 <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-blue-500 to-indigo-600 mx-auto">
                   <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Code2 className="relative h-7 w-7 text-white! drop-shadow-md" />
+                  <Cloud className="relative h-7 w-7 text-white! drop-shadow-md" />
                 </div>
-                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Cutting-Edge Technology</h3>
+                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Cloud-Native Architecture</h3>
                 <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
-                  We use the latest frameworks like Next.js and React to build high-performance websites
+                  We build scalable, resilient SaaS platforms using cloud-native technologies and microservices
                 </p>
               </div>
 
@@ -690,50 +666,47 @@ export default function WebDevelopmentClient() {
                 </p>
               </div>
 
-              {/* Reason 3: Fast & Reliable Delivery */}
+              {/* Reason 3: Enterprise-Grade Security */}
               <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
                 <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-green-500 to-emerald-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
                 <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-green-500 to-emerald-600 mx-auto">
                   <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Rocket className="relative h-7 w-7 text-white! drop-shadow-md" />
+                  <Shield className="relative h-7 w-7 text-white! drop-shadow-md" />
                 </div>
-                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Fast & Reliable Delivery</h3>
+                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Enterprise-Grade Security</h3>
                 <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
-                  We deliver projects on time with 99% client satisfaction rate
+                  We implement robust security measures to protect your data and ensure compliance
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-10 justify-center">
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.7: SERVICES SECTION (H2)
         ============================================================ */}
 
-        < section id="services" className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" >
-          {/* Background Effects */}
-          < div className="absolute inset-0 -z-10 pointer-events-none" >
-            <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-blue-500/10 to-transparent blur-3xl rounded-full" />
-            <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-orange-500/10 to-transparent blur-3xl rounded-full" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-linear-to-br from-blue-500/5 via-purple-500/5 to-orange-500/5 blur-3xl rounded-full" />
-          </div >
+        <section id="services" className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
+          <div className="absolute inset-0 -z-10 pointer-events-none">
+            <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-orange-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-red-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-linear-to-br from-orange-500/5 via-red-500/5 to-purple-500/5 blur-3xl rounded-full" />
+          </div>
 
           <div className="mx-auto max-w-7xl px-6">
             <div className="text-center max-w-5xl mx-auto mb-14 space-y-3">
               <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="CoderLala Services" />
-              <HeadingTitle2 title1={`Expert Web Development`} title2={`Services in ${CITY}`} />
+              <HeadingTitle2 title1={`Expert SaaS Platform Development`} title2={`Services in ${CITY}`} />
               <p className="text-muted-foreground text-md max-w-4xl mx-auto">
-                From fast, interactive React applications to powerful backend systems, our <strong className="text-brand">Web Development Company in {CITY}</strong> delivers secure, scalable, and high-performance web solutions for startups, SMEs, and enterprises. <br /><br />
-                We build modern websites and custom web applications using the latest technologies to ensure exceptional user experiences, long-term reliability, and future-ready digital solutions. Explore our comprehensive web development services below to discover how we can help bring your vision to life.
+                From B2B and B2C SaaS platforms to enterprise-grade applications, our <strong className="text-brand">SaaS Platform Development Company in {CITY}</strong> delivers scalable, secure, and high-performance software solutions for startups, SMEs, and enterprises. <br /><br />
+                We build modern SaaS platforms using the latest technologies to ensure exceptional user experiences, long-term reliability, and future-ready digital solutions. Explore our comprehensive SaaS development services below to discover how we can help bring your vision to life.
               </p>
             </div>
 
-            {/* Feature Grid - 3x2 Layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-14">
               {Related_Services.map((service, index) => (
                 <ServiceCard
@@ -747,7 +720,6 @@ export default function WebDevelopmentClient() {
               ))}
             </div>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mx-auto">
               <Button
                 href="/services"
@@ -767,45 +739,43 @@ export default function WebDevelopmentClient() {
               </Button>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.8: DEVELOPMENT PROCESS SECTION (H2)
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionBadge icon={<Zap className="w-4 h-4 text-blue-500 dark:text-blue-300" />} text="Our Development Process" />
-              <HeadingTitle2 title1="How We Transform Your Ideas" title2="Into Powerful Digital Experiences" />
+              <HeadingTitle2 title1="How We Transform Your SaaS Idea" title2="Into Powerful Digital Products" />
               <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
-                As a leading <strong>Web Development Company in Gurgaon</strong>, we follow a strategic and transparent development process to create high-quality websites that are secure, scalable, and performance-driven.
+                As a leading <strong>SaaS Platform Development Company in Gurgaon</strong>, we follow a strategic and transparent development process to create high-quality SaaS platforms that are scalable, secure, and performance-driven.
                 <br /><br />
-                From understanding your business requirements and designing intuitive user experiences to development, testing, and deployment, every step is carefully executed to deliver reliable digital solutions tailored to your goals.
+                From understanding your business requirements and designing intuitive user experiences to development, testing, and deployment, every step is carefully executed to deliver reliable SaaS solutions tailored to your goals.
               </p>
             </div>
 
             <div className="text-left">
               <ServiceProcessSection />
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 mt-10 sm:gap-4 justify-center">
-
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.9: TECH STACK SECTION (H2)
         ============================================================ */}
-        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 text-center overflow-hidden" >
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 text-center overflow-hidden">
           <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="Our Development Approach" />
           <HeadingTitle2 title1="Powering Innovation with" title2="Modern Technologies" />
 
           <p className="text-muted-foreground text-md px-4 max-w-4xl mx-auto mb-10">
-            Our technology stack combines modern frontend frameworks, powerful backend technologies, scalable databases, cloud platforms, and industry-leading development tools to deliver secure, high-performance digital solutions.
+            Our technology stack combines modern frontend frameworks, powerful backend technologies, scalable databases, cloud platforms, and industry-leading DevOps tools to deliver secure, high-performance SaaS platforms.
             <br /><br />
-            Explore the technologies below that our <strong>Web Development Company in Gurgaon</strong> uses to build fast, scalable, and future-ready websites and web applications.
+            Explore the technologies below that our <strong>SaaS Platform Development Company in Gurgaon</strong> uses to build scalable, secure, and future-ready SaaS solutions.
           </p>
 
           {/* Tech Stack Grid */}
@@ -824,19 +794,17 @@ export default function WebDevelopmentClient() {
               );
             })}
           </div>
-          <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
-              <QuoteCTA scrollToForm={scrollToForm} />
-            </div>
+          <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
+            <QuoteCTA scrollToForm={scrollToForm} />
           </div>
-        </section >
+        </section>
 
 
         {/* ============================================================
         SECTION 10.11: TESTIMONIALS SECTION (H2)
         ============================================================ */}
-        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 bg-linear-to-b from-card/60 to-background/40 overflow-hidden" suppressHydrationWarning >
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 bg-linear-to-b from-card/60 to-background/40 overflow-hidden" suppressHydrationWarning>
           <div className="absolute inset-0 -z-10 pointer-events-none" suppressHydrationWarning>
             <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-purple-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
             <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-blue-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
@@ -854,9 +822,9 @@ export default function WebDevelopmentClient() {
                 icon={<Quote className="w-3 h-3 md:w-4 md:h-4" />} text="Building Success Through Technology"
               />
 
-              <HeadingTitle2 title1="Trusted Web Development Company" title2="Serving Businesses Across India" />
+              <HeadingTitle2 title1="Trusted SaaS Platform Development Company" title2="Serving Businesses Across India" />
               <p className="text-muted-foreground max-w-4xl mx-auto text-md">
-                Don't just take our word for it—discover what our clients have to say about working with our <strong>Web Development Company in Gurgaon</strong>. <br /> <br />From custom websites and web applications to eCommerce solutions, businesses across industries trust CoderLala for quality, innovation, timely delivery, and exceptional customer service.
+                Don't just take our word for it—discover what our clients have to say about working with our <strong>SaaS Platform Development Company in Gurgaon</strong>. <br /> <br />From B2B and B2C SaaS platforms to enterprise-grade applications, businesses across industries trust CoderLala for quality, innovation, timely delivery, and exceptional customer service.
               </p>
             </motion.div>
 
@@ -912,9 +880,8 @@ export default function WebDevelopmentClient() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
@@ -931,34 +898,34 @@ export default function WebDevelopmentClient() {
               }
             }
           `}</style>
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.12: FAQ SECTION (H2)
         ============================================================ */}
-        < section className="pt-20 overflow-hidden" >
+        <section className="pt-20 overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionBadge
                 icon={<Sparkles className="w-3 h-3 md:w-4 md:h-4 text-yellow-400" />} text="Frequently Asked Questions" />
               <HeadingTitle2 title1="Need More Information?" title2="Get Answers from CoderLala" />
               <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
-                Find answers to the most common questions about our <strong>web development services in Gurgaon</strong>, including custom website development, eCommerce solutions, web applications, project timelines, technologies, pricing, maintenance, and ongoing support. <br /> <br />Learn how CoderLala delivers secure, scalable, and high-performance digital solutions tailored to your business needs.
+                Find answers to the most common questions about our <strong>SaaS platform development services in Gurgaon</strong>, including B2B and B2C SaaS solutions, cloud architecture, subscription management, pricing, security, maintenance, and ongoing support. <br /> <br />Learn how CoderLala delivers scalable, secure, and high-performance SaaS platforms tailored to your business needs.
               </p>
             </div>
 
             {/* FAQ Accordion */}
             <FAQAccordion faqs={faqs} />
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.13: FINAL CTA SECTION (H2)
         ============================================================ */}
-        < FinalCTA scrollToForm={scrollToForm} />
+        <FinalCTA scrollToForm={scrollToForm} />
 
 
-      </div >
+      </div>
     </>
   );
 }

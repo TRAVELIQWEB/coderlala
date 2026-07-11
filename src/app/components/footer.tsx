@@ -2,12 +2,10 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FaLinkedin, FaGithub, FaTwitter, FaInstagram, FaEnvelope, FaFacebook, FaYoutube, FaMapMarked, FaPhone } from "react-icons/fa";
-import { SiHashnode } from "react-icons/si";
+import { FaLinkedin, FaInstagram, FaEnvelope, FaPhone } from "react-icons/fa";
 import { services } from "../(main)/services/data/services/service";
 import { contactInfo } from "@/data/ContactInfo";
-import WhatsAppButton from "@/components/WhatsAppButton";
-// import { services } from "../services/data/services/service";
+
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -97,7 +95,7 @@ export default function Footer() {
                   <li key={index}>
                     <Link
                       href={link.href}
-                      className="hover:underline underline-offset-4 text-sm md:text-base block transition-all duration-500"
+                      className="hover:underline inline-block underline-offset-4 text-sm md:text-base transition-all duration-500"
                     >
                       {link.label}
                     </Link>

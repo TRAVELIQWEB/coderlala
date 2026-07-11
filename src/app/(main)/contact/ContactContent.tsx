@@ -23,6 +23,8 @@ import {
 import { submitContact } from "@/services/contact.service";
 import HeroTitle from "@/app/components/HeroTitle";
 import { contactInfo as contactInfo2 } from "@/data/ContactInfo";
+import ContactForm from "@/app/components/ContactForm";
+import { useScrollToForm } from "@/hooks/useScrollToForm";
 
 export default function ContactContent() {
   const [form, setForm] = useState({
@@ -55,7 +57,10 @@ export default function ContactContent() {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [countdown, setCountdown] = useState(5);
-
+  const {inputRef} = useScrollToForm({
+    delay: 650,
+    block: "start",
+  });
   // Validation functions
   const validateField = (name: string, value: string) => {
     let error = "";
@@ -251,8 +256,8 @@ export default function ContactContent() {
     value2?: React.ReactNode; // Changed to support HTML
     desc: string;
   };
-  
-  
+
+
   const contactInfo: ContactInfo[] = [
     { icon: Mail, title: "Email", value: <a href={`mailto:${contactInfo2.email}`}>{contactInfo2.email}</a>, desc: "For general inquiries" },
     { icon: Phone, title: "Phone", value: <a href={`tel:${contactInfo2.salmanNizamPhone}`}>+91 {contactInfo2.salmanNizamPhone}</a>, value2: <a href={`tel:${contactInfo2.achalSinghPhone}`}>+91 {contactInfo2.achalSinghPhone}</a>, desc: "Mon-Fri, 9AM-6PM IST" },
@@ -468,7 +473,7 @@ export default function ContactContent() {
       {/* Main Content */}
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
         {/* Contact Form */}
-        <div className="lg:sticky lg:top-16 lg:h-fit">
+        <div className="lg:sticky lg:top-24 lg:h-fit">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -476,274 +481,26 @@ export default function ContactContent() {
             transition={{ duration: 0.6 }}
             className="relative group"
           >
-            <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500 to-blue-600 rounded-2xl lg:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
+            <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500 to-blue-600 rounded-2xl lg:rounded-3xl blur opacity-0  transition duration-500" />
 
-            <div className="relative glass-card p-4 sm:p-6 lg:p-8 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10">
-              <div className="mb-6 lg:mb-8">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-3 lg:mb-4">Get Your Custom Software Quote</h2>
-                <p className="text-white/70 text-sm sm:text-base">
-                  Contact our technology solutions experts and get a detailed project roadmap within 24 hours.
-                </p>
+            <div className="relative overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur-sm shadow-xl">
+              <div className="h-1 w-full bg-linear-to-r from-blue-600 to-orange-500"></div>
+              <div className="p-6">
+                <div className="mb-5">
+                  <h3 className="text-2xl font-bold tracking-tight text-primary">
+                    🏢 Get Your Custom Software Quote
+                  </h3>
+                  <p className="text-muted-foreground text-sm mt-4">
+                    Contact our technology solutions experts and get a detailed project roadmap within 24 hours.
+                  </p>
+                  <div className="mt-5 h-px w-full border-border border-t"></div>
+                </div>
+                <ContactForm size={'sm'} ref={inputRef} />
               </div>
-
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Full Name *</label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        value={form.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="John Doe"
-                        className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl bg-white/5! border! transition-colors text-sm sm:text-base pr-10
-                          ${hasError('name') ? 'border-red-500! focus:border-red-500!' :
-                            isFieldValid('name') ? 'border-green-500! focus:border-green-500!' :
-                              'border-blue-200! focus:border-blue-500!'}`}
-                      />
-                      {touched.name && (
-                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                          {errors.name ? (
-                            <XCircle className="w-5 h-5 text-red-500" />
-                          ) : (
-                            <Check className="w-5 h-5 text-green-500" />
-                          )}
-                        </div>
-                      )}
-                    </div>
-                    {hasError('name') && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-red-400 text-xs mt-1 flex items-center gap-1"
-                      >
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.name}
-                      </motion.p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Email Address *</label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        name="email"
-                        required
-                        value={form.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="john@company.com"
-                        className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl bg-white/5! border! transition-colors text-sm sm:text-base pr-10
-                          ${hasError('email') ? 'border-red-500! focus:border-red-500!' :
-                            isFieldValid('email') ? 'border-green-500! focus:border-green-500!' :
-                              'border-blue-200! focus:border-blue-500!'}`}
-                      />
-                      {touched.email && (
-                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                          {errors.email ? (
-                            <XCircle className="w-5 h-5 text-red-500" />
-                          ) : (
-                            <Check className="w-5 h-5 text-green-500" />
-                          )}
-                        </div>
-                      )}
-                    </div>
-                    {hasError('email') && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-red-400 text-xs mt-1 flex items-center gap-1"
-                      >
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.email}
-                      </motion.p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Company Name</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={form.company}
-                      onChange={handleChange}
-                      placeholder="Your company"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl bg-white/5! border! border-blue-200! focus:border-blue-500! focus:outline-none transition-colors text-sm sm:text-base"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Phone Number</label>
-                    <div className="relative">
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={form.phone}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="9876543210"
-                        maxLength={10}
-                        className={`w-full px-10 sm:px-10 py-2 sm:py-3 rounded-lg lg:rounded-xl bg-white/5! border! transition-colors text-sm sm:text-base pr-10
-                          ${hasError('phone') ? 'border-red-500! focus:border-red-500!' :
-                            (form.phone && form.phone.length === 10) ? 'border-green-500! focus:border-green-500!' :
-                              'border-blue-200! focus:border-blue-500!'}`}
-                      />
-                      {touched.phone && form.phone && (
-                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                          {errors.phone ? (
-                            <XCircle className="w-5 h-5 text-red-500" />
-                          ) : form.phone.length === 10 ? (
-                            <Check className="w-5 h-5 text-green-500" />
-                          ) : null}
-                        </div>
-                      )}
-                      {form.phone && (
-                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50 text-sm">
-                          +91
-                        </div>
-                      )}
-                      {form.phone && (
-                        <div className="absolute right-10 top-1/2 transform -translate-y-1/2 text-white/50 text-sm">
-                          {form.phone.length}/10
-                        </div>
-                      )}
-                    </div>
-                    {hasError('phone') && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-red-400 text-xs mt-1 flex items-center gap-1"
-                      >
-                        <AlertCircle className="w-3 h-3" />
-                        {errors.phone}
-                      </motion.p>
-                    )}
-                    {!errors.phone && form.phone && form.phone.length < 10 && form.phone.length > 0 && (
-                      <p className="text-orange-400 text-xs mt-1">
-                        Enter {10 - form.phone.length} more digit{10 - form.phone.length !== 1 ? 's' : ''}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-2">Project Budget *</label>
-                  {hasError('budget') && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-red-400 text-xs mb-2 flex items-center gap-1"
-                    >
-                      <AlertCircle className="w-3 h-3" />
-                      {errors.budget}
-                    </motion.p>
-                  )}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
-                    {budgetOptions.map((option, i) => (
-                      <label key={i} className="flex items-center cursor-pointer">
-                        <input
-                          type="radio"
-                          name="budget"
-                          value={option}
-                          checked={form.budget === option}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          className="hidden"
-                        />
-                        <div
-                          className={`w-full px-3 py-2 text-xs sm:text-sm rounded-lg text-center transition-all flex items-center justify-center gap-2
-                            ${form.budget === option
-                              ? hasError('budget') ? 'bg-red-500/10 border border-red-500' : 'bg-blue-500/20 border border-blue-500'
-                              : hasError('budget') && touched.budget ? 'bg-red-500/5 border border-red-500/30' : 'bg-white/5 border border-blue-200 hover:border-white/20'
-                            }`}
-                        >
-                          {option}
-                          {form.budget === option && !hasError('budget') && (
-                            <Check className="w-3 h-3 sm:w-4 sm:h-4 text-green-500" />
-                          )}
-                          {form.budget === option && hasError('budget') && (
-                            <XCircle className="w-3 h-3 sm:w-4 sm:h-4 text-red-500" />
-                          )}
-                        </div>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-2">Project Details *</label>
-                  <div className="relative">
-                    <textarea
-                      name="message"
-                      required
-                      rows={4}
-                      value={form.message}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Tell us about your project, requirements, and goals..."
-                      className={`w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg lg:rounded-xl bg-white/5! border! transition-colors resize-none text-sm sm:text-base pr-10
-                        ${hasError('message') ? 'border-red-500! focus:border-red-500!' :
-                          isFieldValid('message') ? 'border-green-500! focus:border-green-500!' :
-                            'border-blue-200! focus:border-blue-500!'}`}
-                    />
-                    {touched.message && (
-                      <div className="absolute right-3 top-3">
-                        {errors.message ? (
-                          <XCircle className="w-5 h-5 text-red-500" />
-                        ) : (
-                          <Check className="w-5 h-5 text-green-500" />
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  {hasError('message') && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-red-400 text-xs mt-1 flex items-center gap-1"
-                    >
-                      <AlertCircle className="w-3 h-3" />
-                      {errors.message}
-                    </motion.p>
-                  )}
-                  {form.message && !errors.message && (
-                    <p className={`text-xs mt-1 ${form.message.length < 10 ? 'text-orange-400' : 'text-green-400'}`}>
-                      {form.message.length} characters (minimum 10 required)
-                    </p>
-                  )}
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="group relative w-full px-6 py-3 sm:px-8 sm:py-4 rounded-lg lg:rounded-xl text-white font-semibold 
-                    bg-linear-to-r from-blue-600 via-blue-700 to-blue-800
-                    hover:from-blue-700 hover:via-blue-800 hover:to-blue-900
-                    disabled:opacity-50 disabled:cursor-not-allowed
-                    transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
-                    shadow-[0_10px_40px_-15px_rgba(37,99,235,0.5)]
-                    flex items-center justify-center gap-2 sm:gap-3 overflow-hidden text-sm sm:text-base"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <span className="relative text-white!">Send Message</span>
-                      <Send className="w-4 h-4 sm:w-5 sm:h-5 text-white! group-hover:translate-x-1 transition-transform" />
-                    </>
-                  )}
-                </button>
-              </form>
             </div>
+
+
+
           </motion.div>
         </div>
 

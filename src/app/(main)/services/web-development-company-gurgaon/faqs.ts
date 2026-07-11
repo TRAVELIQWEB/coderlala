@@ -1,5 +1,7 @@
 // app/config/faqs.ts
 
+import { contactInfo } from "@/data/ContactInfo";
+
 export interface FAQItem {
   q: string;
   a: string;
@@ -26,7 +28,7 @@ export function generateFAQs(city: string): FAQItem[] {
     },
     {
       q: `Can we meet your web development team in ${city}?`,
-      a: `Yes! Our office is located at Unit No. 712, 7th Floor, JMD Megapolis, Sector 48, Gurugram, Haryana 122018. We welcome in-person discovery workshops, strategic planning meetings, and design review sessions at our office or your ${city} headquarters.`
+      a: `Yes! Our office is located at ${contactInfo.websiteAddress}. We welcome in-person discovery workshops, strategic planning meetings, and design review sessions at our office or your ${city} headquarters.`
     },
     {
       q: `What technologies do you use as a web development company in ${city}?`,
@@ -70,7 +72,7 @@ export function generateFAQs(city: string): FAQItem[] {
     },
     {
       q: `What is your contact information for ${city}?`,
-      a: `You can reach us at +91 78308 36770 or visit our office at Unit No. 712, 7th Floor, JMD Megapolis, Sector 48, Gurugram, Haryana 122018. Our business hours are typically until 7:30 PM. For any inquiries, you can also contact us via email or through our website.`
+      a: `You can reach us at +91 ${contactInfo.salmanNizamPhone} or visit our office at ${contactInfo.websiteAddress}. Our business hours are ${contactInfo.businessHours.weekdays}. For any inquiries, you can also contact us via email at ${contactInfo.email} or through our website at ${contactInfo.website}.`
     },
     {
       q: `Do you build mobile-first web applications for ${city} businesses?`,

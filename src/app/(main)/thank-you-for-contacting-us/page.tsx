@@ -4,7 +4,7 @@ import Link from "next/link";
 import { contactInfo } from "@/data/ContactInfo";
 import { useSearchParams } from "next/navigation";
 import { CheckCircle, ArrowRight, Clock, Mail, Home, Sparkles, MessageCircle, Phone, Check, CheckCheckIcon } from "lucide-react";
-import { Button } from "../services/web-development-company-gurgaon/Button";
+import { Button } from "../services/component/location/Button";
 
 export default function ThankYouPage() {
   const params = useSearchParams();

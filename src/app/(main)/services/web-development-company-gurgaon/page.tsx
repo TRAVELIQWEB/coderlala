@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "CoderLala",
     images: [
       {
-        url: "/images/og-image-web-development-gurgaon.jpg",
+        url: "/images/gurgaon-og/og-image-web-development-gurgaon.jpg",
         width: 1200,
         height: 630,
         alt: "CoderLala - Best Web Development Company in Gurgaon",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "Best Web Development Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading web development company in Gurgaon offering custom web development, Next.js, React, and e-commerce solutions.",
     images: [
-      "/images/og-image-web-development-gurgaon.jpg",
+      "/images/gurgaon-og/og-image-web-development-gurgaon.jpg",
       "/logo/CoderLalaLogoDark.svg",
     ],
     site: "@coderlala",

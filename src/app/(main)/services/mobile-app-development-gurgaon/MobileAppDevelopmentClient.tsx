@@ -1,4 +1,4 @@
-// app/web-development-company-gurgaon/WebDevelopmentClient.tsx
+// app/mobile-app-development-gurgaon/MobileAppDevelopmentClient.tsx
 'use client';
 
 // ============================================================
@@ -11,95 +11,115 @@ import {
   Phone,
   Star,
   Sparkles,
-  Code2,
   Rocket,
   ShoppingCart,
   Building2,
   Heart,
   Briefcase,
   Quote,
-  ChevronRight,
-  ChevronLeft,
   Smartphone,
-  Server,
   Palette,
+  Server,
+  Layers,
+  AppWindow,
+  Cloud,
+  Layout,
   Send,
 } from "lucide-react";
 import { HeadingTitle2, HeroTitleLocation } from "@/app/components/HeroTitle";
-// import ContactForm from "./ContactForm";
 import { FAQAccordion } from "../component/ServiceFAQAccordion";
-import ServiceProcessSection from "./ServiceProcessSection";
 import { FaAws } from "react-icons/fa";
-import { SiNextdotjs, SiReact, SiTypescript, SiNodedotjs, SiPython, SiDocker, SiMongodb, SiPostgresql, SiTailwindcss, SiPhp, SiBootstrap, SiWordpress, SiNestjs, SiJavascript, SiCss, SiGit, SiGithub, SiRedis, SiExpress, SiMysql, SiAngular, SiLaravel } from "react-icons/si";
+import {
+  SiReact,
+  SiTypescript,
+  SiNodedotjs,
+  SiPython,
+  SiDocker,
+  SiMongodb,
+  SiPostgresql,
+  SiRedis,
+  SiExpress,
+  SiMysql,
+  SiFirebase,
+  SiFlutter,
+  SiKotlin,
+  SiSwift,
+  SiJest,
+  SiAppium,
+  SiXcode,
+  SiAndroidstudio
+} from "react-icons/si";
 import { motion } from "framer-motion";
-// import Breadcrumbs from "./Breadcrumbs";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
-import { generateFAQs, generateFAQSchema } from "./faqs";
+// import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
+
+// import { mobileAppServices } from "@/app/(main)/services/data/services/mobile-app-services";
 // import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
 import { contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
-import Breadcrumbs from "../component/location/Breadcrumbs";
-import { Button, QuoteCTA, ServicesButton } from "../component/location/Button";
+// import ContactForm from "../web-development-company-gurgaon/ContactForm";
+import { generateFAQs, generateFAQSchema } from "./faqs"; // Keep this as it is local
+import Breadcrumbs from "../component/location/Breadcrumbs"; // Change to local import
+import { Button, QuoteCTA } from "../component/location/Button"; // Change to local import
+// import { QuoteCTA } from "../component/location/QuoteCTA"; // Change to local import
+import { SectionBadge } from "../component/location/SectionBadge"; // Change to local import
+import ServiceProcessSection from "./ServiceProcessSection";
 import ContactForm from "@/app/components/ContactForm";
-// import { QuoteCTA } from "../component/location/QuoteCTA";
-import { SectionBadge } from "../component/location/SectionBadge";
 import { FinalCTA } from "../component/location/FinalCTA";
 import { SliderBadge } from "../component/location/SliderBadge";
 import ClientLogoSlider from "../component/location/ClientLogoSlider";
 import ServiceCard from "../component/location/FeatureCard";
-// import { SectionBadge } from "./SectionBadge";
-// import { QuoteCTA } from "./QuoteCTA";
-// import { Button } from "./Button";
-
 
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
 const CITY = "Gurgaon";
 const CITY_SLUG = "gurgaon";
-const HERO_TAGS = ["Agile Development", "High-Performance Apps", "Digital Transformation", "Expert IT Consulting"];
+const HERO_TAGS = ["iOS & Android Apps", "Cross-Platform", "UI/UX Design", "App Store Launch"];
 const Related_Services = [
   {
-    icon: <Code2 className="w-6 h-6" />,
-    title: "Custom Web Development",
-    desc: "Tailored web solutions using Next.js, React, and modern frameworks for optimal performance and user experience.",
+    icon: <Cloud className="w-6 h-6" />,
+    title: "Custom SaaS Development",
+    desc: "Scalable, multi-tenant SaaS platforms with subscription management and seamless user experiences.",
     iconBg: "bg-blue-500"
   },
   {
-    icon: <ShoppingCart className="w-6 h-6" />,
-    title: "E-Commerce Development",
-    desc: "Feature-rich online stores with secure payment gateways, inventory management, and seamless checkout experiences.",
-    iconBg: "bg-orange-500"
-  },
-  {
-    icon: <Smartphone className="w-6 h-6" />,
-    title: "Progressive Web Apps",
-    desc: "Mobile-first web applications with offline capabilities, push notifications, and native-like performance.",
+    icon: <Users className="w-6 h-6" />,
+    title: "B2B SaaS Solutions",
+    desc: "Enterprise-grade B2B platforms with team collaboration, role-based access, and advanced analytics.",
     iconBg: "bg-indigo-500"
   },
   {
+    icon: <Layout className="w-6 h-6" />,
+    title: "B2C SaaS Products",
+    desc: "Consumer-focused SaaS applications with intuitive interfaces and engaging user experiences.",
+    iconBg: "bg-purple-500"
+  },
+  {
+    icon: <ShoppingCart className="w-6 h-6" />,
+    title: "SaaS E-Commerce",
+    desc: "Feature-rich SaaS e-commerce solutions with multi-vendor support and subscription billing.",
+    iconBg: "bg-orange-500"
+  },
+  {
     icon: <Server className="w-6 h-6" />,
-    title: "Backend & API Development",
-    desc: "Robust APIs and backend systems with Node.js, Python, and PostgreSQL for scalable, secure data management.",
+    title: "API-First Architecture",
+    desc: "Scalable API-first SaaS architectures with microservices and real-time data synchronization.",
     iconBg: "bg-teal-500"
   },
   {
     icon: <Palette className="w-6 h-6" />,
-    title: "UI/UX Design",
-    desc: "User-centered design with intuitive interfaces, engaging experiences, and conversion-optimized workflows.",
+    title: "SaaS UI/UX Design",
+    desc: "User-centric SaaS design focused on intuitive workflows and delightful user experiences.",
     iconBg: "bg-violet-500"
-  },
-  {
-    icon: <Rocket className="w-6 h-6" />,
-    title: "Cloud & DevOps",
-    desc: "Scalable cloud infrastructure with CI/CD pipelines, containerization, and 99.9% uptime guarantee.",
-    iconBg: "bg-cyan-500"
   }
 ];
+
+
 // ============================================================
-// SECTION 4: OFFICE & CONTACT INFORMATION
+// SECTION 3: OFFICE & CONTACT INFORMATION
 // ============================================================
 const OFFICE = {
   address: contactInfo.websiteAddress,
@@ -109,7 +129,7 @@ const OFFICE = {
 };
 
 // ============================================================
-// SECTION 5: INDUSTRIES DATA
+// SECTION 4: INDUSTRIES DATA
 // ============================================================
 const INDUSTRIES = [
   { name: "Startups", icon: Rocket },
@@ -121,14 +141,14 @@ const INDUSTRIES = [
 ];
 
 // ============================================================
-// SECTION 6: TESTIMONIALS DATA
+// SECTION 5: TESTIMONIALS DATA
 // ============================================================
 const testimonials = [
   {
     name: "Ravinder",
     role: "Founder",
     company: "SkyYogaShala",
-    text: "Working with CoderLala was a seamless experience. They built a clean, fast and fully mobile-optimized yoga platform that made it easier for our students to explore classes and schedules.",
+    text: "CoderLala built a beautiful mobile app for our yoga platform. The app is smooth, intuitive, and our students love the seamless class booking experience.",
     rating: 5,
     image: "RV",
     color: "from-blue-500 to-teal-500",
@@ -137,7 +157,7 @@ const testimonials = [
     name: "Dr. (Maj) Chander Prakash",
     role: "Founder & Chief Dentist",
     company: "Kreative Dentistry",
-    text: "CoderLala created a modern and professional website for our clinic. The layout, appointment system, and overall structure are intuitive, making it very easy for patients to find information.",
+    text: "The mobile app CoderLala developed for our clinic has transformed how we manage appointments. Patients find it incredibly easy to book and manage their visits.",
     rating: 3,
     image: "CP",
     color: "from-purple-500 to-pink-500",
@@ -146,7 +166,7 @@ const testimonials = [
     name: "Dr. Sringari",
     role: "Medical Director",
     company: "Polaris Hospitals",
-    text: "We partnered with CoderLala to revamp the Polaris Hospitals website. The new version is clean, well-structured, and makes it easy for patients to explore departments and doctors.",
+    text: "Our hospital app has made patient engagement seamless. The team at CoderLala understood our requirements perfectly and delivered a robust solution.",
     rating: 5,
     image: "DS",
     color: "from-green-500 to-emerald-500",
@@ -155,7 +175,7 @@ const testimonials = [
     name: "Zahid Malik",
     role: "Founder",
     company: "RangRoganWala",
-    text: "CoderLala designed a vibrant and high-performance website for our painting services. It showcases our work beautifully and provides visitors with a smooth browsing experience.",
+    text: "The mobile app for our painting services allows customers to browse our work and request quotes instantly. It's been a game-changer for our business.",
     rating: 3,
     image: "ZM",
     color: "from-orange-500 to-amber-500",
@@ -164,7 +184,7 @@ const testimonials = [
     name: "Poonam Agrawal",
     role: "Co-Founder",
     company: "RiPRAP Health",
-    text: "Our health & wellness platform required a clean, trustworthy and user-friendly interface. CoderLala delivered a well-structured website with excellent clarity and fast loading performance.",
+    text: "Our health & wellness app needed to be trustworthy and user-friendly. CoderLala delivered an exceptional product that our users love.",
     rating: 4,
     image: "PA",
     color: "from-red-500 to-orange-500",
@@ -173,7 +193,7 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "CTO",
     company: "TechFlow Solutions",
-    text: "CoderLala's expertise in SaaS development transformed our platform. Their attention to detail and commitment to quality resulted in a product that exceeded our expectations.",
+    text: "CoderLala's mobile app development expertise is outstanding. They delivered a high-quality app that has significantly improved our customer engagement.",
     rating: 4,
     image: "SJ",
     color: "from-cyan-500 to-blue-500",
@@ -181,37 +201,32 @@ const testimonials = [
 ];
 
 // ============================================================
-// SECTION 7: TECH STACK DATA
+// SECTION 6: TECH STACK DATA
 // ============================================================
 const techStack = [
-  { name: "Next.js", icon: SiNextdotjs, color: "text-black! dark:text-white" },
-  { name: "React", icon: SiReact, color: "text-blue-500" },
+  { name: "React Native", icon: SiReact, color: "text-cyan-500" },
+  { name: "Flutter", icon: SiFlutter, color: "text-blue-500" },
+  { name: "Kotlin", icon: SiKotlin, color: "text-purple-600" },
+  { name: "Swift", icon: SiSwift, color: "text-orange-500" },
   { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
   { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
   { name: "Python", icon: SiPython, color: "text-yellow-500" },
   { name: "AWS", icon: FaAws, color: "text-orange-500" },
+  { name: "Firebase", icon: SiFirebase, color: "text-yellow-600" },
   { name: "Docker", icon: SiDocker, color: "text-blue-400" },
   { name: "MongoDB", icon: SiMongodb, color: "text-green-500" },
   { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-700" },
-  { name: "React Native", icon: SiReact, color: "text-cyan-500" },
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-cyan-400" },
-  { name: "PHP", icon: SiPhp, color: "text-indigo-500" },
-  { name: "Bootstrap", icon: SiBootstrap, color: "text-purple-600" },
-  { name: "WordPress", icon: SiWordpress, color: "text-blue-700" },
-  { name: "NestJS", icon: SiNestjs, color: "text-red-600" },
-  { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
-  { name: "CSS3", icon: SiCss, color: "text-blue-500" },
-  { name: "Git", icon: SiGit, color: "text-red-500" },
-  { name: "GitHub", icon: SiGithub, color: "text-black! dark:text-white" },
   { name: "Redis", icon: SiRedis, color: "text-red-600" },
   { name: "Express", icon: SiExpress, color: "text-black! dark:text-white" },
   { name: "MySQL", icon: SiMysql, color: "text-blue-600" },
-  { name: "Angular", icon: SiAngular, color: "text-red-600" },
-  { name: "Laravel", icon: SiLaravel, color: "text-red-500" },
+  { name: "Xcode", icon: SiXcode, color: "text-blue-500" },
+  { name: "Android Studio", icon: SiAndroidstudio, color: "text-green-500" },
+  { name: "Jest", icon: SiJest, color: "text-red-600" },
+  { name: "Appium", icon: SiAppium, color: "text-purple-500" },
 ];
 
 // ============================================================
-// SECTION 8: HELPER COMPONENT - GraduationCap Icon
+// SECTION 7: HELPER COMPONENT - GraduationCap Icon
 // ============================================================
 function GraduationCap(props: any) {
   return (
@@ -234,10 +249,52 @@ function GraduationCap(props: any) {
 }
 
 // ============================================================
-// SECTION 9: MAIN COMPONENT - WebDevelopmentClient
+// SECTION 8: MOBILE APP DEVELOPMENT SERVICES DATA
+// ============================================================
+const MOBILE_SERVICES = [
+  {
+    icon: Smartphone,
+    title: "iOS App Development",
+    desc: "We build high-performance iOS applications using Swift and SwiftUI, delivering seamless user experiences optimized for Apple's ecosystem. Our iOS apps are designed to leverage the full potential of iPhone and iPad devices.",
+    accent: "from-blue-500 to-indigo-600",
+  },
+  {
+    icon: AppWindow,
+    title: "Android App Development",
+    desc: "As a premier mobile app development company in Gurgaon, we create robust Android applications using Kotlin and Java, optimized for performance across all Android devices and versions.",
+    accent: "from-green-500 to-emerald-600",
+  },
+  {
+    icon: Layers,
+    title: "Cross-Platform App Development",
+    desc: "We specialize in React Native and Flutter cross-platform development, delivering consistent, high-performance apps for both iOS and Android with a single codebase.",
+    accent: "from-cyan-400 to-blue-500",
+  },
+  {
+    icon: ShoppingCart,
+    title: "E-Commerce Mobile Apps",
+    desc: "Feature-rich shopping apps with secure payment gateways, personalized recommendations, real-time order tracking, and seamless checkout experiences for your customers.",
+    accent: "from-orange-400 to-orange-600",
+  },
+  {
+    icon: Server,
+    title: "App Backend & API Development",
+    desc: "Robust backend solutions with Node.js, Python, and cloud infrastructure to power your mobile applications with scalable, secure, and high-performance APIs.",
+    accent: "from-teal-400 to-emerald-500",
+  },
+  {
+    icon: Palette,
+    title: "UI/UX Design for Mobile",
+    desc: "User-centric mobile app design with focus on intuitive navigation, engaging interfaces, and delightful user experiences that keep your users coming back.",
+    accent: "from-violet-500 to-fuchsia-600",
+  },
+];
+
+// ============================================================
+// SECTION 9: MAIN COMPONENT - MobileAppDevelopmentClient
 // ============================================================
 
-export default function WebDevelopmentClient() {
+export default function MobileAppDevelopmentClient() {
   // ============================================================
   // SECTION 9.1: REFS & STATE MANAGEMENT
   // ============================================================
@@ -255,11 +312,12 @@ export default function WebDevelopmentClient() {
   const faqs = generateFAQs(CITY);
   const faqSchema = generateFAQSchema(faqs);
 
+
   // ============================================================
-  // SECTION 9.5: EFFECTS - Mobile Detection & Auto-Slides
+  // SECTION 9.4: EFFECTS - Mobile Detection & Auto-Slides
   // ============================================================
 
-  // 9.5.1: Check if mobile
+  // 9.4.1: Check if mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -269,7 +327,7 @@ export default function WebDevelopmentClient() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // 9.5.2: Auto-slide testimonials
+  // 9.4.2: Auto-slide testimonials
   useEffect(() => {
     const timer = setInterval(() => {
       const totalItems = testimonials.length;
@@ -285,6 +343,7 @@ export default function WebDevelopmentClient() {
   }, [isMobile]);
 
 
+
   const getVisibleTestimonials = () => {
     const itemsPerPage = isMobile ? 2 : 3;
     const end = Math.min(activeIndex + itemsPerPage, testimonials.length);
@@ -296,14 +355,14 @@ export default function WebDevelopmentClient() {
   const currentPage = Math.floor(activeIndex / (isMobile ? 2 : 3));
 
   // ============================================================
-  // SECTION 9.7: SCHEMA MARKUP - Organization & ProfessionalService
+  // SECTION 9.6: SCHEMA MARKUP - Organization & ProfessionalService
   // ============================================================
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: `CoderLala - Best Web Development Company in ${CITY}`,
+    name: `CoderLala - Best Mobile App Development Company in ${CITY}`,
     image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/web-development-company-${CITY_SLUG}`,
+    url: `https://coderlala.com/mobile-app-development-${CITY_SLUG}`,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -322,11 +381,11 @@ export default function WebDevelopmentClient() {
       closes: "19:30",
     },
     areaServed: { "@type": "AdministrativeArea", name: CITY },
-    description: `CoderLala is a leading web development company in ${CITY} offering custom web development, Next.js, React, and e-commerce solutions.`,
-    priceRange: "₹200000 - ₹5000000",
+    description: `CoderLala is a leading mobile app development company in ${CITY} offering custom iOS, Android, and cross-platform app development.`,
+    priceRange: "₹300000 - ₹7000000",
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Web Development Services",
+      name: "Mobile App Development Services",
       itemListElement: services.map((service, index) => ({
         "@type": "Offer",
         itemOffered: {
@@ -384,8 +443,8 @@ export default function WebDevelopmentClient() {
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Web Development Company in Gurgaon",
-                "item": `https://coderlala.com/web-development-company-${CITY_SLUG}`,
+                "name": "Mobile App Development Company in Gurgaon",
+                "item": `https://coderlala.com/mobile-app-development-${CITY_SLUG}`,
               },
             ],
           }),
@@ -421,33 +480,33 @@ export default function WebDevelopmentClient() {
               {/* Breadcrumbs */}
               <Breadcrumbs
                 items={[
-                  // { label: "Services", href: "/services" },
-                  { label: "Web Development in Gurgaon", active: true },
+                  { label: "Mobile App Development in Gurgaon", active: true },
                 ]}
               />
 
               {/* H1 Title */}
               <HeroTitleLocation
-                title1="Best Web Development"
+                title1="Best Mobile App Development"
                 title2={`Company in ${CITY}`}
               />
 
               {/* Hero Description */}
               <p className="text-muted-foreground text-md lg:pr-10">
-                <strong className="text-brand">CoderLala</strong> is the premier <strong className="text-brand">web development company in {CITY}</strong>,
+                <strong className="text-brand">CoderLala</strong> is the premier <strong className="text-brand">mobile app development company in {CITY}</strong>,
                 headquartered at <strong className="text-brand">JMD Megapolis, Sector 48, Gurugram</strong>,
-                serving businesses across Gurgaon, Noida, Delhi NCR and many more areas.
+                serving businesses across Gurgaon, Noida, Delhi NCR and beyond.
 
                 <br /><br />
 
-                As a trusted <strong>web development agency in Gurgaon</strong>, we leverage cutting-edge technologies
-                like <strong className="text-brand">Next.js</strong>, <strong className="text-brand">React</strong>,
-                and modern <strong className="text-success">MongoDB</strong> backends to build high-performance websites.
+                As a trusted <strong>mobile app development agency in Gurgaon</strong>, we leverage cutting-edge technologies
+                like <strong className="text-brand">React Native,</strong> <strong className="text-brand">Flutter, </strong>
+                <strong className="text-brand">Swift</strong> and <strong className="text-brand">Kotlin </strong>
+                to build high-performance mobile applications.
 
                 <br /><br />
 
                 Whether you're a startup in Cyber City, an enterprise in Udyog Vihar, or a business near MG Road,
-                our local team is ready to help you succeed online with custom web solutions tailored to your needs.
+                our local team is ready to help you succeed with custom mobile solutions tailored to your needs.
               </p>
 
               {/* Tags/Badges */}
@@ -476,10 +535,10 @@ export default function WebDevelopmentClient() {
               {/* Stats Section */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
                 {[
-                  { k: "25+", v: "Projects Delivered" },
-                  { k: "20+", v: "Happy Clients" },
-                  { k: "99%", v: "Retention Rate" },
-                  { k: "4.9 ★", v: "Client Rating" },
+                  { k: "15+", v: "Apps Delivered" },
+                  { k: "12+", v: "Happy Clients" },
+                  { k: "98%", v: "Retention Rate" },
+                  { k: "4.8 ★", v: "Client Rating" },
                 ].map((s) => (
                   <div key={s.v} className="group grid place-items-center p-3 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1">
                     <h3 className="text-2xl font-extrabold text-coder-grad group-hover:scale-105 transition-transform">{s.k}</h3>
@@ -501,11 +560,11 @@ export default function WebDevelopmentClient() {
                 <div className="p-6">
                   <div className="mb-5">
                     <h3 className="text-2xl font-bold tracking-tight text-primary">
-                      🚀 Submit Your Query — Gurgaon's #1 Web Development Agency
+                      🚀 Submit Your App Idea — Gurgaon's #1 Mobile App Development Agency
                     </h3>
                     <p className="text-muted-foreground text-sm mt-4">
-                      Submit your website idea and get a free, personalized roadmap from
-                      Gurgaon's web development experts. No hidden costs.
+                      Share your mobile app vision and get a free, personalized roadmap from
+                      Gurgaon's app development experts. No hidden costs.
                     </p>
                     <div className="mt-5 h-px w-full border-border border-t"></div>
                   </div>
@@ -514,12 +573,12 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
           </div>
-        </header >
+        </header>
 
         {/* ============================================================
         SECTION 10.4: CLIENT LOGOS SECTION (H2)
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
               <Users className="w-4 h-4 text-blue-500 dark:text-blue-300" />
@@ -529,28 +588,26 @@ export default function WebDevelopmentClient() {
             </div>
           </div>
 
-          <HeadingTitle2 title1="Companies That" title2="Trust Our Solutions" />
+          <HeadingTitle2 title1="Companies That" title2="Trust Our Mobile Solutions" />
 
           <p className="text-muted-foreground text-md mb-10 max-w-4xl px-4 mx-auto">
-            As a trusted <strong>Web Development Company in Gurgaon</strong>, we help startups, SMEs, and enterprises build modern websites, custom web applications, and scalable digital solutions.<br /><br />
-            Our experienced team combines creativity, technology, and innovation to deliver high-quality websites that provide exceptional user experiences and support long-term business success.
+            As a trusted <strong>Mobile App Development Company in Gurgaon</strong>, we help startups, SMEs, and enterprises build innovative mobile applications that drive user engagement, streamline operations, and accelerate business growth.<br /><br />
+            Our experienced team combines creativity, technology, and innovation to deliver high-quality mobile apps that provide exceptional user experiences and support long-term business success.
           </p>
 
           <ClientLogoSlider />
 
-          <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
-
-            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
-              <QuoteCTA scrollToForm={scrollToForm} />
-            </div>
+          {/* Button to explore all services */}
+          <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
+            <QuoteCTA scrollToForm={scrollToForm} />
           </div>
 
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.5: ABOUT CODERLALA SECTION (H2)
         ============================================================ */}
-        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" >
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
           <div className="relative z-10 max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Column - About Content */}
@@ -563,34 +620,34 @@ export default function WebDevelopmentClient() {
                     About CoderLala
                   </span>
                   <span className="block! text-[#ff6900]! bg-clip-text! bg-orange-500!">
-                    Building Project That Matter
+                    Mobile App Development Experts
                   </span>
                 </h2>
 
                 <p className="text-muted-foreground text-md mb-4 max-w-3xl mx-auto">
-                  CoderLala is a leading <strong>web development company in Gurgaon </strong>
-                  helping startups, SMEs, and enterprises build fast, secure, and scalable
-                  websites.
-                  <br /><br />From business websites and custom web applications to eCommerce
-                  platforms and SaaS products, we create digital solutions designed to
-                  increase traffic, generate leads, and accelerate business growth.
+                  CoderLala is a leading <strong>mobile app development company in Gurgaon </strong>
+                  helping startups, SMEs, and enterprises build innovative mobile applications
+                  that drive user engagement and business growth.
+                  <br /><br />From iOS and Android apps to cross-platform solutions,
+                  we create mobile experiences designed to increase engagement,
+                  streamline operations, and accelerate digital transformation.
                 </p>
 
                 <p className="text-muted-foreground text-md mb-10 max-w-3xl mx-auto">
-                  Our experienced developers specialize in modern technologies including
-                  React, Next.js, Node.js, Laravel, WordPress, Shopify, and custom CMS
-                  development. Every website is optimized for performance, mobile
-                  responsiveness, and user experience to help your business rank higher on
-                  Google.
+                  Our experienced developers specialize in modern mobile technologies including
+                  React Native, Flutter, Swift, Kotlin, and Node.js backend development.
+                  Every app is optimized for performance, user experience, and scalability
+                  to help your business succeed in the mobile-first world.
                 </p>
 
                 {/* Feature List */}
                 <div className="grid sm:grid-cols-2 gap-3 mb-8">
-                  <div className="flex items-center gap-2">✅ Custom Website Development</div>
-                  <div className="flex items-center gap-2">✅ eCommerce Development</div>
-                  <div className="flex items-center gap-2">✅ Web Applications & SaaS</div>
-                  <div className="flex items-center gap-2">✅ API Integration</div>
-                  <div className="flex items-center gap-2">✅ 85+ PageSpeed Performance</div>
+                  <div className="flex items-center gap-2">✅ iOS App Development</div>
+                  <div className="flex items-center gap-2">✅ Android App Development</div>
+                  <div className="flex items-center gap-2">✅ Cross-Platform Apps</div>
+                  <div className="flex items-center gap-2">✅ App UI/UX Design</div>
+                  <div className="flex items-center gap-2">✅ App Store Launch</div>
+                  <div className="flex items-center gap-2">✅ App Maintenance & Support</div>
                 </div>
 
                 {/* CTA Buttons */}
@@ -617,8 +674,8 @@ export default function WebDevelopmentClient() {
               {/* Right Column - Office Image */}
               <div className="relative">
                 <Image
-                  src="/images/premium-web-development-company-gurgaon-office-team.webp"
-                  alt="Professional web development team at CoderLala office in Gurgaon working on client projects"
+                  src="/images/premium-mobile-app-development-gurgaon-office-team.webp"
+                  alt="Professional mobile app development team at CoderLala office in Gurgaon working on client projects"
                   width={800}
                   height={600}
                   className="rounded-2xl shadow-2xl object-cover w-full h-full"
@@ -631,10 +688,10 @@ export default function WebDevelopmentClient() {
                 {/* Stats Overlay */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mt-5">
                   {[
-                    { k: "25+", v: "Projects Done" },
-                    { k: "50+", v: "Industries Served" },
-                    { k: "95%", v: "Client Retention" },
-                    { k: "85+", v: "PageSpeed" },
+                    { k: "15+", v: "Apps Delivered" },
+                    { k: "12+", v: "Industries Served" },
+                    { k: "98%", v: "Client Retention" },
+                    { k: "4.8★", v: "Rating" },
                   ].map((s) => (
                     <div key={s.v} className="group grid place-items-center p-3 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1">
                       <h3 className="text-2xl font-extrabold text-coder-grad group-hover:scale-105 transition-transform">{s.k}</h3>
@@ -645,35 +702,34 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.6: WHY CHOOSE US SECTION (H2)
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <SectionBadge icon={<Star className="w-4 h-4 text-yellow-400" />} text="Why Choose Us?" />
           <div className="max-w-7xl mx-auto px-6">
             <HeadingTitle2
               title1="Why Choose CoderLala"
-              title2="as Your Web Development Partner?"
+              title2="as Your Mobile App Development Partner?"
             />
 
             <p className="text-muted-foreground text-center max-w-4xl mx-auto mb-12">
-              At CoderLala, we combine technical excellence with local expertise to deliver world-class web solutions tailored to businesses in Gurgaon and Delhi NCR. Our team of skilled developers leverages cutting-edge technologies including Next.js, React, Node.js, and MongoDB to build fast, secure, and scalable websites. <br /><br />We understand the local business landscape and create digital solutions that drive real results—increased traffic, higher conversions, and sustainable growth. With 25+ successful projects and 99% client satisfaction, we're the trusted web development partner for businesses of all sizes.
+              At CoderLala, we combine technical excellence with local expertise to deliver world-class mobile applications tailored to businesses in Gurgaon and Delhi NCR. Our team of skilled developers leverages cutting-edge technologies including React Native, Flutter, Swift, and Kotlin to build fast, secure, and scalable mobile apps. <br /><br />We understand the local business landscape and create digital solutions that drive real results—increased user engagement, higher retention, and sustainable growth. With 15+ successful projects and 98% client satisfaction, we're the trusted mobile app development partner for businesses of all sizes.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {/* Reason 1: Cutting-Edge Technology */}
-
               <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
                 <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-blue-500 to-indigo-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
                 <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-blue-500 to-indigo-600 mx-auto">
                   <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Code2 className="relative h-7 w-7 text-white! drop-shadow-md" />
+                  <Smartphone className="relative h-7 w-7 text-white! drop-shadow-md" />
                 </div>
                 <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Cutting-Edge Technology</h3>
                 <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
-                  We use the latest frameworks like Next.js and React to build high-performance websites
+                  We use the latest frameworks like React Native and Flutter to build high-performance mobile apps
                 </p>
               </div>
 
@@ -699,41 +755,38 @@ export default function WebDevelopmentClient() {
                 </div>
                 <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Fast & Reliable Delivery</h3>
                 <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
-                  We deliver projects on time with 99% client satisfaction rate
+                  We deliver projects on time with 98% client satisfaction rate
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-10 justify-center">
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.7: SERVICES SECTION (H2)
         ============================================================ */}
 
-        < section id="services" className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" >
-          {/* Background Effects */}
-          < div className="absolute inset-0 -z-10 pointer-events-none" >
-            <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-blue-500/10 to-transparent blur-3xl rounded-full" />
-            <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-orange-500/10 to-transparent blur-3xl rounded-full" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-linear-to-br from-blue-500/5 via-purple-500/5 to-orange-500/5 blur-3xl rounded-full" />
-          </div >
+        <section id="services" className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
+          <div className="absolute inset-0 -z-10 pointer-events-none">
+            <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-purple-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-pink-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-linear-to-br from-purple-500/5 via-pink-500/5 to-orange-500/5 blur-3xl rounded-full" />
+          </div>
 
           <div className="mx-auto max-w-7xl px-6">
             <div className="text-center max-w-5xl mx-auto mb-14 space-y-3">
               <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="CoderLala Services" />
-              <HeadingTitle2 title1={`Expert Web Development`} title2={`Services in ${CITY}`} />
+              <HeadingTitle2 title1={`Expert Mobile App Development`} title2={`Services in ${CITY}`} />
               <p className="text-muted-foreground text-md max-w-4xl mx-auto">
-                From fast, interactive React applications to powerful backend systems, our <strong className="text-brand">Web Development Company in {CITY}</strong> delivers secure, scalable, and high-performance web solutions for startups, SMEs, and enterprises. <br /><br />
-                We build modern websites and custom web applications using the latest technologies to ensure exceptional user experiences, long-term reliability, and future-ready digital solutions. Explore our comprehensive web development services below to discover how we can help bring your vision to life.
+                From native iOS and Android applications to cross-platform solutions, our <strong className="text-brand">Mobile App Development Company in {CITY}</strong> delivers secure, scalable, and high-performance mobile apps for startups, SMEs, and enterprises. <br /><br />
+                We build modern mobile applications using the latest technologies to ensure exceptional user experiences, long-term reliability, and future-ready digital solutions. Explore our comprehensive mobile app development services below to discover how we can help bring your vision to life.
               </p>
             </div>
 
-            {/* Feature Grid - 3x2 Layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-14">
               {Related_Services.map((service, index) => (
                 <ServiceCard
@@ -747,7 +800,6 @@ export default function WebDevelopmentClient() {
               ))}
             </div>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mx-auto">
               <Button
                 href="/services"
@@ -767,7 +819,7 @@ export default function WebDevelopmentClient() {
               </Button>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
         SECTION 10.8: DEVELOPMENT PROCESS SECTION (H2)
@@ -776,9 +828,9 @@ export default function WebDevelopmentClient() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionBadge icon={<Zap className="w-4 h-4 text-blue-500 dark:text-blue-300" />} text="Our Development Process" />
-              <HeadingTitle2 title1="How We Transform Your Ideas" title2="Into Powerful Digital Experiences" />
+              <HeadingTitle2 title1="How We Transform Your App Idea" title2="Into Powerful Digital Experiences" />
               <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
-                As a leading <strong>Web Development Company in Gurgaon</strong>, we follow a strategic and transparent development process to create high-quality websites that are secure, scalable, and performance-driven.
+                As a leading <strong>Mobile App Development Company in Gurgaon</strong>, we follow a strategic and transparent development process to create high-quality mobile applications that are secure, scalable, and performance-driven.
                 <br /><br />
                 From understanding your business requirements and designing intuitive user experiences to development, testing, and deployment, every step is carefully executed to deliver reliable digital solutions tailored to your goals.
               </p>
@@ -787,9 +839,7 @@ export default function WebDevelopmentClient() {
             <div className="text-left">
               <ServiceProcessSection />
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 mt-10 sm:gap-4 justify-center">
-
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
@@ -803,9 +853,9 @@ export default function WebDevelopmentClient() {
           <HeadingTitle2 title1="Powering Innovation with" title2="Modern Technologies" />
 
           <p className="text-muted-foreground text-md px-4 max-w-4xl mx-auto mb-10">
-            Our technology stack combines modern frontend frameworks, powerful backend technologies, scalable databases, cloud platforms, and industry-leading development tools to deliver secure, high-performance digital solutions.
+            Our technology stack combines modern mobile frameworks, powerful backend technologies, scalable databases, cloud platforms, and industry-leading development tools to deliver secure, high-performance mobile applications.
             <br /><br />
-            Explore the technologies below that our <strong>Web Development Company in Gurgaon</strong> uses to build fast, scalable, and future-ready websites and web applications.
+            Explore the technologies below that our <strong>Mobile App Development Company in Gurgaon</strong> uses to build fast, scalable, and future-ready mobile apps.
           </p>
 
           {/* Tech Stack Grid */}
@@ -824,11 +874,9 @@ export default function WebDevelopmentClient() {
               );
             })}
           </div>
-          <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
-              <QuoteCTA scrollToForm={scrollToForm} />
-            </div>
+          <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
+            <QuoteCTA scrollToForm={scrollToForm} />
           </div>
         </section >
 
@@ -854,9 +902,9 @@ export default function WebDevelopmentClient() {
                 icon={<Quote className="w-3 h-3 md:w-4 md:h-4" />} text="Building Success Through Technology"
               />
 
-              <HeadingTitle2 title1="Trusted Web Development Company" title2="Serving Businesses Across India" />
+              <HeadingTitle2 title1="Trusted Mobile App Development Company" title2="Serving Businesses Across India" />
               <p className="text-muted-foreground max-w-4xl mx-auto text-md">
-                Don't just take our word for it—discover what our clients have to say about working with our <strong>Web Development Company in Gurgaon</strong>. <br /> <br />From custom websites and web applications to eCommerce solutions, businesses across industries trust CoderLala for quality, innovation, timely delivery, and exceptional customer service.
+                Don't just take our word for it—discover what our clients have to say about working with our <strong>Mobile App Development Company in Gurgaon</strong>. <br /> <br />From iOS and Android apps to cross-platform solutions, businesses across industries trust CoderLala for quality, innovation, timely delivery, and exceptional customer service.
               </p>
             </motion.div>
 
@@ -912,9 +960,8 @@ export default function WebDevelopmentClient() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
@@ -943,7 +990,7 @@ export default function WebDevelopmentClient() {
                 icon={<Sparkles className="w-3 h-3 md:w-4 md:h-4 text-yellow-400" />} text="Frequently Asked Questions" />
               <HeadingTitle2 title1="Need More Information?" title2="Get Answers from CoderLala" />
               <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
-                Find answers to the most common questions about our <strong>web development services in Gurgaon</strong>, including custom website development, eCommerce solutions, web applications, project timelines, technologies, pricing, maintenance, and ongoing support. <br /> <br />Learn how CoderLala delivers secure, scalable, and high-performance digital solutions tailored to your business needs.
+                Find answers to the most common questions about our <strong>mobile app development services in Gurgaon</strong>, including iOS and Android app development, cross-platform solutions, UI/UX design, project timelines, technologies, pricing, maintenance, and ongoing support. <br /> <br />Learn how CoderLala delivers secure, scalable, and high-performance mobile applications tailored to your business needs.
               </p>
             </div>
 
@@ -955,8 +1002,7 @@ export default function WebDevelopmentClient() {
         {/* ============================================================
         SECTION 10.13: FINAL CTA SECTION (H2)
         ============================================================ */}
-        < FinalCTA scrollToForm={scrollToForm} />
-
+        <FinalCTA scrollToForm={scrollToForm} />
 
       </div >
     </>

@@ -37,7 +37,7 @@ export const metadata = {
             "CoderLala Technologies Private Limited | Next-Gen Digital Solutions",
         template: "%s | CoderLala Technologies Private Limited"
     },
-    description:"Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions.",
+    description: "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions.",
     authors: [{ name: "CoderLala Technologies" }],
     creator: "CoderLala Technologies",
     publisher: "CoderLala Technologies",
@@ -105,7 +105,7 @@ const localBusinessSchema = {
     name: "CoderLala Technologies Pvt. Ltd.",
     address: {
         "@type": "PostalAddress",
-        streetAddress: "Unit No.712, 7th Floor, JMD Megapolis, sector-48",
+        streetAddress: contactInfo.streetAddress,
         addressLocality: "Gurgaon",
         addressRegion: "Haryana",
         postalCode: "122018",

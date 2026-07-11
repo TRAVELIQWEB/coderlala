@@ -614,7 +614,7 @@ export const services: Service[] = [
       {
         title: "CloudMetrics SaaS Launch",
         description: "Built a complete analytics SaaS platform with subscription billing and multi-tenant architecture.",
-        results: ["1000+ users in 6 months", "$500K ARR", "99.95% uptime"],
+        results: ["1000+ users in 6 months", "₹500K ARR", "99.95% uptime"],
       },
     ],
     faqs: [
@@ -985,7 +985,7 @@ export const services: Service[] = [
     results: [
       { stat: "85%", label: "Accuracy Rate" },
       { stat: "10x", label: "Speed Improvement" },
-      { stat: "$500K+", label: "Cost Savings" },
+      { stat: "₹500K+", label: "Cost Savings" },
       { stat: "100%", label: "Automation" },
     ],
     testimonials: [
@@ -1025,7 +1025,7 @@ export const services: Service[] = [
       {
         title: "Predictive Analytics Implementation",
         description: "Built machine learning models for demand forecasting resulting in significant cost savings.",
-        results: ["85% forecast accuracy", "$500K annual savings", "10x faster analysis"],
+        results: ["85% forecast accuracy", "₹500K annual savings", "10x faster analysis"],
       },
     ],
     faqs: [

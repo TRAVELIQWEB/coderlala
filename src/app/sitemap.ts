@@ -51,8 +51,57 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/services/web-development-company-gurgaon`,
       lastModified: now,
-      changeFrequency: "weekly",
+      changeFrequency: "daily",
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/services/ai-ml-solutions-gurgaon`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/mobile-app-development-gurgaon`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/saas-platform-development-gurgaon`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/ui-ux-design-gurgaon`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/cloud-devops-gurgaon`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/backend-api-development-gurgaon`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/enterprise-software-gurgaon`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/travel-portal-development-gurgaon`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    
   ];
 }

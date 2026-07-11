@@ -1,4 +1,4 @@
-// app/web-development-company-gurgaon/WebDevelopmentClient.tsx
+// app/backend-api-development-gurgaon/BackendAPIDevelopmentClient.tsx
 'use client';
 
 // ============================================================
@@ -11,95 +11,102 @@ import {
   Phone,
   Star,
   Sparkles,
-  Code2,
-  Rocket,
-  ShoppingCart,
-  Building2,
-  Heart,
-  Briefcase,
   Quote,
-  ChevronRight,
-  ChevronLeft,
-  Smartphone,
   Server,
-  Palette,
+  Database,
+  Shield,
+  Workflow,
+  BarChart3,
   Send,
 } from "lucide-react";
 import { HeadingTitle2, HeroTitleLocation } from "@/app/components/HeroTitle";
-// import ContactForm from "./ContactForm";
 import { FAQAccordion } from "../component/ServiceFAQAccordion";
-import ServiceProcessSection from "./ServiceProcessSection";
 import { FaAws } from "react-icons/fa";
-import { SiNextdotjs, SiReact, SiTypescript, SiNodedotjs, SiPython, SiDocker, SiMongodb, SiPostgresql, SiTailwindcss, SiPhp, SiBootstrap, SiWordpress, SiNestjs, SiJavascript, SiCss, SiGit, SiGithub, SiRedis, SiExpress, SiMysql, SiAngular, SiLaravel } from "react-icons/si";
+import {
+  SiTypescript,
+  SiNodedotjs,
+  SiPython,
+  SiDocker,
+  SiMongodb,
+  SiPostgresql,
+  SiNestjs,
+  SiRedis,
+  SiExpress,
+  SiMysql,
+  SiGraphql,
+  SiKubernetes,
+  SiElasticsearch,
+  SiGo,
+  SiRust,
+} from "react-icons/si";
 import { motion } from "framer-motion";
-// import Breadcrumbs from "./Breadcrumbs";
+import Breadcrumbs from "../component/location/Breadcrumbs";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
-// import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
 import { contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
-import Breadcrumbs from "../component/location/Breadcrumbs";
-import { Button, QuoteCTA, ServicesButton } from "../component/location/Button";
-import ContactForm from "@/app/components/ContactForm";
-// import { QuoteCTA } from "../component/location/QuoteCTA";
 import { SectionBadge } from "../component/location/SectionBadge";
+import { Button, QuoteCTA } from "../component/location/Button";
+import ContactForm from "@/app/components/ContactForm";
+import ServiceProcessSection from "./ServiceProcessSection";
 import { FinalCTA } from "../component/location/FinalCTA";
 import { SliderBadge } from "../component/location/SliderBadge";
-import ClientLogoSlider from "../component/location/ClientLogoSlider";
 import ServiceCard from "../component/location/FeatureCard";
-// import { SectionBadge } from "./SectionBadge";
-// import { QuoteCTA } from "./QuoteCTA";
-// import { Button } from "./Button";
-
+import ClientLogoSlider from "../component/location/ClientLogoSlider";
 
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
 const CITY = "Gurgaon";
 const CITY_SLUG = "gurgaon";
-const HERO_TAGS = ["Agile Development", "High-Performance Apps", "Digital Transformation", "Expert IT Consulting"];
+const SERVICE_SLUG = "backend-api-development";
+const HERO_TAGS = ["Node.js", "Python", "Go", "GraphQL", "Microservices"];
 const Related_Services = [
   {
-    icon: <Code2 className="w-6 h-6" />,
-    title: "Custom Web Development",
-    desc: "Tailored web solutions using Next.js, React, and modern frameworks for optimal performance and user experience.",
+    icon: <Server className="w-6 h-6" />,
+    title: "RESTful APIs",
+    desc: "Scalable, well-documented REST APIs with comprehensive testing and security.",
     iconBg: "bg-blue-500"
   },
   {
-    icon: <ShoppingCart className="w-6 h-6" />,
-    title: "E-Commerce Development",
-    desc: "Feature-rich online stores with secure payment gateways, inventory management, and seamless checkout experiences.",
-    iconBg: "bg-orange-500"
+    icon: <Database className="w-6 h-6" />,
+    title: "GraphQL APIs",
+    desc: "Flexible GraphQL APIs with efficient resolvers and data loader optimization.",
+    iconBg: "bg-pink-500"
   },
   {
-    icon: <Smartphone className="w-6 h-6" />,
-    title: "Progressive Web Apps",
-    desc: "Mobile-first web applications with offline capabilities, push notifications, and native-like performance.",
+    icon: <Workflow className="w-6 h-6" />,
+    title: "Microservices",
+    desc: "Independent, scalable microservices with Docker and Kubernetes orchestration.",
     iconBg: "bg-indigo-500"
   },
   {
-    icon: <Server className="w-6 h-6" />,
-    title: "Backend & API Development",
-    desc: "Robust APIs and backend systems with Node.js, Python, and PostgreSQL for scalable, secure data management.",
-    iconBg: "bg-teal-500"
-  },
-  {
-    icon: <Palette className="w-6 h-6" />,
-    title: "UI/UX Design",
-    desc: "User-centered design with intuitive interfaces, engaging experiences, and conversion-optimized workflows.",
-    iconBg: "bg-violet-500"
-  },
-  {
-    icon: <Rocket className="w-6 h-6" />,
-    title: "Cloud & DevOps",
-    desc: "Scalable cloud infrastructure with CI/CD pipelines, containerization, and 99.9% uptime guarantee.",
+    icon: <Zap className="w-6 h-6" />,
+    title: "Real-Time Systems",
+    desc: "WebSocket and SSE implementations for low-latency bidirectional communication.",
     iconBg: "bg-cyan-500"
+  },
+  {
+    icon: <Shield className="w-6 h-6" />,
+    title: "API Security",
+    desc: "JWT, OAuth2, and RBAC implementation for secure API authentication and authorization.",
+    iconBg: "bg-red-500"
+  },
+  {
+    icon: <BarChart3 className="w-6 h-6" />,
+    title: "Database Optimization",
+    desc: "Efficient schemas, indexing strategies, caching, and query performance tuning.",
+    iconBg: "bg-green-500"
   }
 ];
+
+// Get the service data from the services array
+const serviceData = services.find(s => s.slug === SERVICE_SLUG);
+
 // ============================================================
-// SECTION 4: OFFICE & CONTACT INFORMATION
+// SECTION 3: OFFICE & CONTACT INFORMATION
 // ============================================================
 const OFFICE = {
   address: contactInfo.websiteAddress,
@@ -109,109 +116,91 @@ const OFFICE = {
 };
 
 // ============================================================
-// SECTION 5: INDUSTRIES DATA
-// ============================================================
-const INDUSTRIES = [
-  { name: "Startups", icon: Rocket },
-  { name: "Healthcare", icon: Heart },
-  { name: "Education", icon: GraduationCap },
-  { name: "Real Estate", icon: Building2 },
-  { name: "FinTech", icon: Briefcase },
-  { name: "E-Commerce", icon: ShoppingCart },
-];
-
-// ============================================================
-// SECTION 6: TESTIMONIALS DATA
+// SECTION 4: TESTIMONIALS DATA
 // ============================================================
 const testimonials = [
   {
-    name: "Ravinder",
-    role: "Founder",
-    company: "SkyYogaShala",
-    text: "Working with CoderLala was a seamless experience. They built a clean, fast and fully mobile-optimized yoga platform that made it easier for our students to explore classes and schedules.",
+    name: "Vikram Singh",
+    role: "Lead Architect",
+    company: "FinTech India",
+    text: "They built scalable and fast APIs for our platform. Millions of requests are handled without any issues. The microservices architecture they designed is exceptional.",
     rating: 5,
-    image: "RV",
+    image: "VS",
     color: "from-blue-500 to-teal-500",
   },
   {
-    name: "Dr. (Maj) Chander Prakash",
-    role: "Founder & Chief Dentist",
-    company: "Kreative Dentistry",
-    text: "CoderLala created a modern and professional website for our clinic. The layout, appointment system, and overall structure are intuitive, making it very easy for patients to find information.",
-    rating: 3,
-    image: "CP",
+    name: "Sneha Kapoor",
+    role: "VP Engineering",
+    company: "E-commerce India",
+    text: "With microservices architecture, every component scales independently. Best solution for our platform. The API documentation and integration support was outstanding.",
+    rating: 5,
+    image: "SK",
     color: "from-purple-500 to-pink-500",
   },
   {
-    name: "Dr. Sringari",
-    role: "Medical Director",
-    company: "Polaris Hospitals",
-    text: "We partnered with CoderLala to revamp the Polaris Hospitals website. The new version is clean, well-structured, and makes it easy for patients to explore departments and doctors.",
+    name: "Deepak Jain",
+    role: "CTO",
+    company: "SaaS Company",
+    text: "Professional backend development and API documentation. Integration was very smooth. Their expertise in Node.js and PostgreSQL is world-class.",
     rating: 5,
-    image: "DS",
-    color: "from-green-500 to-emerald-500",
+    image: "DJ",
+    color: "from-blue-500 to-emerald-500",
   },
   {
-    name: "Zahid Malik",
-    role: "Founder",
-    company: "RangRoganWala",
-    text: "CoderLala designed a vibrant and high-performance website for our painting services. It showcases our work beautifully and provides visitors with a smooth browsing experience.",
-    rating: 3,
-    image: "ZM",
+    name: "Ananya Reddy",
+    role: "Technical Director",
+    company: "HealthTech Solutions",
+    text: "The backend system they built handles our healthcare data with top-notch security and performance. We've never had any downtime since launch.",
+    rating: 4,
+    image: "AR",
     color: "from-orange-500 to-amber-500",
   },
   {
-    name: "Poonam Agrawal",
-    role: "Co-Founder",
-    company: "RiPRAP Health",
-    text: "Our health & wellness platform required a clean, trustworthy and user-friendly interface. CoderLala delivered a well-structured website with excellent clarity and fast loading performance.",
-    rating: 4,
-    image: "PA",
+    name: "Rahul Sharma",
+    role: "Product Manager",
+    company: "LogisticsTech",
+    text: "Our real-time tracking system relies on their WebSocket implementation. It's been incredibly reliable even during peak hours with thousands of concurrent users.",
+    rating: 5,
+    image: "RS",
     color: "from-red-500 to-orange-500",
   },
   {
-    name: "Sarah Johnson",
+    name: "Meera Patel",
     role: "CTO",
-    company: "TechFlow Solutions",
-    text: "CoderLala's expertise in SaaS development transformed our platform. Their attention to detail and commitment to quality resulted in a product that exceeded our expectations.",
+    company: "EdTech Platform",
+    text: "The GraphQL API they built for our education platform is fast, flexible, and has significantly reduced our frontend development time.",
     rating: 4,
-    image: "SJ",
+    image: "MP",
     color: "from-cyan-500 to-blue-500",
   },
 ];
 
 // ============================================================
-// SECTION 7: TECH STACK DATA
+// SECTION 5: TECH STACK DATA
 // ============================================================
 const techStack = [
-  { name: "Next.js", icon: SiNextdotjs, color: "text-black! dark:text-white" },
-  { name: "React", icon: SiReact, color: "text-blue-500" },
-  { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
-  { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
+  { name: "Node.js", icon: SiNodedotjs, color: "text-blue-600" },
   { name: "Python", icon: SiPython, color: "text-yellow-500" },
+  { name: "Go", icon: SiGo, color: "text-blue-500" },
+  { name: "Rust", icon: SiRust, color: "text-orange-600" },
+  { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
+  { name: "Express.js", icon: SiExpress, color: "text-black! dark:text-white" },
+  { name: "NestJS", icon: SiNestjs, color: "text-red-600" },
+  { name: "GraphQL", icon: SiGraphql, color: "text-pink-500" },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-700" },
+  { name: "MongoDB", icon: SiMongodb, color: "text-blue-500" },
+  { name: "MySQL", icon: SiMysql, color: "text-blue-600" },
+  { name: "Redis", icon: SiRedis, color: "text-red-600" },
+  { name: "Elasticsearch", icon: SiElasticsearch, color: "text-yellow-500" },
+  // { name: "Kafka", icon: SiKafka, color: "text-black! dark:text-white" },
   { name: "AWS", icon: FaAws, color: "text-orange-500" },
   { name: "Docker", icon: SiDocker, color: "text-blue-400" },
-  { name: "MongoDB", icon: SiMongodb, color: "text-green-500" },
-  { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-700" },
-  { name: "React Native", icon: SiReact, color: "text-cyan-500" },
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-cyan-400" },
-  { name: "PHP", icon: SiPhp, color: "text-indigo-500" },
-  { name: "Bootstrap", icon: SiBootstrap, color: "text-purple-600" },
-  { name: "WordPress", icon: SiWordpress, color: "text-blue-700" },
-  { name: "NestJS", icon: SiNestjs, color: "text-red-600" },
-  { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
-  { name: "CSS3", icon: SiCss, color: "text-blue-500" },
-  { name: "Git", icon: SiGit, color: "text-red-500" },
-  { name: "GitHub", icon: SiGithub, color: "text-black! dark:text-white" },
+  { name: "Kubernetes", icon: SiKubernetes, color: "text-blue-500" },
   { name: "Redis", icon: SiRedis, color: "text-red-600" },
-  { name: "Express", icon: SiExpress, color: "text-black! dark:text-white" },
-  { name: "MySQL", icon: SiMysql, color: "text-blue-600" },
-  { name: "Angular", icon: SiAngular, color: "text-red-600" },
-  { name: "Laravel", icon: SiLaravel, color: "text-red-500" },
 ];
 
 // ============================================================
-// SECTION 8: HELPER COMPONENT - GraduationCap Icon
+// SECTION 6: HELPER COMPONENT - GraduationCap Icon
 // ============================================================
 function GraduationCap(props: any) {
   return (
@@ -234,12 +223,12 @@ function GraduationCap(props: any) {
 }
 
 // ============================================================
-// SECTION 9: MAIN COMPONENT - WebDevelopmentClient
+// SECTION 7: MAIN COMPONENT - BackendAPIDevelopmentClient
 // ============================================================
 
-export default function WebDevelopmentClient() {
+export default function BackendAPIDevelopmentClient() {
   // ============================================================
-  // SECTION 9.1: REFS & STATE MANAGEMENT
+  // SECTION 7.1: REFS & STATE MANAGEMENT
   // ============================================================
   const { formRef, inputRef, scrollToForm } = useScrollToForm({
     delay: 650,
@@ -250,16 +239,69 @@ export default function WebDevelopmentClient() {
   const [isMobile, setIsMobile] = useState(false);
 
   // ============================================================
-  // SECTION 9.2: FAQ GENERATION (Dynamic with CITY)
+  // SECTION 7.2: FAQ GENERATION (Dynamic with CITY)
   // ============================================================
   const faqs = generateFAQs(CITY);
   const faqSchema = generateFAQSchema(faqs);
 
   // ============================================================
-  // SECTION 9.5: EFFECTS - Mobile Detection & Auto-Slides
+  // SECTION 7.3: CLIENT LOGOS DATA
+  // ============================================================
+  const clientLogos = [
+    {
+      id: 1,
+      name: "Aquarius Lab",
+      logo: "/images/client-logo/aquarius-lab.webp",
+      width: 800,
+      height: 800,
+      alt: "Aquarius Lab logo - trusted client of CoderLala backend API development company in Gurgaon"
+    },
+    {
+      id: 2,
+      name: "Jindal Dental Care",
+      logo: "/images/client-logo/jindal-dental-care-and-implant-centre.webp",
+      width: 800,
+      height: 800,
+      alt: "Jindal Dental Care logo - trusted client of CoderLala backend API development company in Gurgaon"
+    },
+    {
+      id: 3,
+      name: "Kreative Dentistry",
+      logo: "/images/client-logo/kreative-dentistry.webp",
+      width: 800,
+      height: 800,
+      alt: "Kreative Dentistry logo - trusted client of CoderLala backend API development company in Gurgaon"
+    },
+    {
+      id: 4,
+      name: "Mohindra Eco Pipes",
+      logo: "/images/client-logo/mohindra-eco-pipes-logo.webp",
+      width: 800,
+      height: 800,
+      alt: "Mohindra Eco Pipes logo - trusted client of CoderLala backend API development company in Gurgaon"
+    },
+    {
+      id: 5,
+      name: "Narain Hospital",
+      logo: "/images/client-logo/narain-hospital.webp",
+      width: 800,
+      height: 800,
+      alt: "Narain Hospital logo - trusted client of CoderLala backend API development company in Gurgaon"
+    },
+    {
+      id: 6,
+      name: "Webshlok",
+      logo: "/images/client-logo/webshlok.webp",
+      width: 800,
+      height: 800,
+      alt: "Webshlok logo - trusted client of CoderLala backend API development company in Gurgaon"
+    }
+  ];
+
+  // ============================================================
+  // SECTION 7.4: EFFECTS - Mobile Detection & Auto-Slides
   // ============================================================
 
-  // 9.5.1: Check if mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -269,7 +311,6 @@ export default function WebDevelopmentClient() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // 9.5.2: Auto-slide testimonials
   useEffect(() => {
     const timer = setInterval(() => {
       const totalItems = testimonials.length;
@@ -284,6 +325,20 @@ export default function WebDevelopmentClient() {
     return () => clearInterval(timer);
   }, [isMobile]);
 
+  useEffect(() => {
+    const clientLogoTimer = setInterval(() => {
+      setClientLogoIndex((prev) => (prev + 1) % clientLogos.length);
+    }, 3000);
+    return () => clearInterval(clientLogoTimer);
+  }, [clientLogos.length]);
+
+  // ============================================================
+  // SECTION 7.5: COMPUTED VALUES
+  // ============================================================
+  const visibleClientLogos = clientLogos.slice(clientLogoIndex, clientLogoIndex + 5);
+  if (clientLogoIndex + 5 > clientLogos.length) {
+    visibleClientLogos.push(...clientLogos.slice(0, (clientLogoIndex + 5) % clientLogos.length));
+  }
 
   const getVisibleTestimonials = () => {
     const itemsPerPage = isMobile ? 2 : 3;
@@ -296,14 +351,14 @@ export default function WebDevelopmentClient() {
   const currentPage = Math.floor(activeIndex / (isMobile ? 2 : 3));
 
   // ============================================================
-  // SECTION 9.7: SCHEMA MARKUP - Organization & ProfessionalService
+  // SECTION 7.6: SCHEMA MARKUP
   // ============================================================
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: `CoderLala - Best Web Development Company in ${CITY}`,
+    name: `CoderLala - Best Backend & API Development Company in ${CITY}`,
     image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/web-development-company-${CITY_SLUG}`,
+    url: `https://coderlala.com/backend-api-development-${CITY_SLUG}`,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -322,21 +377,8 @@ export default function WebDevelopmentClient() {
       closes: "19:30",
     },
     areaServed: { "@type": "AdministrativeArea", name: CITY },
-    description: `CoderLala is a leading web development company in ${CITY} offering custom web development, Next.js, React, and e-commerce solutions.`,
-    priceRange: "₹200000 - ₹5000000",
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Web Development Services",
-      itemListElement: services.map((service, index) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: service.title,
-          description: service.description,
-        },
-        position: index + 1,
-      })),
-    },
+    description: `CoderLala is a leading backend and API development company in ${CITY} offering Node.js, Python, Go, microservices, and GraphQL solutions.`,
+    priceRange: serviceData?.priceRange || "₹3,00,000 - ₹20,00,000+",
     review: testimonials.map((t) => ({
       "@type": "Review",
       reviewRating: {
@@ -353,21 +395,15 @@ export default function WebDevelopmentClient() {
   };
 
   // ============================================================
-  // SECTION 10: COMPONENT RETURN - JSX
+  // SECTION 8: COMPONENT RETURN - JSX
   // ============================================================
   return (
     <>
-      {/* ============================================================
-      SECTION 10.1: SCHEMA SCRIPTS (Structured Data)
-      ============================================================ */}
-
-      {/* 10.1.1: Organization & ProfessionalService Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
       />
 
-      {/* 10.1.2: BreadcrumbList Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -384,78 +420,65 @@ export default function WebDevelopmentClient() {
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Web Development Company in Gurgaon",
-                "item": `https://coderlala.com/web-development-company-${CITY_SLUG}`,
+                "name": "Backend & API Development Company in Gurgaon",
+                "item": `https://coderlala.com/backend-api-development-${CITY_SLUG}`,
               },
             ],
           }),
         }}
       />
 
-      {/* 10.1.3: FAQ Schema - Auto-generated from FAQs */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* ============================================================
-      SECTION 10.2: MAIN PAGE WRAPPER
-      ============================================================ */}
       <div className="relative text-foreground selection:bg-blue-500 selection:text-foreground">
 
         {/* ============================================================
-        SECTION 10.3: HERO SECTION (H1)
+        HERO SECTION
         ============================================================ */}
         <header className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
-          {/* Background Effects */}
           <div className="absolute inset-0 bg-mesh" />
           <div className="absolute inset-0 bg-grid-dots opacity-40" />
           <div className="absolute top-32 left-10 h-72 w-72 rounded-full bg-blue-600/20 blur-[120px] animate-float" />
-          <div className="absolute bottom-10 right-10 h-80 w-80 rounded-full bg-violet-600/20 blur-[140px] animate-float" style={{ animationDelay: "2s" }} />
+          <div className="absolute bottom-10 right-10 h-80 w-80 rounded-full bg-emerald-600/20 blur-[140px] animate-float" style={{ animationDelay: "2s" }} />
           <div className="absolute top-1/3 right-1/4 h-56 w-56 rounded-full bg-cyan-400/15 blur-[100px] animate-float" style={{ animationDelay: "4s" }} />
 
-          {/* Hero Content */}
           <div className="relative z-10 mx-auto max-w-7xl px-6 grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
-            {/* Left Column - Text Content */}
             <div className="lg:col-span-7 space-y-7">
-              {/* Breadcrumbs */}
               <Breadcrumbs
                 items={[
-                  // { label: "Services", href: "/services" },
-                  { label: "Web Development in Gurgaon", active: true },
+                  { label: "Backend API Development in Gurgaon", active: true },
                 ]}
               />
 
-              {/* H1 Title */}
               <HeroTitleLocation
-                title1="Best Web Development"
+                title1="Best Backend API Development"
                 title2={`Company in ${CITY}`}
               />
 
-              {/* Hero Description */}
               <p className="text-muted-foreground text-md lg:pr-10">
-                <strong className="text-brand">CoderLala</strong> is the premier <strong className="text-brand">web development company in {CITY}</strong>,
+                <strong className="text-brand">CoderLala</strong> is the premier <strong className="text-brand">backend and API development company in {CITY}</strong>,
                 headquartered at <strong className="text-brand">JMD Megapolis, Sector 48, Gurugram</strong>,
-                serving businesses across Gurgaon, Noida, Delhi NCR and many more areas.
+                serving businesses across Gurgaon, Noida, Delhi NCR and beyond.
 
                 <br /><br />
 
-                As a trusted <strong>web development agency in Gurgaon</strong>, we leverage cutting-edge technologies
-                like <strong className="text-brand">Next.js</strong>, <strong className="text-brand">React</strong>,
-                and modern <strong className="text-success">MongoDB</strong> backends to build high-performance websites.
+                As a trusted <strong>backend engineering agency in Gurgaon</strong>, we specialize in building <strong className="text-brand">scalable APIs</strong>, <strong className="text-brand">microservices architecture, </strong>
+                <strong className="text-brand">real-time systems</strong>, and <strong className="text-brand">high-performance databases </strong>
+                using modern technologies like Node.js, Python, Go, and GraphQL.
 
                 <br /><br />
 
                 Whether you're a startup in Cyber City, an enterprise in Udyog Vihar, or a business near MG Road,
-                our local team is ready to help you succeed online with custom web solutions tailored to your needs.
+                our local team is ready to help you build a robust backend system tailored to your needs.
               </p>
 
-              {/* Tags/Badges */}
               <SliderBadge tags={HERO_TAGS} />
 
-              {/* CTA Buttons */}
+
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                {/* Call Now Button */}
                 <Button
                   href={`tel:${contactInfo.salmanNizamPhone}`}
                   icon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
@@ -473,12 +496,11 @@ export default function WebDevelopmentClient() {
                 </Button>
               </div>
 
-              {/* Stats Section */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
                 {[
-                  { k: "25+", v: "Projects Delivered" },
-                  { k: "20+", v: "Happy Clients" },
-                  { k: "99%", v: "Retention Rate" },
+                  { k: "30+", v: "Backend Projects" },
+                  { k: "1M+", v: "Daily Requests" },
+                  { k: "99.99%", v: "Uptime" },
                   { k: "4.9 ★", v: "Client Rating" },
                 ].map((s) => (
                   <div key={s.v} className="group grid place-items-center p-3 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1">
@@ -489,23 +511,22 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
 
-            {/* Right Column - Contact Form */}
             <div
               ref={formRef}
               id="quote-form"
               className="relative lg:col-span-5 scroll-mt-28"
             >
-              <div className="absolute -inset-2 rounded-3xl bg-linear-to-r from-blue-400/20 via-indigo-400/15 to-cyan-400/20 blur-2xl dark:from-blue-500/15 dark:to-indigo-500/15"></div>
+              <div className="absolute -inset-2 rounded-3xl bg-linear-to-r from-blue-400/20 via-emerald-400/15 to-cyan-400/20 blur-2xl dark:from-blue-500/15 dark:to-emerald-500/15"></div>
               <div className="relative overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur-sm shadow-xl">
-                <div className="h-1 w-full bg-linear-to-r from-blue-600 via-indigo-500 to-cyan-500"></div>
+                <div className="h-1 w-full bg-linear-to-r from-blue-600 via-emerald-500 to-cyan-500"></div>
                 <div className="p-6">
                   <div className="mb-5">
                     <h3 className="text-2xl font-bold tracking-tight text-primary">
-                      🚀 Submit Your Query — Gurgaon's #1 Web Development Agency
+                      🚀 Build Your Backend — {CITY}'s #1 Backend Engineering Agency
                     </h3>
                     <p className="text-muted-foreground text-sm mt-4">
-                      Submit your website idea and get a free, personalized roadmap from
-                      Gurgaon's web development experts. No hidden costs.
+                      Share your backend requirements and get a free, personalized roadmap from
+                      {CITY}'s backend engineering experts. No hidden costs.
                     </p>
                     <div className="mt-5 h-px w-full border-border border-t"></div>
                   </div>
@@ -514,14 +535,14 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
           </div>
-        </header >
+        </header>
 
         {/* ============================================================
-        SECTION 10.4: CLIENT LOGOS SECTION (H2)
+        CLIENT LOGOS SECTION
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <div className="flex justify-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-emerald-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
               <Users className="w-4 h-4 text-blue-500 dark:text-blue-300" />
               <span className="text-sm font-medium">
                 Our Trusted Clients
@@ -529,31 +550,27 @@ export default function WebDevelopmentClient() {
             </div>
           </div>
 
-          <HeadingTitle2 title1="Companies That" title2="Trust Our Solutions" />
+          <HeadingTitle2 title1="Companies That" title2="Trust Our Backend Solutions" />
 
           <p className="text-muted-foreground text-md mb-10 max-w-4xl px-4 mx-auto">
-            As a trusted <strong>Web Development Company in Gurgaon</strong>, we help startups, SMEs, and enterprises build modern websites, custom web applications, and scalable digital solutions.<br /><br />
-            Our experienced team combines creativity, technology, and innovation to deliver high-quality websites that provide exceptional user experiences and support long-term business success.
+            As a trusted <strong>Backend & API Development Company in Gurgaon</strong>, we help businesses build scalable, secure, and high-performance backend systems that power their applications.<br /><br />
+            Our experienced backend engineers combine deep technical expertise with modern architecture patterns to deliver robust solutions that handle millions of requests with 99.99% uptime.
           </p>
 
           <ClientLogoSlider />
 
-          <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
-              <QuoteCTA scrollToForm={scrollToForm} />
-            </div>
+          <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
+            <QuoteCTA scrollToForm={scrollToForm} />
           </div>
-
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.5: ABOUT CODERLALA SECTION (H2)
+        ABOUT CODERLALA SECTION
         ============================================================ */}
-        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" >
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
           <div className="relative z-10 max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left Column - About Content */}
               <div>
                 <SectionBadge
                   text="⭐ Trusted by 500+ Businesses Across India"
@@ -563,39 +580,36 @@ export default function WebDevelopmentClient() {
                     About CoderLala
                   </span>
                   <span className="block! text-[#ff6900]! bg-clip-text! bg-orange-500!">
-                    Building Project That Matter
+                    Backend Engineering Experts
                   </span>
                 </h2>
 
                 <p className="text-muted-foreground text-md mb-4 max-w-3xl mx-auto">
-                  CoderLala is a leading <strong>web development company in Gurgaon </strong>
-                  helping startups, SMEs, and enterprises build fast, secure, and scalable
-                  websites.
-                  <br /><br />From business websites and custom web applications to eCommerce
-                  platforms and SaaS products, we create digital solutions designed to
-                  increase traffic, generate leads, and accelerate business growth.
+                  CoderLala is a leading <strong>backend and API development company in Gurgaon </strong>
+                  helping businesses build scalable, secure, and high-performance backend systems
+                  that power their applications and drive business growth.
+                  <br /><br />From RESTful and GraphQL APIs to microservices architecture,
+                  we create backend solutions designed to handle millions of requests,
+                  ensure data integrity, and accelerate digital transformation.
                 </p>
 
                 <p className="text-muted-foreground text-md mb-10 max-w-3xl mx-auto">
-                  Our experienced developers specialize in modern technologies including
-                  React, Next.js, Node.js, Laravel, WordPress, Shopify, and custom CMS
-                  development. Every website is optimized for performance, mobile
-                  responsiveness, and user experience to help your business rank higher on
-                  Google.
+                  Our experienced backend engineers specialize in modern technologies including
+                  Node.js, Python, Go, PostgreSQL, MongoDB, Redis, and microservices architecture.
+                  Every system is optimized for performance, security, and scalability
+                  to help your business succeed in the digital landscape.
                 </p>
 
-                {/* Feature List */}
                 <div className="grid sm:grid-cols-2 gap-3 mb-8">
-                  <div className="flex items-center gap-2">✅ Custom Website Development</div>
-                  <div className="flex items-center gap-2">✅ eCommerce Development</div>
-                  <div className="flex items-center gap-2">✅ Web Applications & SaaS</div>
-                  <div className="flex items-center gap-2">✅ API Integration</div>
-                  <div className="flex items-center gap-2">✅ 85+ PageSpeed Performance</div>
+                  <div className="flex items-center gap-2">✅ REST & GraphQL APIs</div>
+                  <div className="flex items-center gap-2">✅ Microservices Architecture</div>
+                  <div className="flex items-center gap-2">✅ Real-time Systems</div>
+                  <div className="flex items-center gap-2">✅ Database Design & Optimization</div>
+                  <div className="flex items-center gap-2">✅ Security & Authentication</div>
+                  <div className="flex items-center gap-2">✅ API Documentation</div>
                 </div>
 
-                {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                  {/* Call Now Button */}
                   <Button
                     href={`tel:${contactInfo.salmanNizamPhone}`}
                     icon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
@@ -614,11 +628,10 @@ export default function WebDevelopmentClient() {
                 </div>
               </div>
 
-              {/* Right Column - Office Image */}
               <div className="relative">
                 <Image
-                  src="/images/premium-web-development-company-gurgaon-office-team.webp"
-                  alt="Professional web development team at CoderLala office in Gurgaon working on client projects"
+                  src="/images/premium-backend-api-development-gurgaon-office-team.webp"
+                  alt="Professional backend engineering team at CoderLala office in Gurgaon working on API development"
                   width={800}
                   height={600}
                   className="rounded-2xl shadow-2xl object-cover w-full h-full"
@@ -628,13 +641,12 @@ export default function WebDevelopmentClient() {
                   blurDataURL={BLUR_DATA_URL}
                 />
 
-                {/* Stats Overlay */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mt-5">
                   {[
-                    { k: "25+", v: "Projects Done" },
-                    { k: "50+", v: "Industries Served" },
-                    { k: "95%", v: "Client Retention" },
-                    { k: "85+", v: "PageSpeed" },
+                    { k: "30+", v: "Projects" },
+                    { k: "15+", v: "Industries" },
+                    { k: "99.99%", v: "Uptime" },
+                    { k: "4.9★", v: "Rating" },
                   ].map((s) => (
                     <div key={s.v} className="group grid place-items-center p-3 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1">
                       <h3 className="text-2xl font-extrabold text-coder-grad group-hover:scale-105 transition-transform">{s.k}</h3>
@@ -645,95 +657,87 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.6: WHY CHOOSE US SECTION (H2)
+        WHY CHOOSE US SECTION
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <SectionBadge icon={<Star className="w-4 h-4 text-yellow-400" />} text="Why Choose Us?" />
           <div className="max-w-7xl mx-auto px-6">
             <HeadingTitle2
               title1="Why Choose CoderLala"
-              title2="as Your Web Development Partner?"
+              title2="as Your Backend Engineering Partner?"
             />
 
             <p className="text-muted-foreground text-center max-w-4xl mx-auto mb-12">
-              At CoderLala, we combine technical excellence with local expertise to deliver world-class web solutions tailored to businesses in Gurgaon and Delhi NCR. Our team of skilled developers leverages cutting-edge technologies including Next.js, React, Node.js, and MongoDB to build fast, secure, and scalable websites. <br /><br />We understand the local business landscape and create digital solutions that drive real results—increased traffic, higher conversions, and sustainable growth. With 25+ successful projects and 99% client satisfaction, we're the trusted web development partner for businesses of all sizes.
+              At CoderLala, we combine deep technical expertise with local presence to deliver world-class backend solutions tailored to businesses in Gurgaon and Delhi NCR. Our team of skilled backend engineers specializes in Node.js, Python, Go, microservices, and database optimization to build scalable, secure, and high-performance systems. <br /><br />We understand the importance of reliability and performance, and we create solutions that drive real results—99.99% uptime, sub-100ms response times, and seamless scalability. With 30+ successful projects and 99.99% client satisfaction, we're the trusted backend engineering partner for businesses of all sizes.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {/* Reason 1: Cutting-Edge Technology */}
+              <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
+                <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-blue-500 to-emerald-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
+                <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-blue-500 to-emerald-600 mx-auto">
+                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Server className="relative h-7 w-7 text-white! drop-shadow-md" />
+                </div>
+                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">High-Performance APIs</h3>
+                <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
+                  Sub-100ms response times with 99.99% uptime guaranteed
+                </p>
+              </div>
+
+              <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
+                <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-orange-500 to-orange-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
+                <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-orange-500 to-orange-600 mx-auto">
+                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Workflow className="relative h-7 w-7 text-white! drop-shadow-md" />
+                </div>
+                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Microservices Architecture</h3>
+                <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
+                  Scalable, independent services that grow with your business
+                </p>
+              </div>
 
               <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
                 <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-blue-500 to-indigo-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
                 <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-blue-500 to-indigo-600 mx-auto">
                   <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Code2 className="relative h-7 w-7 text-white! drop-shadow-md" />
+                  <Shield className="relative h-7 w-7 text-white! drop-shadow-md" />
                 </div>
-                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Cutting-Edge Technology</h3>
+                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Enterprise-Grade Security</h3>
                 <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
-                  We use the latest frameworks like Next.js and React to build high-performance websites
-                </p>
-              </div>
-
-              {/* Reason 2: Local Gurgaon Expertise */}
-              <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
-                <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-orange-500 to-orange-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
-                <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-orange-500 to-orange-600 mx-auto">
-                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Users className="relative h-7 w-7 text-white! drop-shadow-md" />
-                </div>
-                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Local Gurgaon Expertise</h3>
-                <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
-                  Based in Sector 48, we understand the local business landscape and needs
-                </p>
-              </div>
-
-              {/* Reason 3: Fast & Reliable Delivery */}
-              <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
-                <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-green-500 to-emerald-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
-                <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-green-500 to-emerald-600 mx-auto">
-                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Rocket className="relative h-7 w-7 text-white! drop-shadow-md" />
-                </div>
-                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Fast & Reliable Delivery</h3>
-                <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
-                  We deliver projects on time with 99% client satisfaction rate
+                  Robust authentication, authorization, and data protection
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-10 justify-center">
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.7: SERVICES SECTION (H2)
+        SERVICES SECTION
         ============================================================ */}
-
-        < section id="services" className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" >
-          {/* Background Effects */}
-          < div className="absolute inset-0 -z-10 pointer-events-none" >
-            <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-blue-500/10 to-transparent blur-3xl rounded-full" />
-            <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-orange-500/10 to-transparent blur-3xl rounded-full" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-linear-to-br from-blue-500/5 via-purple-500/5 to-orange-500/5 blur-3xl rounded-full" />
-          </div >
+        <section id="services" className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
+          <div className="absolute inset-0 -z-10 pointer-events-none">
+            <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-green-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-emerald-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-linear-to-br from-green-500/5 via-emerald-500/5 to-cyan-500/5 blur-3xl rounded-full" />
+          </div>
 
           <div className="mx-auto max-w-7xl px-6">
             <div className="text-center max-w-5xl mx-auto mb-14 space-y-3">
               <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="CoderLala Services" />
-              <HeadingTitle2 title1={`Expert Web Development`} title2={`Services in ${CITY}`} />
+              <HeadingTitle2 title1={`Expert Backend & API Development`} title2={`Services in ${CITY}`} />
               <p className="text-muted-foreground text-md max-w-4xl mx-auto">
-                From fast, interactive React applications to powerful backend systems, our <strong className="text-brand">Web Development Company in {CITY}</strong> delivers secure, scalable, and high-performance web solutions for startups, SMEs, and enterprises. <br /><br />
-                We build modern websites and custom web applications using the latest technologies to ensure exceptional user experiences, long-term reliability, and future-ready digital solutions. Explore our comprehensive web development services below to discover how we can help bring your vision to life.
+                From RESTful and GraphQL APIs to microservices architecture and real-time systems, our <strong className="text-brand">Backend & API Development Company in {CITY}</strong> delivers scalable, secure, and high-performance backend solutions for startups, SMEs, and enterprises. <br /><br />
+                We build modern backend systems using the latest technologies to ensure exceptional performance, reliability, and scalability. Explore our comprehensive backend development services below.
               </p>
             </div>
 
-            {/* Feature Grid - 3x2 Layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-14">
               {Related_Services.map((service, index) => (
                 <ServiceCard
@@ -747,7 +751,6 @@ export default function WebDevelopmentClient() {
               ))}
             </div>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mx-auto">
               <Button
                 href="/services"
@@ -767,48 +770,45 @@ export default function WebDevelopmentClient() {
               </Button>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.8: DEVELOPMENT PROCESS SECTION (H2)
+        DEVELOPMENT PROCESS SECTION
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionBadge icon={<Zap className="w-4 h-4 text-blue-500 dark:text-blue-300" />} text="Our Development Process" />
-              <HeadingTitle2 title1="How We Transform Your Ideas" title2="Into Powerful Digital Experiences" />
+              <HeadingTitle2 title1="How We Build Your Backend System" title2="Into Powerful Digital Infrastructure" />
               <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
-                As a leading <strong>Web Development Company in Gurgaon</strong>, we follow a strategic and transparent development process to create high-quality websites that are secure, scalable, and performance-driven.
+                As a leading <strong>Backend & API Development Company in Gurgaon</strong>, we follow a strategic and transparent development process to create high-quality backend systems that are scalable, secure, and performance-driven.
                 <br /><br />
-                From understanding your business requirements and designing intuitive user experiences to development, testing, and deployment, every step is carefully executed to deliver reliable digital solutions tailored to your goals.
+                From understanding your requirements and designing architecture to development, testing, and deployment, every step is carefully executed to deliver reliable solutions tailored to your goals.
               </p>
             </div>
 
             <div className="text-left">
               <ServiceProcessSection />
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 mt-10 sm:gap-4 justify-center">
-
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.9: TECH STACK SECTION (H2)
+        TECH STACK SECTION
         ============================================================ */}
-        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 text-center overflow-hidden" >
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 text-center overflow-hidden">
           <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="Our Development Approach" />
           <HeadingTitle2 title1="Powering Innovation with" title2="Modern Technologies" />
 
           <p className="text-muted-foreground text-md px-4 max-w-4xl mx-auto mb-10">
-            Our technology stack combines modern frontend frameworks, powerful backend technologies, scalable databases, cloud platforms, and industry-leading development tools to deliver secure, high-performance digital solutions.
+            Our technology stack combines modern programming languages, powerful frameworks, scalable databases, and industry-leading tools to deliver secure, high-performance backend systems.
             <br /><br />
-            Explore the technologies below that our <strong>Web Development Company in Gurgaon</strong> uses to build fast, scalable, and future-ready websites and web applications.
+            Explore the technologies below that our <strong>Backend & API Development Company in Gurgaon</strong> uses to build scalable, reliable, and future-ready backend solutions.
           </p>
 
-          {/* Tech Stack Grid */}
           <div className="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-2 px-2">
             {techStack.map((tech, i) => {
               const Icon = tech.icon;
@@ -824,19 +824,16 @@ export default function WebDevelopmentClient() {
               );
             })}
           </div>
-          <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
-              <QuoteCTA scrollToForm={scrollToForm} />
-            </div>
+          <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
+            <QuoteCTA scrollToForm={scrollToForm} />
           </div>
-        </section >
-
+        </section>
 
         {/* ============================================================
-        SECTION 10.11: TESTIMONIALS SECTION (H2)
+        TESTIMONIALS SECTION
         ============================================================ */}
-        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 bg-linear-to-b from-card/60 to-background/40 overflow-hidden" suppressHydrationWarning >
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 bg-linear-to-b from-card/60 to-background/40 overflow-hidden" suppressHydrationWarning>
           <div className="absolute inset-0 -z-10 pointer-events-none" suppressHydrationWarning>
             <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-purple-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
             <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-blue-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
@@ -854,13 +851,12 @@ export default function WebDevelopmentClient() {
                 icon={<Quote className="w-3 h-3 md:w-4 md:h-4" />} text="Building Success Through Technology"
               />
 
-              <HeadingTitle2 title1="Trusted Web Development Company" title2="Serving Businesses Across India" />
+              <HeadingTitle2 title1="Trusted Backend & API Development Company" title2="Serving Businesses Across India" />
               <p className="text-muted-foreground max-w-4xl mx-auto text-md">
-                Don't just take our word for it—discover what our clients have to say about working with our <strong>Web Development Company in Gurgaon</strong>. <br /> <br />From custom websites and web applications to eCommerce solutions, businesses across industries trust CoderLala for quality, innovation, timely delivery, and exceptional customer service.
+                Don't just take our word for it—discover what our clients have to say about working with our <strong>Backend & API Development Company in Gurgaon</strong>. <br /> <br />From scalable APIs to microservices architecture, businesses across industries trust CoderLala for quality, innovation, timely delivery, and exceptional engineering expertise.
               </p>
             </motion.div>
 
-            {/* Testimonials Grid */}
             <div className="relative">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
                 {visibleTestimonials.map((testimonial, index) => (
@@ -898,7 +894,6 @@ export default function WebDevelopmentClient() {
                 ))}
               </div>
 
-              {/* Pagination Dots */}
               <div className="flex justify-center gap-1.5 md:gap-2 mt-6 md:mt-8">
                 {Array.from({ length: totalPages }).map((_, i) => (
                   <button
@@ -912,9 +907,8 @@ export default function WebDevelopmentClient() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
@@ -931,34 +925,33 @@ export default function WebDevelopmentClient() {
               }
             }
           `}</style>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.12: FAQ SECTION (H2)
+        FAQ SECTION
         ============================================================ */}
-        < section className="pt-20 overflow-hidden" >
+        <section className="pt-20 overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionBadge
                 icon={<Sparkles className="w-3 h-3 md:w-4 md:h-4 text-yellow-400" />} text="Frequently Asked Questions" />
               <HeadingTitle2 title1="Need More Information?" title2="Get Answers from CoderLala" />
               <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
-                Find answers to the most common questions about our <strong>web development services in Gurgaon</strong>, including custom website development, eCommerce solutions, web applications, project timelines, technologies, pricing, maintenance, and ongoing support. <br /> <br />Learn how CoderLala delivers secure, scalable, and high-performance digital solutions tailored to your business needs.
+                Find answers to the most common questions about our <strong>backend and API development services in Gurgaon</strong>, including technology choices, architecture patterns, performance optimization, and ongoing support. <br /> <br />Learn how CoderLala delivers scalable, secure, and high-performance backend systems tailored to your business needs.
               </p>
             </div>
 
-            {/* FAQ Accordion */}
             <FAQAccordion faqs={faqs} />
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.13: FINAL CTA SECTION (H2)
+        FINAL CTA SECTION
         ============================================================ */}
-        < FinalCTA scrollToForm={scrollToForm} />
+        <FinalCTA scrollToForm={scrollToForm} />
 
 
-      </div >
+      </div>
     </>
   );
 }

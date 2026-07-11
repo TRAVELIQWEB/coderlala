@@ -583,7 +583,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
                         {option}
                         {form.budget === option && (
                           <div className="flex items-center justify-center w-4 h-4 rounded-full bg-green-500 border border-green-500">
-                            <Check className="w-3 h-3 text-white" />
+                            <Check className="w-3 h-3 text-white!" />
                           </div>
                         )}
                       </div>

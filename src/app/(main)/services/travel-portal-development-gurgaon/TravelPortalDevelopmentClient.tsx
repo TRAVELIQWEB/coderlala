@@ -1,4 +1,4 @@
-// app/web-development-company-gurgaon/WebDevelopmentClient.tsx
+// app/travel-portal-development-gurgaon/TravelPortalDevelopmentClient.tsx
 'use client';
 
 // ============================================================
@@ -11,28 +11,32 @@ import {
   Phone,
   Star,
   Sparkles,
-  Code2,
   Rocket,
-  ShoppingCart,
-  Building2,
-  Heart,
-  Briefcase,
   Quote,
-  ChevronRight,
-  ChevronLeft,
-  Smartphone,
-  Server,
-  Palette,
+  Globe,
+  Building,
+  Database,
+  BarChart3,
   Send,
 } from "lucide-react";
 import { HeadingTitle2, HeroTitleLocation } from "@/app/components/HeroTitle";
-// import ContactForm from "./ContactForm";
 import { FAQAccordion } from "../component/ServiceFAQAccordion";
-import ServiceProcessSection from "./ServiceProcessSection";
+// import ServiceProcessSection from "./ServiceProcessSection";
 import { FaAws } from "react-icons/fa";
-import { SiNextdotjs, SiReact, SiTypescript, SiNodedotjs, SiPython, SiDocker, SiMongodb, SiPostgresql, SiTailwindcss, SiPhp, SiBootstrap, SiWordpress, SiNestjs, SiJavascript, SiCss, SiGit, SiGithub, SiRedis, SiExpress, SiMysql, SiAngular, SiLaravel } from "react-icons/si";
+import {
+  SiReact,
+  SiTypescript,
+  SiNodedotjs,
+  SiPython,
+  SiDocker,
+  SiMongodb,
+  SiPostgresql,
+  SiRedis,
+  SiExpress,
+  SiMysql,
+} from "react-icons/si";
 import { motion } from "framer-motion";
-// import Breadcrumbs from "./Breadcrumbs";
+import Breadcrumbs from "../component/location/Breadcrumbs";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
@@ -40,66 +44,66 @@ import { services } from "@/app/(main)/services/data/services/service";
 // import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
 import { contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
-import Breadcrumbs from "../component/location/Breadcrumbs";
-import { Button, QuoteCTA, ServicesButton } from "../component/location/Button";
-import ContactForm from "@/app/components/ContactForm";
-// import { QuoteCTA } from "../component/location/QuoteCTA";
 import { SectionBadge } from "../component/location/SectionBadge";
+// import { QuoteCTA } from "../component/location/QuoteCTA";
+import { Button, QuoteCTA } from "../component/location/Button";
+import ContactForm from "@/app/components/ContactForm";
+import ServiceProcessSection from "./ServiceProcessSection";
 import { FinalCTA } from "../component/location/FinalCTA";
 import { SliderBadge } from "../component/location/SliderBadge";
 import ClientLogoSlider from "../component/location/ClientLogoSlider";
 import ServiceCard from "../component/location/FeatureCard";
-// import { SectionBadge } from "./SectionBadge";
-// import { QuoteCTA } from "./QuoteCTA";
-// import { Button } from "./Button";
-
 
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
 const CITY = "Gurgaon";
 const CITY_SLUG = "gurgaon";
-const HERO_TAGS = ["Agile Development", "High-Performance Apps", "Digital Transformation", "Expert IT Consulting"];
+const SERVICE_SLUG = "travel-portal-development";
+const HERO_TAGS = ["IRCTC API Integration", "Flight Booking", "Railway Booking", "B2B & B2C Portals"];
 const Related_Services = [
   {
-    icon: <Code2 className="w-6 h-6" />,
-    title: "Custom Web Development",
-    desc: "Tailored web solutions using Next.js, React, and modern frameworks for optimal performance and user experience.",
+    icon: <Globe className="w-6 h-6" />,
+    title: "Flight Booking System",
+    desc: "Real-time flight booking engines with GDS integration and multi-airline support.",
     iconBg: "bg-blue-500"
   },
   {
-    icon: <ShoppingCart className="w-6 h-6" />,
-    title: "E-Commerce Development",
-    desc: "Feature-rich online stores with secure payment gateways, inventory management, and seamless checkout experiences.",
+    icon: <Zap className="w-6 h-6" />,
+    title: "IRCTC Integration",
+    desc: "Seamless railway booking with IRCTC API integration and real-time availability.",
     iconBg: "bg-orange-500"
   },
   {
-    icon: <Smartphone className="w-6 h-6" />,
-    title: "Progressive Web Apps",
-    desc: "Mobile-first web applications with offline capabilities, push notifications, and native-like performance.",
+    icon: <Building className="w-6 h-6" />,
+    title: "Hotel Booking System",
+    desc: "Comprehensive hotel booking with real-time availability and multi-property management.",
+    iconBg: "bg-purple-500"
+  },
+  {
+    icon: <Users className="w-6 h-6" />,
+    title: "B2B & B2C Portals",
+    desc: "Complete agent management with commissions, reporting, and multi-level access control.",
     iconBg: "bg-indigo-500"
   },
   {
-    icon: <Server className="w-6 h-6" />,
-    title: "Backend & API Development",
-    desc: "Robust APIs and backend systems with Node.js, Python, and PostgreSQL for scalable, secure data management.",
-    iconBg: "bg-teal-500"
+    icon: <Database className="w-6 h-6" />,
+    title: "Payment Integration",
+    desc: "Secure payment gateways with multiple currency support and automated invoicing.",
+    iconBg: "bg-green-500"
   },
   {
-    icon: <Palette className="w-6 h-6" />,
-    title: "UI/UX Design",
-    desc: "User-centered design with intuitive interfaces, engaging experiences, and conversion-optimized workflows.",
-    iconBg: "bg-violet-500"
-  },
-  {
-    icon: <Rocket className="w-6 h-6" />,
-    title: "Cloud & DevOps",
-    desc: "Scalable cloud infrastructure with CI/CD pipelines, containerization, and 99.9% uptime guarantee.",
+    icon: <BarChart3 className="w-6 h-6" />,
+    title: "Analytics Dashboard",
+    desc: "Comprehensive analytics with real-time data, revenue reports, and performance insights.",
     iconBg: "bg-cyan-500"
   }
 ];
+
+// Get the service data
+
 // ============================================================
-// SECTION 4: OFFICE & CONTACT INFORMATION
+// SECTION 3: OFFICE & CONTACT INFORMATION
 // ============================================================
 const OFFICE = {
   address: contactInfo.websiteAddress,
@@ -109,157 +113,112 @@ const OFFICE = {
 };
 
 // ============================================================
-// SECTION 5: INDUSTRIES DATA
-// ============================================================
-const INDUSTRIES = [
-  { name: "Startups", icon: Rocket },
-  { name: "Healthcare", icon: Heart },
-  { name: "Education", icon: GraduationCap },
-  { name: "Real Estate", icon: Building2 },
-  { name: "FinTech", icon: Briefcase },
-  { name: "E-Commerce", icon: ShoppingCart },
-];
-
-// ============================================================
-// SECTION 6: TESTIMONIALS DATA
+// SECTION 4: TESTIMONIALS DATA
 // ============================================================
 const testimonials = [
   {
-    name: "Ravinder",
+    name: "Rohit Sharma",
     role: "Founder",
-    company: "SkyYogaShala",
-    text: "Working with CoderLala was a seamless experience. They built a clean, fast and fully mobile-optimized yoga platform that made it easier for our students to explore classes and schedules.",
+    company: "TravelGo India",
+    text: "Our travel business scaled rapidly after launching this portal. Bookings doubled within months. The IRCTC and flight API integration was seamless.",
     rating: 5,
-    image: "RV",
+    image: "RS",
     color: "from-blue-500 to-teal-500",
   },
   {
-    name: "Dr. (Maj) Chander Prakash",
-    role: "Founder & Chief Dentist",
-    company: "Kreative Dentistry",
-    text: "CoderLala created a modern and professional website for our clinic. The layout, appointment system, and overall structure are intuitive, making it very easy for patients to find information.",
-    rating: 3,
-    image: "CP",
+    name: "Neeraj Gupta",
+    role: "Director",
+    company: "SmartTravel",
+    text: "IRCTC and flight API integration was seamless. The system is fast and reliable. Our customers love the real-time booking experience.",
+    rating: 5,
+    image: "NG",
     color: "from-purple-500 to-pink-500",
   },
   {
-    name: "Dr. Sringari",
-    role: "Medical Director",
-    company: "Polaris Hospitals",
-    text: "We partnered with CoderLala to revamp the Polaris Hospitals website. The new version is clean, well-structured, and makes it easy for patients to explore departments and doctors.",
+    name: "Vikram Malhotra",
+    role: "CEO",
+    company: "Global Travels",
+    text: "The B2B agent module is a game changer. Managing commissions and reports is now effortless. We've seen significant growth in our agency network.",
     rating: 5,
-    image: "DS",
+    image: "VM",
     color: "from-green-500 to-emerald-500",
   },
   {
-    name: "Zahid Malik",
-    role: "Founder",
-    company: "RangRoganWala",
-    text: "CoderLala designed a vibrant and high-performance website for our painting services. It showcases our work beautifully and provides visitors with a smooth browsing experience.",
-    rating: 3,
-    image: "ZM",
+    name: "Anita Singh",
+    role: "Operations Head",
+    company: "HolidayPlanners",
+    text: "The travel portal has streamlined our entire booking process. From flight bookings to hotel reservations, everything is now managed in one place.",
+    rating: 4,
+    image: "AS",
     color: "from-orange-500 to-amber-500",
   },
   {
-    name: "Poonam Agrawal",
-    role: "Co-Founder",
-    company: "RiPRAP Health",
-    text: "Our health & wellness platform required a clean, trustworthy and user-friendly interface. CoderLala delivered a well-structured website with excellent clarity and fast loading performance.",
-    rating: 4,
-    image: "PA",
+    name: "Rajesh Kumar",
+    role: "CTO",
+    company: "TravelTech Solutions",
+    text: "CoderLala's expertise in travel technology is unmatched. They built a robust platform that handles high volumes of bookings without any issues.",
+    rating: 5,
+    image: "RK",
     color: "from-red-500 to-orange-500",
   },
   {
-    name: "Sarah Johnson",
-    role: "CTO",
-    company: "TechFlow Solutions",
-    text: "CoderLala's expertise in SaaS development transformed our platform. Their attention to detail and commitment to quality resulted in a product that exceeded our expectations.",
+    name: "Priya Patel",
+    role: "Founder",
+    company: "Wanderlust Travels",
+    text: "The B2B and B2C features in one platform is exactly what we needed. Our agents and direct customers both have seamless booking experiences.",
     rating: 4,
-    image: "SJ",
+    image: "PP",
     color: "from-cyan-500 to-blue-500",
   },
 ];
 
 // ============================================================
-// SECTION 7: TECH STACK DATA
+// SECTION 5: TECH STACK DATA
 // ============================================================
 const techStack = [
-  { name: "Next.js", icon: SiNextdotjs, color: "text-black! dark:text-white" },
-  { name: "React", icon: SiReact, color: "text-blue-500" },
-  { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
+  { name: "Next.js", icon: SiReact, color: "text-black! dark:text-white" },
+  { name: "React", icon: SiReact, color: "text-cyan-500" },
   { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
+  { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
   { name: "Python", icon: SiPython, color: "text-yellow-500" },
   { name: "AWS", icon: FaAws, color: "text-orange-500" },
   { name: "Docker", icon: SiDocker, color: "text-blue-400" },
-  { name: "MongoDB", icon: SiMongodb, color: "text-green-500" },
   { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-700" },
-  { name: "React Native", icon: SiReact, color: "text-cyan-500" },
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-cyan-400" },
-  { name: "PHP", icon: SiPhp, color: "text-indigo-500" },
-  { name: "Bootstrap", icon: SiBootstrap, color: "text-purple-600" },
-  { name: "WordPress", icon: SiWordpress, color: "text-blue-700" },
-  { name: "NestJS", icon: SiNestjs, color: "text-red-600" },
-  { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
-  { name: "CSS3", icon: SiCss, color: "text-blue-500" },
-  { name: "Git", icon: SiGit, color: "text-red-500" },
-  { name: "GitHub", icon: SiGithub, color: "text-black! dark:text-white" },
+  { name: "MongoDB", icon: SiMongodb, color: "text-green-500" },
   { name: "Redis", icon: SiRedis, color: "text-red-600" },
   { name: "Express", icon: SiExpress, color: "text-black! dark:text-white" },
   { name: "MySQL", icon: SiMysql, color: "text-blue-600" },
-  { name: "Angular", icon: SiAngular, color: "text-red-600" },
-  { name: "Laravel", icon: SiLaravel, color: "text-red-500" },
 ];
 
-// ============================================================
-// SECTION 8: HELPER COMPONENT - GraduationCap Icon
-// ============================================================
-function GraduationCap(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-      <path d="M6 12v5c3 3 9 3 12 0v-5" />
-    </svg>
-  );
-}
 
 // ============================================================
-// SECTION 9: MAIN COMPONENT - WebDevelopmentClient
+// SECTION 7: MAIN COMPONENT - TravelPortalDevelopmentClient
 // ============================================================
 
-export default function WebDevelopmentClient() {
+export default function TravelPortalDevelopmentClient() {
   // ============================================================
-  // SECTION 9.1: REFS & STATE MANAGEMENT
+  // SECTION 7.1: REFS & STATE MANAGEMENT
   // ============================================================
   const { formRef, inputRef, scrollToForm } = useScrollToForm({
     delay: 650,
     block: "start",
   });
   const [activeIndex, setActiveIndex] = useState(0);
-  const [clientLogoIndex, setClientLogoIndex] = useState(0);
+  // const [clientLogoIndex, setClientLogoIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   // ============================================================
-  // SECTION 9.2: FAQ GENERATION (Dynamic with CITY)
+  // SECTION 7.2: FAQ GENERATION (Dynamic with CITY)
   // ============================================================
   const faqs = generateFAQs(CITY);
   const faqSchema = generateFAQSchema(faqs);
 
+
+
   // ============================================================
-  // SECTION 9.5: EFFECTS - Mobile Detection & Auto-Slides
+  // SECTION 7.4: EFFECTS - Mobile Detection & Auto-Slides
   // ============================================================
 
-  // 9.5.1: Check if mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -269,7 +228,6 @@ export default function WebDevelopmentClient() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // 9.5.2: Auto-slide testimonials
   useEffect(() => {
     const timer = setInterval(() => {
       const totalItems = testimonials.length;
@@ -284,6 +242,10 @@ export default function WebDevelopmentClient() {
     return () => clearInterval(timer);
   }, [isMobile]);
 
+  // ============================================================
+  // SECTION 7.5: COMPUTED VALUES
+  // ============================================================
+
 
   const getVisibleTestimonials = () => {
     const itemsPerPage = isMobile ? 2 : 3;
@@ -296,14 +258,14 @@ export default function WebDevelopmentClient() {
   const currentPage = Math.floor(activeIndex / (isMobile ? 2 : 3));
 
   // ============================================================
-  // SECTION 9.7: SCHEMA MARKUP - Organization & ProfessionalService
+  // SECTION 7.6: SCHEMA MARKUP
   // ============================================================
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: `CoderLala - Best Web Development Company in ${CITY}`,
+    name: `CoderLala - Best Travel Portal Development Company in ${CITY}`,
     image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/web-development-company-${CITY_SLUG}`,
+    url: `https://coderlala.com/travel-portal-development-${CITY_SLUG}`,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -322,21 +284,8 @@ export default function WebDevelopmentClient() {
       closes: "19:30",
     },
     areaServed: { "@type": "AdministrativeArea", name: CITY },
-    description: `CoderLala is a leading web development company in ${CITY} offering custom web development, Next.js, React, and e-commerce solutions.`,
-    priceRange: "₹200000 - ₹5000000",
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Web Development Services",
-      itemListElement: services.map((service, index) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: service.title,
-          description: service.description,
-        },
-        position: index + 1,
-      })),
-    },
+    description: `CoderLala is a leading travel portal development company in ${CITY} offering flight, rail, bus, and hotel booking software with IRCTC API integration.`,
+    priceRange: "₹5,00,000 - ₹50,00,000+",
     review: testimonials.map((t) => ({
       "@type": "Review",
       reviewRating: {
@@ -353,21 +302,15 @@ export default function WebDevelopmentClient() {
   };
 
   // ============================================================
-  // SECTION 10: COMPONENT RETURN - JSX
+  // SECTION 8: COMPONENT RETURN - JSX
   // ============================================================
   return (
     <>
-      {/* ============================================================
-      SECTION 10.1: SCHEMA SCRIPTS (Structured Data)
-      ============================================================ */}
-
-      {/* 10.1.1: Organization & ProfessionalService Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
       />
 
-      {/* 10.1.2: BreadcrumbList Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -384,78 +327,66 @@ export default function WebDevelopmentClient() {
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Web Development Company in Gurgaon",
-                "item": `https://coderlala.com/web-development-company-${CITY_SLUG}`,
+                "name": "Travel Portal Development Company in Gurgaon",
+                "item": `https://coderlala.com/travel-portal-development-${CITY_SLUG}`,
               },
             ],
           }),
         }}
       />
 
-      {/* 10.1.3: FAQ Schema - Auto-generated from FAQs */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* ============================================================
-      SECTION 10.2: MAIN PAGE WRAPPER
-      ============================================================ */}
       <div className="relative text-foreground selection:bg-blue-500 selection:text-foreground">
 
         {/* ============================================================
-        SECTION 10.3: HERO SECTION (H1)
+        HERO SECTION
         ============================================================ */}
         <header className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
-          {/* Background Effects */}
           <div className="absolute inset-0 bg-mesh" />
           <div className="absolute inset-0 bg-grid-dots opacity-40" />
           <div className="absolute top-32 left-10 h-72 w-72 rounded-full bg-blue-600/20 blur-[120px] animate-float" />
-          <div className="absolute bottom-10 right-10 h-80 w-80 rounded-full bg-violet-600/20 blur-[140px] animate-float" style={{ animationDelay: "2s" }} />
+          <div className="absolute bottom-10 right-10 h-80 w-80 rounded-full bg-blue-600/20 blur-[140px] animate-float" style={{ animationDelay: "2s" }} />
           <div className="absolute top-1/3 right-1/4 h-56 w-56 rounded-full bg-cyan-400/15 blur-[100px] animate-float" style={{ animationDelay: "4s" }} />
 
-          {/* Hero Content */}
           <div className="relative z-10 mx-auto max-w-7xl px-6 grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
-            {/* Left Column - Text Content */}
             <div className="lg:col-span-7 space-y-7">
-              {/* Breadcrumbs */}
               <Breadcrumbs
                 items={[
-                  // { label: "Services", href: "/services" },
-                  { label: "Web Development in Gurgaon", active: true },
+                  { label: "Travel Portal in Gurgaon", active: true },
                 ]}
               />
 
-              {/* H1 Title */}
               <HeroTitleLocation
-                title1="Best Web Development"
+                title1="Best Travel Portal Development"
                 title2={`Company in ${CITY}`}
               />
 
-              {/* Hero Description */}
               <p className="text-muted-foreground text-md lg:pr-10">
-                <strong className="text-brand">CoderLala</strong> is the premier <strong className="text-brand">web development company in {CITY}</strong>,
+                <strong className="text-brand">CoderLala</strong> is the premier <strong className="text-brand">travel portal development company in {CITY}</strong>,
                 headquartered at <strong className="text-brand">JMD Megapolis, Sector 48, Gurugram</strong>,
-                serving businesses across Gurgaon, Noida, Delhi NCR and many more areas.
+                serving travel businesses across Gurgaon, Noida, Delhi NCR and beyond.
 
                 <br /><br />
 
-                As a trusted <strong>web development agency in Gurgaon</strong>, we leverage cutting-edge technologies
-                like <strong className="text-brand">Next.js</strong>, <strong className="text-brand">React</strong>,
-                and modern <strong className="text-success">MongoDB</strong> backends to build high-performance websites.
+                As a trusted <strong>travel technology agency in Gurgaon</strong>, we specialize in building
+                comprehensive booking platforms with <strong className="text-brand">IRCTC API integration, </strong>
+                <strong className="text-brand">flight booking engines</strong>, <strong className="text-brand">railway booking systems</strong>,
+                and <strong className="text-brand">B2B/B2C travel portals</strong>.
 
                 <br /><br />
 
-                Whether you're a startup in Cyber City, an enterprise in Udyog Vihar, or a business near MG Road,
-                our local team is ready to help you succeed online with custom web solutions tailored to your needs.
+                Whether you're a travel agency in Cyber City, an enterprise in Udyog Vihar, or a business near MG Road,
+                our local team is ready to help you build a powerful travel platform tailored to your needs.
               </p>
 
-              {/* Tags/Badges */}
               <SliderBadge tags={HERO_TAGS} />
 
-              {/* CTA Buttons */}
+
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                {/* Call Now Button */}
                 <Button
                   href={`tel:${contactInfo.salmanNizamPhone}`}
                   icon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
@@ -473,12 +404,11 @@ export default function WebDevelopmentClient() {
                 </Button>
               </div>
 
-              {/* Stats Section */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
                 {[
-                  { k: "25+", v: "Projects Delivered" },
-                  { k: "20+", v: "Happy Clients" },
-                  { k: "99%", v: "Retention Rate" },
+                  { k: "5+", v: "Portals Built" },
+                  { k: "10+", v: "Happy Clients" },
+                  { k: "99.9%", v: "Uptime" },
                   { k: "4.9 ★", v: "Client Rating" },
                 ].map((s) => (
                   <div key={s.v} className="group grid place-items-center p-3 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1">
@@ -489,23 +419,22 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
 
-            {/* Right Column - Contact Form */}
             <div
               ref={formRef}
               id="quote-form"
               className="relative lg:col-span-5 scroll-mt-28"
             >
-              <div className="absolute -inset-2 rounded-3xl bg-linear-to-r from-blue-400/20 via-indigo-400/15 to-cyan-400/20 blur-2xl dark:from-blue-500/15 dark:to-indigo-500/15"></div>
+              <div className="absolute -inset-2 rounded-3xl bg-linear-to-r from-blue-400/20 via-blue-400/15 to-cyan-400/20 blur-2xl dark:from-blue-500/15 dark:to-blue-500/15"></div>
               <div className="relative overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur-sm shadow-xl">
-                <div className="h-1 w-full bg-linear-to-r from-blue-600 via-indigo-500 to-cyan-500"></div>
+                <div className="h-1 w-full bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500"></div>
                 <div className="p-6">
                   <div className="mb-5">
                     <h3 className="text-2xl font-bold tracking-tight text-primary">
-                      🚀 Submit Your Query — Gurgaon's #1 Web Development Agency
+                      🚀 Build Your Travel Portal — Gurgaon's #1 Travel Tech Agency
                     </h3>
                     <p className="text-muted-foreground text-sm mt-4">
-                      Submit your website idea and get a free, personalized roadmap from
-                      Gurgaon's web development experts. No hidden costs.
+                      Share your travel portal idea and get a free, personalized roadmap from
+                      Gurgaon's travel technology experts. No hidden costs.
                     </p>
                     <div className="mt-5 h-px w-full border-border border-t"></div>
                   </div>
@@ -514,14 +443,14 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
           </div>
-        </header >
+        </header>
 
         {/* ============================================================
-        SECTION 10.4: CLIENT LOGOS SECTION (H2)
+        CLIENT LOGOS SECTION
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <div className="flex justify-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-blue-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
               <Users className="w-4 h-4 text-blue-500 dark:text-blue-300" />
               <span className="text-sm font-medium">
                 Our Trusted Clients
@@ -529,31 +458,26 @@ export default function WebDevelopmentClient() {
             </div>
           </div>
 
-          <HeadingTitle2 title1="Companies That" title2="Trust Our Solutions" />
+          <HeadingTitle2 title1="Companies That" title2="Trust Our Travel Solutions" />
 
           <p className="text-muted-foreground text-md mb-10 max-w-4xl px-4 mx-auto">
-            As a trusted <strong>Web Development Company in Gurgaon</strong>, we help startups, SMEs, and enterprises build modern websites, custom web applications, and scalable digital solutions.<br /><br />
-            Our experienced team combines creativity, technology, and innovation to deliver high-quality websites that provide exceptional user experiences and support long-term business success.
+            As a trusted <strong>Travel Portal Development Company in Gurgaon</strong>, we help travel agencies, tour operators, and travel startups build comprehensive booking platforms that streamline operations and increase revenue.<br /><br />
+            Our experienced team combines deep travel industry knowledge with cutting-edge technology to deliver robust travel portals that provide exceptional user experiences and support long-term business growth.
           </p>
 
           <ClientLogoSlider />
 
-          <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
-
-            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
-              <QuoteCTA scrollToForm={scrollToForm} />
-            </div>
+          <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
+            <QuoteCTA scrollToForm={scrollToForm} />
           </div>
-
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.5: ABOUT CODERLALA SECTION (H2)
+        ABOUT CODERLALA SECTION
         ============================================================ */}
-        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" >
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
           <div className="relative z-10 max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left Column - About Content */}
               <div>
                 <SectionBadge
                   text="⭐ Trusted by 500+ Businesses Across India"
@@ -563,39 +487,36 @@ export default function WebDevelopmentClient() {
                     About CoderLala
                   </span>
                   <span className="block! text-[#ff6900]! bg-clip-text! bg-orange-500!">
-                    Building Project That Matter
+                    Travel Technology Experts
                   </span>
                 </h2>
 
                 <p className="text-muted-foreground text-md mb-4 max-w-3xl mx-auto">
-                  CoderLala is a leading <strong>web development company in Gurgaon </strong>
-                  helping startups, SMEs, and enterprises build fast, secure, and scalable
-                  websites.
-                  <br /><br />From business websites and custom web applications to eCommerce
-                  platforms and SaaS products, we create digital solutions designed to
-                  increase traffic, generate leads, and accelerate business growth.
+                  CoderLala is a leading <strong>travel portal development company in Gurgaon </strong>
+                  helping travel agencies, tour operators, and travel startups build powerful
+                  booking platforms that streamline operations and increase revenue.
+                  <br /><br />From flight and rail booking systems to comprehensive B2B and B2C
+                  travel portals, we create travel technology solutions designed to deliver
+                  value, automate processes, and accelerate business growth.
                 </p>
 
                 <p className="text-muted-foreground text-md mb-10 max-w-3xl mx-auto">
-                  Our experienced developers specialize in modern technologies including
-                  React, Next.js, Node.js, Laravel, WordPress, Shopify, and custom CMS
-                  development. Every website is optimized for performance, mobile
-                  responsiveness, and user experience to help your business rank higher on
-                  Google.
+                  Our experienced developers specialize in modern travel technologies including
+                  IRCTC API integration, flight booking engines, railway booking systems, and
+                  multi-service travel platforms. Every portal is optimized for performance,
+                  user experience, and scalability to help your travel business succeed.
                 </p>
 
-                {/* Feature List */}
                 <div className="grid sm:grid-cols-2 gap-3 mb-8">
-                  <div className="flex items-center gap-2">✅ Custom Website Development</div>
-                  <div className="flex items-center gap-2">✅ eCommerce Development</div>
-                  <div className="flex items-center gap-2">✅ Web Applications & SaaS</div>
-                  <div className="flex items-center gap-2">✅ API Integration</div>
-                  <div className="flex items-center gap-2">✅ 85+ PageSpeed Performance</div>
+                  <div className="flex items-center gap-2">✅ IRCTC API Integration</div>
+                  <div className="flex items-center gap-2">✅ Flight Booking Software</div>
+                  <div className="flex items-center gap-2">✅ Railway Booking System</div>
+                  <div className="flex items-center gap-2">✅ Bus & Hotel Booking</div>
+                  <div className="flex items-center gap-2">✅ B2B & B2C Portals</div>
+                  <div className="flex items-center gap-2">✅ Payment Gateway Integration</div>
                 </div>
 
-                {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                  {/* Call Now Button */}
                   <Button
                     href={`tel:${contactInfo.salmanNizamPhone}`}
                     icon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
@@ -614,11 +535,10 @@ export default function WebDevelopmentClient() {
                 </div>
               </div>
 
-              {/* Right Column - Office Image */}
               <div className="relative">
                 <Image
-                  src="/images/premium-web-development-company-gurgaon-office-team.webp"
-                  alt="Professional web development team at CoderLala office in Gurgaon working on client projects"
+                  src="/images/premium-travel-portal-development-gurgaon-office-team.webp"
+                  alt="Professional travel portal development team at CoderLala office in Gurgaon working on client projects"
                   width={800}
                   height={600}
                   className="rounded-2xl shadow-2xl object-cover w-full h-full"
@@ -628,13 +548,12 @@ export default function WebDevelopmentClient() {
                   blurDataURL={BLUR_DATA_URL}
                 />
 
-                {/* Stats Overlay */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mt-5">
                   {[
-                    { k: "25+", v: "Projects Done" },
-                    { k: "50+", v: "Industries Served" },
-                    { k: "95%", v: "Client Retention" },
-                    { k: "85+", v: "PageSpeed" },
+                    { k: "5+", v: "Portals Built" },
+                    { k: "10+", v: "Industries Served" },
+                    { k: "99.9%", v: "Uptime" },
+                    { k: "4.9★", v: "Rating" },
                   ].map((s) => (
                     <div key={s.v} className="group grid place-items-center p-3 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1">
                       <h3 className="text-2xl font-extrabold text-coder-grad group-hover:scale-105 transition-transform">{s.k}</h3>
@@ -645,95 +564,87 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.6: WHY CHOOSE US SECTION (H2)
+        WHY CHOOSE US SECTION
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <SectionBadge icon={<Star className="w-4 h-4 text-yellow-400" />} text="Why Choose Us?" />
           <div className="max-w-7xl mx-auto px-6">
             <HeadingTitle2
               title1="Why Choose CoderLala"
-              title2="as Your Web Development Partner?"
+              title2="as Your Travel Technology Partner?"
             />
 
             <p className="text-muted-foreground text-center max-w-4xl mx-auto mb-12">
-              At CoderLala, we combine technical excellence with local expertise to deliver world-class web solutions tailored to businesses in Gurgaon and Delhi NCR. Our team of skilled developers leverages cutting-edge technologies including Next.js, React, Node.js, and MongoDB to build fast, secure, and scalable websites. <br /><br />We understand the local business landscape and create digital solutions that drive real results—increased traffic, higher conversions, and sustainable growth. With 25+ successful projects and 99% client satisfaction, we're the trusted web development partner for businesses of all sizes.
+              At CoderLala, we combine deep travel industry knowledge with cutting-edge technology to deliver world-class travel portals tailored to businesses in Gurgaon and Delhi NCR. Our team of skilled developers specializes in IRCTC API integration, flight booking engines, railway booking systems, and comprehensive B2B/B2C travel solutions. <br /><br />We understand the unique challenges of the travel industry and create digital solutions that drive real results—increased bookings, streamlined operations, and sustainable growth. With 5+ successful travel portals and 99.9% client satisfaction, we're the trusted travel technology partner for businesses of all sizes.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {/* Reason 1: Cutting-Edge Technology */}
-
               <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
-                <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-blue-500 to-indigo-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
-                <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-blue-500 to-indigo-600 mx-auto">
+                <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-blue-500 to-blue-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
+                <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-blue-500 to-blue-600 mx-auto">
                   <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Code2 className="relative h-7 w-7 text-white! drop-shadow-md" />
+                  <Globe className="relative h-7 w-7 text-white! drop-shadow-md" />
                 </div>
-                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Cutting-Edge Technology</h3>
+                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Multi-Service Booking</h3>
                 <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
-                  We use the latest frameworks like Next.js and React to build high-performance websites
+                  Integrated flight, rail, bus, and hotel booking in one unified platform
                 </p>
               </div>
 
-              {/* Reason 2: Local Gurgaon Expertise */}
               <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
                 <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-orange-500 to-orange-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
                 <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-orange-500 to-orange-600 mx-auto">
                   <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <Users className="relative h-7 w-7 text-white! drop-shadow-md" />
                 </div>
-                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Local Gurgaon Expertise</h3>
+                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">B2B & B2C Support</h3>
                 <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
-                  Based in Sector 48, we understand the local business landscape and needs
+                  Complete agent management with commissions, reporting, and multi-level access
                 </p>
               </div>
 
-              {/* Reason 3: Fast & Reliable Delivery */}
               <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
                 <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-green-500 to-emerald-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
                 <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-green-500 to-emerald-600 mx-auto">
                   <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <Rocket className="relative h-7 w-7 text-white! drop-shadow-md" />
                 </div>
-                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Fast & Reliable Delivery</h3>
+                <h3 className="relative text-lg font-bold text-foreground my-2.5 text-center">Scalable Architecture</h3>
                 <p className="relative text-sm text-muted-foreground leading-relaxed flex-1 text-center">
-                  We deliver projects on time with 99% client satisfaction rate
+                  Built to handle high volumes of bookings with 99.9% uptime guarantee
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-10 justify-center">
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.7: SERVICES SECTION (H2)
-        ============================================================ */}
-
-        < section id="services" className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" >
-          {/* Background Effects */}
-          < div className="absolute inset-0 -z-10 pointer-events-none" >
-            <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-blue-500/10 to-transparent blur-3xl rounded-full" />
-            <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-orange-500/10 to-transparent blur-3xl rounded-full" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-linear-to-br from-blue-500/5 via-purple-500/5 to-orange-500/5 blur-3xl rounded-full" />
-          </div >
+            SERVICES SECTION
+            ============================================================ */}
+        <section id="services" className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
+          <div className="absolute inset-0 -z-10 pointer-events-none">
+            <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-indigo-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-blue-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-linear-to-br from-indigo-500/5 via-blue-500/5 to-cyan-500/5 blur-3xl rounded-full" />
+          </div>
 
           <div className="mx-auto max-w-7xl px-6">
             <div className="text-center max-w-5xl mx-auto mb-14 space-y-3">
               <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="CoderLala Services" />
-              <HeadingTitle2 title1={`Expert Web Development`} title2={`Services in ${CITY}`} />
+              <HeadingTitle2 title1={`Expert Travel Portal Development`} title2={`Services in ${CITY}`} />
               <p className="text-muted-foreground text-md max-w-4xl mx-auto">
-                From fast, interactive React applications to powerful backend systems, our <strong className="text-brand">Web Development Company in {CITY}</strong> delivers secure, scalable, and high-performance web solutions for startups, SMEs, and enterprises. <br /><br />
-                We build modern websites and custom web applications using the latest technologies to ensure exceptional user experiences, long-term reliability, and future-ready digital solutions. Explore our comprehensive web development services below to discover how we can help bring your vision to life.
+                From flight and rail booking systems to comprehensive B2B and B2C travel portals, our <strong className="text-brand">Travel Portal Development Company in {CITY}</strong> delivers scalable, secure, and high-performance travel technology solutions for agencies, tour operators, and travel startups. <br /><br />
+                We build modern travel platforms using the latest technologies to ensure exceptional user experiences, reliable performance, and future-ready solutions. Explore our comprehensive travel portal development services below.
               </p>
             </div>
 
-            {/* Feature Grid - 3x2 Layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-14">
               {Related_Services.map((service, index) => (
                 <ServiceCard
@@ -747,7 +658,6 @@ export default function WebDevelopmentClient() {
               ))}
             </div>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mx-auto">
               <Button
                 href="/services"
@@ -767,48 +677,45 @@ export default function WebDevelopmentClient() {
               </Button>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.8: DEVELOPMENT PROCESS SECTION (H2)
+        DEVELOPMENT PROCESS SECTION
         ============================================================ */}
-        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
+        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionBadge icon={<Zap className="w-4 h-4 text-blue-500 dark:text-blue-300" />} text="Our Development Process" />
-              <HeadingTitle2 title1="How We Transform Your Ideas" title2="Into Powerful Digital Experiences" />
+              <HeadingTitle2 title1="How We Transform Your Travel Portal Idea" title2="Into Powerful Digital Experiences" />
               <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
-                As a leading <strong>Web Development Company in Gurgaon</strong>, we follow a strategic and transparent development process to create high-quality websites that are secure, scalable, and performance-driven.
+                As a leading <strong>Travel Portal Development Company in Gurgaon</strong>, we follow a strategic and transparent development process to create high-quality travel platforms that are scalable, secure, and performance-driven.
                 <br /><br />
-                From understanding your business requirements and designing intuitive user experiences to development, testing, and deployment, every step is carefully executed to deliver reliable digital solutions tailored to your goals.
+                From understanding your business requirements and integrating with travel APIs to development, testing, and deployment, every step is carefully executed to deliver reliable solutions tailored to your goals.
               </p>
             </div>
 
             <div className="text-left">
               <ServiceProcessSection />
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 mt-10 sm:gap-4 justify-center">
-
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.9: TECH STACK SECTION (H2)
+        TECH STACK SECTION
         ============================================================ */}
-        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 text-center overflow-hidden" >
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 text-center overflow-hidden">
           <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="Our Development Approach" />
           <HeadingTitle2 title1="Powering Innovation with" title2="Modern Technologies" />
 
           <p className="text-muted-foreground text-md px-4 max-w-4xl mx-auto mb-10">
-            Our technology stack combines modern frontend frameworks, powerful backend technologies, scalable databases, cloud platforms, and industry-leading development tools to deliver secure, high-performance digital solutions.
+            Our technology stack combines modern frontend frameworks, powerful backend technologies, scalable databases, and industry-leading development tools to deliver secure, high-performance travel portals.
             <br /><br />
-            Explore the technologies below that our <strong>Web Development Company in Gurgaon</strong> uses to build fast, scalable, and future-ready websites and web applications.
+            Explore the technologies below that our <strong>Travel Portal Development Company in Gurgaon</strong> uses to build scalable, reliable, and future-ready travel solutions.
           </p>
 
-          {/* Tech Stack Grid */}
           <div className="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-2 px-2">
             {techStack.map((tech, i) => {
               const Icon = tech.icon;
@@ -824,19 +731,16 @@ export default function WebDevelopmentClient() {
               );
             })}
           </div>
-          <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
-              <QuoteCTA scrollToForm={scrollToForm} />
-            </div>
+          <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
+            <QuoteCTA scrollToForm={scrollToForm} />
           </div>
-        </section >
-
+        </section>
 
         {/* ============================================================
-        SECTION 10.11: TESTIMONIALS SECTION (H2)
+        TESTIMONIALS SECTION
         ============================================================ */}
-        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 bg-linear-to-b from-card/60 to-background/40 overflow-hidden" suppressHydrationWarning >
+        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 bg-linear-to-b from-card/60 to-background/40 overflow-hidden" suppressHydrationWarning>
           <div className="absolute inset-0 -z-10 pointer-events-none" suppressHydrationWarning>
             <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-purple-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
             <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-blue-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
@@ -854,13 +758,12 @@ export default function WebDevelopmentClient() {
                 icon={<Quote className="w-3 h-3 md:w-4 md:h-4" />} text="Building Success Through Technology"
               />
 
-              <HeadingTitle2 title1="Trusted Web Development Company" title2="Serving Businesses Across India" />
+              <HeadingTitle2 title1="Trusted Travel Portal Development Company" title2="Serving Travel Businesses Across India" />
               <p className="text-muted-foreground max-w-4xl mx-auto text-md">
-                Don't just take our word for it—discover what our clients have to say about working with our <strong>Web Development Company in Gurgaon</strong>. <br /> <br />From custom websites and web applications to eCommerce solutions, businesses across industries trust CoderLala for quality, innovation, timely delivery, and exceptional customer service.
+                Don't just take our word for it—discover what our clients have to say about working with our <strong>Travel Portal Development Company in Gurgaon</strong>. <br /> <br />From IRCTC integration to comprehensive B2B travel platforms, businesses across the travel industry trust CoderLala for quality, innovation, timely delivery, and exceptional customer service.
               </p>
             </motion.div>
 
-            {/* Testimonials Grid */}
             <div className="relative">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
                 {visibleTestimonials.map((testimonial, index) => (
@@ -898,7 +801,6 @@ export default function WebDevelopmentClient() {
                 ))}
               </div>
 
-              {/* Pagination Dots */}
               <div className="flex justify-center gap-1.5 md:gap-2 mt-6 md:mt-8">
                 {Array.from({ length: totalPages }).map((_, i) => (
                   <button
@@ -912,9 +814,8 @@ export default function WebDevelopmentClient() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-              {/* Optional CTA Button */}
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
               <QuoteCTA scrollToForm={scrollToForm} />
             </div>
           </div>
@@ -931,34 +832,33 @@ export default function WebDevelopmentClient() {
               }
             }
           `}</style>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.12: FAQ SECTION (H2)
+        FAQ SECTION
         ============================================================ */}
-        < section className="pt-20 overflow-hidden" >
+        <section className="pt-20 overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionBadge
                 icon={<Sparkles className="w-3 h-3 md:w-4 md:h-4 text-yellow-400" />} text="Frequently Asked Questions" />
               <HeadingTitle2 title1="Need More Information?" title2="Get Answers from CoderLala" />
               <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
-                Find answers to the most common questions about our <strong>web development services in Gurgaon</strong>, including custom website development, eCommerce solutions, web applications, project timelines, technologies, pricing, maintenance, and ongoing support. <br /> <br />Learn how CoderLala delivers secure, scalable, and high-performance digital solutions tailored to your business needs.
+                Find answers to the most common questions about our <strong>travel portal development services in Gurgaon</strong>, including IRCTC integration, flight booking systems, B2B and B2C portals, payment gateways, and ongoing support. <br /> <br />Learn how CoderLala delivers secure, scalable, and high-performance travel solutions tailored to your business needs.
               </p>
             </div>
 
-            {/* FAQ Accordion */}
             <FAQAccordion faqs={faqs} />
           </div>
-        </section >
+        </section>
 
         {/* ============================================================
-        SECTION 10.13: FINAL CTA SECTION (H2)
+        FINAL CTA SECTION
         ============================================================ */}
-        < FinalCTA scrollToForm={scrollToForm} />
+        <FinalCTA scrollToForm={scrollToForm} />
 
 
-      </div >
+      </div>
     </>
   );
 }
