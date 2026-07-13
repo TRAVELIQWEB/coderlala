@@ -10,6 +10,7 @@ import {
   X
 } from "lucide-react";
 import { submitContact } from "@/services/contact.service";
+import { useContactFormContext } from "@/context/ContactFormContext";
 
 // Types
 export interface ContactFormData {
@@ -23,15 +24,8 @@ export interface ContactFormData {
 }
 
 interface ContactFormProps {
-  onSubmit?: (data: ContactFormData) => Promise<void>;
   submitButtonText?: string;
-  showCompanyField?: boolean;
-  showPhoneField?: boolean;
-  showBudgetField?: boolean;
-  className?: string;
-  onSuccess?: () => void;
-  onError?: (error: string) => void;
-  size?: 'sm' | 'md' | 'lg'; // Input size
+  size?: "sm" | "md" | "lg";
 }
 
 interface FormErrors {
@@ -64,16 +58,8 @@ const BUDGET_OPTIONS = [
 // ✅ Use forwardRef to accept ref
 const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
   ({
-    onSubmit,
     submitButtonText = "Send Message",
-    showCompanyField = true,
-    showPhoneField = true,
-    showBudgetField = true,
-    className = "",
-    onSuccess,
-    onError,
-    size = 'md',
-    ...props
+    size = "md",
   }, ref) => {
     // Form state
     const [form, setForm] = useState<ContactFormData>({
@@ -111,7 +97,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
     const [errorMessage, setErrorMessage] = useState("");
 
     const router = useRouter();
-
+    const { setGlobalContactForm } = useContactFormContext();
     // Size configurations
     const sizeConfig = {
       sm: {
@@ -171,7 +157,10 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
           break;
 
         case "email":
-          if (value.trim() && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+          if (
+            value.trim() &&
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+          ) {
             error = "Please enter a valid email address";
           }
           break;
@@ -283,31 +272,22 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
       setIsSubmitting(true);
 
       try {
-        if (onSubmit) {
-          await onSubmit(form);
-        } else {
-          await submitContact(form);
+        const res = await submitContact(form);
+
+        if (res.status !== 'success') {
+          throw new Error(res.message || "Something went wrong. Please try again.");
         }
-        sessionStorage.setItem(
-          "contact-success",
-          JSON.stringify({
-            name: form.name,
-            email: form.email,
-          })
-        );
+
+        setGlobalContactForm(res.data);
+        router.push(`/thank-you-for-contacting-us`);
 
         setIsSubmitting(false);
         setIsRedirecting(true); // 👈 keep loader showing during redirect
-
-        onSuccess?.();
-
-        router.push(`/thank-you-for-contacting-us`);
 
       } catch (error: any) {
         setIsSubmitting(false);
         setErrorMessage(error.message || "Something went wrong. Please try again.");
         setShowErrorModal(true);
-        if (onError) onError(error.message);
       }
     };
 
@@ -386,7 +366,6 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
             ) : (
               <input
                 id={name}
-                {...props}
                 type={type}
                 name={name}
                 required={required}
@@ -539,7 +518,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
 
         {/* Form — hidden while processing/redirecting */}
         {!isSubmitting && !isRedirecting && (
-          <form onSubmit={handleSubmit} className={`space-y-3 ${className}`}>
+          <form onSubmit={handleSubmit} className={`space-y-3`}>
             <input type="hidden" name="pageUrl" value={form.pageUrl ?? ""} readOnly />
 
             <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6`}>
@@ -548,45 +527,43 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
             </div>
 
             <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6`}>
-              {showCompanyField && renderInput('company', 'Company Name', 'text', 'Your company')}
+              {renderInput('company', 'Company Name', 'text', 'Your company')}
               {renderInput('email', 'Email Address', 'email', 'example@gmail.com')}
             </div>
 
-            {showBudgetField && (
-              <div>
-                <label className={`block font-medium mb-1! ${styles.label}`}>
-                  Project Budget
-                </label>
-                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ${styles.radioGap}`}>
-                  {BUDGET_OPTIONS.map((option, i) => (
-                    <label key={i} className="flex items-center cursor-pointer">
-                      <input
-                        type="radio"
-                        name="budget"
-                        value={option}
-                        checked={form.budget === option}
-                        onChange={handleChange}
-                        className="hidden"
-                      />
-                      <div
-                        className={`w-full ${styles.radioPadding} rounded-md text-center transition-all opacity-80 flex items-center justify-between gap-2
+            <div>
+              <label className={`block font-medium mb-1! ${styles.label}`}>
+                Project Budget
+              </label>
+              <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ${styles.radioGap}`}>
+                {BUDGET_OPTIONS.map((option, i) => (
+                  <label key={i} className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="budget"
+                      value={option}
+                      checked={form.budget === option}
+                      onChange={handleChange}
+                      className="hidden"
+                    />
+                    <div
+                      className={`w-full ${styles.radioPadding} rounded-md text-center transition-all opacity-80 flex items-center justify-between gap-2
                       ${form.budget === option
-                            ? 'bg-blue-500/20 border border-blue-500'
-                            : 'bg-white/5 border border-border!'
-                          }`}
-                      >
-                        {option}
-                        {form.budget === option && (
-                          <div className="flex items-center justify-center w-4 h-4 rounded-full bg-green-500 border border-green-500">
-                            <Check className="w-3 h-3 text-white!" />
-                          </div>
-                        )}
-                      </div>
-                    </label>
-                  ))}
-                </div>
+                          ? 'bg-blue-500/20 border border-blue-500'
+                          : 'bg-white/5 border border-border!'
+                        }`}
+                    >
+                      {option}
+                      {form.budget === option && (
+                        <div className="flex items-center justify-center w-4 h-4 rounded-full bg-green-500 border border-green-500">
+                          <Check className="w-3 h-3 text-white!" />
+                        </div>
+                      )}
+                    </div>
+                  </label>
+                ))}
               </div>
-            )}
+            </div>
 
             {renderInput('message', 'Project Details', 'textarea', 'Tell us about your project, requirements, and goals...')}
 

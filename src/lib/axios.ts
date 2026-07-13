@@ -1,7 +1,17 @@
 import axios from 'axios';
 
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+if (!baseURL) {
+  // Logs a clear, early signal in dev instead of a confusing
+  // "Network Error" once a request is actually attempted.
+  console.error(
+    '[axios] NEXT_PUBLIC_BACKEND_URL is not set. Add it to .env.local and restart the dev server.'
+  );
+}
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: baseURL || '', // falls back to relative paths if unset, rather than crashing the app
   headers: {
     'Content-Type': 'application/json',
   },
@@ -9,32 +19,3 @@ const api = axios.create({
 });
 
 export default api;
-
-
-
-// const api = axios.create({
-//   baseURL: "http://192.168.1.184:4003",
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
-
-// // 🔥 Automatically add token to all requests
-// api.interceptors.request.use(
-//   (config) => {
-//     if (typeof window !== "undefined") {
-//       const token = localStorage.getItem("access_token"); // your token key
-
-//       if (token) {
-//         config.headers.Authorization = Bearer ${token};
-//       }
-//     }
-
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
-// export default api;

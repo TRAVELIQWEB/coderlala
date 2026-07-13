@@ -1,3 +1,4 @@
+import { ContactFormProvider } from "@/context/ContactFormContext";
 import "./globals.css";
 import { ThemeProvider } from "@/app/components/theme-provider";
 
@@ -9,7 +10,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="transition-colors duration-300" suppressHydrationWarning>
         <ThemeProvider>
-          {children}
+          <ContactFormProvider>
+            {children}
+          </ContactFormProvider>
         </ThemeProvider>
       </body>
     </html>

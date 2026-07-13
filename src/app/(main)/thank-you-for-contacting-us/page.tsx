@@ -4,25 +4,15 @@ import Link from "next/link";
 import { contactInfo } from "@/data/ContactInfo";
 import { Clock, Mail, Home, MessageCircle, CheckCheckIcon } from "lucide-react";
 import { Button } from "../services/component/location/Button";
-import { useEffect, useState } from "react";
+import { useContactFormContext } from "@/context/ContactFormContext";
 
 export default function ThankYouPage() {
-  const [user, setUser] = useState({
-    name: "Anonymous",
-    email: "anonymous@gmail.com",
-  });
-  
-  useEffect(() => {
-    const data = sessionStorage.getItem("contact-success");
+  const { globalContactForm } = useContactFormContext();
 
-    if (data) {
-      setUser(JSON.parse(data));
-
-      // Optional: remove after reading
-      sessionStorage.removeItem("contact-success");
-    }
-  }, []);
-
+  const user = {
+    name: globalContactForm?.name,
+    email: globalContactForm?.email,
+  };
 
   return (
     <div className="min-h-screen flex md:items-center justify-center p-3 relative overflow-hidden">
@@ -109,7 +99,6 @@ export default function ThankYouPage() {
               >
                 Back to Home
               </Button>
-
             </div>
 
             {/* Contact Support */}
