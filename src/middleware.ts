@@ -5,20 +5,19 @@ export function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
 
   const accessToken = req.cookies.get("access_token")?.value;
-  const role = req.cookies.get("role")?.value; // ADMIN | USER
+  const role = req.cookies.get("role")?.value?.toUpperCase(); // ADMIN | USER
 
   if (pathname.startsWith("/admin") || pathname.startsWith("/user")) {
     if (!accessToken) return NextResponse.redirect(new URL("/auth/login", req.url));
   }
 
   if (pathname.startsWith("/admin") && role !== "ADMIN") {
-    return NextResponse.redirect(new URL("/user", req.url));
+    return NextResponse.redirect(new URL("/user/dashboard", req.url));
   }
 
   if (pathname.startsWith("/user") && role !== "USER") {
-    return NextResponse.redirect(new URL("/admin", req.url));
+    return NextResponse.redirect(new URL("/admin/dashboard", req.url));
   }
-
   return NextResponse.next();
 }
 
