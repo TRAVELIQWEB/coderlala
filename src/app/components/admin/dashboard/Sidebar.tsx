@@ -8,6 +8,7 @@ import {
   FileText,
   Users,
   Settings,
+  Mail,
   ChevronLeft,
   Menu,
   LogOut,
@@ -29,6 +30,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
   const menuItems = [
     { href: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     { href: '/admin/blog', icon: FileText, label: 'Blog' },
+    { href: '/admin/enquiry', icon: Mail, label: 'Enquiry' },
     { href: '#', icon: FolderKanban, label: 'Projects' },
     { href: '#', icon: Users, label: 'Users' },
     { href: '#', icon: BarChart3, label: 'Analytics' },
@@ -105,14 +107,6 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
             );
           })}
         </nav>
-
-        {/* Footer */}
-        <div className={`${styles.footer} p-4`}>
-          <button className={styles.logoutButton}>
-            <LogOut size={20} />
-            {!collapsed && <span>Logout</span>}
-          </button>
-        </div>
       </aside>
     </>
   );

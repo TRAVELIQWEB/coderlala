@@ -23,6 +23,7 @@ export default function LoginForm() {
     const [rememberMe, setRememberMe] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -42,7 +43,7 @@ export default function LoginForm() {
 
             if (!response.data.ok) {
                 const data = await response.data
-                  setError(data.message || 'Login failed');
+                  setSuccess(data.message || 'Login failed');
             }
             if(response.data.role === "admin"){
                 router.push("/admin/dashboard");
@@ -63,6 +64,15 @@ export default function LoginForm() {
     return (
         <div className="w-full">
             {/* Error Message */}
+            {
+                success && (
+                    <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/20 flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-300 shrink-0 mt-0.5" />
+                        <p className="text-sm text-green-200">{success}</p>
+                    </div>
+                )
+            }
+
             {error && (
                 <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 text-red-300 shrink-0 mt-0.5" />
