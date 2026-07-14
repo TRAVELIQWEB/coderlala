@@ -15,14 +15,14 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.15, scale: 1 }}
           transition={{ duration: 2, delay: 0.2 }}
-          className="absolute top-1/4 left-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-linear-to-br from-blue-500/20 via-purple-500/15 to-transparent blur-[60px] sm:blur-[80px] lg:blur-[120px] rounded-full"
+          className="absolute top-1/4 left-1/4 w-75 h-75 sm:w-100 sm:h-100 lg:w-150 lg:hlg:h-150linear-to-br from-blue-500/20 via-purple-500/15 to-transparent blur-[60px] sm:blur-[80px] lg:blur-[120px] rounded-full"
         />
 
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.12, scale: 1 }}
           transition={{ duration: 2, delay: 0.4 }}
-          className="absolute bottom-1/3 right-1/4 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] lg:w-[500px] lg:h-[500px] bg-linear-to-tl from-orange-500/15 via-pink-500/10 to-transparent blur-[50px] sm:blur-[80px] lg:blur-[100px] rounded-full"
+          className="absolute bottom-1/3 right-1/4 w-62.5 h-62.5 sm:w-87.5 sm:h-87.5 lg:w-125 lg:h-125 bg-linear-to-tl from-orange-500/15 via-pink-500/10 to-transparent blur-[50px] sm:blur-[80px] lg:blur-[100px] rounded-full"
         />
 
         {/* Floating particles */}
@@ -149,7 +149,7 @@ export default function Hero() {
                 {/* Button shine effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
-                <span className="relative text-sm sm:text-base">Get Custom Software Quote</span>
+                <span className="relative text-sm sm:text-base">Get a Free Quote</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
 
                 {/* Glow effect */}
@@ -164,7 +164,7 @@ export default function Hero() {
                 {/* Button shine effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
-                <span className="relative text-sm sm:text-base">View Development Portfolio</span>
+                <span className="relative text-sm sm:text-base">View Our Portfolio</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
 
                 {/* Glow effect */}

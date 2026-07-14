@@ -20,25 +20,38 @@ import {
   Quote,
   ChevronRight,
   ChevronLeft,
+  Smartphone,
+  Server,
+  Palette,
+  Send,
 } from "lucide-react";
 import { HeadingTitle2, HeroTitleLocation } from "@/app/components/HeroTitle";
-import ContactForm from "./ContactForm";
+// import ContactForm from "./ContactForm";
 import { FAQAccordion } from "../component/ServiceFAQAccordion";
 import ServiceProcessSection from "./ServiceProcessSection";
 import { FaAws } from "react-icons/fa";
 import { SiNextdotjs, SiReact, SiTypescript, SiNodedotjs, SiPython, SiDocker, SiMongodb, SiPostgresql, SiTailwindcss, SiPhp, SiBootstrap, SiWordpress, SiNestjs, SiJavascript, SiCss, SiGit, SiGithub, SiRedis, SiExpress, SiMysql, SiAngular, SiLaravel } from "react-icons/si";
 import { motion } from "framer-motion";
-import Breadcrumbs from "./Breadcrumbs";
+// import Breadcrumbs from "./Breadcrumbs";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
-import { ServiceCardLocation } from "@/app/components/services/ServiceCard";
+// import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
 import { contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
-import { SectionBadge } from "./SectionBadge";
-import { QuoteCTA } from "./QuoteCTA";
-import { Button } from "./Button";
+import Breadcrumbs from "../component/location/Breadcrumbs";
+import { Button, QuoteCTA, ServicesButton } from "../component/location/Button";
+import ContactForm from "@/app/components/ContactForm";
+// import { QuoteCTA } from "../component/location/QuoteCTA";
+import { SectionBadge } from "../component/location/SectionBadge";
+import { FinalCTA } from "../component/location/FinalCTA";
+import { SliderBadge } from "../component/location/SliderBadge";
+import ClientLogoSlider from "../component/location/ClientLogoSlider";
+import ServiceCard from "../component/location/FeatureCard";
+// import { SectionBadge } from "./SectionBadge";
+// import { QuoteCTA } from "./QuoteCTA";
+// import { Button } from "./Button";
 
 
 // ============================================================
@@ -46,49 +59,45 @@ import { Button } from "./Button";
 // ============================================================
 const CITY = "Gurgaon";
 const CITY_SLUG = "gurgaon";
-
-// ============================================================
-// SECTION 3: SERVICES DATA
-// ============================================================
-// const SERVICES = [
-//   {
-//     icon: Code2,
-//     title: "Custom Web Development Company in Gurgaon",
-//     desc: "We are a leading web development company in Gurgaon offering tailored solutions mapped to your unique business operations. Complex customer journeys, portals, custom databases, and API hubs built by Gurgaon's finest developers.",
-//     accent: "from-blue-500 to-indigo-600",
-//   },
-//   {
-//     icon: Cpu,
-//     title: "Next.js & React Development Agency",
-//     desc: "As a premier web development company in Gurgaon, we specialize in blazing fast static and dynamic server rendering. We optimize layout shifts, cache policies, and hydration speeds for superior performance.",
-//     accent: "from-cyan-400 to-blue-500",
-//   },
-//   {
-//     icon: Smartphone,
-//     title: "PWA & Mobile-First Web Development",
-//     desc: "Our web development services in Gurgaon include progressive mobile experiences with offline access, push-notifications, installability, and lightning fast responsiveness for modern businesses.",
-//     accent: "from-indigo-500 to-violet-600",
-//   },
-//   {
-//     icon: ShoppingCart,
-//     title: "E-commerce Website Development",
-//     desc: "Secure shopping systems with payment gateways, automated invoicing, customer order tracking, and high-speed category filters. We're the preferred e-commerce web development company in Gurgaon.",
-//     accent: "from-orange-400 to-orange-600",
-//   },
-//   {
-//     icon: Server,
-//     title: "API & Backend Development",
-//     desc: "Robust Node.js, PostgreSQL & MongoDB backends. We architect microservices, GraphQL APIs, and real-time WebSocket layers for web applications developed in Gurgaon.",
-//     accent: "from-teal-400 to-emerald-500",
-//   },
-//   {
-//     icon: Palette,
-//     title: "CMS Website Development",
-//     desc: "Highly editable WordPress, Strapi, or headless CMS solutions. Perfect for blogs, content publishers, and enterprise sites. We're a trusted CMS web development company in Gurgaon.",
-//     accent: "from-violet-500 to-fuchsia-600",
-//   },
-// ];
-
+const HERO_TAGS = ["Agile Development", "High-Performance Apps", "Digital Transformation", "Expert IT Consulting"];
+const Related_Services = [
+  {
+    icon: <Code2 className="w-6 h-6" />,
+    title: "Custom Web Development",
+    desc: "Tailored web solutions using Next.js, React, and modern frameworks for optimal performance and user experience.",
+    iconBg: "bg-blue-500"
+  },
+  {
+    icon: <ShoppingCart className="w-6 h-6" />,
+    title: "E-Commerce Development",
+    desc: "Feature-rich online stores with secure payment gateways, inventory management, and seamless checkout experiences.",
+    iconBg: "bg-orange-500"
+  },
+  {
+    icon: <Smartphone className="w-6 h-6" />,
+    title: "Progressive Web Apps",
+    desc: "Mobile-first web applications with offline capabilities, push notifications, and native-like performance.",
+    iconBg: "bg-indigo-500"
+  },
+  {
+    icon: <Server className="w-6 h-6" />,
+    title: "Backend & API Development",
+    desc: "Robust APIs and backend systems with Node.js, Python, and PostgreSQL for scalable, secure data management.",
+    iconBg: "bg-teal-500"
+  },
+  {
+    icon: <Palette className="w-6 h-6" />,
+    title: "UI/UX Design",
+    desc: "User-centered design with intuitive interfaces, engaging experiences, and conversion-optimized workflows.",
+    iconBg: "bg-violet-500"
+  },
+  {
+    icon: <Rocket className="w-6 h-6" />,
+    title: "Cloud & DevOps",
+    desc: "Scalable cloud infrastructure with CI/CD pipelines, containerization, and 99.9% uptime guarantee.",
+    iconBg: "bg-cyan-500"
+  }
+];
 // ============================================================
 // SECTION 4: OFFICE & CONTACT INFORMATION
 // ============================================================
@@ -246,61 +255,6 @@ export default function WebDevelopmentClient() {
   const faqs = generateFAQs(CITY);
   const faqSchema = generateFAQSchema(faqs);
 
-
-  // ============================================================
-  // SECTION 9.4: CLIENT LOGOS DATA
-  // ============================================================
-  const clientLogos = [
-    {
-      id: 1,
-      name: "Aquarius Lab",
-      logo: "/images/client-logo/aquarius-lab.webp",
-      width: 800,
-      height: 800,
-      alt: "Aquarius Lab logo - trusted client of CoderLala web development company in Gurgaon"
-    },
-    {
-      id: 2,
-      name: "Jindal Dental Care",
-      logo: "/images/client-logo/jindal-dental-care-and-implant-centre.webp",
-      width: 800,
-      height: 800,
-      alt: "Jindal Dental Care logo - trusted client of CoderLala web development company in Gurgaon"
-    },
-    {
-      id: 3,
-      name: "Kreative Dentistry",
-      logo: "/images/client-logo/kreative-dentistry.webp",
-      width: 800,
-      height: 800,
-      alt: "Kreative Dentistry logo - trusted client of CoderLala web development company in Gurgaon"
-    },
-    {
-      id: 4,
-      name: "Mohindra Eco Pipes",
-      logo: "/images/client-logo/mohindra-eco-pipes-logo.webp",
-      width: 800,
-      height: 800,
-      alt: "Mohindra Eco Pipes logo - trusted client of CoderLala web development company in Gurgaon"
-    },
-    {
-      id: 5,
-      name: "Narain Hospital",
-      logo: "/images/client-logo/narain-hospital.webp",
-      width: 800,
-      height: 800,
-      alt: "Narain Hospital logo - trusted client of CoderLala web development company in Gurgaon"
-    },
-    {
-      id: 6,
-      name: "Webshlok",
-      logo: "/images/client-logo/webshlok.webp",
-      width: 800,
-      height: 800,
-      alt: "Webshlok logo - trusted client of CoderLala web development company in Gurgaon"
-    }
-  ];
-
   // ============================================================
   // SECTION 9.5: EFFECTS - Mobile Detection & Auto-Slides
   // ============================================================
@@ -330,21 +284,6 @@ export default function WebDevelopmentClient() {
     return () => clearInterval(timer);
   }, [isMobile]);
 
-  // 9.5.3: Client logo auto-slide
-  useEffect(() => {
-    const clientLogoTimer = setInterval(() => {
-      setClientLogoIndex((prev) => (prev + 1) % clientLogos.length);
-    }, 3000);
-    return () => clearInterval(clientLogoTimer);
-  }, [clientLogos.length]);
-
-  // ============================================================
-  // SECTION 9.6: COMPUTED VALUES - Visible Logos & Testimonials
-  // ============================================================
-  const visibleClientLogos = clientLogos.slice(clientLogoIndex, clientLogoIndex + 5);
-  if (clientLogoIndex + 5 > clientLogos.length) {
-    visibleClientLogos.push(...clientLogos.slice(0, (clientLogoIndex + 5) % clientLogos.length));
-  }
 
   const getVisibleTestimonials = () => {
     const itemsPerPage = isMobile ? 2 : 3;
@@ -483,7 +422,7 @@ export default function WebDevelopmentClient() {
               <Breadcrumbs
                 items={[
                   // { label: "Services", href: "/services" },
-                  { label: "Web Development Company in Gurgaon", active: true },
+                  { label: "Web Development in Gurgaon", active: true },
                 ]}
               />
 
@@ -512,13 +451,7 @@ export default function WebDevelopmentClient() {
               </p>
 
               {/* Tags/Badges */}
-              <div className="hidden md:block flex-wrap gap-2.5">
-                {["Agile Development", "High-Performance Apps", "Digital Transformation", "Expert IT Consulting"].map((c) => (
-                  <span key={c} className="text-xs font-medium px-3 py-1.5 rounded-full bg-secondary border border-border text-muted-foreground">
-                    {c}
-                  </span>
-                ))}
-              </div>
+              <SliderBadge tags={HERO_TAGS} />
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -581,12 +514,12 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
           </div>
-        </header>
+        </header >
 
         {/* ============================================================
         SECTION 10.4: CLIENT LOGOS SECTION (H2)
         ============================================================ */}
-        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
+        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-blue-500/10 to-orange-500/10 backdrop-blur-sm border border-white/20 mb-4 lg:mb-6">
               <Users className="w-4 h-4 text-blue-500 dark:text-blue-300" />
@@ -603,63 +536,21 @@ export default function WebDevelopmentClient() {
             Our experienced team combines creativity, technology, and innovation to deliver high-quality websites that provide exceptional user experiences and support long-term business success.
           </p>
 
-          {/* Client Logo Carousel */}
-          <div className="relative max-w-6xl mx-auto px-4 sm:px-12">
-            {/* Previous Button */}
-            <button
-              onClick={() => setClientLogoIndex((prev) => (prev - 1 + clientLogos.length) % clientLogos.length)}
-              className="absolute left-8 top-1/2 -translate-y-1/2 z-20 p-1.5 md:p-2.5 rounded-full bg-card/90 backdrop-blur-sm border border-border hover:bg-primary hover:border-primary hover:text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 -translate-x-1/2 sm:-translate-x-6"
-              aria-label="Previous client logo"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
+          <ClientLogoSlider />
 
-            {/* Logo Grid */}
-            <div className="flex justify-center items-center gap-4 sm:gap-6 md:gap-8 overflow-hidden w-full py-4">
-              {visibleClientLogos.map((client, idx) => (
-                <motion.div
-                  key={client.id}
-                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.8, y: -20 }}
-                  transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="group relative p-3 transition-all bg-white/90 duration-300 flex items-center justify-center grayscale hover:grayscale-0 opacity-50 hover:opacity-100 rounded-xl border border-border/50 shadow-sm hover:shadow-lg shrink-0 w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 scale-100"
-                >
-                  <Image
-                    key={client.id}
-                    src={client.logo}
-                    alt={client.alt}
-                    width={client.width}
-                    height={client.height}
-                    loading="lazy"
-                    placeholder="blur"
-                    blurDataURL={BLUR_DATA_URL}
-                    className="object-contain group-hover:scale-125 transition-transform duration-300 h-full w-full p-3"
-                    style={{ objectFit: 'contain' }}
-                  />
-                </motion.div>
-              ))}
+          <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
+
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
+              <QuoteCTA scrollToForm={scrollToForm} />
             </div>
-
-            {/* Next Button */}
-            <button
-              onClick={() => setClientLogoIndex((prev) => (prev + 1) % clientLogos.length)}
-              className="absolute right-8 top-1/2 -translate-y-1/2 z-20 p-1.5 md:p-2.5 rounded-full bg-card/90 backdrop-blur-sm border border-border hover:bg-primary hover:border-primary hover:text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 translate-x-1/2 sm:translate-x-6"
-              aria-label="Next client logo"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
           </div>
 
-          {/* Optional CTA Button */}
-          <QuoteCTA scrollToForm={scrollToForm} />
-
-        </section>
+        </section >
 
         {/* ============================================================
         SECTION 10.5: ABOUT CODERLALA SECTION (H2)
         ============================================================ */}
-        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
+        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" >
           <div className="relative z-10 max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Column - About Content */}
@@ -754,12 +645,12 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
           </div>
-        </section>
+        </section >
 
         {/* ============================================================
         SECTION 10.6: WHY CHOOSE US SECTION (H2)
         ============================================================ */}
-        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
+        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
           <SectionBadge icon={<Star className="w-4 h-4 text-yellow-400" />} text="Why Choose Us?" />
           <div className="max-w-7xl mx-auto px-6">
             <HeadingTitle2
@@ -773,6 +664,7 @@ export default function WebDevelopmentClient() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {/* Reason 1: Cutting-Edge Technology */}
+
               <div className="group relative rounded-2xl bg-card border border-border/60 p-7 hover:border-brand/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden hover:shadow-xl flex flex-col h-full">
                 <div className="absolute -top-12 -right-12 h-32 w-32 bg-linear-to-br from-blue-500 to-indigo-600 opacity-10 group-hover:opacity-20 blur-2xl rounded-full transition-opacity" />
                 <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-blue-500 to-indigo-600 mx-auto">
@@ -812,45 +704,75 @@ export default function WebDevelopmentClient() {
               </div>
             </div>
 
-            {/* Optional CTA Button */}
-            <QuoteCTA scrollToForm={scrollToForm} />
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-10 justify-center">
+              {/* Optional CTA Button */}
+              <QuoteCTA scrollToForm={scrollToForm} />
+            </div>
           </div>
-        </section>
+        </section >
 
         {/* ============================================================
         SECTION 10.7: SERVICES SECTION (H2)
         ============================================================ */}
-        <section id="services" className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden">
+
+        < section id="services" className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 overflow-hidden" >
+          {/* Background Effects */}
+          < div className="absolute inset-0 -z-10 pointer-events-none" >
+            <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-blue-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-orange-500/10 to-transparent blur-3xl rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-linear-to-br from-blue-500/5 via-purple-500/5 to-orange-500/5 blur-3xl rounded-full" />
+          </div >
+
           <div className="mx-auto max-w-7xl px-6">
             <div className="text-center max-w-5xl mx-auto mb-14 space-y-3">
               <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="CoderLala Services" />
-              <HeadingTitle2 title1="Expert Web Development" title2={`Services in ${CITY}`} />
+              <HeadingTitle2 title1={`Expert Web Development`} title2={`Services in ${CITY}`} />
               <p className="text-muted-foreground text-md max-w-4xl mx-auto">
-                From fast, interactive React applications to powerful backend systems, our <strong>Web Development Company in Gurgaon</strong> delivers secure, scalable, and high-performance web solutions for startups, SMEs, and enterprises. <br /><br />
+                From fast, interactive React applications to powerful backend systems, our <strong className="text-brand">Web Development Company in {CITY}</strong> delivers secure, scalable, and high-performance web solutions for startups, SMEs, and enterprises. <br /><br />
                 We build modern websites and custom web applications using the latest technologies to ensure exceptional user experiences, long-term reliability, and future-ready digital solutions. Explore our comprehensive web development services below to discover how we can help bring your vision to life.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch">
-              {services.map((service, i) => (
-                <ServiceCardLocation
-                  key={service.title}
-                  service={service}
-                  index={i}
-                  location={CITY}
-                  onQuoteClick={scrollToForm}
+            {/* Feature Grid - 3x2 Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-14">
+              {Related_Services.map((service, index) => (
+                <ServiceCard
+                  key={index}
+                  index={index}
+                  title={service.title}
+                  desc={service.desc}
+                  icon={service.icon}
+                  iconBg={service.iconBg}
                 />
               ))}
             </div>
-            {/* Optional CTA Button */}
-            <QuoteCTA scrollToForm={scrollToForm} />
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mx-auto">
+              <Button
+                href="/services"
+                icon={<Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />}
+                variant="primary"
+                className="min-w-50"
+              >
+                Explore All Services
+              </Button>
+              <Button
+                onClick={scrollToForm}
+                icon={<Send className="w-4 h-4 sm:w-5 sm:h-5" />}
+                variant="secondary"
+                className="min-w-50"
+              >
+                Get a Free Quote
+              </Button>
+            </div>
           </div>
-        </section>
+        </section >
 
         {/* ============================================================
         SECTION 10.8: DEVELOPMENT PROCESS SECTION (H2)
         ============================================================ */}
-        <section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden">
+        < section className="py-20 border-y border-border bg-linear-to-b from-card/60 to-background/40 text-center overflow-hidden" >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionBadge icon={<Zap className="w-4 h-4 text-blue-500 dark:text-blue-300" />} text="Our Development Process" />
@@ -865,15 +787,18 @@ export default function WebDevelopmentClient() {
             <div className="text-left">
               <ServiceProcessSection />
             </div>
-            {/* Optional CTA Button */}
-            <QuoteCTA scrollToForm={scrollToForm} />
+            <div className="flex flex-col sm:flex-row gap-3 mt-10 sm:gap-4 justify-center">
+
+              {/* Optional CTA Button */}
+              <QuoteCTA scrollToForm={scrollToForm} />
+            </div>
           </div>
-        </section>
+        </section >
 
         {/* ============================================================
         SECTION 10.9: TECH STACK SECTION (H2)
         ============================================================ */}
-        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 text-center overflow-hidden">
+        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 text-center overflow-hidden" >
           <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="Our Development Approach" />
           <HeadingTitle2 title1="Powering Innovation with" title2="Modern Technologies" />
 
@@ -899,16 +824,19 @@ export default function WebDevelopmentClient() {
               );
             })}
           </div>
+          <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-          {/* Optional CTA Button */}
-          <QuoteCTA scrollToForm={scrollToForm} />
-        </section>
+            <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
+              <QuoteCTA scrollToForm={scrollToForm} />
+            </div>
+          </div>
+        </section >
 
 
         {/* ============================================================
         SECTION 10.11: TESTIMONIALS SECTION (H2)
         ============================================================ */}
-        <section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 bg-linear-to-b from-card/60 to-background/40 overflow-hidden" suppressHydrationWarning>
+        < section className="relative pt-20 pb-20 lg:pt-28 lg:pb-28 bg-linear-to-b from-card/60 to-background/40 overflow-hidden" suppressHydrationWarning >
           <div className="absolute inset-0 -z-10 pointer-events-none" suppressHydrationWarning>
             <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-linear-to-br from-purple-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
             <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-linear-to-tl from-blue-500/10 to-transparent blur-3xl rounded-full" suppressHydrationWarning />
@@ -984,9 +912,11 @@ export default function WebDevelopmentClient() {
                 ))}
               </div>
             </div>
+            <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
-            {/* Optional CTA Button */}
-            <QuoteCTA scrollToForm={scrollToForm} />
+              {/* Optional CTA Button */}
+              <QuoteCTA scrollToForm={scrollToForm} />
+            </div>
           </div>
 
           <style jsx global>{`
@@ -1001,12 +931,12 @@ export default function WebDevelopmentClient() {
               }
             }
           `}</style>
-        </section>
+        </section >
 
         {/* ============================================================
         SECTION 10.12: FAQ SECTION (H2)
         ============================================================ */}
-        <section className="pt-20 overflow-hidden">
+        < section className="pt-20 overflow-hidden" >
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <SectionBadge
@@ -1020,54 +950,15 @@ export default function WebDevelopmentClient() {
             {/* FAQ Accordion */}
             <FAQAccordion faqs={faqs} />
           </div>
-        </section>
+        </section >
 
         {/* ============================================================
         SECTION 10.13: FINAL CTA SECTION (H2)
         ============================================================ */}
-        <section className="max-w-4xl px-4 sm:px-6 lg:px-8 p-6 mt-10 mb-5 sm:p-8 mx-auto rounded-3xl">
-          <div className="glass-card max-w-4xl p-4 sm:p-6 lg:p-8 flex flex-col items-center gap-8 text-center">
-            <div>
-              <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg flex items-center justify-center bg-linear-to-br from-blue-500 to-indigo-600 mx-auto mb-4">
-                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <Rocket className="relative h-7 w-7 text-white! drop-shadow-md" />
-              </div>
+        < FinalCTA scrollToForm={scrollToForm} />
 
-              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-[1.2] mb-4 md:mb-6">
-                <span className="text-transparent! bg-clip-text! bg-blue-500!">
-                  Ready to Transform Your Business with a
-                </span>
-                <span className="block! text-[#ff6900]! bg-clip-text! bg-orange-500!">
-                  High-Performance Website?
-                </span>
-              </h2>
-              <p className="text-slate-600 text-sm mt-2">
-                Let's discuss your project and unlock your business's digital potential with a free, no-obligation quote.
-              </p>
-            </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              {/* Call Now Button */}
-              <Button
-                href={`tel:${contactInfo.salmanNizamPhone}`}
-                icon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
-                variant="primary"
-              >
-                Call Now
-              </Button>
-
-              <Button
-                onClick={scrollToForm}
-                icon={<Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />}
-                variant="secondary"
-              >
-                Get a Free Quote
-              </Button>
-            </div>
-          </div>
-        </section>
-
-      </div>
+      </div >
     </>
   );
 }

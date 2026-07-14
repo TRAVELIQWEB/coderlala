@@ -3,6 +3,7 @@
 
 import { ReactNode } from "react";
 import Link from "next/link";
+import { Globe, Sparkles } from "lucide-react";
 
 interface ButtonProps {
   onClick?: () => void;
@@ -74,4 +75,33 @@ export function Button({
       {buttonInner}
     </button>
   );
+}
+
+
+
+// components/QuoteCTA.tsx
+export function QuoteCTA({ scrollToForm }: { scrollToForm: () => void }) {
+  return (
+    <>
+      {/* <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mx-auto mt-10 pt-2"> */}
+      <Button onClick={scrollToForm} icon={<Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />} variant="secondary">
+        Get a Free Quote
+      </Button>
+      {/* </div> */}
+    </>
+  );
+}
+
+export function ServicesButton() {
+  return (
+      <Button
+        href="/services" // Link to the general services page
+        icon={<Globe className="w-4 h-4 sm:w-5 sm:h-5" />}
+        variant="primary"
+        size="md" // Explicitly setting the default size
+        iconPosition="left" // Explicitly setting the default icon position
+      >
+        Explore All Our Services
+      </Button>
+  )
 }

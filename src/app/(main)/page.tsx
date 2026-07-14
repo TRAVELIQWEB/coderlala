@@ -4,8 +4,6 @@ import Testimonials from "@/app/components/sections/testimonials";
 import CTA from "@/app/components/sections/cta";
 import { ServiceSchema, FAQSchema } from "@/app/components/structured-data";
 import type { Metadata } from "next";
-import WhatsAppButton from "@/components/WhatsAppButton";
-import { contactInfo } from "@/data/ContactInfo";
 
 export const metadata: Metadata = {
   title: "CoderLala Technologies | Software Development Gurugram",

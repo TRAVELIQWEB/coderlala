@@ -3,10 +3,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Check, Rocket, Clock } from "lucide-react";
+import { ArrowRight, Check, Rocket, Clock, Globe } from "lucide-react";
 import { Service } from "@/app/(main)/services/data/services/service";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
-import { Button } from "@/app/(main)/services/web-development-company-gurgaon/Button";
+import { Button } from "@/app/(main)/services/component/location/Button";
 
 interface ServiceCardProps {
   service: Service;
@@ -306,3 +306,4 @@ export function ServiceCardLocation({
     </motion.div>
   );
 }
+

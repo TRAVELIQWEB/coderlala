@@ -2,14 +2,17 @@
 
 import Link from "next/link";
 import { contactInfo } from "@/data/ContactInfo";
-import { useSearchParams } from "next/navigation";
-import { CheckCircle, ArrowRight, Clock, Mail, Home, Sparkles, MessageCircle, Phone, Check, CheckCheckIcon } from "lucide-react";
-import { Button } from "../services/web-development-company-gurgaon/Button";
+import { Clock, Mail, Home, MessageCircle, CheckCheckIcon } from "lucide-react";
+import { Button } from "../services/component/location/Button";
+import { useContactFormContext } from "@/context/ContactFormContext";
 
 export default function ThankYouPage() {
-  const params = useSearchParams();
-  const name = params.get("name") || "there";
-  const email = params.get("email") || "";
+  const { globalContactForm } = useContactFormContext();
+
+  const user = {
+    name: globalContactForm?.name,
+    email: globalContactForm?.email,
+  };
 
   return (
     <div className="min-h-screen flex md:items-center justify-center p-3 relative overflow-hidden">
@@ -30,7 +33,7 @@ export default function ThankYouPage() {
 
             {/* Title */}
             <h1 className="font-bold mb-2 text-2xl sm:text-3xl text-primary">
-              Thank You, {name}!
+              Thank You, {user.name}!
             </h1>
 
             {/* Description */}
@@ -42,12 +45,12 @@ export default function ThankYouPage() {
             </p>
 
             {/* Email Confirmation */}
-            {email && (
+            {user.email && (
               <div className="inline-flex items-center gap-2 bg-background px-4 py-2 rounded-full border border-border/50 mb-4">
                 <Mail className="w-3.5 h-3.5 text-color-muted" />
                 <span className="text-color-muted text-xs">
-                  Confirmation sent to{" "}
-                  <span className="text-primary font-bold">{email}</span>
+                  Your email id:{" "}
+                  <span className="text-primary font-bold">{user.email}</span>
                 </span>
               </div>
             )}
@@ -96,7 +99,6 @@ export default function ThankYouPage() {
               >
                 Back to Home
               </Button>
-
             </div>
 
             {/* Contact Support */}

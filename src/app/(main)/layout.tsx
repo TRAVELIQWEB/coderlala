@@ -11,6 +11,11 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const metadata = {
     metadataBase: new URL("https://coderlala.com"),
+    manifest: "/manifest.json",
+    referrer: "origin-when-cross-origin",
+    classification: "Software Development Company",
+    category: "Technology",
+
     icons: {
         icon: [
             { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -27,7 +32,6 @@ export const metadata = {
                 type: "image/svg+xml",
             },
         ],
-        manifest: "/manifest.json",
     },
     verification: {
         google: '7dJiKc0vNEpuoWpOB6GCNYcPbnF80X5msZ6KcJClyOA',
@@ -37,8 +41,33 @@ export const metadata = {
             "CoderLala Technologies Private Limited | Next-Gen Digital Solutions",
         template: "%s | CoderLala Technologies Private Limited"
     },
-    description:"Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions.",
-    authors: [{ name: "CoderLala Technologies" }],
+    description: "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions.",
+    applicationName: "CoderLala",
+    keywords: [
+        "CoderLala Technologies",
+        "Software Development Company",
+        "Custom Software Development",
+        "Web Development Company",
+        "Mobile App Development",
+        "Enterprise Software Development",
+        "SaaS Development Company",
+        "AI Development Company",
+        "Cloud Solutions",
+        "Digital Transformation",
+        "API Development",
+        "UI UX Design",
+        "Next.js Development",
+        "React Development",
+        "Node.js Development",
+        "Full Stack Development",
+        "Business Automation",
+        "CRM Development",
+        "ERP Development",
+        "Technology Consulting",
+    ],
+    authors: [{
+        name: "CoderLala Technologies", url: "https://coderlala.com",
+    }],
     creator: "CoderLala Technologies",
     publisher: "CoderLala Technologies",
     formatDetection: {
@@ -47,16 +76,49 @@ export const metadata = {
         telephone: false,
     },
     openGraph: {
-        siteName: "CoderLala Technologies Private Limited",
         type: "website",
+        locale: "en_IN",
+        url: "https://coderlala.com",
+        siteName: "CoderLala Technologies Private Limited",
+        title: "CoderLala Technologies Private Limited",
+        description:
+            "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems.",
+        images: [
+            {
+                url: "/images/og-banner.png",
+                width: 1200,
+                height: 630,
+                alt: "CoderLala Technologies Private Limited",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "CoderLala Technologies Private Limited",
+        description:
+            "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise cloud solutions.",
+        images: ["/images/og-banner.png"],
     },
     alternates: {
-        canonical: 'https://coderlala.com',
+        canonical: '/',
     },
     robots: {
         index: true,
         follow: true,
-        googleBot: { index: true, follow: true },
+
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-video-preview": -1,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+        },
+    },
+
+    appleWebApp: {
+        capable: true,
+        title: "CoderLala",
+        statusBarStyle: "default",
     },
 };
 
@@ -105,7 +167,7 @@ const localBusinessSchema = {
     name: "CoderLala Technologies Pvt. Ltd.",
     address: {
         "@type": "PostalAddress",
-        streetAddress: "Unit No.712, 7th Floor, JMD Megapolis, sector-48",
+        streetAddress: contactInfo.streetAddress,
         addressLocality: "Gurgaon",
         addressRegion: "Haryana",
         postalCode: "122018",
