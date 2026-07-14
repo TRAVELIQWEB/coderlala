@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function proxy(req: NextRequest) {
+export function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
 
   const accessToken = req.cookies.get("access_token")?.value;
   const role = req.cookies.get("role")?.value; // ADMIN | USER
 
   if (pathname.startsWith("/admin") || pathname.startsWith("/user")) {
-    if (!accessToken) return NextResponse.redirect(new URL("/login", req.url));
+    if (!accessToken) return NextResponse.redirect(new URL("/auth/login", req.url));
   }
 
   if (pathname.startsWith("/admin") && role !== "ADMIN") {
