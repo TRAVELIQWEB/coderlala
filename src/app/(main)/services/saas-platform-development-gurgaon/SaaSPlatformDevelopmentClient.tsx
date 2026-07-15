@@ -238,7 +238,9 @@ export default function SaaSPlatformDevelopmentClient() {
   // ============================================================
   // SECTION 9.4: EFFECTS - Mobile Detection & Auto-Slides
   // ============================================================
-
+  const averageRating =
+    testimonials.reduce((sum, t) => sum + Number(t.rating), 0) /
+    testimonials.length;
   // 9.4.1: Check if mobile
   useEffect(() => {
     const checkMobile = () => {
@@ -294,7 +296,8 @@ export default function SaaSPlatformDevelopmentClient() {
       postalCode: "122002",
       addressCountry: "IN",
     },
-    geo: { "@type": "GeoCoordinates", latitude: "28.49012", longitude: "77.08051" },
+    geo: { "@type": "GeoCoordinates", latitude: String(contactInfo.latitude), longitude: String(contactInfo.longitude) },
+
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -317,11 +320,19 @@ export default function SaaSPlatformDevelopmentClient() {
         position: index + 1,
       })),
     },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: averageRating.toFixed(1), // e.g. 4.9
+      reviewCount: testimonials.length.toString(),
+      bestRating: "4",
+      worstRating: "1",
+    },
+
     review: testimonials.map((t) => ({
       "@type": "Review",
       reviewRating: {
         "@type": "Rating",
-        ratingValue: t.rating,
+        ratingValue: t.rating.toString(),
         bestRating: "5",
       },
       author: {

@@ -1,6 +1,7 @@
 // app/mobile-app-development-gurgaon/page.tsx
 import { Metadata, Viewport } from "next";
 import MobileAppDevelopmentClient from "./MobileAppDevelopmentClient";
+import { contactInfo } from "@/data/ContactInfo";
 
 // Generate metadata for SEO
 export const metadata: Metadata = {
@@ -57,8 +58,8 @@ export const metadata: Metadata = {
   other: {
     "geo.region": "IN-HR",
     "geo.placename": "Gurgaon",
-    "geo.position": "28.4595;77.0266",
-    "ICBM": "28.4595, 77.0266",
+    "geo.position": `${contactInfo.latitude};${contactInfo.longitude}`,
+    "ICBM": `${contactInfo.latitude}, ${contactInfo.longitude}`,
   },
 };
 

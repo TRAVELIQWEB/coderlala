@@ -19,6 +19,9 @@ export const contactInfo = {
   businessHours: {
     weekdays: "9:30 AM – 7:30 PM",
     saturday: "9:30 AM – 7:30 PM",
-    sunday: "Closed"
-  }
+    sunday: "Closed",
+  },
+  // Add GMBAddress GEO latitude, longitude
+  latitude: 28.419503914895547,
+  longitude: 77.03829562883568
 };

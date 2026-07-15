@@ -224,6 +224,11 @@ export default function EnterpriseSoftwareClient() {
   const faqs = generateFAQs(CITY);
   const faqSchema = generateFAQSchema(faqs);
 
+
+  const averageRating =
+    testimonials.reduce((sum, t) => sum + Number(t.rating), 0) /
+    testimonials.length;
+
   // ============================================================
   // SECTION 7.4: EFFECTS - Mobile Detection & Auto-Slides
   // ============================================================
@@ -281,7 +286,8 @@ export default function EnterpriseSoftwareClient() {
       postalCode: "122002",
       addressCountry: "IN",
     },
-    geo: { "@type": "GeoCoordinates", latitude: "28.49012", longitude: "77.08051" },
+    geo: { "@type": "GeoCoordinates", latitude: String(contactInfo.latitude), longitude: String(contactInfo.longitude) },
+
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -291,11 +297,19 @@ export default function EnterpriseSoftwareClient() {
     areaServed: { "@type": "AdministrativeArea", name: CITY },
     description: `CoderLala is a leading enterprise software development company in ${CITY} offering ERP/CRM integration, legacy modernization, and workflow automation.`,
     priceRange: serviceData?.priceRange || "₹15,00,000 - ₹2,00,00,000+",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: averageRating.toFixed(1), // e.g. 4.9
+      reviewCount: testimonials.length.toString(),
+      bestRating: "4",
+      worstRating: "1",
+    },
+
     review: testimonials.map((t) => ({
       "@type": "Review",
       reviewRating: {
         "@type": "Rating",
-        ratingValue: t.rating,
+        ratingValue: t.rating.toString(),
         bestRating: "5",
       },
       author: {
