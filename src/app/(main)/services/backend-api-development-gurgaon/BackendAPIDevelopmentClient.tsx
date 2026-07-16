@@ -279,6 +279,11 @@ export default function BackendAPIDevelopmentClient() {
     }
   ];
 
+
+  const averageRating =
+    testimonials.reduce((sum, t) => sum + Number(t.rating), 0) /
+    testimonials.length;
+
   // ============================================================
   // SECTION 7.4: EFFECTS - Mobile Detection & Auto-Slides
   // ============================================================
@@ -350,7 +355,8 @@ export default function BackendAPIDevelopmentClient() {
       postalCode: "122002",
       addressCountry: "IN",
     },
-    geo: { "@type": "GeoCoordinates", latitude: "28.49012", longitude: "77.08051" },
+    geo: { "@type": "GeoCoordinates", latitude: String(contactInfo.latitude), longitude: String(contactInfo.longitude) },
+
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -360,11 +366,19 @@ export default function BackendAPIDevelopmentClient() {
     areaServed: { "@type": "AdministrativeArea", name: CITY },
     description: `CoderLala is a leading backend and API development company in ${CITY} offering Node.js, Python, Go, microservices, and GraphQL solutions.`,
     priceRange: serviceData?.priceRange || "₹3,00,000 - ₹20,00,000+",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: averageRating.toFixed(1), // e.g. 4.9
+      reviewCount: testimonials.length.toString(),
+      bestRating: "4",
+      worstRating: "1",
+    },
+
     review: testimonials.map((t) => ({
       "@type": "Review",
       reviewRating: {
         "@type": "Rating",
-        ratingValue: t.rating,
+        ratingValue: t.rating.toString(),
         bestRating: "5",
       },
       author: {

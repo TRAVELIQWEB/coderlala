@@ -1,6 +1,7 @@
 // app/enterprise-software-gurgaon/page.tsx
 import { Metadata, Viewport } from "next";
 import EnterpriseSoftwareClient from "./EnterpriseSoftwareClient";
+import { contactInfo } from "@/data/ContactInfo";
 
 export const metadata: Metadata = {
   title: "Best Enterprise Software Development Company in Gurgaon | CoderLala",
@@ -53,8 +54,8 @@ export const metadata: Metadata = {
   other: {
     "geo.region": "IN-HR",
     "geo.placename": "Gurgaon",
-    "geo.position": "28.4595;77.0266",
-    "ICBM": "28.4595, 77.0266",
+    "geo.position": `${contactInfo.latitude};${contactInfo.longitude}`,
+    "ICBM": `${contactInfo.latitude}, ${contactInfo.longitude}`,
   },
 };
 

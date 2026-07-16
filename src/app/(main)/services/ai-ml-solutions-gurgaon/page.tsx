@@ -2,6 +2,7 @@
 import { Metadata, Viewport } from "next";
 import AIMLSolutionsClient from "./AIMLSolutionsClient";
 
+import { contactInfo } from "@/data/ContactInfo";
 export const metadata: Metadata = {
   title: "Best AI & ML Solutions Company in Gurgaon | CoderLala",
   description: "CoderLala is a leading AI and ML solutions company in Gurgaon offering custom machine learning models, NLP, computer vision, and predictive analytics. Trusted by 500+ businesses.",
@@ -53,8 +54,8 @@ export const metadata: Metadata = {
   other: {
     "geo.region": "IN-HR",
     "geo.placename": "Gurgaon",
-    "geo.position": "28.4595;77.0266",
-    "ICBM": "28.4595, 77.0266",
+    "geo.position": `${contactInfo.latitude};${contactInfo.longitude}`,
+    "ICBM": `${contactInfo.latitude}, ${contactInfo.longitude}`,
   },
 };
 

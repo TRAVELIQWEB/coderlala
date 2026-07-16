@@ -294,7 +294,9 @@ export default function WebDevelopmentClient() {
   const visibleTestimonials = getVisibleTestimonials();
   const totalPages = Math.ceil(testimonials.length / (isMobile ? 2 : 3));
   const currentPage = Math.floor(activeIndex / (isMobile ? 2 : 3));
-
+  const averageRating =
+    testimonials.reduce((sum, t) => sum + Number(t.rating), 0) /
+    testimonials.length;
   // ============================================================
   // SECTION 9.7: SCHEMA MARKUP - Organization & ProfessionalService
   // ============================================================
@@ -314,7 +316,7 @@ export default function WebDevelopmentClient() {
       postalCode: "122002",
       addressCountry: "IN",
     },
-    geo: { "@type": "GeoCoordinates", latitude: "28.49012", longitude: "77.08051" },
+    geo: { "@type": "GeoCoordinates", latitude: String(contactInfo.latitude), longitude: String(contactInfo.longitude) },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -337,11 +339,19 @@ export default function WebDevelopmentClient() {
         position: index + 1,
       })),
     },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: averageRating.toFixed(1), // e.g. 4.9
+      reviewCount: testimonials.length.toString(),
+      bestRating: "4",
+      worstRating: "1",
+    },
+
     review: testimonials.map((t) => ({
       "@type": "Review",
       reviewRating: {
         "@type": "Rating",
-        ratingValue: t.rating,
+        ratingValue: t.rating.toString(),
         bestRating: "5",
       },
       author: {

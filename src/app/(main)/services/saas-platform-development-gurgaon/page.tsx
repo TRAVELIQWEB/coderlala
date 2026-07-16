@@ -1,6 +1,7 @@
 // app/saas-platform-development-gurgaon/page.tsx
 import { Metadata, Viewport } from "next";
 import SaaSPlatformDevelopmentClient from "./SaaSPlatformDevelopmentClient";
+import { contactInfo } from "@/data/ContactInfo";
 // import SaaSPlatformDevelopmentClient from "./SaaSPlatformDevelopmentClient";
 
 // Generate metadata for SEO
@@ -58,8 +59,8 @@ export const metadata: Metadata = {
   other: {
     "geo.region": "IN-HR",
     "geo.placename": "Gurgaon",
-    "geo.position": "28.4595;77.0266",
-    "ICBM": "28.4595, 77.0266",
+    "geo.position": `${contactInfo.latitude};${contactInfo.longitude}`,
+    "ICBM": `${contactInfo.latitude}, ${contactInfo.longitude}`,
   },
 };
 

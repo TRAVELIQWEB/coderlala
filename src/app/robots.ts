@@ -12,6 +12,7 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         "/api/",
         "/admin/",
+        "/user/",
         "/_next/",
         "/private/",
         "/dashboard/",
