@@ -38,7 +38,7 @@ import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
 // import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
-import { contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo, SITE_URL, CANONICAL_URL } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import Breadcrumbs from "../component/location/Breadcrumbs";
 import { Button, QuoteCTA, ServicesButton } from "../component/location/Button";
@@ -57,9 +57,10 @@ import ServiceCard from "../component/location/FeatureCard";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-const CITY = "Gurgaon";
-const CITY_SLUG = "gurgaon";
 const HERO_TAGS = ["Agile Development", "High-Performance Apps", "Digital Transformation", "Expert IT Consulting"];
+// e.g. in a shared config
+const SERVICE_SLUG = "web-development";
+
 const Related_Services = [
   {
     icon: <Code2 className="w-6 h-6" />,
@@ -138,7 +139,7 @@ const testimonials = [
     role: "Founder & Chief Dentist",
     company: "Kreative Dentistry",
     text: "CoderLala created a modern and professional website for our clinic. The layout, appointment system, and overall structure are intuitive, making it very easy for patients to find information.",
-    rating: 3,
+    rating: 4,
     image: "CP",
     color: "from-purple-500 to-pink-500",
   },
@@ -156,7 +157,7 @@ const testimonials = [
     role: "Founder",
     company: "RangRoganWala",
     text: "CoderLala designed a vibrant and high-performance website for our painting services. It showcases our work beautifully and provides visitors with a smooth browsing experience.",
-    rating: 3,
+    rating: 4,
     image: "ZM",
     color: "from-orange-500 to-amber-500",
   },
@@ -303,9 +304,10 @@ export default function WebDevelopmentClient() {
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    "@id": `${CANONICAL_URL}#professionalservice`,
     name: `CoderLala - Best Web Development Company in ${CITY}`,
-    image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/web-development-company-${CITY_SLUG}`,
+    image: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
+    url: CANONICAL_URL,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -325,7 +327,7 @@ export default function WebDevelopmentClient() {
     },
     areaServed: { "@type": "AdministrativeArea", name: CITY },
     description: `CoderLala is a leading web development company in ${CITY} offering custom web development, Next.js, React, and e-commerce solutions.`,
-    priceRange: "₹200000 - ₹5000000",
+    priceRange: "₹₹₹",
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Web Development Services",
@@ -343,7 +345,7 @@ export default function WebDevelopmentClient() {
       "@type": "AggregateRating",
       ratingValue: averageRating.toFixed(1), // e.g. 4.9
       reviewCount: testimonials.length.toString(),
-      bestRating: "4",
+      bestRating: "5",
       worstRating: "1",
     },
 
@@ -389,13 +391,13 @@ export default function WebDevelopmentClient() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://coderlala.com",
+                "item": SITE_URL,
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Web Development Company in Gurgaon",
-                "item": `https://coderlala.com/web-development-company-${CITY_SLUG}`,
+                "item": CANONICAL_URL,
               },
             ],
           }),
@@ -542,11 +544,11 @@ export default function WebDevelopmentClient() {
           <HeadingTitle2 title1="Companies That" title2="Trust Our Solutions" />
 
           <p className="text-muted-foreground text-md mb-10 max-w-4xl px-4 mx-auto">
-            As a trusted <strong>Web Development Company in Gurgaon</strong>, we help startups, SMEs, and enterprises build modern websites, custom web applications, and scalable digital solutions.<br /><br />
+            As a trusted <strong className="text-brand">local team</strong>, we help startups, SMEs, and enterprises build modern websites, custom web applications, and scalable digital solutions.<br /><br />
             Our experienced team combines creativity, technology, and innovation to deliver high-quality websites that provide exceptional user experiences and support long-term business success.
           </p>
 
-          <ClientLogoSlider />
+          <ClientLogoSlider serviceName={SERVICE_SLUG} />
 
           <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 
@@ -738,7 +740,7 @@ export default function WebDevelopmentClient() {
               <SectionBadge icon={<Sparkles className="w-4 h-4 text-yellow-400" />} text="CoderLala Services" />
               <HeadingTitle2 title1={`Expert Web Development`} title2={`Services in ${CITY}`} />
               <p className="text-muted-foreground text-md max-w-4xl mx-auto">
-                From fast, interactive React applications to powerful backend systems, our <strong className="text-brand">Web Development Company in {CITY}</strong> delivers secure, scalable, and high-performance web solutions for startups, SMEs, and enterprises. <br /><br />
+                From fast, interactive React applications to powerful backend systems, our team delivers secure, scalable, and high-performance web solutions for startups, SMEs, and enterprises. <br /><br />
                 We build modern websites and custom web applications using the latest technologies to ensure exceptional user experiences, long-term reliability, and future-ready digital solutions. Explore our comprehensive web development services below to discover how we can help bring your vision to life.
               </p>
             </div>
@@ -788,7 +790,7 @@ export default function WebDevelopmentClient() {
               <SectionBadge icon={<Zap className="w-4 h-4 text-blue-500 dark:text-blue-300" />} text="Our Development Process" />
               <HeadingTitle2 title1="How We Transform Your Ideas" title2="Into Powerful Digital Experiences" />
               <p className="text-muted-foreground text-md mb-10 max-w-4xl mx-auto">
-                As a leading <strong>Web Development Company in Gurgaon</strong>, we follow a strategic and transparent development process to create high-quality websites that are secure, scalable, and performance-driven.
+                We follow a strategic and transparent development process to create high-quality websites that are secure, scalable, and performance-driven.
                 <br /><br />
                 From understanding your business requirements and designing intuitive user experiences to development, testing, and deployment, every step is carefully executed to deliver reliable digital solutions tailored to your goals.
               </p>
@@ -815,7 +817,7 @@ export default function WebDevelopmentClient() {
           <p className="text-muted-foreground text-md px-4 max-w-4xl mx-auto mb-10">
             Our technology stack combines modern frontend frameworks, powerful backend technologies, scalable databases, cloud platforms, and industry-leading development tools to deliver secure, high-performance digital solutions.
             <br /><br />
-            Explore the technologies below that our <strong>Web Development Company in Gurgaon</strong> uses to build fast, scalable, and future-ready websites and web applications.
+            Explore the technologies below that we use to build fast, scalable, and future-ready websites and web applications.
           </p>
 
           {/* Tech Stack Grid */}
@@ -866,7 +868,7 @@ export default function WebDevelopmentClient() {
 
               <HeadingTitle2 title1="Trusted Web Development Company" title2="Serving Businesses Across India" />
               <p className="text-muted-foreground max-w-4xl mx-auto text-md">
-                Don't just take our word for it—discover what our clients have to say about working with our <strong>Web Development Company in Gurgaon</strong>. <br /> <br />From custom websites and web applications to eCommerce solutions, businesses across industries trust CoderLala for quality, innovation, timely delivery, and exceptional customer service.
+                Don't just take our word for it—discover what our clients have to say about working with us. <br /> <br />From custom websites and web applications to eCommerce solutions, businesses across industries trust CoderLala for quality, innovation, timely delivery, and exceptional customer service.
               </p>
             </motion.div>
 

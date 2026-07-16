@@ -45,7 +45,7 @@ import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
 // import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
-import { contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { SectionBadge } from "../component/location/SectionBadge";
 // import { QuoteCTA } from "../component/location/QuoteCTA";
@@ -60,8 +60,7 @@ import ServiceCard from "../component/location/FeatureCard";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-const CITY = "Gurgaon";
-const CITY_SLUG = "gurgaon";
+
 const SERVICE_SLUG = "enterprise-software";
 const HERO_TAGS = ["ERP Integration", "CRM Solutions", "Legacy Modernization", "Workflow Automation", "Enterprise Security"];
 const Related_Services = [
@@ -484,7 +483,7 @@ export default function EnterpriseSoftwareClient() {
             Our experienced enterprise team combines deep domain expertise with technical excellence to deliver robust, scalable, and secure solutions that solve complex business challenges and create measurable value.
           </p>
 
-          <ClientLogoSlider />
+          <ClientLogoSlider serviceName={SERVICE_SLUG} />
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
             <QuoteCTA scrollToForm={scrollToForm} />

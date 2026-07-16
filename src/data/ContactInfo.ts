@@ -25,3 +25,10 @@ export const contactInfo = {
   latitude: 28.419503914895547,
   longitude: 77.03829562883568
 };
+
+// data/ContactInfo.ts  (add this alongside your existing contactInfo export)
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://coderlala.com";
+export const CITY = "Gurgaon";
+export const CITY_SLUG = "gurgaon";
+export const CANONICAL_PATH = `/services/web-development-company-${CITY_SLUG}`;
+export const CANONICAL_URL = `${SITE_URL}${CANONICAL_PATH}`;
