@@ -45,7 +45,7 @@ import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
-import { contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { SectionBadge } from "../component/location/SectionBadge";
 import { Button, QuoteCTA } from "../component/location/Button";
@@ -59,8 +59,6 @@ import ClientLogoSlider from "../component/location/ClientLogoSlider";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-const CITY = "Gurgaon";
-const CITY_SLUG = "gurgaon";
 const SERVICE_SLUG = "backend-api-development";
 const HERO_TAGS = ["Node.js", "Python", "Go", "GraphQL", "Microservices"];
 const Related_Services = [
@@ -552,7 +550,7 @@ export default function BackendAPIDevelopmentClient() {
             Our experienced backend engineers combine deep technical expertise with modern architecture patterns to deliver robust solutions that handle millions of requests with 99.99% uptime.
           </p>
 
-          <ClientLogoSlider />
+          <ClientLogoSlider serviceName={SERVICE_SLUG} />
 
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">

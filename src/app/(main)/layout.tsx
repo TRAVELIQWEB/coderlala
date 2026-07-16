@@ -34,7 +34,7 @@ export const metadata = {
         ],
     },
     verification: {
-        google: '7dJiKc0vNEpuoWpOB6GCNYcPbnF80X5msZ6KcJClyOA',
+        google: process.env.NEXT_PUBLIC_GSC_ID,
     },
     title: {
         default:
@@ -215,5 +215,3 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         </>
     );
 }
-
-

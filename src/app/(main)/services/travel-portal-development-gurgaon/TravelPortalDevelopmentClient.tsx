@@ -57,8 +57,7 @@ import ServiceCard from "../component/location/FeatureCard";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-const CITY = "Gurgaon";
-const CITY_SLUG = "gurgaon";
+
 const SERVICE_SLUG = "travel-portal-development";
 const HERO_TAGS = ["IRCTC API Integration", "Flight Booking", "Railway Booking", "B2B & B2C Portals"];
 const Related_Services = [
@@ -477,7 +476,7 @@ export default function TravelPortalDevelopmentClient() {
             Our experienced team combines deep travel industry knowledge with cutting-edge technology to deliver robust travel portals that provide exceptional user experiences and support long-term business growth.
           </p>
 
-          <ClientLogoSlider />
+          <ClientLogoSlider serviceName={SERVICE_SLUG} />
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
             <QuoteCTA scrollToForm={scrollToForm} />

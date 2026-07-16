@@ -47,7 +47,7 @@ import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
 // import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
-import { contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { SectionBadge } from "../component/location/SectionBadge";
 // import { QuoteCTA } from "../component/location/QuoteCTA";
@@ -61,8 +61,7 @@ import ServiceCard from "../component/location/FeatureCard";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-const CITY = "Gurgaon";
-const CITY_SLUG = "gurgaon";
+
 const SERVICE_SLUG = "ui-ux-design";
 const HERO_TAGS = ["Figma", "Adobe XD", "Design Systems", "Prototyping", "User Research"];
 const Related_Services = [
@@ -501,7 +500,7 @@ export default function UIUXDesignClient() {
             Our experienced design team combines user research, design thinking, and visual design expertise to deliver exceptional user experiences that solve real user problems and create measurable business impact.
           </p>
 
-          <ClientLogoSlider />
+          <ClientLogoSlider serviceName={SERVICE_SLUG} />
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
             <QuoteCTA scrollToForm={scrollToForm} />

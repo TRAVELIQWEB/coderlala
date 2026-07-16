@@ -46,7 +46,7 @@ import {
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
-import { contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { services } from "../data/services/service";
 import { generateFAQs, generateFAQSchema } from "./faqs";
@@ -65,8 +65,9 @@ import ServiceCard from "../component/location/FeatureCard";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-const CITY = "Gurgaon";
-const CITY_SLUG = "gurgaon";
+
+const SERVICE_SLUG = "web-development";
+
 const HERO_TAGS = ["Multi-Tenant Architecture", "Cloud-Native", "Microservices", "Enterprise-Grade"];
 const Related_Services = [
   {
@@ -527,7 +528,7 @@ export default function SaaSPlatformDevelopmentClient() {
             Our experienced team combines deep technical expertise, cloud-native architecture, and industry best practices to deliver high-quality SaaS solutions that provide exceptional user experiences and support long-term business success.
           </p>
 
-          <ClientLogoSlider />
+          <ClientLogoSlider serviceName={SERVICE_SLUG} />
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
             <QuoteCTA scrollToForm={scrollToForm} />

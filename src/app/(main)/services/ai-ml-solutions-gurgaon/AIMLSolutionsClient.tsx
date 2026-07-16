@@ -46,7 +46,7 @@ import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
-import { contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { SectionBadge } from "../component/location/SectionBadge";
 import { Button, QuoteCTA } from "../component/location/Button";
@@ -60,8 +60,6 @@ import ClientLogoSlider from "../component/location/ClientLogoSlider";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-const CITY = "Gurgaon";
-const CITY_SLUG = "gurgaon";
 const SERVICE_SLUG = "ai-ml-solutions";
 const HERO_TAGS = ["Machine Learning", "NLP", "Computer Vision", "Predictive Analytics", "OpenAI"];
 const Related_Services = [
@@ -549,7 +547,7 @@ export default function AIMLSolutionsClient() {
             Our experienced AI engineers combine deep technical expertise with domain knowledge to deliver intelligent solutions that solve complex business problems and create measurable value.
           </p>
 
-          <ClientLogoSlider />
+          <ClientLogoSlider serviceName={SERVICE_SLUG} />
 
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">

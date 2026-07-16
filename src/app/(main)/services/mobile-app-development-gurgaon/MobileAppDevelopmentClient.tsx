@@ -57,7 +57,7 @@ import { services } from "@/app/(main)/services/data/services/service";
 
 // import { mobileAppServices } from "@/app/(main)/services/data/services/mobile-app-services";
 // import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
-import { contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 // import ContactForm from "../web-development-company-gurgaon/ContactForm";
 import { generateFAQs, generateFAQSchema } from "./faqs"; // Keep this as it is local
@@ -75,8 +75,8 @@ import ServiceCard from "../component/location/FeatureCard";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-const CITY = "Gurgaon";
-const CITY_SLUG = "gurgaon";
+
+const SERVICE_SLUG = "mobile-app-development";
 const HERO_TAGS = ["iOS & Android Apps", "Cross-Platform", "UI/UX Design", "App Store Launch"];
 const Related_Services = [
   {
@@ -605,7 +605,7 @@ export default function MobileAppDevelopmentClient() {
             Our experienced team combines creativity, technology, and innovation to deliver high-quality mobile apps that provide exceptional user experiences and support long-term business success.
           </p>
 
-          <ClientLogoSlider />
+          <ClientLogoSlider serviceName={SERVICE_SLUG} />
 
           {/* Button to explore all services */}
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">

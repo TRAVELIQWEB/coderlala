@@ -1,7 +1,8 @@
 // app/services/web-development-company-gurgaon/page.tsx
 import { Metadata, Viewport } from "next";
 import WebDevelopmentClient from "./WebDevelopmentClient";
-import { contactInfo } from "@/data/ContactInfo";
+import { contactInfo, CANONICAL_PATH, SITE_URL } from "@/data/ContactInfo";
+
 
 // Generate metadata for SEO
 export const metadata: Metadata = {
@@ -9,22 +10,22 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading web development company in Gurgaon offering custom web development, Next.js, React, and e-commerce solutions. Trusted by 500+ businesses.",
   keywords: "web development company Gurgaon, web development Gurgaon, custom web development, website development company Gurgaon, react development, next js development, ecommerce development Gurgaon, web developer Gurgaon, web design company Gurgaon, software development Gurgaon, IT services Gurgaon, digital agency Gurgaon",
   alternates: {
-    canonical: "/services/web-development-company-gurgaon",
+    canonical: CANONICAL_PATH,
   },
   openGraph: {
     title: "Best Web Development Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading web development company in Gurgaon offering custom web development, Next.js, React, and e-commerce solutions. Trusted by 500+ businesses.",
-    url: "/services/web-development-company-gurgaon",
+    url: CANONICAL_PATH,
     siteName: "CoderLala",
     images: [
       {
-        url: "/images/gurgaon-og/og-image-web-development-gurgaon.jpg",
+        url: `${SITE_URL}/images/gurgaon-og/og-image-web-development-gurgaon.jpg`,
         width: 1200,
         height: 630,
         alt: "CoderLala - Best Web Development Company in Gurgaon",
       },
       {
-        url: "/logo/CoderLalaLogoDark.svg",
+        url: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
         width: 512,
         height: 512,
         alt: "CoderLala Logo",
@@ -38,8 +39,8 @@ export const metadata: Metadata = {
     title: "Best Web Development Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading web development company in Gurgaon offering custom web development, Next.js, React, and e-commerce solutions.",
     images: [
-      "/images/gurgaon-og/og-image-web-development-gurgaon.jpg",
-      "/logo/CoderLalaLogoDark.svg",
+      `${SITE_URL}/images/gurgaon-og/og-image-web-development-gurgaon.jpg`,
+      `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
     ],
     site: "@coderlala",
     creator: "@coderlala",

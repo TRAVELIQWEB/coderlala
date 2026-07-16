@@ -49,7 +49,7 @@ import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
-import { contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { SectionBadge } from "../component/location/SectionBadge";
 import { Button, QuoteCTA } from "../component/location/Button";
@@ -62,8 +62,6 @@ import ClientLogoSlider from "../component/location/ClientLogoSlider";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-const CITY = "Gurgaon";
-const CITY_SLUG = "gurgaon";
 const SERVICE_SLUG = "cloud-devops";
 const HERO_TAGS = ["AWS", "Azure", "GCP", "Kubernetes", "Docker", "Terraform"];
 const Related_Services = [
@@ -555,7 +553,7 @@ export default function CloudDevOpsClient() {
             As a trusted <strong>Cloud & DevOps Company in Gurgaon</strong>, we help businesses build scalable, secure, and cost-optimized cloud infrastructure that powers their applications and drives business growth.<br /><br />
             Our experienced cloud engineers combine deep infrastructure expertise with automation best practices to deliver reliable systems that handle traffic spikes, ensure high availability, and reduce operational costs.
           </p>
-          <ClientLogoSlider />
+          <ClientLogoSlider serviceName={SERVICE_SLUG} />
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
             <QuoteCTA scrollToForm={scrollToForm} />
