@@ -49,7 +49,7 @@ import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
-import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, CLOUD_DEVOPS_GURGAON_PAGE_NAME, contactInfo, SITE_URL } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { SectionBadge } from "../component/location/SectionBadge";
 import { Button, QuoteCTA } from "../component/location/Button";
@@ -63,6 +63,7 @@ import ClientLogoSlider from "../component/location/ClientLogoSlider";
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
 const SERVICE_SLUG = "cloud-devops";
+const CANONICAL_URL = `${SITE_URL}/cloud-devops-${CITY_SLUG}`;
 const HERO_TAGS = ["AWS", "Azure", "GCP", "Kubernetes", "Docker", "Terraform"];
 const Related_Services = [
   {
@@ -217,7 +218,6 @@ export default function CloudDevOpsClient() {
     block: "start",
   });
   const [activeIndex, setActiveIndex] = useState(0);
-  const [clientLogoIndex, setClientLogoIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   // ============================================================
@@ -311,20 +311,10 @@ export default function CloudDevOpsClient() {
     return () => clearInterval(timer);
   }, [isMobile]);
 
-  useEffect(() => {
-    const clientLogoTimer = setInterval(() => {
-      setClientLogoIndex((prev) => (prev + 1) % clientLogos.length);
-    }, 3000);
-    return () => clearInterval(clientLogoTimer);
-  }, [clientLogos.length]);
 
   // ============================================================
   // SECTION 7.5: COMPUTED VALUES
   // ============================================================
-  const visibleClientLogos = clientLogos.slice(clientLogoIndex, clientLogoIndex + 5);
-  if (clientLogoIndex + 5 > clientLogos.length) {
-    visibleClientLogos.push(...clientLogos.slice(0, (clientLogoIndex + 5) % clientLogos.length));
-  }
 
   const getVisibleTestimonials = () => {
     const itemsPerPage = isMobile ? 2 : 3;
@@ -343,8 +333,8 @@ export default function CloudDevOpsClient() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: `CoderLala - Best Cloud & DevOps Company in ${CITY}`,
-    image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/cloud-devops-${CITY_SLUG}`,
+    image: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
+    url: CANONICAL_URL,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -369,9 +359,9 @@ export default function CloudDevOpsClient() {
 
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: averageRating.toFixed(1), // e.g. 4.9
-      reviewCount: testimonials.length.toString(),
-      bestRating: "4",
+      ratingValue: "4.8",
+      reviewCount: "6",
+      bestRating: "5",
       worstRating: "1",
     },
 
@@ -407,18 +397,9 @@ export default function CloudDevOpsClient() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://coderlala.com",
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Cloud & DevOps Company in Gurgaon",
-                "item": `https://coderlala.com/cloud-devops-${CITY_SLUG}`,
-              },
+              // BreadcrumbList
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL },
+              { "@type": "ListItem", "position": 2, "name": "Cloud & DevOps", "item": CANONICAL_URL },
             ],
           }),
         }}
@@ -553,7 +534,7 @@ export default function CloudDevOpsClient() {
             As a trusted <strong>Cloud & DevOps Company in Gurgaon</strong>, we help businesses build scalable, secure, and cost-optimized cloud infrastructure that powers their applications and drives business growth.<br /><br />
             Our experienced cloud engineers combine deep infrastructure expertise with automation best practices to deliver reliable systems that handle traffic spikes, ensure high availability, and reduce operational costs.
           </p>
-          <ClientLogoSlider serviceName={SERVICE_SLUG} />
+          <ClientLogoSlider serviceName={CLOUD_DEVOPS_GURGAON_PAGE_NAME} city={CITY} />
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
             <QuoteCTA scrollToForm={scrollToForm} />

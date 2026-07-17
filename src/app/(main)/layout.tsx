@@ -202,9 +202,10 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                 <GalaxyBackground />
             </div>
             <NavbarClientWrapper />
-            <main className="min-h-screen">{children}
+            <main className="min-h-screen">
+                {children}
                 <WhatsAppButton
-                    phoneNumber={`${contactInfo.salmanNizamPhone}`} // Replace with your actual phone number
+                    phoneNumber={`91${contactInfo.salmanNizamPhone}`} // Replace with your actual phone number
                     message="Hi, I'm interested in your services!" // Optional custom message
                     position="bottom-right" // or "bottom-left"
                     showPopup={true}

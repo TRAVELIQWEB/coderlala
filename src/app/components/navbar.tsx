@@ -197,21 +197,23 @@ export default function EnhancedNavbar() {
               >
                 <div className="flex items-center justify-between">
                   {/* Mobile Menu Logo - Smaller */}
-                  <div className="relative w-38  sm:w-46  md:w-37.5  lg:w-50 ">
-                    {!isDarkMode ? (
-                      <img
-                        src="/logo/CoderLalaLogoLight.svg"
-                        alt="CoderLala Logo"
-                        className="w-full h-full object-contain"
-                      />
-                    ) : (
-                      <img
-                        src="/logo/CoderLalaLogoDark.svg"
-                        alt="CoderLala Logo"
-                        className="w-full h-full object-contain"
-                      />
-                    )}
-                  </div>
+                  <Link href="/" className="inline-block">
+                    <div className="relative w-38 sm:w-46 md:w-37.5 lg:w-50">
+                      {!isDarkMode ? (
+                        <img
+                          src="/logo/CoderLalaLogoLight.svg"
+                          alt="CoderLala Logo"
+                          className="w-full h-full object-contain"
+                        />
+                      ) : (
+                        <img
+                          src="/logo/CoderLalaLogoDark.svg"
+                          alt="CoderLala Logo"
+                          className="w-full h-full object-contain"
+                        />
+                      )}
+                    </div>
+                  </Link>
                   <Button
                     onClick={() => setIsOpen(false)}
                     size="icon"

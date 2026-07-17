@@ -27,8 +27,29 @@ export const contactInfo = {
 };
 
 // data/ContactInfo.ts  (add this alongside your existing contactInfo export)
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://coderlala.com";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL! || "https://coderlala.com";
 export const CITY = "Gurgaon";
 export const CITY_SLUG = "gurgaon";
-export const CANONICAL_PATH = `/services/web-development-company-${CITY_SLUG}`;
-export const CANONICAL_URL = `${SITE_URL}${CANONICAL_PATH}`;
+
+// SEO Local Page URLs
+export const WEB_DEV_GURGAON_PAGE_NAME = `Web Development Company ${CITY}`;
+export const AI_ML_GURGAON_PAGE_NAME = `AI/ML Solutions ${CITY}`;
+export const MOBILE_APP_DEV_GURGAON_PAGE_NAME = `Mobile App Development ${CITY}`;
+export const SAAS_PLATFORM_DEV_GURGAON_PAGE_NAME = `SaaS Platform Development ${CITY}`;
+export const UI_UX_DESIGN_GURGAON_PAGE_NAME = `UI/UX Design ${CITY}`;
+export const CLOUD_DEVOPS_GURGAON_PAGE_NAME = `Cloud & DevOps ${CITY}`;
+export const BACKEND_API_DEV_GURGAON_PAGE_NAME = `Backend & API Development ${CITY}`;
+export const ENTERPRISE_SOFTWARE_GURGAON_PAGE_NAME = `Enterprise Software ${CITY}`;
+export const TRAVEL_PORTAL_DEV_GURGAON_PAGE_NAME = `Travel Portal Development ${CITY}`;
+
+
+// SEO Local Page Name
+export const WEB_DEV_GURGAON_URL = `${SITE_URL}/services/web-development-company-${CITY_SLUG}`;
+export const AI_ML_GURGAON_URL = `${SITE_URL}/services/ai-ml-solutions-${CITY_SLUG}`;
+export const MOBILE_APP_DEV_GURGAON_URL = `${SITE_URL}/services/mobile-app-development-${CITY_SLUG}`;
+export const SAAS_PLATFORM_DEV_GURGAON_URL = `${SITE_URL}/services/saas-platform-development-${CITY_SLUG}`;
+export const UI_UX_DESIGN_GURGAON_URL = `${SITE_URL}/services/ui-ux-design-${CITY_SLUG}`;
+export const CLOUD_DEVOPS_GURGAON_URL = `${SITE_URL}/services/cloud-devops-${CITY_SLUG}`;
+export const BACKEND_API_DEV_GURGAON_URL = `${SITE_URL}/services/backend-api-development-${CITY_SLUG}`;
+export const ENTERPRISE_SOFTWARE_GURGAON_URL = `${SITE_URL}/services/enterprise-software-${CITY_SLUG}`;
+export const TRAVEL_PORTAL_DEV_GURGAON_URL = `${SITE_URL}/services/travel-portal-development-${CITY_SLUG}`;

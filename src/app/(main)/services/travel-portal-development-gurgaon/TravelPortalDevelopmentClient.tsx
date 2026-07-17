@@ -42,7 +42,7 @@ import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
 // import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
-import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo, SITE_URL, TRAVEL_PORTAL_DEV_GURGAON_PAGE_NAME } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { SectionBadge } from "../component/location/SectionBadge";
 // import { QuoteCTA } from "../component/location/QuoteCTA";
@@ -57,8 +57,7 @@ import ServiceCard from "../component/location/FeatureCard";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-
-const SERVICE_SLUG = "travel-portal-development";
+const CANONICAL_URL = `${SITE_URL}/travel-portal-development-${CITY_SLUG}`;
 const HERO_TAGS = ["IRCTC API Integration", "Flight Booking", "Railway Booking", "B2B & B2C Portals"];
 const Related_Services = [
   {
@@ -216,7 +215,7 @@ export default function TravelPortalDevelopmentClient() {
   const averageRating =
     testimonials.reduce((sum, t) => sum + Number(t.rating), 0) /
     testimonials.length;
-  
+
   // ============================================================
   // SECTION 7.4: EFFECTS - Mobile Detection & Auto-Slides
   // ============================================================
@@ -266,8 +265,8 @@ export default function TravelPortalDevelopmentClient() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: `CoderLala - Best Travel Portal Development Company in ${CITY}`,
-    image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/travel-portal-development-${CITY_SLUG}`,
+    image: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
+    url: CANONICAL_URL,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -293,7 +292,7 @@ export default function TravelPortalDevelopmentClient() {
       "@type": "AggregateRating",
       ratingValue: averageRating.toFixed(1), // e.g. 4.9
       reviewCount: testimonials.length.toString(),
-      bestRating: "4",
+      bestRating: "5",
       worstRating: "1",
     },
 
@@ -329,18 +328,9 @@ export default function TravelPortalDevelopmentClient() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://coderlala.com",
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Travel Portal Development Company in Gurgaon",
-                "item": `https://coderlala.com/travel-portal-development-${CITY_SLUG}`,
-              },
+              // BreadcrumbList
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL },
+              { "@type": "ListItem", "position": 2, "name": "Travel Portal Development", "item": CANONICAL_URL },
             ],
           }),
         }}
@@ -476,7 +466,7 @@ export default function TravelPortalDevelopmentClient() {
             Our experienced team combines deep travel industry knowledge with cutting-edge technology to deliver robust travel portals that provide exceptional user experiences and support long-term business growth.
           </p>
 
-          <ClientLogoSlider serviceName={SERVICE_SLUG} />
+          <ClientLogoSlider serviceName={TRAVEL_PORTAL_DEV_GURGAON_PAGE_NAME} city={CITY} />
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
             <QuoteCTA scrollToForm={scrollToForm} />

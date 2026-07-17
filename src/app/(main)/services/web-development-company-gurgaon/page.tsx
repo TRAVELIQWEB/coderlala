@@ -1,7 +1,7 @@
 // app/services/web-development-company-gurgaon/page.tsx
 import { Metadata, Viewport } from "next";
 import WebDevelopmentClient from "./WebDevelopmentClient";
-import { contactInfo, CANONICAL_PATH, SITE_URL } from "@/data/ContactInfo";
+import { contactInfo, SITE_URL, CITY_SLUG } from "@/data/ContactInfo";
 
 
 // Generate metadata for SEO
@@ -10,12 +10,12 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading web development company in Gurgaon offering custom web development, Next.js, React, and e-commerce solutions. Trusted by 500+ businesses.",
   keywords: "web development company Gurgaon, web development Gurgaon, custom web development, website development company Gurgaon, react development, next js development, ecommerce development Gurgaon, web developer Gurgaon, web design company Gurgaon, software development Gurgaon, IT services Gurgaon, digital agency Gurgaon",
   alternates: {
-    canonical: CANONICAL_PATH,
+    canonical: `/services/web-development-company-${CITY_SLUG}`,
   },
   openGraph: {
     title: "Best Web Development Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading web development company in Gurgaon offering custom web development, Next.js, React, and e-commerce solutions. Trusted by 500+ businesses.",
-    url: CANONICAL_PATH,
+    url: `/services/web-development-company-${CITY_SLUG}`,
     siteName: "CoderLala",
     images: [
       {

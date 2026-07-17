@@ -38,7 +38,7 @@ import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
 // import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
-import { CITY, CITY_SLUG, contactInfo, SITE_URL, CANONICAL_URL } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo, SITE_URL, WEB_DEV_GURGAON_PAGE_NAME, WEB_DEV_GURGAON_URL } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import Breadcrumbs from "../component/location/Breadcrumbs";
 import { Button, QuoteCTA, ServicesButton } from "../component/location/Button";
@@ -304,10 +304,10 @@ export default function WebDevelopmentClient() {
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": `${CANONICAL_URL}#professionalservice`,
+    "@id": `${WEB_DEV_GURGAON_URL}#professionalservice`,
     name: `CoderLala - Best Web Development Company in ${CITY}`,
     image: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
-    url: CANONICAL_URL,
+    url: WEB_DEV_GURGAON_URL,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -397,7 +397,7 @@ export default function WebDevelopmentClient() {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Web Development Company in Gurgaon",
-                "item": CANONICAL_URL,
+                "item": WEB_DEV_GURGAON_URL,
               },
             ],
           }),
@@ -548,7 +548,7 @@ export default function WebDevelopmentClient() {
             Our experienced team combines creativity, technology, and innovation to deliver high-quality websites that provide exceptional user experiences and support long-term business success.
           </p>
 
-          <ClientLogoSlider serviceName={SERVICE_SLUG} />
+          <ClientLogoSlider serviceName={WEB_DEV_GURGAON_PAGE_NAME} />
 
           <div className="flex flex-col sm:flex-row mt-10 gap-3 sm:gap-4 justify-center">
 

@@ -47,7 +47,7 @@ import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
 // import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
-import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo, SITE_URL, UI_UX_DESIGN_GURGAON_PAGE_NAME } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { SectionBadge } from "../component/location/SectionBadge";
 // import { QuoteCTA } from "../component/location/QuoteCTA";
@@ -61,45 +61,45 @@ import ServiceCard from "../component/location/FeatureCard";
 // ============================================================
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
-
+const CANONICAL_URL = `${SITE_URL}/ui-ux-design-${CITY_SLUG}`;
 const SERVICE_SLUG = "ui-ux-design";
 const HERO_TAGS = ["Figma", "Adobe XD", "Design Systems", "Prototyping", "User Research"];
 const Related_Services = [
   {
-    icon: <Brain className="w-6 h-6" />,
-    title: "Machine Learning Models",
-    desc: "Custom ML models for classification, regression, and time series forecasting.",
-    iconBg: "bg-purple-500"
-  },
-  {
     icon: <Search className="w-6 h-6" />,
-    title: "NLP Solutions",
-    desc: "Natural language processing for sentiment analysis, chatbots, and document understanding.",
+    title: "User Research & Discovery",
+    desc: "In-depth user interviews, surveys, and behavioral analysis to inform design decisions.",
     iconBg: "bg-blue-500"
   },
   {
-    icon: <Layout className="w-6 h-6" />,
-    title: "Computer Vision",
-    desc: "Image classification, object detection, OCR, and facial recognition solutions.",
-    iconBg: "bg-cyan-500"
+    icon: <Layers className="w-6 h-6" />,
+    title: "Wireframing & Prototyping",
+    desc: "Low to high-fidelity wireframes and interactive prototypes for rapid iteration.",
+    iconBg: "bg-purple-500"
   },
   {
-    icon: <BarChart3 className="w-6 h-6" />,
-    title: "Predictive Analytics",
-    desc: "Demand forecasting, churn prediction, risk assessment, and fraud detection.",
+    icon: <Palette className="w-6 h-6" />,
+    title: "UI Visual Design",
+    desc: "Pixel-perfect, brand-aligned interface design across web and mobile platforms.",
     iconBg: "bg-orange-500"
   },
   {
-    icon: <Server className="w-6 h-6" />,
-    title: "LLM Integration",
-    desc: "Large Language Model integration for content generation and conversational AI.",
+    icon: <Database className="w-6 h-6" />,
+    title: "Design Systems",
+    desc: "Scalable component libraries and design tokens for consistent product development.",
+    iconBg: "bg-indigo-500"
+  },
+  {
+    icon: <MousePointer className="w-6 h-6" />,
+    title: "Usability Testing",
+    desc: "Moderated and unmoderated testing sessions to validate design decisions with real users.",
     iconBg: "bg-green-500"
   },
   {
-    icon: <Database className="w-6 h-6" />,
-    title: "MLOps Services",
-    desc: "Model deployment, monitoring, versioning, and automated retraining pipelines.",
-    iconBg: "bg-indigo-500"
+    icon: <Layout className="w-6 h-6" />,
+    title: "Accessibility Design",
+    desc: "WCAG-compliant interfaces designed to be usable by everyone, including assistive tech users.",
+    iconBg: "bg-cyan-500"
   }
 ];
 
@@ -288,8 +288,8 @@ export default function UIUXDesignClient() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: `CoderLala - Best UI/UX Design Company in ${CITY}`,
-    image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/ui-ux-design-${CITY_SLUG}`,
+    image: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
+    url: CANONICAL_URL,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -313,9 +313,9 @@ export default function UIUXDesignClient() {
     priceRange: serviceData?.priceRange || "₹1,00,000 - ₹10,00,000+",
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: averageRating.toFixed(1), // e.g. 4.9
-      reviewCount: testimonials.length.toString(),
-      bestRating: "4",
+      ratingValue: "4.8",
+      reviewCount: "6",
+      bestRating: "5",
       worstRating: "1",
     },
 
@@ -351,18 +351,9 @@ export default function UIUXDesignClient() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://coderlala.com",
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "UI/UX Design Company in Gurgaon",
-                "item": `https://coderlala.com/ui-ux-design-${CITY_SLUG}`,
-              },
+              // BreadcrumbList
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL },
+              { "@type": "ListItem", "position": 2, "name": "UI/UX Design", "item": CANONICAL_URL },
             ],
           }),
         }}
@@ -500,7 +491,7 @@ export default function UIUXDesignClient() {
             Our experienced design team combines user research, design thinking, and visual design expertise to deliver exceptional user experiences that solve real user problems and create measurable business impact.
           </p>
 
-          <ClientLogoSlider serviceName={SERVICE_SLUG} />
+          <ClientLogoSlider serviceName={UI_UX_DESIGN_GURGAON_PAGE_NAME} city={CITY} />
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
             <QuoteCTA scrollToForm={scrollToForm} />

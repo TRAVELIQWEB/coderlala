@@ -52,18 +52,12 @@ import {
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
-// import { generateFAQs, generateFAQSchema } from "./faqs";
-import { services } from "@/app/(main)/services/data/services/service";
 
-// import { mobileAppServices } from "@/app/(main)/services/data/services/mobile-app-services";
-// import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
-import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
+import { MOBILE_APP_DEV_GURGAON_URL, CITY, CITY_SLUG, contactInfo, SITE_URL, MOBILE_APP_DEV_GURGAON_PAGE_NAME } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
-// import ContactForm from "../web-development-company-gurgaon/ContactForm";
 import { generateFAQs, generateFAQSchema } from "./faqs"; // Keep this as it is local
 import Breadcrumbs from "../component/location/Breadcrumbs"; // Change to local import
 import { Button, QuoteCTA } from "../component/location/Button"; // Change to local import
-// import { QuoteCTA } from "../component/location/QuoteCTA"; // Change to local import
 import { SectionBadge } from "../component/location/SectionBadge"; // Change to local import
 import ServiceProcessSection from "./ServiceProcessSection";
 import ContactForm from "@/app/components/ContactForm";
@@ -76,7 +70,6 @@ import ServiceCard from "../component/location/FeatureCard";
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
 
-const SERVICE_SLUG = "mobile-app-development";
 const HERO_TAGS = ["iOS & Android Apps", "Cross-Platform", "UI/UX Design", "App Store Launch"];
 const Related_Services = [
   {
@@ -131,14 +124,6 @@ const OFFICE = {
 // ============================================================
 // SECTION 4: INDUSTRIES DATA
 // ============================================================
-const INDUSTRIES = [
-  { name: "Startups", icon: Rocket },
-  { name: "Healthcare", icon: Heart },
-  { name: "Education", icon: GraduationCap },
-  { name: "Real Estate", icon: Building2 },
-  { name: "FinTech", icon: Briefcase },
-  { name: "E-Commerce", icon: ShoppingCart },
-];
 
 // ============================================================
 // SECTION 5: TESTIMONIALS DATA
@@ -225,28 +210,6 @@ const techStack = [
   { name: "Appium", icon: SiAppium, color: "text-purple-500" },
 ];
 
-// ============================================================
-// SECTION 7: HELPER COMPONENT - GraduationCap Icon
-// ============================================================
-function GraduationCap(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-      <path d="M6 12v5c3 3 9 3 12 0v-5" />
-    </svg>
-  );
-}
 
 // ============================================================
 // SECTION 8: MOBILE APP DEVELOPMENT SERVICES DATA
@@ -303,7 +266,6 @@ export default function MobileAppDevelopmentClient() {
     block: "start",
   });
   const [activeIndex, setActiveIndex] = useState(0);
-  const [clientLogoIndex, setClientLogoIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   // ============================================================
@@ -362,9 +324,11 @@ export default function MobileAppDevelopmentClient() {
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: `CoderLala - Best Mobile App Development Company in ${CITY}`,
-    image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/mobile-app-development-${CITY_SLUG}`,
+    "@id": `${MOBILE_APP_DEV_GURGAON_URL}#professionalservice`,
+    name: `CoderLala`,
+    image: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
+    url: MOBILE_APP_DEV_GURGAON_URL,
+    logo: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -389,13 +353,9 @@ export default function MobileAppDevelopmentClient() {
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Mobile App Development Services",
-      itemListElement: services.map((service, index) => ({
+      itemListElement: MOBILE_SERVICES.map((service, index) => ({
         "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: service.title,
-          description: service.description,
-        },
+        itemOffered: { "@type": "Service", name: service.title, description: service.desc },
         position: index + 1,
       })),
     },
@@ -408,15 +368,8 @@ export default function MobileAppDevelopmentClient() {
     },
     review: testimonials.map((t) => ({
       "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: t.rating.toString(),
-        bestRating: "5",
-      },
-      author: {
-        "@type": "Person",
-        name: t.name,
-      },
+      reviewRating: { "@type": "Rating", ratingValue: t.rating.toString(), bestRating: "5" },
+      author: { "@type": "Person", name: t.name },
       reviewBody: t.text,
     })),
   };
@@ -444,18 +397,9 @@ export default function MobileAppDevelopmentClient() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://coderlala.com",
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Mobile App Development Company in Gurgaon",
-                "item": `https://coderlala.com/mobile-app-development-${CITY_SLUG}`,
-              },
+              // BreadcrumbList — replace both hardcoded items
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL },
+              { "@type": "ListItem", "position": 2, "name": "Mobile App Development Company in Gurgaon", "item": MOBILE_APP_DEV_GURGAON_URL },
             ],
           }),
         }}
@@ -605,7 +549,7 @@ export default function MobileAppDevelopmentClient() {
             Our experienced team combines creativity, technology, and innovation to deliver high-quality mobile apps that provide exceptional user experiences and support long-term business success.
           </p>
 
-          <ClientLogoSlider serviceName={SERVICE_SLUG} />
+          <ClientLogoSlider serviceName={MOBILE_APP_DEV_GURGAON_PAGE_NAME} city={CITY} />
 
           {/* Button to explore all services */}
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
@@ -865,7 +809,7 @@ export default function MobileAppDevelopmentClient() {
           <p className="text-muted-foreground text-md px-4 max-w-4xl mx-auto mb-10">
             Our technology stack combines modern mobile frameworks, powerful backend technologies, scalable databases, cloud platforms, and industry-leading development tools to deliver secure, high-performance mobile applications.
             <br /><br />
-            Explore the technologies below that our <strong>Mobile App Development Company in Gurgaon</strong> uses to build fast, scalable, and future-ready mobile apps.
+            Explore the technologies below that we use to build fast, scalable, and future-ready mobile apps.
           </p>
 
           {/* Tech Stack Grid */}

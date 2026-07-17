@@ -45,7 +45,7 @@ import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
 // import { ServiceCardLocation, ServicesButton } from "@/app/components/services/ServiceCard";
-import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
+import { CITY, CITY_SLUG, contactInfo, ENTERPRISE_SOFTWARE_GURGAON_PAGE_NAME, SITE_URL } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { SectionBadge } from "../component/location/SectionBadge";
 // import { QuoteCTA } from "../component/location/QuoteCTA";
@@ -62,6 +62,7 @@ import ServiceCard from "../component/location/FeatureCard";
 // ============================================================
 
 const SERVICE_SLUG = "enterprise-software";
+const CANONICAL_URL = `${SITE_URL}/enterprise-software-${CITY_SLUG}`;
 const HERO_TAGS = ["ERP Integration", "CRM Solutions", "Legacy Modernization", "Workflow Automation", "Enterprise Security"];
 const Related_Services = [
   {
@@ -273,8 +274,8 @@ export default function EnterpriseSoftwareClient() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: `CoderLala - Best Enterprise Software Development Company in ${CITY}`,
-    image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/enterprise-software-${CITY_SLUG}`,
+    image: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
+    url: CANONICAL_URL,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -300,7 +301,7 @@ export default function EnterpriseSoftwareClient() {
       "@type": "AggregateRating",
       ratingValue: averageRating.toFixed(1), // e.g. 4.9
       reviewCount: testimonials.length.toString(),
-      bestRating: "4",
+      bestRating: "5",
       worstRating: "1",
     },
 
@@ -336,18 +337,9 @@ export default function EnterpriseSoftwareClient() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://coderlala.com",
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Enterprise Software Development Company in Gurgaon",
-                "item": `https://coderlala.com/enterprise-software-${CITY_SLUG}`,
-              },
+              // BreadcrumbList
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL },
+              { "@type": "ListItem", "position": 2, "name": "Enterprise Software Development", "item": CANONICAL_URL },
             ],
           }),
         }}
@@ -483,7 +475,7 @@ export default function EnterpriseSoftwareClient() {
             Our experienced enterprise team combines deep domain expertise with technical excellence to deliver robust, scalable, and secure solutions that solve complex business challenges and create measurable value.
           </p>
 
-          <ClientLogoSlider serviceName={SERVICE_SLUG} />
+          <ClientLogoSlider serviceName={ENTERPRISE_SOFTWARE_GURGAON_PAGE_NAME} city={CITY} />
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
             <QuoteCTA scrollToForm={scrollToForm} />
