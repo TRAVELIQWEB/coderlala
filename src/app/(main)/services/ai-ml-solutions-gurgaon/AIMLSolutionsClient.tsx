@@ -22,6 +22,7 @@ import {
   BarChart3,
   Send,
 } from "lucide-react";
+
 import { HeadingTitle2, HeroTitleLocation } from "@/app/components/HeroTitle";
 import { FAQAccordion } from "../component/ServiceFAQAccordion";
 import { FaAws } from "react-icons/fa";
@@ -46,7 +47,7 @@ import Image from "next/image";
 import { BLUR_DATA_URL } from "@/app/constants";
 import { generateFAQs, generateFAQSchema } from "./faqs";
 import { services } from "@/app/(main)/services/data/services/service";
-import { CITY, CITY_SLUG, contactInfo } from "@/data/ContactInfo";
+import { AI_ML_GURGAON_PAGE_NAME, CITY, CITY_SLUG, contactInfo, SITE_URL } from "@/data/ContactInfo";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
 import { SectionBadge } from "../component/location/SectionBadge";
 import { Button, QuoteCTA } from "../component/location/Button";
@@ -61,6 +62,7 @@ import ClientLogoSlider from "../component/location/ClientLogoSlider";
 // SECTION 2: CONSTANTS & CONFIGURATION
 // ============================================================
 const SERVICE_SLUG = "ai-ml-solutions";
+const CANONICAL_URL = `${SITE_URL}/ai-ml-solutions-${CITY_SLUG}`;
 const HERO_TAGS = ["Machine Learning", "NLP", "Computer Vision", "Predictive Analytics", "OpenAI"];
 const Related_Services = [
   {
@@ -211,7 +213,6 @@ export default function AIMLSolutionsClient() {
     block: "start",
   });
   const [activeIndex, setActiveIndex] = useState(0);
-  const [clientLogoIndex, setClientLogoIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   // ============================================================
@@ -220,59 +221,7 @@ export default function AIMLSolutionsClient() {
   const faqs = generateFAQs(CITY);
   const faqSchema = generateFAQSchema(faqs);
 
-  // ============================================================
-  // SECTION 7.3: CLIENT LOGOS DATA
-  // ============================================================
-  const clientLogos = [
-    {
-      id: 1,
-      name: "Aquarius Lab",
-      logo: "/images/client-logo/aquarius-lab.webp",
-      width: 800,
-      height: 800,
-      alt: "Aquarius Lab logo - trusted client of CoderLala AI ML solutions company in Gurgaon"
-    },
-    {
-      id: 2,
-      name: "Jindal Dental Care",
-      logo: "/images/client-logo/jindal-dental-care-and-implant-centre.webp",
-      width: 800,
-      height: 800,
-      alt: "Jindal Dental Care logo - trusted client of CoderLala AI ML solutions company in Gurgaon"
-    },
-    {
-      id: 3,
-      name: "Kreative Dentistry",
-      logo: "/images/client-logo/kreative-dentistry.webp",
-      width: 800,
-      height: 800,
-      alt: "Kreative Dentistry logo - trusted client of CoderLala AI ML solutions company in Gurgaon"
-    },
-    {
-      id: 4,
-      name: "Mohindra Eco Pipes",
-      logo: "/images/client-logo/mohindra-eco-pipes-logo.webp",
-      width: 800,
-      height: 800,
-      alt: "Mohindra Eco Pipes logo - trusted client of CoderLala AI ML solutions company in Gurgaon"
-    },
-    {
-      id: 5,
-      name: "Narain Hospital",
-      logo: "/images/client-logo/narain-hospital.webp",
-      width: 800,
-      height: 800,
-      alt: "Narain Hospital logo - trusted client of CoderLala AI ML solutions company in Gurgaon"
-    },
-    {
-      id: 6,
-      name: "Webshlok",
-      logo: "/images/client-logo/webshlok.webp",
-      width: 800,
-      height: 800,
-      alt: "Webshlok logo - trusted client of CoderLala AI ML solutions company in Gurgaon"
-    }
-  ];
+
 
   const averageRating =
     testimonials.reduce((sum, t) => sum + Number(t.rating), 0) /
@@ -306,21 +255,6 @@ export default function AIMLSolutionsClient() {
     return () => clearInterval(timer);
   }, [isMobile]);
 
-  useEffect(() => {
-    const clientLogoTimer = setInterval(() => {
-      setClientLogoIndex((prev) => (prev + 1) % clientLogos.length);
-    }, 3000);
-    return () => clearInterval(clientLogoTimer);
-  }, [clientLogos.length]);
-
-  // ============================================================
-  // SECTION 7.5: COMPUTED VALUES
-  // ============================================================
-  const visibleClientLogos = clientLogos.slice(clientLogoIndex, clientLogoIndex + 5);
-  if (clientLogoIndex + 5 > clientLogos.length) {
-    visibleClientLogos.push(...clientLogos.slice(0, (clientLogoIndex + 5) % clientLogos.length));
-  }
-
   const getVisibleTestimonials = () => {
     const itemsPerPage = isMobile ? 2 : 3;
     const end = Math.min(activeIndex + itemsPerPage, testimonials.length);
@@ -338,8 +272,8 @@ export default function AIMLSolutionsClient() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: `CoderLala - Best AI & ML Solutions Company in ${CITY}`,
-    image: "https://coderlala.com/logo/CoderLalaLogoDark.svg",
-    url: `https://coderlala.com/ai-ml-solutions-${CITY_SLUG}`,
+    image: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
+    url: CANONICAL_URL,
     telephone: OFFICE.phone,
     email: OFFICE.email,
     address: {
@@ -365,7 +299,7 @@ export default function AIMLSolutionsClient() {
       "@type": "AggregateRating",
       ratingValue: averageRating.toFixed(1), // e.g. 4.9
       reviewCount: testimonials.length.toString(),
-      bestRating: "4",
+      bestRating: "5",
       worstRating: "1",
     },
 
@@ -373,8 +307,8 @@ export default function AIMLSolutionsClient() {
       "@type": "Review",
       reviewRating: {
         "@type": "Rating",
-        ratingValue: t.rating.toString(),
-        bestRating: "4",
+        ratingValue: "5",
+        bestRating: "5",
       },
       author: {
         "@type": "Person",
@@ -401,18 +335,9 @@ export default function AIMLSolutionsClient() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://coderlala.com",
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "AI & ML Solutions Company in Gurgaon",
-                "item": `https://coderlala.com/ai-ml-solutions-${CITY_SLUG}`,
-              },
+              // BreadcrumbList
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL },
+              { "@type": "ListItem", "position": 2, "name": "AI & ML Solutions Company in Gurgaon", "item": CANONICAL_URL },
             ],
           }),
         }}
@@ -547,8 +472,7 @@ export default function AIMLSolutionsClient() {
             Our experienced AI engineers combine deep technical expertise with domain knowledge to deliver intelligent solutions that solve complex business problems and create measurable value.
           </p>
 
-          <ClientLogoSlider serviceName={SERVICE_SLUG} />
-
+          <ClientLogoSlider serviceName={AI_ML_GURGAON_PAGE_NAME} city={CITY} />
 
           <div className="flex gap-4 justify-center items-center mt-10 mx-auto">
             <QuoteCTA scrollToForm={scrollToForm} />
