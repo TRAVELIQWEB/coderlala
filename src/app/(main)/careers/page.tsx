@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/images/feature-images/og-images/og-careers.jpg",
+        url: "/images/feature-images/og-images/og-career.jpg",
         width: 1200,
         height: 630,
         alt: "Careers at CoderLala Technologies - Join Our Tech Team",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Careers | CoderLala Technologies Gurugram Hiring",
     description: "Join CoderLala's team of innovators—designers, DevOps engineers, AI specialists. We're hiring developers for cutting-edge projects in Gurugram.",
-    images: ["/images/feature-images/og-images/og-careers.jpg"],
+    images: ["/images/feature-images/og-images/og-career.jpg"],
     creator: "@coderlala",
     site: "@coderlala",
   },

@@ -31,10 +31,10 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
     { href: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     { href: '/admin/blog', icon: FileText, label: 'Blog' },
     { href: '/admin/enquiry', icon: Mail, label: 'Enquiry' },
-    { href: '#', icon: FolderKanban, label: 'Projects' },
-    { href: '#', icon: Users, label: 'Users' },
-    { href: '#', icon: BarChart3, label: 'Analytics' },
-    { href: '#', icon: Settings, label: 'Settings' },
+    // { href: '#', icon: FolderKanban, label: 'Projects' },
+    // { href: '#', icon: Users, label: 'Users' },
+    // { href: '#', icon: BarChart3, label: 'Analytics' },
+    // { href: '#', icon: Settings, label: 'Settings' },
   ];
 
   return (
