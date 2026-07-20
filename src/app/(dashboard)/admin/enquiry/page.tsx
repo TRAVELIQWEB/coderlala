@@ -13,7 +13,7 @@ const EnquiryPage = () => {
         </p>
       </div>
       <div className="space-y-5 mt-5">
-        <EnquiryFilters />
+
         <EnquiryTable />
         {/* <StatsGrid /> */}
       </div>
