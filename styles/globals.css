@@ -86,6 +86,7 @@
     --color-sidebar-border: var(--sidebar-border);
 
     --color-sidebar-ring: var(--sidebar-ring);
+    /* --color-tableBg: var(--tableBg); */
 }
 
 :root {
@@ -153,6 +154,7 @@
     --background: oklch(1 0 0);
 
     --foreground: oklch(0.145 0 0);
+    --tableBg: white;
 }
 
 .dark {
@@ -218,4 +220,54 @@
     --sidebar-border: oklch(1 0 0 / 10%);
 
     --sidebar-ring: oklch(0.556 0 0);
+
+    --tableBg: #1f2937;
+}
+
+@layer components {
+    .custom-table {
+        @apply w-max min-w-full border-collapse text-sm;
+    }
+
+    .custom-table thead {
+        @apply bg-muted/50;
+    }
+
+    .custom-table thead th {
+        @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground border-b border-border text-nowrap! whitespace-nowrap!;
+    }
+
+    .custom-table tbody tr {
+        @apply border-b border-border transition-colors;
+    }
+
+    .custom-table tbody tr:last-child {
+        @apply border-b-0;
+    }
+
+    .custom-table tbody td {
+        @apply px-4 py-3 text-foreground align-middle;
+    }
+
+    .custom-table tbody td.muted {
+        @apply text-muted-foreground;
+    }
+
+    .custom-table-wrapper {
+        @apply w-full overflow-x-auto rounded-2xl border border-border bg-card;
+    }
+
+    /* Striped rows - Updated for dark mode */
+    .custom-table--striped tbody tr:nth-child(even) {
+        @apply bg-muted/30 dark:bg-muted/20;
+    }
+
+    /* Alternating hover - Updated for dark mode */
+    .custom-table--striped tbody tr:nth-child(odd):hover {
+        @apply bg-accent/50 dark:bg-accent/30;
+    }
+
+    .custom-table--striped tbody tr:nth-child(even):hover {
+        @apply bg-primary/5 dark:bg-primary/10;
+    }
 }

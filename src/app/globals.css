@@ -47,6 +47,10 @@
   --color-animatedtext: var(--animatedtext);
   --color-bg-tertiary: var(--bg-tertiary);
   --color-card-bg2: var(--card-bg2);
+    --color-tableBg: var(--tableBg);
+  --color-brand-blue: var(--blue-color);
+
+
 }
 
 :root {
@@ -97,6 +101,8 @@
   --animatedtext: oklch(0.145 0 0);
   --bg-tertiary: #1c1c1e;
   --card-bg2: rgba(239, 230, 230, 0.61);
+  --tableBg: white;
+  --blue-color: #3b82f6;
 }
 
 .dark {
@@ -145,6 +151,9 @@
   --animatedtext: oklch(0.985 0 0);
   --bg-tertiary: #f2f2f7;
   --card-bg2:rgba(255, 255, 255, 0.05);
+  --tableBg: #1f2937;
+  --blue-color: #3b82f6;
+
 
 }
 

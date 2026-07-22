@@ -2,7 +2,6 @@
 'use client';
 
 import { useState } from 'react';
-import Header from "@/app/components/admin/dashboard/Header";
 import Sidebar from "@/app/components/admin/dashboard/Sidebar";
 import styles from './DashboardLayout.module.css';
 import Header2 from '@/app/components/admin/dashboard/Header2';
@@ -12,7 +11,7 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
 
     return (
         <div className={styles.container}>

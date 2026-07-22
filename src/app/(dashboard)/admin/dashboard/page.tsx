@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Sidebar from '@/app/components/admin/dashboard/Sidebar';
 import Header from '@/app/components/admin/dashboard/Header';
 import api from '@/lib/axios';
+import StatsGrid from '@/app/components/admin/dashboard/StatsGrid';
 
 export default function DashboardPage() {
     const [userRole, setUserRole] = useState<'Admin' | 'Agent'>('Admin');
@@ -10,12 +11,15 @@ export default function DashboardPage() {
 
     return (
         <div>
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-3xl font-bold text-foreground">
                 Welcome {userRole}
             </h1>
-            <p className="mt-2">
+            <p className="mt-2 text-muted-foreground">
                 Manage your platform, view analytics, and oversee operations
             </p>
+            <div className="mt-5">
+                <StatsGrid />
+            </div>
         </div>
 
 
