@@ -20,31 +20,6 @@ export const metadata: Metadata = {
     "website organization",
     "content structure"
   ],
-  openGraph: {
-    title: "Site Map | CoderLala All Pages",
-    description: "CoderLala Technologies complete sitemap: discover services, projects, team, careers, contact & privacy pages in one organized guide.",
-    url: "https://coderlala.com/coderlala-sitemap",
-    siteName: "CoderLala Technologies",
-    type: "website",
-    locale: "en_US",
-    images: [
-      {
-        url: "/images/feature-images/og-images/og-sitemap.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Sitemap - CoderLala Technologies Website Navigation",
-        type: "image/jpeg",
-      }
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Site Map | CoderLala All Pages",
-    description: "CoderLala Technologies complete sitemap: discover services, projects, team, careers, contact & privacy pages in one organized guide.",
-    images: ["/images/feature-images/og-images/og-sitemap.jpg"],
-    creator: "@coderlala",
-    site: "@coderlala",
-  },
   alternates: {
     canonical: "https://coderlala.com/coderlala-sitemap",
   },

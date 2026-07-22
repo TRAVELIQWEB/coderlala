@@ -68,12 +68,12 @@ export default function BlogFilters({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="w-full md:w-48 rounded-lg px-3 py-2 text-sm font-medium border bg-border text-foreground border-border focus:outline-none focus:ring-2 focus:ring-ring"
+            className="w-full md:w-48 cursor-pointer rounded-lg px-3 py-2 text-sm font-medium border bg-border text-foreground border-border focus:outline-none focus:ring-2 focus:ring-ring appearance-none"
           >
-            <option value="all">All Status</option>
-            <option value="active">🟢 Active</option>
-            <option value="draft">📝 Draft</option>
-            <option value="archived">📦 Archived</option>
+            <option className="bg-secondary text-foreground" value="all">All Status</option>
+            <option className="bg-secondary text-foreground" value="active">🟢 Active</option>
+            <option className="bg-secondary text-foreground" value="draft">📝 Draft</option>
+            <option className="bg-secondary text-foreground" value="archived">📦 Archived</option>
           </select>
         </div>
 
