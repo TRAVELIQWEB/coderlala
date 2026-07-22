@@ -1,7 +1,6 @@
 import { ContactFormProvider } from "@/context/ContactFormContext";
 import "./globals.css";
 import { ThemeProvider } from "@/app/components/theme-provider";
-import Script from "next/script";
 import GoogleAnalytics from "@/app/components/GoogleAnalytics";
 import GoogleTagManager from "./components/GoogleTagManager";
 

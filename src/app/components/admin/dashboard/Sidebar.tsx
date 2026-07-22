@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import styles from './Sidebar.module.css';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -52,41 +53,49 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
           {!collapsed ? (
             <div className="flex items-center space-x-3">
               {/* LOGO - RESPONSIVE SIZING */}
-              <div className="relative h-10">
-                
-                  <img
-                    src="/logo/CoderLalaLogoLight.svg"
-                    alt="CoderLalaLogo Light"
+              <div className="relative w-full">
+                {theme === "dark" ? (
+                  <Image
+                    src="/logo/CoderLalaLogoDark.svg"
+                    alt="CoderLalaLogo Dark"
+                    width={0}
+                    height={0}
                     className="w-full h-full object-contain"
                     key="dark-logo"
                   />
-                
-                
+                ) : (
+                  <Image
+                    src="/logo/CoderLalaLogoLight.svg"
+                    alt="CoderLalaLogo Light"
+                    width={0}
+                    height={0}
+                    className="w-full h-full object-contain"
+                    key="light-logo"
+                  />
+                )}
               </div>
             </div>
           ) : (
             <div className="size-12 rounded-lg flex items-center justify-center mx-auto">
               {theme === "light" ? (
-                <img
+                <Image
                   src="/favicon.svg"
-                  alt="CoderLalaLogo Dark"
+                  alt="CoderLalaLogo Light"
+                  width={0}
+                  height={0}
                   className="w-full h-full object-contain"
                   key="light-logo"
                 />
               ) : (
-                <img
+                <Image
                   src="/favicon.svg"
                   alt="CoderLalaLogo Dark"
+                  width={0}
+                  height={0}
                   className="w-full h-full object-contain"
-                  key="light-logo"
+                  key="dark-logo"
                 />
               )}
-              {/* <img
-                src="/favicon.svg"
-                alt="CoderLalaLogo Dark"
-                className="w-full h-full object-contain"
-                key="light-logo"
-              /> */}
             </div>)}
         </div>
 

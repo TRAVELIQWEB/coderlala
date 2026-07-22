@@ -1,4 +1,3 @@
-import EnquiryFilters from "@/app/components/admin/enquiry/EnquiryFilter";
 import EnquiryTable from "@/app/components/admin/enquiry/EnquiryTable";
 
 const EnquiryPage = () => {
@@ -12,8 +11,7 @@ const EnquiryPage = () => {
           Manage client enquiries
         </p>
       </div>
-      <div className="space-y-5 mt-5">
-        <EnquiryFilters />
+      <div className="space-y-1 mt-2">
         <EnquiryTable />
         {/* <StatsGrid /> */}
       </div>

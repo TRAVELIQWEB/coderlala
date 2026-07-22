@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Plus, Pencil, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import CreatePostModal from '@/app/components/admin/CreatePostModal';
 import UpdatePostModal from '@/app/components/admin/UpdatePostModal';
+import BlogFilters from '@/app/components/admin/blog/BlogFilters';
 import api from '@/lib/axios';
 
 // Import types from separate file
@@ -19,6 +20,7 @@ import {
   Post,
   PaginationInfo
 } from '@/types/blog';
+import Pagination from '@/app/components/admin/enquiry/Pagination';
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -36,6 +38,7 @@ export default function BlogPage() {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const pageSize = 10;
 
   // Helper function to generate slug
   const generateSlug = (title: string): string => {
@@ -48,16 +51,18 @@ export default function BlogPage() {
   };
 
   // Fetch blogs
-  const fetchBlogs = useCallback(async (page: number = 1, search: string = '', status: string = 'all') => {
+  const fetchBlogs = useCallback(async (page: number = 1, search: string = '', status: string = 'all', fromDate?: string, toDate?: string) => {
     try {
       setLoading(true);
       setError(null);
 
       const params = new URLSearchParams({
         page: page.toString(),
-        limit: '20',
+        limit: pageSize.toString(),
         ...(search && { searchQuery: search }),
-        ...(status !== 'all' && { status })
+        ...(status !== 'all' && { status }),
+        ...(fromDate && { fromDate }),
+        ...(toDate && { toDate }),
       });
 
       const res = await api.get(`/admin/blogs?${params.toString()}`);
@@ -92,12 +97,19 @@ export default function BlogPage() {
       }));
 
       setPosts(mappedPosts);
+      const resp = res.data?.data || {};
+      const respCurrent = Number(resp.currentPage) || page;
+      const respTotalItems = Number(resp.total) || 0;
+      const respTotalPages = Number(resp.totalPages ?? resp.totalpage) || 1;
+      const respHasNext = typeof resp.hasNextPage === 'boolean' ? resp.hasNextPage : respCurrent < respTotalPages;
+      const respHasPrev = typeof resp.hasPrevPage === 'boolean' ? resp.hasPrevPage : respCurrent > 1;
+
       setPagination({
-        currentPage: res.data?.data?.currentPage || page,
-        totalItems: res.data?.data?.total || 0,
-        totalPages: res.data?.data?.totalPages || res.data?.data?.totalpage || 1,
-        hasNextPage: res.data?.data?.hasNextPage || page < (res.data?.data?.totalPages || 1),
-        hasPrevPage: res.data?.data?.hasPrevPage || page > 1,
+        currentPage: respCurrent,
+        totalItems: respTotalItems,
+        totalPages: respTotalPages,
+        hasNextPage: respHasNext,
+        hasPrevPage: respHasPrev,
       });
     } catch (error: any) {
       console.error('❌ Failed to fetch blogs', error);
@@ -287,18 +299,6 @@ export default function BlogPage() {
     fetchBlogs(page, searchQuery, statusFilter);
   };
 
-  const getPageNumbers = () => {
-    const pages = [];
-    const maxPagesToShow = 5;
-    let startPage = Math.max(1, pagination.currentPage - Math.floor(maxPagesToShow / 2));
-    let endPage = startPage + maxPagesToShow - 1;
-    if (endPage > pagination.totalPages) {
-      endPage = pagination.totalPages;
-      startPage = Math.max(1, endPage - maxPagesToShow + 1);
-    }
-    for (let i = startPage; i <= endPage; i++) pages.push(i);
-    return pages;
-  };
 
   const handleEditClick = (post: Post) => {
     setEditingPost(post);
@@ -311,7 +311,7 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {/* Header - Remove hardcoded colors */}
       <div>
         <h1 className="text-3xl font-bold text-foreground">
@@ -322,81 +322,37 @@ export default function BlogPage() {
         </p>
       </div>
 
-      {/* Filter Header - Update to use theme variables */}
-      <div className="bg-card rounded-xl shadow-sm border border-border p-4">
-        <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-3 items-end">
-          <div className="flex-1">
-            <label className="text-sm font-medium text-foreground mb-1 block">Search</label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by title..."
-                className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm outline-none bg-background text-foreground border-border focus:ring-2 focus:ring-ring"
-              />
-            </div>
-          </div>
-
-          <div className="w-full md:w-auto">
-            <label className="text-sm font-medium text-foreground mb-1 block">Status</label>
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full md:w-48 rounded-lg px-3 py-2 text-sm font-medium border bg-background text-foreground border-border focus:outline-none focus:ring-2 focus:ring-ring"
-            >
-              <option value="all">All Status</option>
-              <option value="active">🟢 Active</option>
-              <option value="draft">📝 Draft</option>
-              <option value="archived">📦 Archived</option>
-            </select>
-          </div>
-
-          <div className="w-full md:w-auto">
-            <button
-              type="submit"
-              className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium transition w-full md:w-auto justify-center"
-            >
-              <Search size={16} />
-              Search
-            </button>
-          </div>
-
-          <div className="w-full md:w-auto">
-            <button
-              type="button"
-              onClick={() => setCreateModalOpen(true)}
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full md:w-auto justify-center"
-            >
-              <Plus size={16} />
-              Create Post
-            </button>
-          </div>
-        </form>
-      </div>
+      {/* Filter Header - extracted to component */}
+      <BlogFilters
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        statusFilter={statusFilter}
+        setStatusFilter={setStatusFilter}
+        onSearch={(search, fromDate, toDate) => fetchBlogs(1, search, statusFilter, fromDate, toDate)}
+        onCreate={() => setCreateModalOpen(true)}
+      />
 
       {/* Table Container */}
-      <div className="bg-card rounded-xl shadow-sm border border-border flex flex-col h-full">
+      <div className="bg-tableBg rounded-xl shadow-sm border border-border flex flex-col h-full">
         {loading ? (
           <div className="flex justify-center items-center p-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         ) : (
           <>
-            <div className="overflow-hidden rounded-xl border! border-border bg-background shadow-sm">
+            <div className="overflow-hidden rounded-xl border! border-border shadow-sm">
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse text-sm">
                   <thead>
-                    <tr className="bg-muted">
+                    <tr className="bg-border">
                       <th className="w-14 px-4 py-3 text-left font-semibold  text-nowrap">S. No</th>
-                      <th className="min-w-[160px] px-4 py-3 text-left font-semibold text-nowrap">Title</th>
-                      <th className="min-w-[140px] px-4 py-3 text-left font-semibold text-nowrap">Slug</th>
-                      <th className="min-w-[200px] px-4 py-3 text-left font-semibold text-nowrap">Description</th>
-                      <th className="min-w-[120px] px-4 py-3 text-left font-semibold text-nowrap">Primary Tech</th>
+                      <th className="min-w-40 px-4 py-3 text-left font-semibold text-nowrap">Title</th>
+                      <th className="min-w-35 px-4 py-3 text-left font-semibold text-nowrap">Slug</th>
+                      <th className="min-w-50 px-4 py-3 text-left font-semibold text-nowrap">Description</th>
+                      <th className="min-w-30 px-4 py-3 text-left font-semibold text-nowrap">Primary Tech</th>
                       <th className="w-24 px-4 py-3 text-left font-semibold text-nowrap">Level</th>
                       <th className="w-28 px-4 py-3 text-left font-semibold text-nowrap">Reading Time</th>
-                      <th className="min-w-[120px] px-4 py-3 text-left font-semibold text-nowrap">Author</th>
+                      <th className="min-w-30 px-4 py-3 text-left font-semibold text-nowrap">Author</th>
                       <th className="w-24 px-4 py-3 text-left font-semibold text-nowrap">Language</th>
                       <th className="w-24 px-4 py-3 text-left font-semibold text-nowrap">Status</th>
                       <th className="w-28 px-4 py-3 text-left font-semibold text-nowrap">Created At</th>
@@ -418,23 +374,23 @@ export default function BlogPage() {
                       posts.map((post, index) => (
                         <tr
                           key={post._id}
-                          className="hover:bg-muted/50 transition-colors"
+                          className="hover:bg-muted/70 transition-colors"
                         >
-                          <td className="px-4 py-4">
-                            {(pagination.currentPage - 1) * 20 + index + 1}
+                          <td className="p-2">
+                            {(pagination.currentPage - 1) * pageSize + index + 1}
                           </td>
 
-                          <td className="px-4 py-4 font-medium text-nowrap">
+                          <td className="p-2 font-medium text-nowrap">
                             {post.title}
                           </td>
 
-                          <td className="max-w-[160px] px-4 py-4 text-nowrap">
+                          <td className="max-w-40 p-2 text-nowrap">
                             <div className="truncate" title={post.slug}>
                               {post.slug || "-"}
                             </div>
                           </td>
 
-                          <td className="max-w-[220px] px-4 py-4">
+                          <td className="max-w-55 p-2">
                             <div
                               className="truncate text-muted-foreground"
                               title={post.description}
@@ -443,58 +399,58 @@ export default function BlogPage() {
                             </div>
                           </td>
 
-                          <td className="px-4 py-4 text-nowrap">
+                          <td className="p-2 text-nowrap">
                             {post.primaryTech || "-"}
                           </td>
 
-                          <td className="px-4 py-4 text-nowrap">
+                          <td className="p-2 text-nowrap">
                             <span className="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-700 dark:bg-blue-500/20 dark:text-blue-400">
                               {post.level || "-"}
                             </span>
                           </td>
 
-                          <td className="px-4 py-4 text-nowrap">
+                          <td className="p-2 text-nowrap">
                             {post.readingTime ? `${post.readingTime} min` : "-"}
                           </td>
 
-                          <td className="px-4 py-4 text-nowrap">
+                          <td className="p-2 text-nowrap">
                             {post.author?.name || "-"}
                           </td>
 
-                          <td className="px-4 py-4">
+                          <td className="p-2">
                             <span className="rounded-full bg-violet-100 px-2.5 py-1 text-xs font-medium text-violet-700 dark:bg-violet-500/20 dark:text-violet-400">
                               {post.language?.toUpperCase() || "-"}
                             </span>
                           </td>
 
-                          <td className="px-4 py-4 text-nowrap">
+                          <td className="p-2 text-nowrap">
                             <span
                               className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${post.status === "active"
-                                  ? "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400"
-                                  : post.status === "draft"
-                                    ? "bg-gray-100 dark:bg-gray-500/20 "
-                                    : "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400"
+                                ? "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400"
+                                : post.status === "draft"
+                                  ? "bg-gray-100 dark:bg-gray-500/20 "
+                                  : "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400"
                                 }`}
                             >
                               <span
                                 className={`h-2 w-2 rounded-full ${post.status === "active"
-                                    ? "bg-green-500"
-                                    : post.status === "draft"
-                                      ? "bg-gray-500"
-                                      : "bg-red-500"
+                                  ? "bg-green-500"
+                                  : post.status === "draft"
+                                    ? "bg-gray-500"
+                                    : "bg-red-500"
                                   }`}
                               />
                               {post.status}
                             </span>
                           </td>
 
-                          <td className="px-4 py-4 text-sm text-nowrap">
+                          <td className="p-2 text-sm text-nowrap">
                             {post.createdAt
                               ? new Date(post.createdAt).toLocaleDateString()
                               : "-"}
                           </td>
 
-                          <td className="px-4 py-4">
+                          <td className="p-2">
                             <div className="flex justify-center">
                               <button
                                 onClick={() => handleEditClick(post)}
@@ -510,57 +466,15 @@ export default function BlogPage() {
                   </tbody>
                 </table>
               </div>
+              {/* Pagination */}
+              <Pagination
+                pagination={pagination}
+                onNext={handleNextPage}
+                onPrev={handlePrevPage}
+                onPageClick={handlePageClick}
+              />
             </div>
 
-            {/* Pagination */}
-            {posts.length > 0 && pagination.totalPages > 1 && (
-              <div className="border-t border-border px-6 py-4 bg-card shrink-0">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                  <div className="text-sm text-muted-foreground">
-                    Showing {((pagination.currentPage - 1) * 20) + 1} to{' '}
-                    {Math.min(pagination.currentPage * 20, pagination.totalItems)} of{' '}
-                    {pagination.totalItems} posts
-                  </div>
-
-                  <div className="flex items-center gap-1">
-                    <button
-                      onClick={handlePrevPage}
-                      disabled={!pagination.hasPrevPage}
-                      className={`p-2 rounded-lg border ${pagination.hasPrevPage
-                        ? 'text-foreground hover:bg-accent border-border'
-                        : 'text-muted-foreground border-border cursor-not-allowed opacity-50'
-                        }`}
-                    >
-                      <ChevronLeft size={18} />
-                    </button>
-
-                    {getPageNumbers().map((page) => (
-                      <button
-                        key={page}
-                        onClick={() => handlePageClick(page)}
-                        className={`min-w-10 px-3 py-2 rounded-lg border text-sm font-medium ${page === pagination.currentPage
-                          ? 'bg-primary text-primary-foreground border-primary'
-                          : 'text-foreground hover:bg-accent border-border'
-                          }`}
-                      >
-                        {page}
-                      </button>
-                    ))}
-
-                    <button
-                      onClick={handleNextPage}
-                      disabled={!pagination.hasNextPage}
-                      className={`p-2 rounded-lg border ${pagination.hasNextPage
-                        ? 'text-foreground hover:bg-accent border-border'
-                        : 'text-muted-foreground border-border cursor-not-allowed opacity-50'
-                        }`}
-                    >
-                      <ChevronRight size={18} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
           </>
         )}
       </div>
