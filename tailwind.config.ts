@@ -10,6 +10,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'brand-orange': '#e38239',
         brand: {
           blue: "#3B82F6",
           darkblue: "#1E40AF", // Renamed for consistency

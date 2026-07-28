@@ -15,7 +15,10 @@ import {
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
+import { Node, mergeAttributes } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
+import { ListItem } from '@tiptap/extension-list';
+import { Table, TableRow, TableHeader, TableCell } from '@tiptap/extension-table';
 import 'prosemirror-view/style/prosemirror.css';
 import { Option } from "@/components/ui/multi-select";
 import { Separator } from "@/components/ui/separator";
@@ -45,6 +48,45 @@ import { FormTextarea } from '@/components/Form/FormTextarea';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from "@/components/ui/checkbox"
 
+// Custom ListItem: allow inline content directly, no forced <p> wrapper
+const CustomListItem = ListItem.extend({
+  content: 'inline*',
+});
+
+// Custom Section node: StarterKit has no schema node for <section>.
+const Section = Node.create({
+  name: 'section',
+  group: 'block',
+  content: 'block*',
+  parseHTML() {
+    return [{ tag: 'section' }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ['section', mergeAttributes(HTMLAttributes), 0];
+  },
+});
+
+// Custom Div node: same reasoning as Section above.
+const Div = Node.create({
+  name: 'div',
+  group: 'block',
+  content: 'block*',
+  parseHTML() {
+    return [{ tag: 'div' }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ['div', mergeAttributes(HTMLAttributes), 0];
+  },
+});
+
+const CustomTableCell = TableCell.extend({
+  content: 'inline*',
+});
+
+const CustomTableHeader = TableHeader.extend({
+  content: 'inline*',
+});
+
 interface Props {
   open: boolean;
   onClose: () => void;
@@ -61,6 +103,22 @@ const TAG_OPTIONS: { label: string; value: BlogTag }[] = Object.values(BlogTag).
   label: tag.toUpperCase(),
   value: tag,
 }));
+
+const normalizeEditorContent = (html: string) => {
+  if (!html) return '';
+
+  let normalized = html;
+
+  normalized = normalized.replace(/<p>\s*(<(?:ul|ol|table)[\s\S]*?<\/(?:ul|ol|table)>)\s*<\/p>/gi, '$1');
+  normalized = normalized.replace(/<(li|th|td)\b[^>]*>([\s\S]*?)<\/\1>/gi, (_match, tag, inner) => {
+    const cleanedInner = inner
+      .replace(/<p\b[^>]*>([\s\S]*?)<\/p>/gi, '$1')
+      .replace(/<br\s*\/?>/gi, '');
+    return `<${tag}>${cleanedInner}</${tag}>`;
+  });
+
+  return normalized.replace(/<p>\s*<\/p>/gi, '');
+};
 
 export default function CreatePostModal({ open, onClose, onCreate }: Props) {
   const [form, setForm] = useState<CreateBlogDto>(defaultFormData);
@@ -110,7 +168,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
       tags: tagValues
     }));
   }, [selectedTechStacks, selectedTags]);
-  
+
   // Add this helper function at the top of the component (after useState declarations)
   const getToggleClass = (active: boolean) =>
     cn(
@@ -119,18 +177,29 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
         ? "bg-[var(--toolbar-active-bg)] border-[var(--toolbar-active-border)] text-[var(--toolbar-active-border)]"
         : "border-border"
     );
-  // Initialize editor - ONLY StarterKit
+  // Initialize editor with the same richer schema used in the update modal
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit.configure({
+        listItem: false,
+      }),
+      CustomListItem,
+      Section,
+      Div,
+      Table.configure({ resizable: true }),
+      TableRow,
+      CustomTableHeader,
+      CustomTableCell,
+    ],
     content: '',
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: 'min-h-[200px] focus:outline-none p-2',
+        class: 'min-h-[200px] focus:outline-none p-2 truncatedContent',
       },
     },
     onUpdate({ editor }) {
-      const content = editor.getHTML();
+      const content = normalizeEditorContent(editor.getHTML());
       const text = editor.getText();
       setForm((prev) => ({
         ...prev,
@@ -308,11 +377,8 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
       newErrors.seoDescription = '';
     }
 
-    // Canonical URL validation - NOW REQUIRED
-    if (!form.seo.canonicalUrl?.trim()) {
-      newErrors.canonicalUrl = 'Canonical URL is required';
-      isValid = false;
-    } else {
+    // Canonical URL validation - optional
+    if (form.seo.canonicalUrl?.trim()) {
       // Basic URL validation
       const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
       if (!urlPattern.test(form.seo.canonicalUrl.trim())) {
@@ -321,6 +387,8 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
       } else {
         newErrors.canonicalUrl = '';
       }
+    } else {
+      newErrors.canonicalUrl = '';
     }
 
     setErrors(newErrors);
@@ -359,6 +427,30 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
 
   // Insert HTML at cursor
   const insertHtmlIntoEditor = () => {
+    // sanitizer to clean up HTML before inserting
+    const prepareHtmlInsert = (html: string) => {
+      let cleaned = html.trim();
+      if (!cleaned) return '';
+
+      // remove empty paragraphs
+      cleaned = cleaned.replace(/<p>(\s|&nbsp;)*<\/p>/gi, '');
+
+      // remove leading/trailing <br>
+      cleaned = cleaned.replace(/^(<br\s*\/?>(\s|&nbsp;)*)+|((\s|&nbsp;)*<br\s*\/?>)+$/gi, '');
+
+      // unwrap <p> inside <li> -> <li><p>text</p></li>  => <li>text</li>
+      cleaned = cleaned.replace(/<li>\s*<p[^>]*>([\s\S]*?)<\/p>\s*<\/li>/gi, '<li>$1</li>');
+
+      // unwrap <p> that wraps entire list blocks: <p><ul>...</ul></p> => <ul>...</ul>
+      cleaned = cleaned.replace(/<p>\s*(<(?:ul|ol|table)[\s\S]*?>[\s\S]*?<\/(?:ul|ol|table)>)\s*<\/p>/gi, '$1');
+      cleaned = cleaned.replace(/<(li|th|td)\b[^>]*>([\s\S]*?)<\/\1>/gi, (_match, tag, inner) => {
+        const cleanedInner = inner.replace(/<p\b[^>]*>([\s\S]*?)<\/p>/gi, '$1');
+        return `<${tag}>${cleanedInner}</${tag}>`;
+      });
+
+      return cleaned;
+    };
+
     if (!editor) {
       setSubmitError('Editor not initialized');
       return;
@@ -370,22 +462,46 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
     }
 
     try {
-      // Basic HTML validation
-      if (!htmlInput.includes('<') || !htmlInput.includes('>')) {
+      const cleanHtml = prepareHtmlInsert(htmlInput);
+      if (!cleanHtml) {
+        setSubmitError('HTML cleaned to empty content');
+        return;
+      }
+
+      if (!cleanHtml.includes('<') || !cleanHtml.includes('>')) {
         setSubmitError('Invalid HTML: Must contain HTML tags');
         return;
       }
 
-      // Insert at cursor position
-      editor
-        .chain()
-        .focus()
-        .insertContent(htmlInput)
-        .run();
+      const { state } = editor;
+      const { $from } = state.selection;
+      const currentNode = $from.parent;
+
+      if (currentNode.type.name === 'paragraph' && currentNode.content.size === 0) {
+        const from = $from.before();
+        const to = $from.after();
+
+        editor
+          .chain()
+          .focus()
+          .insertContentAt(
+            { from, to },
+            cleanHtml,
+            { parseOptions: { preserveWhitespace: false } }
+          )
+          .run();
+      } else {
+        editor
+          .chain()
+          .focus()
+          .insertContent(cleanHtml, {
+            parseOptions: { preserveWhitespace: false },
+          })
+          .run();
+      }
 
       setHtmlInput('');
       setSubmitError(null);
-
     } catch (error) {
       setSubmitError('Failed to insert HTML: Invalid format');
     }
@@ -466,7 +582,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
 
       const payload = {
         title: form.title.trim(),
-        content: editor.getHTML(),
+        content: normalizeEditorContent(editor.getHTML()),
         slug: form.slug.trim(),
         primaryTech: form.primaryTech,
         techStacks: techStackValues, // Send lowercase values

@@ -1,10 +1,7 @@
 'use client';
 
-import { HeroTitle2 } from '@/app/components/HeroTitle';
 import { motion } from 'framer-motion';
-import { Calendar, User, Clock, Tag, ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styles from './BlogDetail.module.css'; // Import the CSS module
 import RelatedPostsCarousel from './RelatedPostsCarousel';
@@ -57,8 +54,6 @@ interface ApiResponse {
 }
 
 export default function BlogDetail({ slug }: { slug: string }) {
-    // const [showFullContent, setShowFullContent] = useState(false);
-    const [contentDisplay, setContentDisplay] = useState('few'); // 'few', 'medium', 'full'
     const [blog, setBlog] = useState<Blog | null>(null);
     const [relatedBlogs, setRelatedBlogs] = useState<RelatedBlog[]>([]);
 
@@ -79,35 +74,14 @@ export default function BlogDetail({ slug }: { slug: string }) {
         
     }, [slug]);
 
-    // Function to get truncated content based on display mode
-    const getTruncatedContent = () => {
-        if (!blog?.content) return '';
+    const normalizeBlogContent = (html: string) => {
+        if (!html) return '';
 
-        if (contentDisplay === 'few') {
-            // Show first 300 characters
-            const textContent = blog.content.replace(/<[^>]*>/g, '');
-            if (textContent.length <= 300) return blog.content;
-
-            // Find a good breaking point
-            const preview = blog.content.substring(0, 400);
-            const lastSpace = preview.lastIndexOf(' ');
-            return preview.substring(0, lastSpace) + '...';
-        }
-
-        if (contentDisplay === 'medium') {
-            // Show more content (first 1000 characters)
-            const textContent = blog.content.replace(/<[^>]*>/g, '');
-            if (textContent.length <= 1000) return blog.content;
-
-            const preview = blog.content.substring(0, 1200);
-            const lastSpace = preview.lastIndexOf(' ');
-            return preview.substring(0, lastSpace) + '...';
-        }
-
-        // Full content
-        return blog.content;
+        return html.replace(/<(th|td)\b[^>]*>([\s\S]*?)<\/\1>/gi, (_match, tag, inner) => {
+            const cleanedInner = inner.replace(/<p\b[^>]*>([\s\S]*?)<\/p>/gi, '$1');
+            return `<${tag}>${cleanedInner}</${tag}>`;
+        });
     };
-    
 
 
     // If blog is still loading or doesn't exist, show loading state
@@ -199,7 +173,7 @@ export default function BlogDetail({ slug }: { slug: string }) {
 
 
                 {/* Variant 10: Elegant Premium */}
-                <div className="glass-card rounded-4xl! shadow-2xl relative overflow-hidden">
+                <div className={`${styles.PostContent} rounded-4xl! shadow-2xl relative overflow-hidden`} >
                     {/* Gold accent */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-[#e38138] rounded-b-full" />
 
@@ -209,57 +183,19 @@ export default function BlogDetail({ slug }: { slug: string }) {
                     <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#e38138] rounded-bl-4xl" />
                     <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#e38138] rounded-br-4xl" />
 
-                    <div className="relative p-10">
+                    <div className="relative p-4 md:p-10">
                         <div className="relative">
                             {/* Content Display */}
-                            <div className="prose prose-lg max-w-none prose-h2:text-2xl prose-h2:font-light prose-h2:tracking-wide prose-h2:text-gray-800 prose-h2:border-b prose-h2:border-amber-200 prose-h2:pb-3 prose-headings:text-gray-900 prose-headings:font-light prose-headings:tracking-wide prose-p:text-gray-600 prose-p:leading-8 prose-p:font-light prose-strong:text-amber-800 prose-strong:font-medium prose-code:text-amber-700 prose-code:bg-amber-50/80 prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:border prose-code:border-amber-200/50 prose-pre:bg-gray-900/95 prose-pre:text-amber-50 prose-pre:rounded-xl prose-pre:border prose-pre:border-amber-800/30 prose-pre:shadow-xl prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-600 prose-li:marker:text-amber-500 prose-blockquote:border-l-2 prose-blockquote:border-amber-400 prose-blockquote:text-gray-600 prose-blockquote:bg-amber-50/30 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-lg prose-blockquote:font-light prose-blockquote:italic">
-                                <div dangerouslySetInnerHTML={{ __html: getTruncatedContent() }} />
-                            </div>
-
-                            {/* Content Controls - Using CSS Module classes */}
-                            <div className={styles.contentControls}>
-
-                                {contentDisplay !== 'medium' && contentDisplay === 'few' && (
-                                    <button
-                                        onClick={() => setContentDisplay('medium')}
-                                        className={`${styles.controlButton} ${styles.amberButton}`}
-                                    >
-                                        <span className={styles.amberBtnext}>Show More</span>
-                                        <svg className={styles.buttonIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                )}
-
-                                {contentDisplay !== 'full' && contentDisplay === 'medium' && (
-                                    <button
-                                        onClick={() => setContentDisplay('full')}
-                                        className={`${styles.controlButton} ${styles.amberButton}`}
-                                    >
-                                        <span className={styles.amberBtnext}>Continue Reading</span>
-                                        <svg className={styles.buttonIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                )}
-
-                                {contentDisplay === 'full' && (
-                                    <button
-                                        onClick={() => setContentDisplay('few')}
-                                        className={`${styles.controlButton} ${styles.grayButton}`}
-                                    >
-                                        <span className={styles.grayBtnText}>Show Less</span>
-                                        <svg className={styles.buttonIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                                        </svg>
-                                    </button>
-                                )}
+                            <div className={`${styles.contentWrapper} ${styles.contentWrapperExpanded}`}>
+                                <div className={`prose prose-lg max-w-none prose-h2:text-2xl prose-h2:font-light prose-h2:tracking-wide prose-h2:text-gray-800 prose-h2:border-b prose-h2:border-amber-200 prose-h2:pb-3 prose-headings:text-gray-900 prose-headings:font-light prose-headings:tracking-wide prose-p:text-gray-600 prose-p:leading-8 prose-p:font-light prose-strong:text-amber-800 prose-strong:font-medium prose-code:text-amber-700 prose-code:bg-amber-50/80 prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:border prose-code:border-amber-200/50 prose-pre:bg-gray-900/95 prose-pre:text-amber-50 prose-pre:rounded-xl prose-pre:border prose-pre:border-amber-800/30 prose-pre:shadow-xl prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-600 prose-li:marker:text-amber-500 prose-blockquote:border-l-2 prose-blockquote:border-amber-400 prose-blockquote:text-gray-600 prose-blockquote:bg-amber-50/30 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-lg prose-blockquote:font-light prose-blockquote:italic ${styles.truncatedContent}`}>
+                                    <div dangerouslySetInnerHTML={{ __html: normalizeBlogContent(blog.content) }} />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 {/* CoderLala Minimal - Brand Dots (#4948ab) */}
-                <RelatedPostsCarousel relatedBlogs={relatedBlogs} />
+                {/* <RelatedPostsCarousel relatedBlogs={relatedBlogs} /> */}
                 {/* <RelatedPostsCarousel /> */}
 
             </div>

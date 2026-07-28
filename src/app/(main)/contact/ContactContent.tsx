@@ -16,6 +16,7 @@ import {
   Rocket,
   Building,
   X,
+  Star,
   AlertCircle,
   Check,
   XCircle
@@ -25,6 +26,7 @@ import HeroTitle from "@/app/components/HeroTitle";
 import { contactInfo as contactInfo2 } from "@/data/ContactInfo";
 import ContactForm from "@/app/components/ContactForm";
 import { useScrollToForm } from "@/hooks/useScrollToForm";
+import Link from "next/link";
 
 export default function ContactContent() {
   const [form, setForm] = useState({
@@ -57,7 +59,7 @@ export default function ContactContent() {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [countdown, setCountdown] = useState(5);
-  const {inputRef} = useScrollToForm({
+  const { inputRef } = useScrollToForm({
     delay: 650,
     block: "start",
   });
@@ -503,6 +505,31 @@ export default function ContactContent() {
             </div>
           </div>
 
+          {/* Review Us Section */}
+          <div className="glass-card p-4 sm:p-6 lg:p-8 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 rounded-lg bg-yellow-600">
+                <Star className="w-5 h-5 sm:w-6 sm:h-6 text-white!" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold">Review Us</h3>
+            </div>
+            <h3 className="text-xl font-bold text-white/70">
+              Your feedback helps us grow!
+            </h3>
+            <p className="text-white/70 my-4">
+              If you've had a great experience with CoderLala Technologies, please consider leaving us a review.
+            </p>
+            <Link
+              href={contactInfo2.googleReview}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#e38239] text-white font-semibold transition-colors duration-300 shadow-md hover:shadow-lg group"
+            >
+              <Star className="w-4 h-4 text-white!" />
+              <span className="text-sm text-white!">Review Us on Google</span>
+            </Link>
+          </div>
+
           {/* FAQ */}
           <div className="glass-card p-4 sm:p-6 lg:p-8 rounded-2xl lg:rounded-3xl backdrop-blur-xl border border-white/10">
             <h3 className="text-xl sm:text-2xl font-bold mb-4 lg:mb-6">Software Development Services FAQ</h3>
@@ -520,11 +547,12 @@ export default function ContactContent() {
             </div>
           </div>
         </motion.div>
-      </div>
+      </div >
 
       {/* CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
+      < motion.div
+        initial={{ opacity: 0, y: 30 }
+        }
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
@@ -568,8 +596,7 @@ export default function ContactContent() {
             </a>
           </div>
         </div>
-      </motion.div>
-    </div>
+      </motion.div >
+    </div >
   );
 }
-

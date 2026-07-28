@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Our Team | Expert Developers CoderLala Gurugram",
     description: "CoderLala's Gurugram team: skilled developers, designers & engineers delivering web apps, mobile, SaaS platforms & AI solutions.",
-    images: ["/images/team/coderlala-team.jpg"],
+    images: ["/images/feature-images/og-images/og-our-teams.jpg"],
     creator: "@coderlala",
     site: "@coderlala",
   },

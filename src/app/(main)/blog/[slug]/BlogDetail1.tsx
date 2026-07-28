@@ -143,7 +143,7 @@ export class KafkaService {
         <>
             <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
                 {/* Hero Section with Cover Image */}
-                <div className="relative h-[60vh] min-h-[500px] w-full bg-linear-to-r from-gray-900 to-gray-800 overflow-hidden">
+                <div className="relative h-[60vh] min-h-125 w-full bg-linear-to-r from-gray-900 to-gray-800 overflow-hidden">
                     {/* Background Image with Overlay */}
                     <div className="absolute inset-0">
                         <Image

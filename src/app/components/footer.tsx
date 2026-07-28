@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import Link from "next/link"; // Keep this import
+import { Star } from "lucide-react";
 import { useState, useEffect } from "react";
 import { FaLinkedin, FaInstagram, FaEnvelope, FaPhone } from "react-icons/fa";
 import { services } from "../(main)/services/data/services/service";
@@ -77,6 +78,22 @@ export default function Footer() {
                     </a>
                   ))}
                 </div>
+              </div>
+
+              {/* Review Us Section */}
+              <div className="pt-2 flex justify-center sm:justify-normal">
+                <a
+                  href={contactInfo.googleReview}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#e38239] text-white! font-semibold
+                    transition-colors duration-300 shadow-md hover:shadow-lg
+                    group"
+                  aria-label="Review us on Google"
+                >
+                  <Star className="w-4 h-4 text-white! transition-colors" />
+                  <span className="text-sm text-white!">Review Us</span>
+                </a>
               </div>
             </div>
 
