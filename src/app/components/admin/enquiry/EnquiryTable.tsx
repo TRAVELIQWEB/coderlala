@@ -32,11 +32,17 @@ const EnquiryTable = () => {
       params.append('page', page.toString());
       params.append('limit', '10');
       if (search) params.append('searchQuery', search);
-      if (fromDate) params.append('fromDate', fromDate);
-      if (toDate) params.append('toDate', toDate);
+
+      if (fromDate) {
+        const start = new Date(`${fromDate}T00:00:00.000`);
+        params.append('fromDate', start.toISOString());
+      }
+      if (toDate) {
+        const end = new Date(`${toDate}T23:59:59.999`);
+        params.append('toDate', end.toISOString());
+      }
 
       const res = await api.get(`/admin/enquirys?${params.toString()}`);
-      console.log("📊 FETCHED ENQUIRIES:", res.data);
 
       const enquiriesData = res.data?.data?.enquiries || res.data?.data || [];
 
@@ -134,105 +140,128 @@ const EnquiryTable = () => {
 
   return (
     <div className="space-y-2">
-      <EnquiryFilters onSearch={handleSearch} onReset={handleReset} />
-      <div className="overflow-hidden rounded-xl border! border-border bg-tableBg shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
-            <thead>
-              <tr className="bg-border">
-                <th className="w-14 px-4 py-3 text-left font-semibold text-nowrap">
-                  S. No
-                </th>
-                <th className="min-w-45 px-4 py-3 text-left font-semibold text-nowrap">
-                  Full Name
-                </th>
-                <th className="min-w-37.5 px-4 py-3 text-left font-semibold text-nowrap">
-                  Phone Number
-                </th>
-                <th className="min-w-45 px-4 py-3 text-left font-semibold text-nowrap">
-                  Company Name
-                </th>
-                <th className="min-w-55 px-4 py-3 text-left font-semibold text-nowrap">
-                  Email
-                </th>
-                <th className="min-w-45 px-4 py-3 text-left font-semibold text-nowrap">
-                  Budget
-                </th>
-                <th className="min-w-[320px] px-4 py-3 text-left font-semibold text-nowrap">
-                  Project Details
-                </th>
-                <th className="min-w-62.5 px-4 py-3 text-left font-semibold text-nowrap">
-                  Page URL
-                </th>
-                <th className="w-32 px-4 py-3 text-left font-semibold text-nowrap">
-                  Created At
-                </th>
-              </tr>
-            </thead>
-
-            <tbody className="divide-y divide-border">
-              {enquiries.length === 0 ? (
-                <tr>
-                  <td colSpan={9} className="py-10 text-center text-muted-foreground">
-                    No enquiries found
-                  </td>
+      <EnquiryFilters
+        search={search}
+        fromDate={fromDate}
+        toDate={toDate}
+        onSearchChange={setSearch}
+        onFromDateChange={setFromDate}
+        onToDateChange={setToDate}
+        onSearch={handleSearch}
+        onReset={handleReset}
+      />
+      {loading ? (
+        <div className="flex justify-center items-center min-h-100">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+        </div>
+      ) : error ? (
+        <div className="p-6">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p className="text-red-700 font-medium">{error}</p>
+            <button onClick={() => fetchEnquiries()} className="mt-2 text-blue-600 hover:text-blue-800">
+              Retry
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="overflow-hidden rounded-xl border! border-border bg-tableBg shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="bg-border">
+                  <th className="w-14 px-4 py-3 text-left font-semibold text-nowrap">
+                    S. No
+                  </th>
+                  <th className="min-w-45 px-4 py-3 text-left font-semibold text-nowrap">
+                    Full Name
+                  </th>
+                  <th className="min-w-37.5 px-4 py-3 text-left font-semibold text-nowrap">
+                    Phone Number
+                  </th>
+                  <th className="min-w-45 px-4 py-3 text-left font-semibold text-nowrap">
+                    Company Name
+                  </th>
+                  <th className="min-w-55 px-4 py-3 text-left font-semibold text-nowrap">
+                    Email
+                  </th>
+                  <th className="min-w-45 px-4 py-3 text-left font-semibold text-nowrap">
+                    Budget
+                  </th>
+                  <th className="min-w-[320px] px-4 py-3 text-left font-semibold text-nowrap">
+                    Project Details
+                  </th>
+                  <th className="min-w-62.5 px-4 py-3 text-left font-semibold text-nowrap">
+                    Page URL
+                  </th>
+                  <th className="w-32 px-4 py-3 text-left font-semibold text-nowrap">
+                    Created At
+                  </th>
                 </tr>
-              ) : (
-                enquiries.map((enquiry, index) => (
-                  <tr key={enquiry._id} className="transition-colors hover:bg-muted/50">
-                    <td className="px-4 py-4">{(pagination.currentPage - 1) * 10 + index + 1}</td>
-                    <td className="px-4 py-4 font-medium text-nowrap">
-                      {enquiry.fullName}
-                    </td>
-                    <td className="px-4 py-4 text-nowrap">
-                      {enquiry.phoneNumber}
-                    </td>
-                    <td className="max-w-45 px-4 py-4">
-                      <div className="truncate" title={enquiry.companyName || "-"}>
-                        {enquiry.companyName || "-"}
-                      </div>
-                    </td>
-                    <td className="max-w-55 px-4 py-4">
-                      <div className="truncate" title={enquiry.email}>
-                        {enquiry.email || "-"}
-                      </div>
-                    </td>
-                    <td className="px-4 py-4 text-nowrap">
-                      <span className="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-700 dark:bg-blue-500/20 dark:text-blue-400">
-                        {enquiry.budget || "-"}
-                      </span>
-                    </td>
-                    <td className="max-w-[320px] px-4 py-4">
-                      <div className="truncate text-muted-foreground" title={enquiry.projectDetails}>
-                        {enquiry.projectDetails || "-"}
-                      </div>
-                    </td>
-                    <td className="max-w-62.5 px-4 py-4">
-                      <div className="truncate text-blue-600 hover:underline" title={enquiry.pageUrl}>
-                        {enquiry.pageUrl ? (
-                          <a href={enquiry.pageUrl} target="_blank" rel="noopener noreferrer">
-                            {enquiry.pageUrl}
-                          </a>
-                        ) : "-"}
-                      </div>
-                    </td>
-                    <td className="px-4 py-4 text-nowrap">
-                      {new Date(enquiry.createdAt).toLocaleDateString()}
+              </thead>
+
+              <tbody className="divide-y divide-border">
+                {enquiries.length === 0 ? (
+                  <tr>
+                    <td colSpan={9} className="py-10 text-center text-muted-foreground">
+                      No enquiries found
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  enquiries.map((enquiry, index) => (
+                    <tr key={enquiry._id} className="transition-colors hover:bg-muted/50">
+                      <td className="px-4 py-4">{(pagination.currentPage - 1) * 10 + index + 1}</td>
+                      <td className="px-4 py-4 font-medium text-nowrap">
+                        {enquiry.fullName}
+                      </td>
+                      <td className="px-4 py-4 text-nowrap">
+                        {enquiry.phoneNumber}
+                      </td>
+                      <td className="max-w-45 px-4 py-4">
+                        <div className="truncate" title={enquiry.companyName || "-"}>
+                          {enquiry.companyName || "-"}
+                        </div>
+                      </td>
+                      <td className="max-w-55 px-4 py-4">
+                        <div className="truncate" title={enquiry.email}>
+                          {enquiry.email || "-"}
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 text-nowrap">
+                        <span className="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-700 dark:bg-blue-500/20 dark:text-blue-400">
+                          {enquiry.budget || "-"}
+                        </span>
+                      </td>
+                      <td className="max-w-[320px] px-4 py-4">
+                        <div className="truncate text-muted-foreground" title={enquiry.projectDetails}>
+                          {enquiry.projectDetails || "-"}
+                        </div>
+                      </td>
+                      <td className="max-w-62.5 px-4 py-4">
+                        <div className="truncate text-blue-600 hover:underline" title={enquiry.pageUrl}>
+                          {enquiry.pageUrl ? (
+                            <a href={enquiry.pageUrl} target="_blank" rel="noopener noreferrer">
+                              {enquiry.pageUrl}
+                            </a>
+                          ) : "-"}
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 text-nowrap">
+                        {new Date(enquiry.createdAt).toLocaleDateString()}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+          <Pagination
+            pagination={pagination}
+            onNext={handleNextPage}
+            onPrev={handlePrevPage}
+            onPageClick={handlePageClick}
+          />
         </div>
-        <Pagination
-          pagination={pagination}
-          onNext={handleNextPage}
-          onPrev={handlePrevPage}
-          onPageClick={handlePageClick}
-        />
-      </div>
-
+      )}
     </div >
   );
 };

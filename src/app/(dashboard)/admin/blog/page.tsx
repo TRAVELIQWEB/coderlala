@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
-import { Plus, Pencil, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { useEffect, useState, useCallback, Fragment } from 'react';
+import { Plus, Pencil, ChevronLeft, ChevronRight, Search, Eye } from 'lucide-react';
 import CreatePostModal from '@/app/components/admin/CreatePostModal';
 import UpdatePostModal from '@/app/components/admin/UpdatePostModal';
 import BlogFilters from '@/app/components/admin/blog/BlogFilters';
@@ -21,6 +21,7 @@ import {
   PaginationInfo
 } from '@/types/blog';
 import Pagination from '@/app/components/admin/enquiry/Pagination';
+import Link from 'next/link';
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -376,21 +377,21 @@ export default function BlogPage() {
                           key={post._id}
                           className="hover:bg-muted/70 transition-colors"
                         >
-                          <td className="p-2">
+                          <td className="px-4 py-3">
                             {(pagination.currentPage - 1) * pageSize + index + 1}
                           </td>
 
-                          <td className="p-2 font-medium text-nowrap">
+                          <td className="px-4 py-3 font-medium text-nowrap">
                             {post.title}
                           </td>
 
-                          <td className="max-w-40 p-2 text-nowrap">
+                          <td className="max-w-40 px-4 py-3 text-nowrap">
                             <div className="truncate" title={post.slug}>
                               {post.slug || "-"}
                             </div>
                           </td>
 
-                          <td className="max-w-55 p-2">
+                          <td className="max-w-55 px-4 py-3">
                             <div
                               className="truncate text-muted-foreground"
                               title={post.description}
@@ -399,31 +400,31 @@ export default function BlogPage() {
                             </div>
                           </td>
 
-                          <td className="p-2 text-nowrap">
+                          <td className="px-4 py-3 text-nowrap">
                             {post.primaryTech || "-"}
                           </td>
 
-                          <td className="p-2 text-nowrap">
+                          <td className="px-4 py-3 text-nowrap">
                             <span className="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-700 dark:bg-blue-500/20 dark:text-blue-400">
                               {post.level || "-"}
                             </span>
                           </td>
 
-                          <td className="p-2 text-nowrap">
+                          <td className="px-4 py-3 text-nowrap">
                             {post.readingTime ? `${post.readingTime} min` : "-"}
                           </td>
 
-                          <td className="p-2 text-nowrap">
+                          <td className="px-4 py-3 text-nowrap">
                             {post.author?.name || "-"}
                           </td>
 
-                          <td className="p-2">
+                          <td className="px-4 py-3">
                             <span className="rounded-full bg-violet-100 px-2.5 py-1 text-xs font-medium text-violet-700 dark:bg-violet-500/20 dark:text-violet-400">
                               {post.language?.toUpperCase() || "-"}
                             </span>
                           </td>
 
-                          <td className="p-2 text-nowrap">
+                          <td className="px-4 py-3 text-nowrap">
                             <span
                               className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${post.status === "active"
                                 ? "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400"
@@ -444,20 +445,33 @@ export default function BlogPage() {
                             </span>
                           </td>
 
-                          <td className="p-2 text-sm text-nowrap">
+                          <td className="px-4 py-3 text-sm text-nowrap">
                             {post.createdAt
                               ? new Date(post.createdAt).toLocaleDateString()
                               : "-"}
                           </td>
 
-                          <td className="p-2">
-                            <div className="flex justify-center">
+                          <td className="p-3">
+                            <div className="flex items-center gap-2">
+                              {/* Edit Button */}
                               <button
                                 onClick={() => handleEditClick(post)}
-                                className="rounded-md p-2 text-blue-600 transition hover:bg-blue-100 dark:hover:bg-blue-500/20"
+                                title="Edit"
+                                className="flex h-9 w-9 items-center justify-center rounded-full cursor-pointer bg-blue-100 text-blue-600 shadow-sm transition-all duration-300 hover:scale-110 hover:bg-blue-600 hover:text-white hover:shadow-md active:scale-95"
                               >
                                 <Pencil size={16} />
                               </button>
+
+                              {/* View Button */}
+                              <Link
+                                href={`/blog/${post.slug}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="View"
+                                className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm transition-all duration-300 hover:scale-110 hover:bg-emerald-600 hover:text-white hover:shadow-md active:scale-95"
+                              >
+                                <Eye size={16} />
+                              </Link>
                             </div>
                           </td>
                         </tr>
