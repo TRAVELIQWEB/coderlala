@@ -35,9 +35,9 @@ import {
   SiKubernetes,
   SiElasticsearch,
   SiDotnet,
-  SiSalesforce,
   SiSap,
 } from "react-icons/si";
+import { FaSalesforce } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import Breadcrumbs from "../component/location/Breadcrumbs";
 import Image from "next/image";
@@ -186,7 +186,7 @@ const techStack = [
   { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
   { name: "PostgreSQL", icon: SiPostgresql, color: "text-blue-700" },
   { name: "MySQL", icon: SiMysql, color: "text-blue-600" },
-  { name: "Salesforce", icon: SiSalesforce, color: "text-blue-500" },
+  { name: "Salesforce", icon: FaSalesforce, color: "text-blue-500" },
   { name: "SAP", icon: SiSap, color: "text-blue-600" },
   { name: "React", icon: SiReact, color: "text-cyan-500" },
   { name: "Angular", icon: SiAngular, color: "text-red-600" },

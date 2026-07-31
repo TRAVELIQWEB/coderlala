@@ -12,16 +12,13 @@ import {
   Star,
   Sparkles,
   Quote,
-  Server,
   Database,
   Layout,
   Search,
   Palette,
-  Brain,
   MousePointer,
   Layers,
   Send,
-  BarChart3,
 } from "lucide-react";
 import { HeadingTitle2, HeroTitleLocation } from "@/app/components/HeroTitle";
 import { FAQAccordion } from "../component/ServiceFAQAccordion";
@@ -37,9 +34,9 @@ import {
   SiGithub,
   SiFigma,
   SiSketch,
-  SiInvision,
   SiWebflow,
 } from "react-icons/si";
+import { TbBrandAdobeXd } from "react-icons/tb";
 import { motion } from "framer-motion";
 import Breadcrumbs from "../component/location/Breadcrumbs";
 import Image from "next/image";
@@ -182,7 +179,7 @@ const testimonials = [
 const techStack = [
   { name: "Figma", icon: SiFigma, color: "text-purple-500" },
   { name: "Sketch", icon: SiSketch, color: "text-orange-500" },
-  { name: "InVision", icon: SiInvision, color: "text-red-500" },
+  { name: "InVision", icon: TbBrandAdobeXd, color: "text-red-500" },
   { name: "Webflow", icon: SiWebflow, color: "text-blue-500" },
   { name: "React", icon: SiReact, color: "text-cyan-500" },
   { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
