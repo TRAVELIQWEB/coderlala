@@ -107,12 +107,12 @@ export default function ThankYouPage() {
                 <MessageCircle className="w-4 h-4 text-white!" />
                 <span className="font-medium text-white!">WhatsApp us at:</span>
                 <Link
-                  href={`https://wa.me/${contactInfo.salmanNizamPhone}`}
+                  href={`https://wa.me/${contactInfo.salmanNizamPhoneWA}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white! font-bold hover:underline"
+                  className="text-white! font-bold hover:underline text-lg"
                 >
-                  +91-{contactInfo.salmanNizamPhone}
+                  Chat with us on WhatsApp
                 </Link>
               </div>
             </div>

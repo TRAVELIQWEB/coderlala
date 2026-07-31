@@ -573,7 +573,7 @@ const ContactForm = forwardRef<HTMLInputElement | null, ContactFormProps>(
               className="group w-full relative px-6 py-3 sm:px-8 sm:py-4 rounded-xl text-white! font-semibold bg-linear-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl shadow-[0_10px_40px_-15px_rgba(234,88,12,0.5)] flex items-center justify-center gap-2 sm:gap-3 overflow-hidden"
             >
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
-              <span className="relative text-sm sm:text-base">{submitButtonText}</span>
+              <span className="relative text-sm sm:text-base text-white!">{submitButtonText}</span>
               <Send className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               <div className="absolute -inset-1 bg-linear-to-r from-blue-600/20 to-blue-800/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
             </button>

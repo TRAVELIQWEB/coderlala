@@ -1,7 +1,8 @@
 export const contactInfo = {
   // name: "John Doe",
   email: "info@coderlala.com",
-  salmanNizamPhone: "8077040603",
+  salmanNizamPhoneWA: "8077040603",
+  salmanNizamPhone: "7830836770",
   achalSinghPhone: "8949541483",
   mapLocationLink: "https://maps.app.goo.gl/W3xgFfxU4H8JXJeq7",
   websiteAddress: "Unit No.1004G, 10th Floor, JMD Megapolis, sector-48 Gurgaon, Haryana 122018",

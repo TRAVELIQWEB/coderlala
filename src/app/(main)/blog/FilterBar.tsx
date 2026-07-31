@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, Layers, X, Tags } from "lucide-react";
+import { Search, Layers, X, Tags, Plus } from "lucide-react";
 import { BlogTag, BlogTechStack } from "@/types/blog";
 import { Option } from "@/components/ui/multi-select";
 import { Button } from "@/components/ui/button";
@@ -49,15 +49,11 @@ export const FilterBar: React.FC<FiltersProps> = ({
 }) => {
   return (
     <div className="w-full max-w-7xl mx-auto mb-12">
-      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 p-5 rounded-xl bg-card border border-border shadow-lg">
+      {/* <div className="rounded-xl shadow-sm border border-border p-4 bg-tableBg"> */}
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 p-4 glass-card rounded-lg! border border-border shadow-lg">
         {/* Search Input */}
         <div className="relative w-full sm:w-64">
-          <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground bg-card rounded-sm p-0.5">
-            Search
-          </Label>
-
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-
           <Input
             placeholder="Search titles, content..."
             value={searchQuery}
@@ -67,11 +63,11 @@ export const FilterBar: React.FC<FiltersProps> = ({
                 onSearch();
               }
             }}
-            className="h-12 pl-9 border border-input focus-visible:ring-0 bg-background rounded-md min-h-12"
+            className="h-12 pl-9 border border-border bg-border focus-visible:ring-0 rounded-md min-h-12"
           />
         </div>
 
-        <FilterDateRange 
+        <FilterDateRange
           dateFrom={dateFrom}
           dateTo={dateTo}
           setDateFrom={setDateFrom}
@@ -87,7 +83,7 @@ export const FilterBar: React.FC<FiltersProps> = ({
           icon={Layers}
           className="sm:w-52"
         />
-        
+
         <ComboboxMultiple
           label="Tags"
           options={TAG_OPTIONS.map((t) => t.label)}
@@ -99,15 +95,15 @@ export const FilterBar: React.FC<FiltersProps> = ({
 
         {/* Actions */}
         <div className="flex flex-row gap-2 w-full sm:w-auto sm:ml-auto">
-          <Button
+
+          <button
+            type="button"
             onClick={onSearch}
-            size="lg"
-            variant="default"
-            className="w-full sm:w-auto h-12 px-6"
+            className="flex items-center gap-2 bg-brand-blue hover:bg-brand-blue/90 text-white! px-6 py-2 rounded-md text-md font-medium transition w-full md:w-auto justify-center"
           >
-            <Search className="w-4 h-4 mr-2" />
+            <Search size={16} />
             Search
-          </Button>
+          </button>
 
           <Button
             onClick={onReset}
