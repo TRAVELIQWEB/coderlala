@@ -28,21 +28,11 @@ export const metadata: Metadata = {
     siteName: "CoderLala Technologies",
     type: "website",
     locale: "en_US",
-    images: [
-      {
-        url: "/images/feature-images/og-images/og-privacy.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Privacy Policy - CoderLala Technologies",
-        type: "image/jpeg",
-      }
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Privacy Policy | CoderLala Data Protection",
     description: "Understand CoderLala's data privacy practices: collection, usage, sharing & protection compliant with GDPR and Indian data laws.",
-    images: ["/images/feature-images/og-images/og-privacy.jpg"],
     creator: "@coderlala",
     site: "@coderlala",
   },

@@ -15,10 +15,12 @@ import {
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
+import { Node, mergeAttributes } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
+import { ListItem } from '@tiptap/extension-list';
+import { Table, TableRow, TableHeader, TableCell } from '@tiptap/extension-table';
 import 'prosemirror-view/style/prosemirror.css';
-import { Option } from "@/components/ui/multi-select";
-// Add these imports at the top
+
 import { Separator } from "@/components/ui/separator";
 import { Toggle } from "@/components/ui/toggle";
 import { Button } from '@/components/ui/button';
@@ -41,6 +43,40 @@ import { ComboboxSingle } from '@/app/(main)/blog/ComboboxSingle';
 import { cn } from '@/lib/utils';
 import { FormInput } from '@/components/Form/FormInput';
 import { FormTextarea } from '@/components/Form/FormTextarea';
+
+// ============= CUSTOM SCHEMA NODES =============
+
+// Custom ListItem: allow inline content directly, no forced <p> wrapper
+const CustomListItem = ListItem.extend({
+  content: 'inline*',
+});
+
+// Custom Section node: StarterKit has no schema node for <section>,
+// so without this, ProseMirror unwraps/strips the tag on insert.
+const Section = Node.create({
+  name: 'section',
+  group: 'block',
+  content: 'block*',
+  parseHTML() {
+    return [{ tag: 'section' }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ['section', mergeAttributes(HTMLAttributes), 0];
+  },
+});
+
+// Custom Div node: same reasoning as Section above.
+const Div = Node.create({
+  name: 'div',
+  group: 'block',
+  content: 'block*',
+  parseHTML() {
+    return [{ tag: 'div' }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ['div', mergeAttributes(HTMLAttributes), 0];
+  },
+});
 
 interface Props {
   open: boolean;
@@ -94,6 +130,15 @@ const defaultFormState = {
   seo: defaultSeo
 };
 
+const normalizeEditorContent = (html: string) => {
+  if (!html) return '';
+
+  return html.replace(/<(th|td)\b[^>]*>([\s\S]*?)<\/\1>/gi, (_match, tag, inner) => {
+    const cleanedInner = inner.replace(/<p\b[^>]*>([\s\S]*?)<\/p>/gi, '$1');
+    return `<${tag}>${cleanedInner}</${tag}>`;
+  });
+};
+
 export default function UpdatePostModal({
   open,
   onClose,
@@ -128,7 +173,6 @@ export default function UpdatePostModal({
   const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-
   // Add this helper function at the top of the component (after useState declarations)
   const getToggleClass = (active: boolean) =>
     cn(
@@ -140,16 +184,30 @@ export default function UpdatePostModal({
 
   // ✅ TipTap editor
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit.configure({
+        listItem: false, // disable default so CustomListItem is used instead
+      }),
+      CustomListItem,
+      Section,
+      Div,
+      Table.configure({ resizable: true }),
+      TableRow,
+      TableHeader,
+      TableCell,
+    ],
     content: '',
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: 'min-h-[200px] focus:outline-none p-2',
+        // truncatedContent class lets .truncatedContent table (and related)
+        // CSS rules apply to tables rendered live inside the editor, matching
+        // how content looks on the public-facing post page.
+        class: 'min-h-[200px] focus:outline-none p-2 truncatedContent',
       },
     },
     onUpdate({ editor }) {
-      const content = editor.getHTML();
+      const content = normalizeEditorContent(editor.getHTML());
       const text = editor.getText();
       setForm((prev) => ({
         ...prev,
@@ -227,7 +285,7 @@ export default function UpdatePostModal({
         }
       });
 
-      editor.commands.setContent(editingPost.content || '');
+      editor.commands.setContent(normalizeEditorContent(editingPost.content || ''));
 
       setErrors({
         title: '',
@@ -415,11 +473,8 @@ export default function UpdatePostModal({
       newErrors.seoDescription = '';
     }
 
-    // Canonical URL validation
-    if (!form.seo.canonicalUrl?.trim()) {
-      newErrors.canonicalUrl = 'Canonical URL is required';
-      isValid = false;
-    } else {
+    // Canonical URL validation - now optional
+    if (form.seo.canonicalUrl?.trim()) { // Only validate if a value is provided
       const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
       if (!urlPattern.test(form.seo.canonicalUrl.trim())) {
         newErrors.canonicalUrl = 'Please enter a valid URL';
@@ -476,6 +531,26 @@ export default function UpdatePostModal({
   };
 
   const insertHtmlIntoEditor = () => {
+    // sanitizer to clean up HTML before inserting
+    const prepareHtmlInsert = (html: string) => {
+      let cleaned = html.trim();
+      if (!cleaned) return '';
+
+      // remove empty paragraphs
+      cleaned = cleaned.replace(/<p>(\s|&nbsp;)*<\/p>/gi, '');
+
+      // remove leading/trailing <br>
+      cleaned = cleaned.replace(/^(<br\s*\/?>(\s|&nbsp;)*)+|((\s|&nbsp;)*<br\s*\/?>)+$/gi, '');
+
+      // unwrap <p> inside <li> -> <li><p>text</p></li>  => <li>text</li>
+      cleaned = cleaned.replace(/<li>\s*<p[^>]*>([\s\S]*?)<\/p>\s*<\/li>/gi, '<li>$1</li>');
+
+      // unwrap <p> that wraps entire list blocks: <p><ul>...</ul></p> => <ul>...</ul>
+      cleaned = cleaned.replace(/<p>\s*(<(?:ul|ol)[\s\S]*?>[\s\S]*?<\/(?:ul|ol)>)\s*<\/p>/gi, '$1');
+
+      return cleaned;
+    };
+
     if (!editor) {
       setSubmitError('Editor not initialized');
       return;
@@ -487,20 +562,49 @@ export default function UpdatePostModal({
     }
 
     try {
-      if (!htmlInput.includes('<') || !htmlInput.includes('>')) {
+      const cleanHtml = prepareHtmlInsert(htmlInput);
+      if (!cleanHtml) {
+        setSubmitError('HTML cleaned to empty content');
+        return;
+      }
+
+      if (!cleanHtml.includes('<') || !cleanHtml.includes('>')) {
         setSubmitError('Invalid HTML: Must contain HTML tags');
         return;
       }
 
-      editor
-        .chain()
-        .focus()
-        .insertContent(htmlInput)
-        .run();
+      const { state } = editor;
+      const { $from } = state.selection;
+      const currentNode = $from.parent;
+
+      // If the cursor is inside an EMPTY paragraph, replace that paragraph's
+      // whole range instead of inserting inside it — otherwise ProseMirror
+      // splits the paragraph and leaves stray <p></p> tags behind.
+      if (currentNode.type.name === 'paragraph' && currentNode.content.size === 0) {
+        const from = $from.before();
+        const to = $from.after();
+
+        editor
+          .chain()
+          .focus()
+          .insertContentAt(
+            { from, to },
+            cleanHtml,
+            { parseOptions: { preserveWhitespace: false } }
+          )
+          .run();
+      } else {
+        editor
+          .chain()
+          .focus()
+          .insertContent(cleanHtml, {
+            parseOptions: { preserveWhitespace: false },
+          })
+          .run();
+      }
 
       setHtmlInput('');
       setSubmitError(null);
-
     } catch (error) {
       setSubmitError('Failed to insert HTML: Invalid format');
     }
@@ -580,7 +684,7 @@ export default function UpdatePostModal({
 
       const payload = {
         title: form.title.trim(),
-        content: editor.getHTML(),
+        content: normalizeEditorContent(editor.getHTML()),
         slug: form.slug.trim(),
         primaryTech: form.primaryTech,
         techStacks: techStackValues,
@@ -612,7 +716,7 @@ export default function UpdatePostModal({
         _id: form._id,
         title: form.title,
         description: form.description,
-        content: editor.getHTML(),
+        content: normalizeEditorContent(editor.getHTML()),
         slug: form.slug,
         primaryTech: form.primaryTech,
         techStacks: techStackValues,
@@ -932,7 +1036,7 @@ export default function UpdatePostModal({
                 <FormInput
                   name="canonicalUrl"
                   label="Canonical URL"
-                  required
+                  // required
                   value={form.seo.canonicalUrl}
                   onChange={(e) => {
                     setForm({

@@ -3,27 +3,38 @@
 
 import { Button } from '@/components/ui/button';
 import { Search, RotateCcw } from 'lucide-react';
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 
 interface EnquiryFiltersProps {
+  search: string;
+  fromDate: string;
+  toDate: string;
+  onSearchChange: (value: string) => void;
+  onFromDateChange: (value: string) => void;
+  onToDateChange: (value: string) => void;
   onSearch: (search: string, fromDate: string, toDate: string) => void;
   onReset: () => void;
 }
 
-export default function EnquiryFilters({ onSearch, onReset }: EnquiryFiltersProps) {
-  const [search, setSearch] = useState("");
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
-
+export default function EnquiryFilters({
+  search,
+  fromDate,
+  toDate,
+  onSearchChange,
+  onFromDateChange,
+  onToDateChange,
+  onSearch,
+  onReset,
+}: EnquiryFiltersProps) {
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSearch(search.trim(), fromDate, toDate);
+    onSearch(search.trim(), fromDate.trim(), toDate.trim());
   };
 
   const handleReset = () => {
-    setSearch("");
-    setFromDate("");
-    setToDate("");
+    onSearchChange("");
+    onFromDateChange("");
+    onToDateChange("");
     onReset();
   };
 
@@ -37,7 +48,7 @@ export default function EnquiryFilters({ onSearch, onReset }: EnquiryFiltersProp
           <input
             type="date"
             value={fromDate}
-            onChange={(e) => setFromDate(e.target.value)}
+            onChange={(e) => onFromDateChange(e.target.value)}
             className="w-full rounded-lg border border-border bg-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
@@ -49,7 +60,7 @@ export default function EnquiryFilters({ onSearch, onReset }: EnquiryFiltersProp
           <input
             type="date"
             value={toDate}
-            onChange={(e) => setToDate(e.target.value)}
+            onChange={(e) => onToDateChange(e.target.value)}
             className="w-full rounded-lg border border-border bg-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
@@ -62,7 +73,7 @@ export default function EnquiryFilters({ onSearch, onReset }: EnquiryFiltersProp
             <input
               type="text"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Name, Phone, Email or Company..."
               className="w-full rounded-lg border border-border bg-border py-2 pl-10 pr-4 text-sm text-foreground outline-none focus:ring-2 focus:ring-ring"
             />

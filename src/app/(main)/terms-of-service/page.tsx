@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/images/feature-images/og-images/og-terms.jpg",
+        url: "/images/feature-images/og-images/og-our-terms.jpg",
         width: 1200,
         height: 630,
         alt: "Terms of Service - CoderLala Technologies",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Terms & Conditions | CoderLala Technologies",
     description: "CoderLala Technologies' Terms of Service: clear legal agreements, user responsibilities & service terms for web, mobile & SaaS development.",
-    images: ["/images/feature-images/og-images/og-terms.jpg"],
+    images: ["/images/feature-images/og-images/og-our-terms.jpg"],
     creator: "@coderlala",
     site: "@coderlala",
   },
