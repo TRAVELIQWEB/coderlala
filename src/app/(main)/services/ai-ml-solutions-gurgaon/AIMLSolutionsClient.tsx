@@ -38,7 +38,6 @@ import {
   SiElasticsearch,
   SiTensorflow,
   SiPytorch,
-  SiOpenai,
   SiScikitlearn,
 } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -183,7 +182,7 @@ const techStack = [
   { name: "Python", icon: SiPython, color: "text-yellow-500" },
   { name: "TensorFlow", icon: SiTensorflow, color: "text-orange-500" },
   { name: "PyTorch", icon: SiPytorch, color: "text-red-600" },
-  { name: "OpenAI", icon: SiOpenai, color: "text-green-500" },
+  { name: "OpenAI", icon: Brain, color: "text-green-500" },
   { name: "scikit-learn", icon: SiScikitlearn, color: "text-blue-500" },
   { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
   { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
