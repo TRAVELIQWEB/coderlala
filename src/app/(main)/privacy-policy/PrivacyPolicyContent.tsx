@@ -49,7 +49,7 @@ export default function PrivacyPolicyContent() {
               provides web, mobile and software development services to clients
               worldwide. This Privacy Policy describes how we collect, use and
               protect your information when you visit{" "}
-              <a href="https://www.coderlala.com" className="text-orange-500"><strong>https://www.coderlala.com</strong></a> or work with us on a
+              <a href="https://coderlala.com" className="text-orange-500"><strong>https://coderlala.com</strong></a> or work with us on a
               project.
             </p>
 

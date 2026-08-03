@@ -54,7 +54,7 @@ export default function TermsOfServiceContent() {
           <article className="prose prose-invert prose-sm max-w-none sm:prose-base prose-headings:text-slate-50 prose-a:text-sky-300">
             <p>
               These Terms of Service (“Terms”) govern your use of the website
-              <a href="https://www.coderlala.com" className="text-orange-500"><strong> https://www.coderlala.com </strong></a>
+              <a href="https://coderlala.com" className="text-orange-500"><strong> https://coderlala.com </strong></a>
               and any services offered by CoderLala Technologies Pvt. Ltd.
               (“CoderLala”, “we”, “us”). By accessing our website or engaging
               our services, you agree to be bound by these Terms.

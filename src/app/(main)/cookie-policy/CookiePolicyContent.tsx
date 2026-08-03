@@ -46,10 +46,10 @@ export default function CookiePolicyContent() {
               (“CoderLala”, “we”, “us”) uses cookies and similar technologies
               when you visit{" "}
               <a
-                href="https://www.coderlala.com"
+                href="https://coderlala.com"
                 className="text-orange-500 font-semibold"
               >
-                https://www.coderlala.com
+                https://coderlala.com
               </a>{" "}
               (the “Website”). It should be read together with our Privacy
               Policy.

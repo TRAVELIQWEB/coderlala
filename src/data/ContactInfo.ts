@@ -10,7 +10,7 @@ export const contactInfo = {
   GMBAddress: "10th Floor, JMD MEGAPOLIS, Unit-1004G, Badshahpur Sohna Rd, Sector 48, Gurugram, Haryana 122018",
   company: "Coderlala Technologies Private Limited",
   // position: "Senior Developer",
-  website: "https://www.coderlala.com/",
+  website: "https://coderlala.com/",
   instagram: "https://www.instagram.com/coderlalatech",
   linkedIn: "https://in.linkedin.com/company/coderlala",
   googleReview: "https://search.google.com/local/writereview?placeid=ChIJfV1i3TcjDTsR-Me92RQzTeE",

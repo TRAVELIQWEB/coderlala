@@ -129,7 +129,7 @@ const organizationSchema = {
     "@id": "https://www.wikidata.org/wiki/Q137691754",
     name: "CoderLala Technologies Pvt. Ltd.",
     url: "https://coderlala.com",
-    logo: "https://www.coderlala.com/images/og-banner.png",
+    logo: "https://coderlala.com/images/og-banner.png",
     description: "A modern tech company building SaaS platforms, mobile apps, cloud infrastructures, and AI-driven solutions.",
     founder: {
         "@type": "Person",
