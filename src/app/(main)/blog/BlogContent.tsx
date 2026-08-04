@@ -9,7 +9,7 @@ import { FilterBar } from './FilterBar';
 import { BlogTag, BlogTechStack } from "@/types/blog";
 import DOMPurify from 'isomorphic-dompurify';
 import { format } from 'date-fns';
-import Pagination from '@/app/components/admin/enquiry/Pagination';
+import Pagination, { CenteredPagination } from '@/app/components/admin/enquiry/Pagination';
 
 export interface Post {
     id: number;
@@ -293,7 +293,7 @@ const BlogContent = () => {
                         </div>
                     )}
                 </div>
-                <Pagination
+                <CenteredPagination
                     pagination={pagination}
                     onNext={handleNextPage}
                     onPrev={handlePrevPage}
