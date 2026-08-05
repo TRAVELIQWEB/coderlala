@@ -461,6 +461,9 @@ export default function UpdatePostModal({
     if (!form.seo.title.trim()) {
       newErrors.seoTitle = 'SEO title is required';
       isValid = false;
+    } else if (form.seo.title.trim().length > 50) {
+      newErrors.seoTitle = 'SEO title cannot exceed 50 characters';
+      isValid = false;
     } else {
       newErrors.seoTitle = '';
     }
@@ -468,6 +471,9 @@ export default function UpdatePostModal({
     // SEO Description validation
     if (!form.seo.description.trim()) {
       newErrors.seoDescription = 'SEO description is required';
+      isValid = false;
+    } else if (form.seo.description.trim().length > 150) {
+      newErrors.seoDescription = 'SEO description cannot exceed 150 characters';
       isValid = false;
     } else {
       newErrors.seoDescription = '';
@@ -802,7 +808,7 @@ export default function UpdatePostModal({
           <div className="flex-1 overflow-y-auto p-4 space-y-2">
 
             {/* SECTION 1: Basic Information */}
-            <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100 space-y-4">
+            <div className="bg-blue-50/50 p-4 rounded-xl border border-border space-y-4">
               <h3 className="text-lg font-semibold text-blue-900 flex items-center gap-2">
                 Basic Information
               </h3>
@@ -1012,27 +1018,33 @@ export default function UpdatePostModal({
             </div>
 
             {/* SECTION 3: SEO Settings */}
-            <div className="bg-green-50/50 p-4 rounded-xl border border-green-100 space-y-2">
+            <div className="bg-green-50/50 p-4 rounded-xl border border-border space-y-2">
               <h3 className="text-lg font-semibold text-green-900 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-green-600 rounded-full"></span>
                 SEO Settings
               </h3>
 
               <div className="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
-                <FormInput
-                  name="seoTitle"
-                  label="SEO Title"
-                  required
-                  value={form.seo.title}
-                  onChange={(e) => {
-                    setForm({
-                      ...form,
-                      seo: { ...form.seo, title: e.target.value }
-                    })
-                  }}
-                  error={!!errors.seoTitle}
-                  errorMessage={errors.seoTitle}
-                />
+                <div className="space-y-1">
+                  <FormInput
+                    name="seoTitle"
+                    label="SEO Title"
+                    required
+                    maxLength={50}
+                    value={form.seo.title}
+                    onChange={(e) => {
+                      setForm({
+                        ...form,
+                        seo: { ...form.seo, title: e.target.value }
+                      })
+                    }}
+                    error={!!errors.seoTitle}
+                    errorMessage={errors.seoTitle}
+                  />
+                  <p className={`text-xs font-bold ${form.seo.title.length >= 50 ? 'text-destructive' : 'text-emerald-400'}`}>
+                    {form.seo.title.length} of 50 characters
+                  </p>
+                </div>
                 <FormInput
                   name="canonicalUrl"
                   label="Canonical URL"
@@ -1047,27 +1059,33 @@ export default function UpdatePostModal({
                   error={!!errors.canonicalUrl}
                   errorMessage={errors.canonicalUrl}
                 />
-                <FormTextarea
-                  className='col-span-2'
-                  name="seoDescription"
-                  label="SEO Description"
-                  required
-                  rows={2}
-                  value={form.seo.description}
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      seo: { ...form.seo, description: e.target.value }
-                    })
-                  }
-                  error={!!errors.seoDescription}
-                  errorMessage={errors.seoDescription}
-                />
+                <div className="space-y-1 col-span-2">
+                  <FormTextarea
+                    className='w-full'
+                    name="seoDescription"
+                    label="SEO Description"
+                    required
+                    rows={2}
+                    maxLength={150}
+                    value={form.seo.description}
+                    onChange={(e) =>
+                      setForm({
+                        ...form,
+                        seo: { ...form.seo, description: e.target.value }
+                      })
+                    }
+                    error={!!errors.seoDescription}
+                    errorMessage={errors.seoDescription}
+                  />
+                  <p className={`text-xs font-bold ${form.seo.description.length >= 150 ? 'text-destructive' : 'text-emerald-400'}`}>
+                    {form.seo.description.length} of 150 characters
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* SECTION 4: Content */}
-            <div className="bg-amber-50/50 p-4 rounded-xl border border-amber-100 space-y-2">
+            <div className="bg-amber-50/50 p-4 rounded-xl border border-border space-y-2">
               <h3 className="text-lg font-semibold text-amber-900 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-amber-600 rounded-full"></span>
                 Content <span className="text-red-500 text-sm">(Required - Min 10 characters)</span>

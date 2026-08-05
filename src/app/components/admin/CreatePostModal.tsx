@@ -361,17 +361,23 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
       newErrors.status = '';
     }
 
-    // SEO Title validation - REQUIRED
+    // SEO Title validation - REQUIRED, max 50 chars
     if (!form.seo.title.trim()) {
       newErrors.seoTitle = 'SEO title is required';
+      isValid = false;
+    } else if (form.seo.title.trim().length > 50) {
+      newErrors.seoTitle = 'SEO title cannot exceed 50 characters';
       isValid = false;
     } else {
       newErrors.seoTitle = '';
     }
 
-    // SEO Description validation - REQUIRED
+    // SEO Description validation - REQUIRED, max 150 chars
     if (!form.seo.description.trim()) {
       newErrors.seoDescription = 'SEO description is required';
+      isValid = false;
+    } else if (form.seo.description.trim().length > 150) {
+      newErrors.seoDescription = 'SEO description cannot exceed 150 characters';
       isValid = false;
     } else {
       newErrors.seoDescription = '';
@@ -891,20 +897,27 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
               </h3>
 
               <div className="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 mt-4">
-                <FormInput
-                  name="seoTitle"
-                  label="SEO Title"
-                  // required
-                  value={form.seo.title}
-                  onChange={(e) => {
-                    setForm({
-                      ...form,
-                      seo: { ...form.seo, title: e.target.value }
-                    })
-                  }}
-                  error={!!errors.seoTitle}
-                  errorMessage={errors.seoTitle}
-                />
+                <div className="space-y-1">
+                  <FormInput
+                    name="seoTitle"
+                    label="SEO Title"
+                    // required
+                    maxLength={50}
+                    value={form.seo.title}
+                    onChange={(e) => {
+                      setForm({
+                        ...form,
+                        seo: { ...form.seo, title: e.target.value }
+                      })
+                    }}
+                    error={!!errors.seoTitle}
+                    errorMessage={errors.seoTitle}
+                  />
+                  
+                  <p className={`text-xs font-bold ${form.seo.title.length >= 50 ? 'text-destructive' : 'text-emerald-400'}`}>
+                    {form.seo.title.length} of 50 characters
+                  </p>
+                </div>
                 <FormInput
                   name="canonicalUrl"
                   label="Canonical URL"
@@ -919,22 +932,28 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
                   error={!!errors.canonicalUrl}
                   errorMessage={errors.canonicalUrl}
                 />
-                <FormTextarea
-                  className='col-span-2'
-                  name="seoDescription"
-                  label="SEO Description"
-                  // required
-                  rows={2}
-                  value={form.seo.description}
-                  onChange={(e) =>
-                    setForm({
-                      ...form,
-                      seo: { ...form.seo, description: e.target.value }
-                    })
-                  }
-                  error={!!errors.seoDescription}
-                  errorMessage={errors.seoDescription}
-                />
+                <div className="space-y-1 col-span-2">
+                  <FormTextarea
+                    className='w-full'
+                    name="seoDescription"
+                    label="SEO Description"
+                    // required
+                    rows={2}
+                    maxLength={150}
+                    value={form.seo.description}
+                    onChange={(e) =>
+                      setForm({
+                        ...form,
+                        seo: { ...form.seo, description: e.target.value }
+                      })
+                    }
+                    error={!!errors.seoDescription}
+                    errorMessage={errors.seoDescription}
+                  />
+                  <p className={`text-xs font-bold ${form.seo.description.length >= 150 ? 'text-destructive' : 'text-emerald-400'}`}>
+                    {form.seo.description.length} of 150 characters
+                  </p>
+                </div>
               </div>
             </div>
 

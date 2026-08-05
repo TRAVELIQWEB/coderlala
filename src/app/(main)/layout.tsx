@@ -39,7 +39,7 @@ export const metadata = {
     title: {
         default:
             "CoderLala Technologies Private Limited | Next-Gen Digital Solutions",
-        template: "%s | CoderLala Technologies Private Limited"
+        template: "%s | CoderLala"
     },
     description: "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions.",
     applicationName: "CoderLala",
