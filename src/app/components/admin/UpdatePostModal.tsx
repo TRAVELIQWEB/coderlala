@@ -809,9 +809,10 @@ export default function UpdatePostModal({
 
             {/* SECTION 1: Basic Information */}
             <div className="bg-blue-50/50 p-4 rounded-xl border border-border space-y-4">
-              <h3 className="text-lg font-semibold text-blue-900 flex items-center gap-2">
+              <h3 className="text-lg font-semibold mb-2 text-blue-900 flex items-center gap-2">
                 Basic Information
               </h3>
+              <Separator className="mb-6" />
 
               {/* Title - Slug */}
               <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
@@ -959,7 +960,7 @@ export default function UpdatePostModal({
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {/* Description */}
                 <FormTextarea
                   className='col-span-3'
@@ -974,12 +975,10 @@ export default function UpdatePostModal({
                   errorMessage={errors.description}
                 />
                 {/* SECTION 2: Author Information */}
-                <div className="bg-purple-50/50 p-4 rounded-xl border border-purple-100 space-y-2">
+                <div className="space-y-2">
                   <h3 className="text-lg font-semibold text-purple-900 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-purple-600 rounded-full"></span>
                     Author Information
                   </h3>
-
                   <div className="grid gap-2 mt-5">
                     <FormInput
                       name="authorName"
@@ -1018,11 +1017,11 @@ export default function UpdatePostModal({
             </div>
 
             {/* SECTION 3: SEO Settings */}
-            <div className="bg-green-50/50 p-4 rounded-xl border border-border space-y-2">
+            <div className="bg-green-50/50 p-4 rounded-xl border border-border space-y-1">
               <h3 className="text-lg font-semibold text-green-900 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-green-600 rounded-full"></span>
                 SEO Settings
               </h3>
+              <Separator className="mt-2 mb-6" />
 
               <div className="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
                 <div className="space-y-1">
@@ -1085,11 +1084,11 @@ export default function UpdatePostModal({
             </div>
 
             {/* SECTION 4: Content */}
-            <div className="bg-amber-50/50 p-4 rounded-xl border border-border space-y-2">
+            <div className="bg-amber-50/50 p-4 rounded-xl border border-border space-y-1">
               <h3 className="text-lg font-semibold text-amber-900 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-amber-600 rounded-full"></span>
-                Content <span className="text-red-500 text-sm">(Required - Min 10 characters)</span>
+                Content <span className="text-destructive text-sm">(Required - Min 10 characters)</span>
               </h3>
+              <Separator className="mt-2 mb-4" />
 
               {/* HTML Insert Toggle */}
               <div className="flex items-center space-x-2 my-3">
@@ -1110,14 +1109,17 @@ export default function UpdatePostModal({
               {/* Custom HTML Section */}
               {enableHtmlInsert && (
                 <div className="bg-background p-4 rounded-lg border border-border">
-                  <label className="block text-sm font-medium text-gray-700 mb-2mb-1">
+                  <Label
+                    htmlFor="custom-html"
+                    className="text-sm font-medium cursor-pointer"
+                  >
                     Custom HTML
-                  </label>
+                  </Label>
                   <textarea
                     id="custom-html"
                     placeholder="Paste HTML code here... (e.g., <div class='highlight'>Your content</div>)"
                     rows={4}
-                    className="w-full border-border mt-2 border rounded-lg p-3 font-mono text-sm transition-all duration-200 hover:border-amber-400 hover:ring-1 hover:ring-amber-200 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-transparent"
+                    className="w-full bg-border border-border mt-2 border rounded-lg p-3 font-mono text-sm transition-all duration-200 hover:border-amber-400 hover:ring-1 hover:ring-amber-200 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-transparent"
                     value={htmlInput}
                     onChange={(e) => setHtmlInput(e.target.value)}
                   />
@@ -1243,7 +1245,7 @@ export default function UpdatePostModal({
                 </div>
 
                 {/* Editor */}
-                <div className={`border border-t-0 rounded-b-lg bg-background p-4 transition-all duration-200 ${errors.content ? 'border-destructive' : 'border-border'}`}>
+                <div className={`border border-t-0 rounded-b-lg bg-border p-4 transition-all duration-200 ${errors.content ? 'border-destructive' : 'border-border'}`}>
                   <EditorContent editor={editor} />
                 </div>
                 {errors.content && (
