@@ -9,6 +9,7 @@ import { FilterBar } from './FilterBar';
 import { BlogTag, BlogTechStack } from "@/types/blog";
 import DOMPurify from 'isomorphic-dompurify';
 import { format } from 'date-fns';
+import Pagination, { CenteredPagination } from '@/app/components/admin/enquiry/Pagination';
 
 export interface Post {
     id: number;
@@ -30,14 +31,44 @@ const BlogContent = () => {
     const [selectedTechStacks, setSelectedTechStacks] = useState<string[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
+    const [page, setPage] = useState(1);
+
+    const [pagination, setPagination] = useState({
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 0,
+        hasNextPage: false,
+        hasPrevPage: false,
+    });
+
+
+    const handleNextPage = () => {
+        if (pagination.hasNextPage) {
+            setPage((prev) => prev + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if (pagination.hasPrevPage) {
+            setPage((prev) => prev - 1);
+        }
+    };
+
+    const handlePageClick = (page: number) => {
+        setPage(page);
+    };
     // Function to fetch blogs from backend with filters
     const fetchFilteredBlogs = useCallback(async () => {
         try {
             setLoading(true);
-            
+
             // Build query params object
-            const params: any = {};
-            
+            const params: any = {
+                page,
+                limit: 9,
+            };
+
+
             // Send dates in ISO format
             if (dateFrom) {
                 params.fromDate = new Date(dateFrom).toISOString();
@@ -58,44 +89,45 @@ const BlogContent = () => {
                 params.searchQuery = searchQuery;
             }
 
-            console.log('Sending params to API:', params);
+            // console.log('Sending params to API:', params);
 
             // Make API call with query params
             const res = await api.get('/blog', { params });
             console.log('API Response:', res.data);
-            setAllBlogs(res.data);
+
+            const activeBlogs = res.data.blogs.filter(
+                (blog: any) => blog.status === 'active'
+            );
+
+            setAllBlogs(activeBlogs);
+
+            setPagination(res.data.pagination);
         } catch (error) {
             console.error('Error fetching filtered blogs:', error);
         } finally {
             setLoading(false);
         }
-    }, [dateFrom, dateTo, selectedTechStacks, selectedTags, searchQuery]);
+    }, [page, dateFrom, dateTo, selectedTechStacks, selectedTags, searchQuery]);
 
     // Initial fetch on component mount - THIS IS WHAT YOU NEED
     useEffect(() => {
         fetchFilteredBlogs();
-    }, []); // Empty dependency array means this runs once on mount
+    }, [fetchFilteredBlogs]);
 
     // Handle search button click
     const handleSearch = () => {
-        console.log('Search button clicked with filters:', {
-            dateFrom,
-            dateTo,
-            selectedTechStacks,
-            selectedTags,
-            searchQuery
-        });
+        setPage(1);
         fetchFilteredBlogs();
     };
 
     // Handle reset filters
     const handleReset = () => {
+        setPage(1);
         setDateFrom('');
         setDateTo('');
         setSelectedTechStacks([]);
         setSelectedTags([]);
         setSearchQuery('');
-        // Fetch after reset
         fetchFilteredBlogs();
     };
 
@@ -134,15 +166,15 @@ const BlogContent = () => {
                 transition={{ duration: 0.5 }}
             >
                 <FilterBar
-                    dateFrom={dateFrom} 
+                    dateFrom={dateFrom}
                     setDateFrom={setDateFrom}
-                    dateTo={dateTo} 
+                    dateTo={dateTo}
                     setDateTo={setDateTo}
-                    selectedTechStacks={selectedTechStacks} 
+                    selectedTechStacks={selectedTechStacks}
                     setSelectedTechStacks={setSelectedTechStacks}
-                    selectedTags={selectedTags} 
+                    selectedTags={selectedTags}
                     setSelectedTags={setSelectedTags}
-                    searchQuery={searchQuery} 
+                    searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                     onSearch={handleSearch}
                     onReset={handleReset}
@@ -183,23 +215,23 @@ const BlogContent = () => {
                                     </Link>
 
                                     {/* Description with HTML support */}
-                                    <div 
+                                    <div
                                         className="text-white/70 w-[90%] text-sm font-bold sm:text-base prose prose-invert prose-sm"
-                                        dangerouslySetInnerHTML={{ 
+                                        dangerouslySetInnerHTML={{
                                             __html: sanitizeHTML(
                                                 blog.description
                                                     .split(' ')
                                                     .slice(0, 5)
                                                     .join(' ')
-                                            ) 
+                                            )
                                         }}
                                     />
 
                                     {/* Content with HTML support - 3 lines */}
-                                    <div 
+                                    <div
                                         className="text-white/70 text-sm sm:text-base line-clamp-3 overflow-hidden prose prose-invert prose-sm"
-                                        dangerouslySetInnerHTML={{ 
-                                            __html: sanitizeHTML(blog.content) 
+                                        dangerouslySetInnerHTML={{
+                                            __html: sanitizeHTML(blog.content)
                                         }}
                                     />
                                 </div>
@@ -261,6 +293,12 @@ const BlogContent = () => {
                         </div>
                     )}
                 </div>
+                <CenteredPagination
+                    pagination={pagination}
+                    onNext={handleNextPage}
+                    onPrev={handlePrevPage}
+                    onPageClick={handlePageClick}
+                />
             </div>
         </>
     )

@@ -47,9 +47,9 @@ export function ComboboxMultiple({
 
   return (
     <div className={cn("relative w-full", className)}>
-      <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground bg-card rounded-sm p-0.5">
+      {/* <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground border-border bg-border rounded-sm p-0.5">
         {label}
-      </Label>
+      </Label> */}
 
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
@@ -57,7 +57,7 @@ export function ComboboxMultiple({
             variant="outline"
             role="combobox"
             className={cn(
-              "w-full justify-between min-h-12 pt-3 transition-all",
+              "w-full  border-border bg-border justify-between min-h-12 transition-all",
               error &&
               "border-destructive focus-visible:ring-destructive focus-visible:ring-2"
             )}
@@ -70,7 +70,7 @@ export function ComboboxMultiple({
 
               <div className="flex gap-1 overflow-x-auto whitespace-nowrap scrollbar-hide uppercase">
                 {value.length === 0 && (
-                  <span className="text-muted-foreground">
+                  <span className="text-muted-foreground pr-5!">
                     Select {label}...
                   </span>
                 )}

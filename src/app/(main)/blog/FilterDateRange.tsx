@@ -42,15 +42,15 @@ export function FilterDateRange({ dateFrom, dateTo, setDateFrom, setDateTo }: Fi
 
   return (
     <div className="relative w-full sm:w-64">
-      <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground bg-card rounded-sm">
+      {/* <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground border-border bg-border rounded-sm">
         Select Date Range
-      </Label>
+      </Label> */}
       <Popover>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
-            className="w-full justify-between min-h-12 pt-3 font-normal"
+            className="w-full justify-between border-border bg-border min-h-12 font-normal"
           >
             <div className="flex items-center gap-2">
               <CalendarIcon className="h-4 w-4 text-muted-foreground" />

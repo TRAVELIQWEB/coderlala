@@ -23,14 +23,14 @@ export function FormInput({
     <div className={cn("w-full space-y-1 ", className)}>
       {/* Floating Label */}
       <div className="relative">
-        <Label className="absolute -top-2 left-3 bg-background px-1 text-xs text-muted-foreground rounded-sm z-10">
+        <Label className="absolute -top-2.5 left-2 px-1 text-xs text-foreground rounded-sm z-10">
           {label}
         </Label>
 
         <Input
           {...props}
           className={cn(
-            "h-10 pt-2 bg-background", // fixed height
+            "h-10 pt-2 bg-border border-border text-foreground", // fixed height
             error &&
               "border-destructive focus-visible:ring-destructive"
           )}

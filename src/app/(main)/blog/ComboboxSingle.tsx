@@ -35,7 +35,7 @@ export function ComboboxSingle({
 
   return (
     <div className={cn("relative w-full", className)}>
-      <Label className="absolute -top-2.5 left-3 px-1 text-xs text-muted-foreground bg-background rounded-sm p-0.5">
+      <Label className="absolute -top-2.5 left-2 px-1 text-xs text-foreground rounded-sm p-0.5">
         {label}
       </Label>
 
@@ -44,7 +44,7 @@ export function ComboboxSingle({
           <Button
             variant="outline"
             role="combobox"
-            className="w-full justify-between min-h-12 pt-3"
+            className="w-full justify-between pt-3 border-border bg-border min-h-12 transition-all"
           >
             <div className="flex items-center gap-2 overflow-hidden">
 

@@ -1,7 +1,8 @@
 export const contactInfo = {
   // name: "John Doe",
   email: "info@coderlala.com",
-  salmanNizamPhone: "8077040603",
+  salmanNizamPhoneWA: "8077040603",
+  salmanNizamPhone: "7830836770",
   achalSinghPhone: "8949541483",
   mapLocationLink: "https://maps.app.goo.gl/W3xgFfxU4H8JXJeq7",
   websiteAddress: "Unit No.1004G, 10th Floor, JMD Megapolis, sector-48 Gurgaon, Haryana 122018",
@@ -9,7 +10,7 @@ export const contactInfo = {
   GMBAddress: "10th Floor, JMD MEGAPOLIS, Unit-1004G, Badshahpur Sohna Rd, Sector 48, Gurugram, Haryana 122018",
   company: "Coderlala Technologies Private Limited",
   // position: "Senior Developer",
-  website: "https://www.coderlala.com/",
+  website: "https://coderlala.com/",
   instagram: "https://www.instagram.com/coderlalatech",
   linkedIn: "https://in.linkedin.com/company/coderlala",
   googleReview: "https://search.google.com/local/writereview?placeid=ChIJfV1i3TcjDTsR-Me92RQzTeE",

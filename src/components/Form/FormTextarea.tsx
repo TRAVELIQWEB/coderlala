@@ -23,7 +23,7 @@ export function FormTextarea({
   return (
     <div className={cn("w-full space-y-1", className)}>
       <div className="relative">
-        <Label className="absolute -top-2 left-3 bg-background px-1 text-xs text-muted-foreground z-10">
+        <Label className="absolute -top-2.5 left-2.5 px-1 text-xs text-foreground z-10">
           {label}
         </Label>
 
@@ -31,7 +31,7 @@ export function FormTextarea({
           rows={rows}
           {...props}
           className={cn(
-            "pt-3 resize-none bg-background",
+            "pt-3 resize-none border-border bg-border",
             error &&
               "border-destructive focus-visible:ring-destructive"
           )}

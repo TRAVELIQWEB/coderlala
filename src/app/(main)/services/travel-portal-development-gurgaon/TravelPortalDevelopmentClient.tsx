@@ -426,7 +426,7 @@ export default function TravelPortalDevelopmentClient() {
               className="relative lg:col-span-5 scroll-mt-28"
             >
               <div className="absolute -inset-2 rounded-3xl bg-linear-to-r from-blue-400/20 via-blue-400/15 to-cyan-400/20 blur-2xl dark:from-blue-500/15 dark:to-blue-500/15"></div>
-              <div className="relative overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur-sm shadow-xl">
+              <div className="relative overflow-hidden rounded-2xl border border-border glass-card-without-hover backdrop-blur-sm shadow-xl">
                 <div className="h-1 w-full bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500"></div>
                 <div className="p-6">
                   <div className="mb-5">

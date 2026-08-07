@@ -39,7 +39,7 @@ export const metadata = {
     title: {
         default:
             "CoderLala Technologies Private Limited | Next-Gen Digital Solutions",
-        template: "%s | CoderLala Technologies Private Limited"
+        template: "%s | CoderLala"
     },
     description: "Building next-generation web apps, mobile apps, SaaS platforms, AI-driven systems, and enterprise-grade cloud solutions.",
     applicationName: "CoderLala",
@@ -129,7 +129,7 @@ const organizationSchema = {
     "@id": "https://www.wikidata.org/wiki/Q137691754",
     name: "CoderLala Technologies Pvt. Ltd.",
     url: "https://coderlala.com",
-    logo: "https://www.coderlala.com/images/og-banner.png",
+    logo: "https://coderlala.com/images/og-banner.png",
     description: "A modern tech company building SaaS platforms, mobile apps, cloud infrastructures, and AI-driven solutions.",
     founder: {
         "@type": "Person",
@@ -205,7 +205,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             <main className="min-h-screen">
                 {children}
                 <WhatsAppButton
-                    phoneNumber={`91${contactInfo.salmanNizamPhone}`} // Replace with your actual phone number
+                    phoneNumber={`91${contactInfo.salmanNizamPhoneWA}`} // Replace with your actual phone number
                     message="Hi, I'm interested in your services!" // Optional custom message
                     position="bottom-right" // or "bottom-left"
                     showPopup={true}

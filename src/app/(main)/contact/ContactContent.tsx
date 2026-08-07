@@ -409,7 +409,7 @@ export default function ContactContent() {
           >
             <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500 to-blue-600 rounded-2xl lg:rounded-3xl blur opacity-0  transition duration-500" />
 
-            <div className="relative overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur-sm shadow-xl">
+            <div className="relative overflow-hidden rounded-2xl border border-border glass-card-without-hover backdrop-blur-sm shadow-xl">
               <div className="h-1 w-full bg-linear-to-r from-blue-600 to-orange-500"></div>
               <div className="p-6">
                 <div className="mb-5">

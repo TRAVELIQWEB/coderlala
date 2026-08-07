@@ -1,6 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
+import { Metadata } from "next";
 import { motion } from "framer-motion";
 import {
     Linkedin,
@@ -16,7 +17,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { getExperience, teamMembers } from "../team-data";
+import { getExperience, teamMembers, TeamMember } from "../team-data";
 
 const colorMap: { [key: string]: string } = {
     "bg-blue-500": "bg-blue-500/20",
@@ -26,6 +27,86 @@ const colorMap: { [key: string]: string } = {
     "bg-green-500": "bg-green-500/20",
     "bg-red-500": "bg-red-500/20",
 };
+
+interface MemberProfilePageProps {
+    params: { slug: string };
+}
+
+async function generateMetadata({ params }: MemberProfilePageProps): Promise<Metadata> {
+    const slug = decodeURIComponent(params.slug);
+    const member = teamMembers.find((m) => m.slug.toLowerCase() === slug.toLowerCase());
+
+    if (!member) {
+        return {
+            title: "Member Not Found | CoderLala",
+            description: "The team member you are looking for could not be found.",
+        };
+    }
+
+    const memberTitle = `${member.name} | ${member.role} at CoderLala`;
+    const memberDescription = member.description;
+    const memberKeywords = [
+        member.name,
+        member.role,
+        ...member.skills,
+        "CoderLala team",
+        "software developer",
+        "web developer",
+        "mobile app developer",
+        "AI engineer",
+        "SaaS expert",
+        "Gurugram",
+        "India"
+    ].join(", ");
+
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://coderlala.com";
+    const canonicalUrl = `${baseUrl}/our-team/${member.slug}`;
+    const ogImageAbsoluteUrl = `${baseUrl}${member.image}`;
+
+    return {
+        title: memberTitle,
+        description: memberDescription,
+        keywords: memberKeywords,
+        openGraph: {
+            title: memberTitle,
+            description: memberDescription,
+            url: canonicalUrl,
+            siteName: "CoderLala Technologies",
+            type: "profile",
+            locale: "en_US",
+            images: [
+                {
+                    url: ogImageAbsoluteUrl,
+                    width: 800,
+                    height: 800,
+                    alt: member.name,
+                }
+            ],
+        },
+        twitter: {
+            card: "summary",
+            title: memberTitle,
+            description: memberDescription,
+            images: [ogImageAbsoluteUrl],
+            creator: "@coderlala",
+            site: "@coderlala",
+        },
+        alternates: {
+            canonical: canonicalUrl,
+        },
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                "max-video-preview": -1,
+                "max-image-preview": "large",
+                "max-snippet": -1,
+            },
+        },
+    };
+}
 
 export default function MemberProfilePage() {
     const params = useParams();
