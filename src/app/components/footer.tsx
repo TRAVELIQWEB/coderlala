@@ -86,9 +86,7 @@ export default function Footer() {
                   href={contactInfo.googleReview}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#e38239] text-white! font-semibold
-                    transition-colors duration-300 shadow-md hover:shadow-lg
-                    group"
+                  className={"flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#e38239] text-white! font-semibold transition-colors duration-300 shadow-md hover:shadow-lg group"}
                   aria-label="Review us on Google"
                 >
                   <Star className="w-4 h-4 text-white! transition-colors" />

@@ -523,7 +523,7 @@ export default function ContactContent() {
               href={contactInfo2.googleReview}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#e38239] text-white font-semibold transition-colors duration-300 shadow-md hover:shadow-lg group"
+              className={"inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#e38239] text-white font-semibold transition-colors duration-300 shadow-md hover:shadow-lg group"}
             >
               <Star className="w-4 h-4 text-white!" />
               <span className="text-sm text-white!">Review Us on Google</span>

@@ -2,20 +2,20 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    qualities: [25, 50, 75, 85], // Add 85 to the list
+    qualities: [25, 50, 75, 85],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
       },
     ],
   },
+
   compiler: {
-    styledComponents: true, // If using styled-components
+    styledComponents: true,
   },
-  /* config options here */
+
   reactCompiler: true,
 };
 

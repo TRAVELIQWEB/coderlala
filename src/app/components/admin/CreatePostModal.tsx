@@ -1208,7 +1208,7 @@ export default function CreatePostModal({ open, onClose, onCreate }: Props) {
                 </div> */}
 
                 {/* Editor */}
-                <div className={`border border-t-0 rounded-b-lg bg-border p-4 transition-all duration-200 ${errors.content ? 'border-destructive' : 'border-border'}`}>
+                <div className={`border border-t-0 rounded-b-lg bg-border p-4 transition-all duration-200 h-50 overflow-auto ${errors.content ? 'border-destructive' : 'border-border'}`}>
                   <EditorContent editor={editor} />
                 </div>
                 {errors.content && (

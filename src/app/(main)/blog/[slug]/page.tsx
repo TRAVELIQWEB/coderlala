@@ -1,9 +1,9 @@
 // app/blog/[slug]/page.tsx
 import BlogDetail from './BlogDetail';
 import { Metadata } from 'next';
-import api from '@/lib/axios';
+import { cache } from 'react';
 
-// Define interfaces for SEO
+// Define interfaces
 interface Author {
     name: string;
     role: string;
@@ -47,14 +47,66 @@ interface ApiResponse {
     };
 }
 
-// Generate metadata dynamically for SEO
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const { slug } = await params;
-    
+// Cache the fetch function to prevent duplicate requests within the same render pass
+const getBlog = cache(async (slug: string): Promise<ApiResponse | null> => {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+    if (!backendUrl) {
+        console.error('NEXT_PUBLIC_BACKEND_URL is not configured');
+        return null;
+    }
+
+    const cleanUrl = backendUrl.replace(/\/$/, '');
+
     try {
-        const res = await api.get<ApiResponse>(`/blog/${slug}`);
-        const blog = res.data.data.blog;
-        
+        const res = await fetch(
+            `${cleanUrl}/blog/${encodeURIComponent(slug)}`,
+            {
+                next: {
+                    revalidate: 3600,
+                },
+            }
+        );
+
+        if (!res.ok) {
+            console.error(
+                `Failed to fetch blog: ${res.status} ${res.statusText}`
+            );
+            return null;
+        }
+
+        return res.json();
+    } catch (error) {
+        console.error('Error fetching blog:', error);
+        return null;
+    }
+});
+
+// Generate metadata dynamically for SEO
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+    const { slug } = await params;
+
+    try {
+        const data = await getBlog(slug);
+        const blog = data?.data?.blog;
+
+        if (!blog) {
+            return {
+                title: 'Blog Post - CoderLala',
+                description: 'Read our latest blog post about technology and development',
+                robots: {
+                    index: true,
+                    follow: true,
+                },
+            };
+        }
+
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://coderlala.com';
+
         return {
             title: blog.seo?.title || blog.title || 'Blog Post',
             description: blog.seo?.description || blog.description || 'Read our latest blog post',
@@ -62,7 +114,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
             openGraph: {
                 title: blog.seo?.title || blog.title,
                 description: blog.seo?.description || blog.description,
-                url: blog.seo?.canonicalUrl || `/blog/${blog.slug}`,
+                url: blog.seo?.canonicalUrl || `${siteUrl}/blog/${blog.slug}`,
                 type: 'article',
                 publishedTime: blog.createdAt,
                 modifiedTime: blog.updatedAt,
@@ -84,7 +136,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
                 images: blog.coverImage ? [blog.coverImage] : [],
             },
             alternates: {
-                canonical: blog.seo?.canonicalUrl || `/blog/${blog.slug}`,
+                canonical: blog.seo?.canonicalUrl || `${siteUrl}/blog/${blog.slug}`,
             },
             robots: {
                 index: true,
@@ -99,8 +151,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
             },
             authors: blog.author?.name ? [{ name: blog.author.name }] : [],
             category: blog.primaryTech || blog.techStacks?.[0] || 'Technology',
-            // publishedTime: blog.createdAt,
-            // modifiedTime: blog.updatedAt,
             applicationName: 'CoderLala Blog',
             referrer: 'origin-when-cross-origin',
             creator: blog.author?.name || 'CoderLala Team',
@@ -125,25 +175,42 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 // Server component with proper data fetching
-export default async function BlogDetails({ params }: { params: { slug: string } }) {
+export default async function BlogDetails({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}) {
     const { slug } = await params;
-    
-    // Pre-fetch blog data for the client component
+
+    // Pre-fetch blog data using the cached function
     let initialBlog: Blog | null = null;
     let initialRelatedBlogs: Blog[] = [];
-    
+
     try {
-        const res = await api.get<ApiResponse>(`/blog/${slug}`);
-        initialBlog = res.data.data.blog;
-        initialRelatedBlogs = res.data.data.relatedBlogs;
+        const data = await getBlog(slug);
+        if (data?.data) {
+            initialBlog = data.data.blog;
+            initialRelatedBlogs = data.data.relatedBlogs;
+        }
     } catch (error) {
         console.error('Error fetching blog:', error);
     }
 
+    // If no blog data, show a 404 or error state
+    if (!initialBlog) {
+        return (
+            <div className="max-w-7xl mx-auto px-4 py-30">
+                <div className="text-center">
+                    <h1 className="text-2xl font-bold text-primary">Blog Post Not Found</h1>
+                    <p className="mt-4 text-primary">The blog post you're looking for doesn't exist.</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-20">
-            <BlogDetail 
-                slug={slug} 
+            <BlogDetail
                 initialBlog={initialBlog}
                 initialRelatedBlogs={initialRelatedBlogs}
             />
