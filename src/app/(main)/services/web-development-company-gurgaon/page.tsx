@@ -10,12 +10,12 @@ export const metadata: Metadata = {
   description: "CoderLala is a leading web development company in Gurgaon offering custom web development, Next.js, React, and e-commerce solutions. Trusted by 500+ businesses.",
   keywords: "web development company Gurgaon, web development Gurgaon, custom web development, website development company Gurgaon, react development, next js development, ecommerce development Gurgaon, web developer Gurgaon, web design company Gurgaon, software development Gurgaon, IT services Gurgaon, digital agency Gurgaon",
   alternates: {
-    canonical: `/services/web-development-company-${CITY_SLUG}`,
+    canonical: `${SITE_URL}/services/web-development-company-gurgaon`,
   },
   openGraph: {
     title: "Best Web Development Company in Gurgaon | CoderLala",
     description: "CoderLala is a leading web development company in Gurgaon offering custom web development, Next.js, React, and e-commerce solutions. Trusted by 500+ businesses.",
-    url: `/services/web-development-company-${CITY_SLUG}`,
+    url: `${SITE_URL}/services/web-development-company-gurgaon`,
     siteName: "CoderLala",
     images: [
       {

@@ -1,13 +1,7 @@
 // BlogDetail.tsx
-'use client';
-
-import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 import styles from './BlogDetail.module.css';
 import RelatedPostsCarousel from './RelatedPostsCarousel';
-import api from '@/lib/axios';
-import { useRouter } from 'next/navigation';
 
 // Define the interfaces for your data structure
 interface Author {
@@ -47,143 +41,88 @@ interface Blog {
 
 interface RelatedBlog extends Blog { }
 
-interface ApiResponse {
-    status: string;
-    data: {
-        blog: Blog;
-        relatedBlogs: RelatedBlog[];
-    };
-}
-
 interface BlogDetailProps {
-    slug: string;
     initialBlog: Blog | null;
     initialRelatedBlogs: RelatedBlog[];
 }
 
+// Helper function to normalize blog content
+const normalizeBlogContent = (html: string) => {
+    if (!html) return '';
+
+    return html.replace(/<(th|td)\b[^>]*>([\s\S]*?)<\/\1>/gi, (_match, tag, inner) => {
+        const cleanedInner = inner.replace(/<p\b[^>]*>([\s\S]*?)<\/p>/gi, '$1');
+        return `<${tag}>${cleanedInner}</${tag}>`;
+    });
+};
+
 export default function BlogDetail({
-    slug,
     initialBlog,
-    initialRelatedBlogs
+    initialRelatedBlogs,
 }: BlogDetailProps) {
-    const router = useRouter();
-    const [blog, setBlog] = useState<Blog | null>(initialBlog);
-    const [relatedBlogs, setRelatedBlogs] = useState<RelatedBlog[]>(initialRelatedBlogs);
-    const [error, setError] = useState<string | null>(null);
+    // Use initial data directly - no client-side state needed
+    const blog = initialBlog;
+    const relatedBlogs = initialRelatedBlogs;
 
-    useEffect(() => {
-        // Only fetch if initial data is not available
-        if (!initialBlog) {
-            const fetchBlogs = async () => {
-                try {
-                    const res = await api.get<ApiResponse>(`/blog/${slug}`);
-                    setBlog(res.data.data.blog);
-                    setRelatedBlogs(res.data.data.relatedBlogs);
-                } catch (error) {
-                    console.error('Error fetching blog:', error);
-                    setError('Failed to load blog post');
-                }
-            };
-            fetchBlogs();
-        }
-    }, [slug, initialBlog]);
-
-    const normalizeBlogContent = (html: string) => {
-        if (!html) return '';
-
-        return html.replace(/<(th|td)\b[^>]*>([\s\S]*?)<\/\1>/gi, (_match, tag, inner) => {
-            const cleanedInner = inner.replace(/<p\b[^>]*>([\s\S]*?)<\/p>/gi, '$1');
-            return `<${tag}>${cleanedInner}</${tag}>`;
-        });
-    };
+    // If blog doesn't exist, return null (handle in parent)
+    if (!blog) {
+        return null;
+    }
 
     // Structured data for SEO
-    const structuredData = blog ? {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://coderlala.com';
+    const structuredData = {
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
         'headline': blog.title,
         'description': blog.description,
-        'image': blog.coverImage || '',
+        ...(blog.coverImage ? { image: [blog.coverImage] } : {}),
         'datePublished': blog.createdAt,
         'dateModified': blog.updatedAt,
         'author': {
             '@type': 'Person',
             'name': blog.author?.name || 'CoderLala Team',
-            'url': '/about',
+            'url': `${siteUrl}/about`,
         },
         'publisher': {
             '@type': 'Organization',
             'name': 'CoderLala',
             'logo': {
                 '@type': 'ImageObject',
-                'url': 'https://coderlala.com/logo.png',
+                'url': `${siteUrl}/logo.png`,
             },
         },
         'mainEntityOfPage': {
             '@type': 'WebPage',
-            '@id': `https://coderlala.com/blog/${blog.slug}`,
+            '@id': `${siteUrl}/blog/${blog.slug}`,
         },
         'keywords': blog.tags?.join(', ') || '',
         'articleSection': blog.primaryTech || 'Technology',
-        'wordCount': blog.content?.split(/\s+/).length || 0,
+        'wordCount': blog.content?.replace(/<[^>]*>/g, ' ').trim().split(/\s+/).filter(Boolean).length || 0,
         'timeRequired': `PT${blog.readingTime || 5}M`,
-    } : null;
+    };
 
-    // If error occurs
-    if (error) {
-        return (
-            <div className="container mx-auto px-4 py-8 max-w-6xl">
-                <div className="text-center text-red-500">
-                    <p>{error}</p>
-                    <button
-                        onClick={() => router.refresh()}
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white! rounded hover:bg-blue-600"
-                    >
-                        Try Again
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
-    // If blog is still loading or doesn't exist
-    if (!blog) {
-        return (
-            <div className="container mx-auto px-4 py-8 max-w-6xl">
-                <div className="text-center">
-                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-                    <p className="mt-4 text-gray-600">Loading blog post...</p>
-                </div>
-            </div>
-        );
-    }
+    // Format date for display
+    const formattedDate = new Date(blog.createdAt).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
 
     return (
         <>
             {/* Structured Data Script */}
-            {structuredData && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-                />
-            )}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+            />
 
             <div className="">
-                {/* Hero Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-10"
-                >
-                    {/* Your existing hero section content */}
-                </motion.div>
-
                 <div className="container pb-8">
                     {/* Hero Section - Image Left, Title Right */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12 items-center">
                         {/* Left: Feature Image */}
-                        <div className="relative h-70 md:h-87.5 w-full rounded-2xl overflow-hidden shadow-xl group">
+                        <div className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-xl group">
                             {/* Liquid metal effect */}
                             <div className="absolute -inset-0.5 bg-linear-to-r from-gray-300 via-gray-100 to-gray-300 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md" />
 
@@ -191,11 +130,12 @@ export default function BlogDetail({
                             <div className="absolute inset-0 rounded-2xl bg-linear-to-b from-gray-200 via-gray-400 to-gray-600 p-0.75">
                                 <div className="relative h-full w-full rounded-2xl overflow-hidden">
                                     <Image
-                                        src={blog.coverImage || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop'}
+                                        src={blog.coverImage || '/images/blog-default.webp'}
                                         alt={blog.title}
                                         fill
-                                        className="object-cover group-hover:scale-105 transition-transform duration-700"
                                         priority
+                                        sizes="(max-width: 1024px) 100vw, 50vw"
+                                        className="object-cover"
                                     />
 
                                     {/* Reflective overlay */}
@@ -216,11 +156,7 @@ export default function BlogDetail({
 
                                 {/* Meta info - reading time and date */}
                                 <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500">
-                                    <span>📅 {new Date(blog.createdAt).toLocaleDateString('en-US', {
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    })}</span>
+                                    <span>📅 {formattedDate}</span>
                                     <span>•</span>
                                     <span>⏱️ {blog.readingTime || 5} min read</span>
                                     {blog.author?.name && (
@@ -239,7 +175,7 @@ export default function BlogDetail({
                             </div>
 
                             <div className="flex flex-wrap gap-2 pt-2">
-                                {blog.tags.map((tag) => (
+                                {blog.tags?.map((tag) => (
                                     <span
                                         key={tag}
                                         className="px-4 py-1.5 bg-muted/70 border border-border text-opacity-80 rounded-full text-xs font-medium transition-colors cursor-pointer"

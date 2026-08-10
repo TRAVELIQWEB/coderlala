@@ -295,9 +295,7 @@ export default function WebDevelopmentClient() {
   const visibleTestimonials = getVisibleTestimonials();
   const totalPages = Math.ceil(testimonials.length / (isMobile ? 2 : 3));
   const currentPage = Math.floor(activeIndex / (isMobile ? 2 : 3));
-  const averageRating =
-    testimonials.reduce((sum, t) => sum + Number(t.rating), 0) /
-    testimonials.length;
+
   // ============================================================
   // SECTION 9.7: SCHEMA MARKUP - Organization & ProfessionalService
   // ============================================================
@@ -305,11 +303,17 @@ export default function WebDevelopmentClient() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${WEB_DEV_GURGAON_URL}#professionalservice`,
+
     name: `CoderLala - Best Web Development Company in ${CITY}`,
+
     image: `${SITE_URL}/logo/CoderLalaLogoDark.svg`,
+
     url: WEB_DEV_GURGAON_URL,
+
     telephone: OFFICE.phone,
+
     email: OFFICE.email,
+
     address: {
       "@type": "PostalAddress",
       streetAddress: OFFICE.address,
@@ -318,19 +322,40 @@ export default function WebDevelopmentClient() {
       postalCode: "122002",
       addressCountry: "IN",
     },
-    geo: { "@type": "GeoCoordinates", latitude: String(contactInfo.latitude), longitude: String(contactInfo.longitude) },
+
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: String(contactInfo.latitude),
+      longitude: String(contactInfo.longitude),
+    },
+
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
       opens: "09:30",
       closes: "19:30",
     },
-    areaServed: { "@type": "AdministrativeArea", name: CITY },
+
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: CITY,
+    },
+
     description: `CoderLala is a leading web development company in ${CITY} offering custom web development, Next.js, React, and e-commerce solutions.`,
+
     priceRange: "₹₹₹",
+
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Web Development Services",
+
       itemListElement: services.map((service, index) => ({
         "@type": "Offer",
         itemOffered: {
@@ -341,27 +366,6 @@ export default function WebDevelopmentClient() {
         position: index + 1,
       })),
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: averageRating.toFixed(1), // e.g. 4.9
-      reviewCount: testimonials.length.toString(),
-      bestRating: "5",
-      worstRating: "1",
-    },
-
-    review: testimonials.map((t) => ({
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: t.rating.toString(),
-        bestRating: "5",
-      },
-      author: {
-        "@type": "Person",
-        name: t.name,
-      },
-      reviewBody: t.text,
-    })),
   };
 
   // ============================================================
