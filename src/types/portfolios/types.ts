@@ -6,7 +6,8 @@ export type CategoryId =
     | "healthcare"
     | "creative"
     | "beauty"
-    | "ecommerce";
+    | "ecommerce"
+    | "travel";
 
 export interface Project {
     title: string;
@@ -18,6 +19,7 @@ export interface Project {
     color: string;
     stats: string;
     liveUrl?: string;
+    image?: string;
     features?: string[];
     challenge?: string;
     solution?: string;

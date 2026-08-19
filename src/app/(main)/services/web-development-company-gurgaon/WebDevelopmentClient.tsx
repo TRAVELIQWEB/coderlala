@@ -285,6 +285,9 @@ export default function WebDevelopmentClient() {
     return () => clearInterval(timer);
   }, [isMobile]);
 
+  const averageRating =
+    testimonials.reduce((sum, t) => sum + Number(t.rating), 0) /
+    testimonials.length;
 
   const getVisibleTestimonials = () => {
     const itemsPerPage = isMobile ? 2 : 3;
@@ -343,25 +346,48 @@ export default function WebDevelopmentClient() {
       closes: "19:30",
     },
 
-    areaServed: {
-      "@type": "AdministrativeArea",
-      name: CITY,
-    },
-
+    areaServed: [
+      { "@type": "City", name: "Gurgaon" },
+      { "@type": "City", name: "Noida" },
+      { "@type": "AdministrativeArea", name: "Delhi NCR" },
+    ],
+    sameAs: [
+      "https://in.linkedin.com/company/coderlala",
+      "https://www.instagram.com/coderlalatech",
+    ],
     description: `CoderLala is a leading web development company in ${CITY} offering custom web development, Next.js, React, and e-commerce solutions.`,
 
     priceRange: "₹₹₹",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: averageRating.toFixed(1), // e.g. 4.9
+      reviewCount: testimonials.length.toString(),
+      bestRating: "5",
+      worstRating: "1",
+    },
 
+    review: testimonials.map((t) => ({
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+      },
+      author: {
+        "@type": "Person",
+        name: t.name,
+      },
+      reviewBody: t.text,
+    })),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Web Development Services",
-
-      itemListElement: services.map((service, index) => ({
+      itemListElement: Related_Services.map((service, index) => ({
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
           name: service.title,
-          description: service.description,
+          description: service.desc,
         },
         position: index + 1,
       })),
@@ -494,7 +520,7 @@ export default function WebDevelopmentClient() {
                 {[
                   { k: "25+", v: "Projects Delivered" },
                   { k: "20+", v: "Happy Clients" },
-                  { k: "99%", v: "Retention Rate" },
+                  { k: "95%", v: "Retention Rate" },
                   { k: "4.9 ★", v: "Client Rating" },
                 ].map((s) => (
                   <div key={s.v} className="group grid place-items-center p-3 rounded-lg bg-card/50 backdrop-blur-sm border border-border/50 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1">

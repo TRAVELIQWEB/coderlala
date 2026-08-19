@@ -110,7 +110,7 @@ export async function generateMetadata({
         return {
             title: blog.seo?.title || blog.title || 'Blog Post',
             description: blog.seo?.description || blog.description || 'Read our latest blog post',
-            keywords: blog.tags?.join(', ') || blog.techStacks?.join(', ') || '',
+            keywords: [blog.slug, ...(blog.tags || []).map(tag => `${tag} coderlala`), ...(blog.techStacks || []).map(tech => `${tech} coderlala`)].filter(Boolean).join(', ') || '',
             openGraph: {
                 title: blog.seo?.title || blog.title,
                 description: blog.seo?.description || blog.description,

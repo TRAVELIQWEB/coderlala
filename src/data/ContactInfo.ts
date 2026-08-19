@@ -12,7 +12,7 @@ export const contactInfo = {
   // position: "Senior Developer",
   website: "https://coderlala.com/",
   instagram: "https://www.instagram.com/coderlalatech",
-  linkedIn: "https://in.linkedin.com/company/coderlala",
+  linkedIn: "https://www.linkedin.com/company/coderlala",
   googleReview: "https://search.google.com/local/writereview?placeid=ChIJfV1i3TcjDTsR-Me92RQzTeE",
   // linkedIn: "https://linkedin.com/in/johndoe",
   // twitter: "@rk"

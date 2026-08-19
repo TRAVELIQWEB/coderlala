@@ -17,7 +17,12 @@ export default function PortfolioCard({ project, onSelect }: PortfolioCardProps)
   const [imgError, setImgError] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
 
-  const screenshotUrl = project.liveUrl ? getScreenshotUrl(project.liveUrl) : null;
+  const screenshotUrl = project.liveUrl
+    ? getScreenshotUrl(project.liveUrl)
+    : project.image
+      ? project.image
+      : null;
+  
   const Icon = project.icon;
 
   return (

@@ -2,13 +2,13 @@ import {
   Activity,
   Award,
   Heart,
-  Palette,
   Shield,
   ShoppingCart,
   Sparkles,
   TrendingUp,
   Users,
   Zap,
+  Plane,
 } from "lucide-react";
 import type { Category, Project } from "@/types/portfolios/types";
 
@@ -157,15 +157,41 @@ export const projects: Project[] = [
     result:
       "Clinicians gained better visibility into patient recovery and adherence.",
   },
+  {
+    title: "Saarthii Travel Portal",
+    category: "travel",
+    desc: "Comprehensive travel portal for booking rail, flights, bus and hotels with personalized itineraries.",
+    descFull:
+      "Saarthii Travel Portal is an all-in-one travel solution designed to simplify trip planning, offering seamless booking for rail, flights, bus and hotels alongside personalized itinerary management.",
+    tech: ["Next.js", "Node.js", "PostgreSQL", "Stripe", "Tailwind"],
+    icon: Plane,
+    color: "from-purple-500 to-indigo-500",
+    stats: "Global Travel Bookings",
+    liveUrl: "https://wallet.saarthii.co.in/b2blogin",
+    image: "/images/portfolio/saarthii-travel-portal.webp",
+    features: [
+      "Flight and hotel booking engine",
+      "Customizable holiday packages",
+      "Personalized itinerary builder",
+      "Secure payment gateway",
+      "24/7 customer support integration",
+    ],
+    challenge:
+      "The client needed a robust platform to aggregate travel services and provide a smooth booking experience across multiple vendors.",
+    solution:
+      "We developed a scalable portal with real-time API integrations for flights and hotels, coupled with an intuitive UI for package customization.",
+    result:
+      "Saarthii Travel Portal significantly increased booking conversions and customer satisfaction through its streamlined travel planning.",
+  },
 ];
 
 export const categories: Category[] = [
   { id: "all", label: "All Projects", icon: Zap },
   { id: "healthcare", label: "Healthcare", icon: Shield },
   { id: "wellness", label: "Wellness", icon: Heart },
-  { id: "creative", label: "Creative", icon: Palette },
   { id: "beauty", label: "Beauty", icon: Sparkles },
   { id: "ecommerce", label: "E-Commerce", icon: ShoppingCart },
+  { id: "travel", label: "Travel", icon: Plane },
 ];
 
 export const portfolioStats = [
