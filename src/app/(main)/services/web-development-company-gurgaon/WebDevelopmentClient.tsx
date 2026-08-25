@@ -503,7 +503,7 @@ export default function WebDevelopmentClient() {
                     </span>
                   </div>
                   <div className="px-4 py-3 space-y-1.5 text-sm">
-                    <div>✅ <strong>Local presence</strong> at JMD Megapolis, Sector 48 – meet us face-to-face</div>
+                    <div>✅ <strong>Local presence</strong> at JMD Megapolis, Sector 48</div>
                     <div>✅ <strong>25+ projects</strong> delivered for Gurgaon-based startups & enterprises</div>
                     <div>✅ <strong>4.9★ rating</strong> from local clients in Cyber City, Udyog Vihar & MG Road</div>
                     <div>✅ <strong>85+ PageSpeed</strong> scores guaranteed – because speed matters for SEO</div>
