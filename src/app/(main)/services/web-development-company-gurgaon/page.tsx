@@ -6,8 +6,8 @@ import { contactInfo, SITE_URL, CITY_SLUG } from "@/data/ContactInfo";
 
 // Generate metadata for SEO
 export const metadata: Metadata = {
-  title: "Best Web Development Company in Gurgaon | CoderLala",
-  description: "CoderLala is a leading web development company in Gurgaon offering custom web development, Next.js, React, and e-commerce solutions. Trusted by 500+ businesses.",
+  title: "Top Web Development Company in Gurgaon - CoderLala",
+  description: "CoderLala is Gurgaon's trusted web development agency. We build fast, SEO-optimized websites with Next.js & React. Get a free quote from local experts today.",
   keywords: "web development company Gurgaon, web development Gurgaon, custom web development, website development company Gurgaon, react development, next js development, ecommerce development Gurgaon, web developer Gurgaon, web design company Gurgaon, software development Gurgaon, IT services Gurgaon, digital agency Gurgaon",
   alternates: {
     canonical: `${SITE_URL}/services/web-development-company-gurgaon`,
@@ -69,6 +69,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: "#2563eb",
+  userScalable: true,
 };
 
 // Server component that wraps the client component

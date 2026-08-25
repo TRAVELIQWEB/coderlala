@@ -49,6 +49,7 @@ import { FinalCTA } from "../component/location/FinalCTA";
 import { SliderBadge } from "../component/location/SliderBadge";
 import ClientLogoSlider from "../component/location/ClientLogoSlider";
 import ServiceCard from "../component/location/FeatureCard";
+import Link from "next/link";
 // import { SectionBadge } from "./SectionBadge";
 // import { QuoteCTA } from "./QuoteCTA";
 // import { Button } from "./Button";
@@ -304,8 +305,8 @@ export default function WebDevelopmentClient() {
   // ============================================================
   const schemaMarkup = {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "@id": `${WEB_DEV_GURGAON_URL}#professionalservice`,
+    "@type": ["Organization", "ProfessionalService"],
+    "@id": `${WEB_DEV_GURGAON_URL}#organization`,
 
     name: `CoderLala - Best Web Development Company in ${CITY}`,
 
@@ -370,7 +371,7 @@ export default function WebDevelopmentClient() {
       "@type": "Review",
       reviewRating: {
         "@type": "Rating",
-        ratingValue: "5",
+        ratingValue: t.rating.toString(),
         bestRating: "5",
       },
       author: {
@@ -475,6 +476,7 @@ export default function WebDevelopmentClient() {
               />
 
               {/* Hero Description */}
+              {/* Hero Description */}
               <p className="text-muted-foreground text-md lg:pr-10">
                 <strong className="text-brand">CoderLala</strong> is the premier <strong className="text-brand">web development company in {CITY}</strong>,
                 headquartered at <strong className="text-brand">JMD Megapolis, Sector 48, Gurugram</strong>,
@@ -490,6 +492,30 @@ export default function WebDevelopmentClient() {
 
                 Whether you're a startup in Cyber City, an enterprise in Udyog Vihar, or a business near MG Road,
                 our local team is ready to help you succeed online with custom web solutions tailored to your needs.
+
+                <br /><br />
+
+                <div className="rounded-xl bg-primary/10 border border-border/50 overflow-hidden">
+                  {/* Heading with bottom divider */}
+                  <div className="px-4 pt-3 pb-2 border-b border-border">
+                    <span className="font-bold text-brand text-base">
+                      🏆 Why Gurgaon Businesses Choose Us
+                    </span>
+                  </div>
+                  <div className="px-4 py-3 space-y-1.5 text-sm">
+                    <div>✅ <strong>Local presence</strong> at JMD Megapolis, Sector 48 – meet us face-to-face</div>
+                    <div>✅ <strong>25+ projects</strong> delivered for Gurgaon-based startups & enterprises</div>
+                    <div>✅ <strong>4.9★ rating</strong> from local clients in Cyber City, Udyog Vihar & MG Road</div>
+                    <div>✅ <strong>85+ PageSpeed</strong> scores guaranteed – because speed matters for SEO</div>
+                  </div>
+                </div>
+
+                <br />
+
+                <span className="text-sm text-muted-foreground block">
+                  💡 <strong>Pro Tip:</strong> Working with a <strong>local web development company in Gurgaon</strong> means faster communication,
+                  on-site meetings, and a team that understands the <strong>Delhi NCR business landscape</strong> inside out.
+                </span>
               </p>
 
               {/* Tags/Badges */}
@@ -610,7 +636,9 @@ export default function WebDevelopmentClient() {
                 </h2>
 
                 <p className="text-muted-foreground text-md mb-4 max-w-3xl mx-auto">
-                  CoderLala is a leading <strong>web development company in Gurgaon </strong>
+                  <Link href="/services/web-development" className="text-blue-500 hover:underline">
+                    CoderLala
+                  </Link> is a leading <strong>web development company in Gurgaon</strong>
                   helping startups, SMEs, and enterprises build fast, secure, and scalable
                   websites.
                   <br /><br />From business websites and custom web applications to eCommerce
@@ -660,7 +688,7 @@ export default function WebDevelopmentClient() {
               <div className="relative">
                 <Image
                   src="/images/premium-web-development-company-gurgaon-office-team.webp"
-                  alt="Professional web development team at CoderLala office in Gurgaon working on client projects"
+                  alt="Web development team at CoderLala office in Gurgaon building Next.js websites"
                   width={800}
                   height={600}
                   className="rounded-2xl shadow-2xl object-cover w-full h-full"
